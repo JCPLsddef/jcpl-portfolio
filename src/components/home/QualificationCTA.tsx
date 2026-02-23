@@ -59,7 +59,7 @@ const trustBadges = [
 
 export default function QualificationCTA() {
   return (
-  <section id="qualify" className="relative overflow-hidden bg-[#060b14] pt-24 pb-32 border-b border-slate-700/40">
+  <section id="qualify" className="relative overflow-hidden bg-[#060b14] py-16 border-b border-slate-700/40">
       {/* Background treatment */}
       <div
         className="absolute inset-0 pointer-events-none"

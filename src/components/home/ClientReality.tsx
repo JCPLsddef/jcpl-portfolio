@@ -40,7 +40,7 @@ const icons: Record<string, React.ReactNode> = {
 
 export default function ClientReality() {
   return (
-  <SectionWrapper id="reality" variant="alt" className="pb-24 border-b border-slate-700/40">
+  <SectionWrapper id="reality" variant="alt" className="border-b border-slate-700/40">
       <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
         <SectionLabel label={clientReality.label} className="mb-5" />
   <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em] max-w-xl mx-auto">

@@ -72,7 +72,7 @@ export default function GrowthArchitecture() {
                 </h3>
                 <p className="text-[13px] text-cg-muted mb-5">
                   {pillar.id === "optimization"
-                    ? "Better results. Every month. Without touching it yourself."
+                    ? "I look at the numbers every week and cut what is not working. Lower cost per lead. More calls. The system compounds so you pull further ahead of your competition over time."
                     : pillar.subtitle}
                 </p>
 

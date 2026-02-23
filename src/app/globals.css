@@ -45,9 +45,9 @@
   --container-px-md: 32px;
   --container-px-lg: 48px;
 
-  /* Section vertical rhythm — 120px desktop / 80px mobile */
-  --section-py: 80px;
-  --section-py-lg: 120px;
+  /* Section vertical rhythm — 64px across all breakpoints */
+  --section-py: 64px;
+  --section-py-lg: 64px;
 
   /* ─── HERO/LASER GEOMETRY (Single Source of Truth) ─── */
   --laser-extend: 40vh;         /* How far laser extends past hero */
@@ -172,6 +172,11 @@ body::before {
 }
 
 
+
+.section {
+  padding-top: var(--section-py);
+  padding-bottom: var(--section-py);
+}
 
 @media (min-width: 1024px) {
   .section {

@@ -11,7 +11,6 @@ import HeroBackground from "./HeroBackground";
 import IntroBackground from "./IntroBackground";
 import LogoIntro from "./LogoIntro";
 import Icon from "@/components/ui/Icon";
-import type { IconName } from "@/components/ui/Icon";
 import type { LogoIntroHandle } from "./LogoIntro";
 import "./hero.css";
 
@@ -61,28 +60,6 @@ const SCRUB_SMOOTHING = 0.6;
    SERVICE DATA
    ══════════════════════════════════════════════════════════ */
 
-const services: { icon: IconName; title: string; desc: string }[] = [
-  {
-    icon: "target",
-    title: "Growth Systems",
-    desc: "Funnels, landing pages & conversion copy engineered to book calls.",
-  },
-  {
-    icon: "chart",
-    title: "Paid Acquisition",
-    desc: "Google Ads campaigns built for ROI, not vanity metrics.",
-  },
-  {
-    icon: "trending-up",
-    title: "SEO & GEO",
-    desc: "Organic visibility optimized for search engines and AI platforms.",
-  },
-  {
-    icon: "bot",
-    title: "AI Automation",
-    desc: "Intelligent receptionist, chat & workflow systems that never sleep.",
-  },
-];
 
 /* ══════════════════════════════════════════════════════════
    STATIC FALLBACK (reduced motion)
@@ -149,32 +126,30 @@ function HookLayer() {
    LAYER 3 — Services Universe
    ══════════════════════════════════════════════════════════ */
 
-function ProofArtifact() {
+function ProofCard() {
   return (
-    <div className="rounded-2xl bg-slate-800/60 backdrop-blur border-l-2 border-blue-500 border border-slate-700/60 p-7">
-      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-400 mb-4">
-        Live Result
+    <div className="w-full max-w-sm bg-slate-800/60 backdrop-blur-sm border border-slate-700 border-l-4 border-l-blue-500 rounded-2xl p-8">
+      <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">
+        LIVE RESULT
       </p>
-      <p className="text-4xl font-bold text-white mb-2">$30,000</p>
-      <p className="text-sm text-slate-300 mb-6">
+      <p className="text-5xl font-black text-white mb-1">$30,000</p>
+      <p className="text-sm text-slate-400 mb-6">
         Revenue generated. 30 days. $900 ad spend.
       </p>
-
-      <div className="grid grid-cols-3 gap-3 mb-6">
+      <div className="grid grid-cols-3 gap-2 border-t border-slate-700 pt-6">
         {[
-          { stat: "33x", label: "Return on ad spend" },
-          { stat: "11 days", label: "To first booked call" },
-          { stat: "1 market", label: "Exclusively theirs" },
-        ].map(({ stat, label }) => (
-          <div key={stat} className="text-center">
-            <p className="text-lg font-bold text-white leading-none mb-1">{stat}</p>
-            <p className="text-[10px] text-slate-400 leading-snug">{label}</p>
+          { value: "33x", label: "Return on ad spend" },
+          { value: "11 days", label: "To first booked call" },
+          { value: "Texas", label: "RV rental market" },
+        ].map(({ value, label }) => (
+          <div key={label} className="text-center">
+            <p className="text-xl font-bold text-white">{value}</p>
+            <p className="text-xs text-slate-400 mt-1">{label}</p>
           </div>
         ))}
       </div>
-
-      <p className="text-[11px] text-slate-500">
-        Triple W Rentals, Texas. Google Ads funnel.
+      <p className="text-xs text-slate-500 mt-6 pt-4 border-t border-slate-700">
+        Triple W Rentals. Google Ads funnel.
       </p>
     </div>
   );
@@ -183,26 +158,19 @@ function ProofArtifact() {
 function ServicesLayer() {
   return (
     <div className="max-w-5xl mx-auto px-6">
-      <div className="flex flex-col lg:flex-row items-start gap-10 lg:gap-14">
-        {/* Left column: existing content */}
-        <div className="flex-1 text-center lg:text-left">
-          <p className="services-title text-xs font-medium tracking-[0.3em] uppercase text-[rgba(255,255,255,0.35)] mb-10">
-            What I Build
+      <div className="flex flex-col lg:flex-row items-center lg:items-start gap-12">
+        {/* Left column: headline + CTAs */}
+        <div className="lg:w-[55%] text-center lg:text-left">
+          <p className="services-title text-xs font-medium tracking-[0.3em] uppercase text-[rgba(255,255,255,0.35)] mb-6">
+            {hero.overline}
           </p>
-
-          <div className="services-grid">
-            {services.map((s) => (
-              <div key={s.title} className="service-card">
-                <span className="service-card-icon text-[var(--brand-alt)]">
-                  <Icon name={s.icon} size={24} />
-                </span>
-                <h3 className="service-card-title">{s.title}</h3>
-                <p className="service-card-desc">{s.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="services-cta mt-12 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.1] text-white mb-6 whitespace-pre-line">
+            {hero.headline}
+          </h1>
+          <p className="text-base text-slate-400 leading-relaxed mb-10 max-w-lg mx-auto lg:mx-0">
+            {hero.subheadline}
+          </p>
+          <div className="services-cta flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
             <Link
               href={ctaCopy.href}
               onClick={() => trackEvent("hero_cta_click")}
@@ -222,9 +190,9 @@ function ServicesLayer() {
           </div>
         </div>
 
-        {/* Right column: proof artifact */}
-        <div className="w-full lg:w-[38%] lg:shrink-0 lg:mt-10">
-          <ProofArtifact />
+        {/* Right column: proof card */}
+        <div className="lg:w-[45%] flex items-center justify-center mt-10 lg:mt-0">
+          <ProofCard />
         </div>
       </div>
     </div>
