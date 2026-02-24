@@ -30,13 +30,13 @@ export default function ServicesHero() {
 
           <Reveal delay={0.05}>
             <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold text-white leading-[1.1] tracking-tight text-balance max-w-2xl mx-auto mb-6">
-              Someone Is Searching for You Right Now.
+              Pricing
             </h1>
           </Reveal>
 
           <Reveal delay={0.1}>
             <p className="text-lg text-cg-body max-w-2xl mx-auto leading-relaxed mb-8">
-              Positioning, conversion architecture, and acquisition.<br />Engineered as one system. Built for one outcome.
+              Three Systems. Built Around Revenue Stage.
             </p>
           </Reveal>
 
