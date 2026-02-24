@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Check } from "lucide-react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
@@ -45,75 +46,72 @@ export default function InfrastructureTiers() {
       </div>
 
       {/* ── 1C: Three-Tier Card Layout ── */}
-      <div className="flex flex-col lg:flex-row items-stretch gap-6 w-full">
+      <div className="flex flex-col lg:flex-row items-start gap-6 w-full">
 
         {/* Card 1: Foundation Architecture — Left, 27% */}
-        <div className="w-full lg:w-[27%] lg:mt-8 bg-slate-800/40 border border-slate-700 rounded-2xl p-6 flex flex-col">
+        <div className="w-full lg:w-[27%] lg:mt-8 bg-slate-800/40 border border-slate-700 rounded-2xl p-7 flex flex-col h-full">
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">TIER 01</p>
           <h3 className="text-xl font-bold text-white mb-2">Foundation Architecture</h3>
-          <p className="text-sm text-slate-400 mb-6">
+          <p className="text-sm text-slate-400 mb-5">
             The infrastructure layer. Built before the first ad dollar runs.
           </p>
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-700 text-xs text-slate-300 font-medium mb-6 w-fit">
-            Live in 4 weeks
-          </span>
 
-          <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-2">FOR</p>
-          <p className="text-sm text-slate-400 mb-6">
-            Service businesses at $5K to $15K/month. Referral-dependent. No consistent digital presence.
-          </p>
+          {/* One-line qualifier */}
+          <div className="bg-slate-700/50 rounded-lg px-3 py-2 mb-6">
+            <p className="text-xs text-slate-300">$5K–$15K/month. Referral-dependent. No digital presence.</p>
+          </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">INCLUDES</p>
-          <ul>
+          <ul className="space-y-2 mb-6">
             {[
               "Conversion website built for your market",
               "Local SEO and GEO (AI search) buildout",
               "AI lead qualification chatbot",
               "Booking flow and calendar integration",
             ].map((item) => (
-              <li key={item} className="text-sm text-slate-300 pl-3 border-l-2 border-slate-600 mb-2">
+              <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
+                <Check className="w-4 h-4 text-green-400 shrink-0 mt-0.5" />
                 {item}
               </li>
             ))}
           </ul>
 
-          <div className="mt-6 p-3 bg-slate-900/50 rounded-lg border border-slate-700">
-            <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-1">NOT FOR YOU IF</p>
-            <p className="text-xs text-slate-500">
-              You are already running ads. Fix the foundation before spending on traffic.
-            </p>
-          </div>
+          <div className="mt-auto">
+            <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 mb-6">
+              <p className="text-xs text-slate-500">
+                <span className="font-semibold text-slate-400 uppercase tracking-widest">NOT INCLUDED:</span>{" "}
+                Paid traffic. Fix the foundation before running ads.
+              </p>
+            </div>
 
-          <Link
-            href="/apply"
-            className="mt-auto pt-6 text-sm text-slate-400 hover:text-white transition-colors"
-          >
-            Start here if you are under $15K/month →
-          </Link>
+            <Link
+              href="/apply"
+              className="text-sm text-slate-400 hover:text-white transition-colors"
+            >
+              Start here if you are under $15K/month →
+            </Link>
+          </div>
         </div>
 
         {/* Card 2: Performance Engine — Center, 46% */}
-        <div className="w-full lg:w-[46%] lg:mt-0 min-h-[720px] bg-slate-800/80 border border-blue-500/30 rounded-2xl p-10 flex flex-col shadow-lg shadow-blue-500/10 relative">
+        <div className="w-full lg:w-[46%] min-h-[720px] bg-slate-800/80 border border-blue-500/30 rounded-2xl p-10 flex flex-col shadow-lg shadow-blue-500/10 relative">
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-1 rounded-full">
-            MOST SELECTED
+            TIER 02 — RECOMMENDED
           </span>
 
           <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-3">TIER 02</p>
           <h3 className="text-2xl font-bold text-white mb-2">Performance Engine</h3>
-          <p className="text-sm text-slate-300 mb-6">
+          <p className="text-sm text-slate-300 mb-5">
             The full acquisition system. First qualified call within 11 days. $33 average cost per lead.
           </p>
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-xs text-blue-300 font-medium mb-6 w-fit">
-            $33 avg. cost per qualified call. Q4 2025.
-          </span>
 
-          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-2">FOR</p>
-          <p className="text-sm text-slate-300 mb-6">
-            Service businesses at $10K to $30K/month. Inconsistent pipeline. Ready to replace referral dependency with predictable inbound.
-          </p>
+          {/* One-line qualifier */}
+          <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 mb-6">
+            <p className="text-xs text-blue-200">$10K–$30K/month. Inconsistent pipeline. Ready for predictable inbound.</p>
+          </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-3">INCLUDES</p>
-          <ul>
+          <ul className="space-y-2 mb-6">
             {[
               "Everything in Foundation Architecture",
               "Google Ads campaign architecture (intent-based)",
@@ -122,13 +120,14 @@ export default function InfrastructureTiers() {
               "Weekly performance optimization loop",
               "Monthly full-funnel growth report",
             ].map((item) => (
-              <li key={item} className="text-sm text-slate-300 pl-3 border-l-2 border-blue-500/50 mb-2">
+              <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
+                <Check className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
                 {item}
               </li>
             ))}
           </ul>
 
-          <div className="mt-4 p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl">
+          <div className="p-4 bg-blue-500/5 border border-blue-500/20 rounded-xl mb-4">
             <p className="text-xs text-blue-300/80 italic">
               This system generated $30,000 from $900 in ad spend. Triple W Rentals, Texas. 30 days from launch.
             </p>
@@ -137,14 +136,14 @@ export default function InfrastructureTiers() {
             </p>
           </div>
 
-          <div className="mt-6 p-3 bg-slate-900/50 rounded-lg border border-slate-700">
-            <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-1">REQUIRES</p>
+          <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700 mb-6">
             <p className="text-xs text-slate-500">
-              Minimum $500/month ad spend. 90-day commitment. This system compounds. It requires time to work.
+              <span className="font-semibold text-slate-400 uppercase tracking-widest">REQUIRES:</span>{" "}
+              Minimum $500/month ad spend. 90-day commitment.
             </p>
           </div>
 
-          <div className="mt-auto pt-8">
+          <div className="mt-auto pt-2">
             <Link
               href="/apply"
               className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-6 rounded-xl transition-colors text-sm text-center"
@@ -158,52 +157,52 @@ export default function InfrastructureTiers() {
         </div>
 
         {/* Card 3: Market Domination System — Right, 27% */}
-        <div className="w-full lg:w-[27%] lg:mt-8 bg-slate-900/80 border border-slate-600 rounded-2xl p-6 flex flex-col">
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-700 border border-slate-600 text-xs font-bold tracking-widest text-slate-400 uppercase mb-4 w-fit">
+        <div className="w-full lg:w-[27%] lg:mt-8 bg-gradient-to-b from-amber-950/30 to-slate-900/80 border border-amber-500/30 rounded-2xl p-7 flex flex-col h-full">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-bold tracking-widest text-amber-400 uppercase mb-4 w-fit">
             BY APPLICATION ONLY
           </span>
 
-          <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">TIER 03</p>
+          <p className="text-xs font-semibold tracking-widest text-amber-500/70 uppercase mb-3">TIER 03 — MARKET OWNERSHIP</p>
           <h3 className="text-xl font-bold text-white mb-2">Market Domination System</h3>
-          <p className="text-sm text-slate-400 mb-6">
+          <p className="text-sm text-slate-400 mb-5">
             Built to make your competitors structurally irrelevant in your market. Two clients per city. No exceptions.
           </p>
-          <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800 border border-slate-600 text-xs text-slate-400 font-medium mb-6 w-fit">
-            Market exclusivity included
-          </span>
 
-          <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-2">FOR</p>
-          <p className="text-sm text-slate-400 mb-6">
-            Service businesses at $25K to $50K/month. Established demand. Ready to own every acquisition channel before a competitor does.
-          </p>
+          {/* One-line qualifier */}
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 mb-6">
+            <p className="text-xs text-amber-200/80">$25K–$50K/month. Established demand. Own every channel.</p>
+          </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">INCLUDES</p>
-          <ul>
+          <ul className="space-y-2 mb-6">
             {[
               "Everything in Performance Engine",
               "Expanded SEO and competitor gap targeting",
               "Multi-city or multi-service campaign architecture",
               "Priority weekly strategy call",
             ].map((item) => (
-              <li key={item} className="text-sm text-slate-400 pl-3 border-l-2 border-slate-600 mb-2">
+              <li key={item} className="flex items-start gap-2 text-sm text-slate-300">
+                <Check className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                 {item}
               </li>
             ))}
           </ul>
 
-          <div className="mt-6 p-3 bg-slate-900/50 rounded-lg border border-slate-600">
-            <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-1">HARD LIMIT</p>
-            <p className="text-xs text-slate-500">
-              Two clients per niche per city. When both slots are filled, this tier closes. No waitlist.
-            </p>
-          </div>
+          <div className="mt-auto">
+            <div className="p-3 bg-amber-500/5 rounded-lg border border-amber-500/20 mb-6">
+              <p className="text-xs text-amber-400/80">
+                <span className="font-semibold uppercase tracking-widest">HARD LIMIT:</span>{" "}
+                Two clients per niche per city. When both slots are filled, this tier closes. No waitlist.
+              </p>
+            </div>
 
-          <Link
-            href="/apply"
-            className="mt-auto pt-6 text-sm text-slate-400 hover:text-white transition-colors"
-          >
-            Apply for this tier →
-          </Link>
+            <Link
+              href="/apply"
+              className="text-sm text-amber-400/80 hover:text-amber-300 transition-colors"
+            >
+              Apply for this tier →
+            </Link>
+          </div>
         </div>
       </div>
 
