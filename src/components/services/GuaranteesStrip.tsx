@@ -9,13 +9,25 @@ export default function GuaranteesStrip() {
 
         {/* Left: Featured standard */}
         <div
-          className="rounded-2xl p-8 flex flex-col justify-between"
+          className="relative rounded-2xl p-8 flex flex-col justify-between overflow-hidden"
           style={{
             background: "#0F1A2E",
-            border: "1px solid rgba(59, 130, 246, 0.18)",
+            border: "1px solid rgba(59, 130, 246, 0.22)",
             minHeight: "420px",
+            boxShadow: "0 0 40px rgba(59, 130, 246, 0.06)",
           }}
         >
+          {/* Top accent line */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "2rem",
+              right: "2rem",
+              height: "1px",
+              background: "linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.50), transparent)",
+            }}
+          />
           <div>
             <p
               className="text-xs font-semibold tracking-[0.2em] uppercase mb-4"
@@ -45,7 +57,7 @@ export default function GuaranteesStrip() {
             </p>
             <p
               className="text-xs mt-2"
-              style={{ color: "#3D5875" }}
+              style={{ color: "#475569" }}
             >
               Most recent verifiable result. 30 days.
             </p>
@@ -66,7 +78,7 @@ export default function GuaranteesStrip() {
             </p>
             <p
               className="text-sm leading-relaxed"
-              style={{ color: "#64748B" }}
+              style={{ color: "#94A3B8" }}
             >
               Phase 1 delivers your Market Gap Report, Funnel Audit, and 90-day roadmap. Phase 2 delivers a live website, active ad campaigns, and a booking system. You see every deliverable before the next phase starts.
             </p>
@@ -83,7 +95,7 @@ export default function GuaranteesStrip() {
             </p>
             <p
               className="text-sm leading-relaxed"
-              style={{ color: "#64748B" }}
+              style={{ color: "#94A3B8" }}
             >
               The website is yours. The ad accounts are yours. The tracking setup is yours. Month-to-month after the initial build. If you leave tomorrow, you take everything I built with you.
             </p>
@@ -100,7 +112,7 @@ export default function GuaranteesStrip() {
             </p>
             <p
               className="text-sm leading-relaxed"
-              style={{ color: "#64748B" }}
+              style={{ color: "#94A3B8" }}
             >
               Before any agreement, I review your market, your current revenue, and your operation. If I do not think I can produce a return, I tell you on the call. I have turned down clients. I will do it again.
             </p>

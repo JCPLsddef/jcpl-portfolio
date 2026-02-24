@@ -483,49 +483,74 @@ export default function InfrastructureTiers() {
             className="rounded-2xl p-6"
             style={{ background: "#0F1A2E", border: "1px solid rgba(148, 163, 184, 0.10)" }}
           >
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#3D5875" }}>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#475569" }}>
               BEFORE / AFTER
             </p>
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div className="flex items-start gap-3">
-                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-red-500/20" style={{ color: "#94A3B8" }}>
+                <span
+                  className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold"
+                  style={{
+                    background: "rgba(239, 68, 68, 0.15)",
+                    border: "1px solid rgba(239, 68, 68, 0.25)",
+                    color: "#F87171",
+                  }}
+                >
                   BEFORE
                 </span>
-                <p className="text-sm" style={{ color: "#64748B" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "#94A3B8" }}>
                   Bookings inconsistent. Website looked unprofessional. Most clients came from word of mouth.
                 </p>
               </div>
               <div className="flex items-start gap-3">
-                <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-green-500/20" style={{ color: "#94A3B8" }}>
+                <span
+                  className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold"
+                  style={{
+                    background: "rgba(52, 211, 153, 0.12)",
+                    border: "1px solid rgba(52, 211, 153, 0.25)",
+                    color: "#34D399",
+                  }}
+                >
                   AFTER
                 </span>
-                <p className="text-sm" style={{ color: "#64748B" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "#94A3B8" }}>
                   Booking calendar full. New clients find them through search. Clients compliment the website on arrival.
                 </p>
               </div>
             </div>
-            <p className="text-xs mt-4" style={{ color: "#3D5875" }}>Barbershop. Local SEO + website rebuild.</p>
-            <p className="text-sm italic mt-2" style={{ color: "#475569" }}>Juan has been an amazing help.</p>
+            <p className="text-xs mt-5" style={{ color: "#475569" }}>Barbershop. Local SEO + website rebuild.</p>
+            <p className="text-sm italic mt-1" style={{ color: "#94A3B8" }}>Juan has been an amazing help.</p>
           </div>
 
           {/* Block 2: Outcome Summary */}
           <div
-            className="rounded-2xl p-6"
-            style={{ background: "#0F1A2E", border: "1px solid rgba(148, 163, 184, 0.10)" }}
+            className="relative rounded-2xl p-6 overflow-hidden"
+            style={{ background: "#0F1A2E", border: "1px solid rgba(59, 130, 246, 0.20)" }}
           >
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#3D5875" }}>
+            {/* Top accent line */}
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: "1.5rem",
+                right: "1.5rem",
+                height: "1px",
+                background: "linear-gradient(90deg, transparent, rgba(99, 179, 237, 0.45), transparent)",
+              }}
+            />
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#3B82F6" }}>
               WHAT THIS LOOKS LIKE
             </p>
-            <h4 className="text-xl font-semibold leading-snug mb-4" style={{ color: "#FFFFFF" }}>
+            <h4 className="text-2xl font-semibold leading-snug mb-4" style={{ color: "#FFFFFF" }}>
               A Full Calendar. Calls From Strangers. Zero Chasing.
             </h4>
-            <p className="text-sm leading-relaxed mb-2" style={{ color: "#64748B" }}>
+            <p className="text-sm leading-relaxed mb-2" style={{ color: "#94A3B8" }}>
               Website rebuilt for conversion. SEO targeting buyers in your city. Paid campaigns running with tracked cost per call.
             </p>
-            <p className="text-sm leading-relaxed mb-2" style={{ color: "#64748B" }}>
+            <p className="text-sm leading-relaxed mb-2" style={{ color: "#94A3B8" }}>
               The system runs whether you are on a job or not.
             </p>
-            <p className="text-xs mt-4 leading-relaxed" style={{ color: "#2D4A6A" }}>
+            <p className="text-xs mt-4 leading-relaxed" style={{ color: "#3D5875" }}>
               Results depend on market size, ad spend, and service type. Specifics reviewed on application call.
             </p>
           </div>
@@ -533,29 +558,32 @@ export default function InfrastructureTiers() {
           {/* Block 3: Campaign Metrics */}
           <div
             className="rounded-2xl p-6"
-            style={{ background: "#0F1A2E", border: "1px solid rgba(148, 163, 184, 0.10)" }}
+            style={{
+              background: "rgba(12, 22, 46, 0.95)",
+              border: "1px solid rgba(59, 130, 246, 0.22)",
+            }}
           >
-            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#3D5875" }}>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#3B82F6" }}>
               CAMPAIGN METRICS
             </p>
             {campaignMetrics.map(({ number, label }) => (
               <div
                 key={number}
-                className="flex justify-between items-center py-2 last:border-0"
-                style={{ borderBottom: "1px solid rgba(148,163,184,0.06)" }}
+                className="flex justify-between items-center py-3 last:border-0"
+                style={{ borderBottom: "1px solid rgba(59, 130, 246, 0.08)" }}
               >
-                <p className="text-2xl font-bold" style={{ color: "#E2F0FF" }}>{number}</p>
-                <p className="text-xs" style={{ color: "#3D5875" }}>{label}</p>
+                <p className="text-[2.25rem] font-bold leading-none tracking-tight" style={{ color: "#FFFFFF" }}>{number}</p>
+                <p className="text-xs text-right max-w-[110px]" style={{ color: "#475569" }}>{label}</p>
               </div>
             ))}
-            <p className="text-xs mt-4" style={{ color: "#3D5875" }}>Triple W Rentals. Texas. Google Ads.</p>
+            <p className="text-xs mt-4" style={{ color: "#475569" }}>Triple W Rentals. Texas. Google Ads.</p>
             <p className="text-xs underline underline-offset-2 hover:text-blue-300 transition-colors block mt-1" style={{ color: "#3B82F6" }}>
               Triple W Rentals now dominates the RV rental niche across Texas.
             </p>
           </div>
         </div>
 
-        <p className="text-center text-xs mt-6 max-w-6xl mx-auto" style={{ color: "#2D4A6A" }}>
+        <p className="text-center text-xs mt-6 max-w-6xl mx-auto" style={{ color: "#3D5875" }}>
           All results are from live client accounts. Updated as new data becomes available.
         </p>
       </div>
