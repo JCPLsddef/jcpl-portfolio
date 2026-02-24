@@ -296,45 +296,6 @@
   background: rgba(37, 99, 235, 0.04);
 }
 
-/* ─── GUARANTEES STRIP ─── */
-.guarantees-strip {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-}
-
-.guarantee-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-soft);
-  border-radius: var(--radius-md);
-  transition:
-    border-color var(--transition-base),
-    box-shadow var(--transition-base),
-    transform var(--transition-base);
-}
-
-.guarantee-item:hover {
-  border-color: var(--border-strong);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
-  transform: translateY(-1px);
-}
-
-.guarantee-icon {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-sm);
-  background: rgba(37, 99, 235, 0.08);
-  border: 1px solid rgba(37, 99, 235, 0.12);
-  flex-shrink: 0;
-  color: #2563EB;
-}
 
 /* ─── PAYMENT TRUST ROW ─── */
 .payment-trust-row {
@@ -415,10 +376,6 @@
 
 /* ─── RESPONSIVE: TABLET ─── */
 @media (max-width: 1024px) {
-  .guarantees-strip {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .decision-assist__grid {
     grid-template-columns: 1fr;
   }
@@ -466,9 +423,6 @@
     min-width: 100px;
   }
 
-  .guarantees-strip {
-    grid-template-columns: 1fr;
-  }
 }
 
 /* ─── RESPONSIVE: SMALL MOBILE ─── */
@@ -486,13 +440,11 @@
 /* ─── REDUCED MOTION ─── */
 @media (prefers-reduced-motion: reduce) {
   .service-card,
-  .guarantee-item,
   .payment-icon {
     transition: none;
   }
 
-  .service-card:hover,
-  .guarantee-item:hover {
+  .service-card:hover {
     transform: none;
   }
 
