@@ -31,14 +31,14 @@ export default function InfrastructureTiers() {
           Three Tiers. Built Around Where You Are Right Now.
         </h2>
         <p className="text-slate-400 text-base max-w-2xl mt-4 mb-12">
-          Most businesses fail at paid acquisition because they skip the foundation. Each tier below is designed for a specific revenue stage. Read the constraints before applying.
+          Most service businesses fail at paid advertising because they run ads before the foundation exists. Each tier below is built for a specific revenue stage. Read the requirements before applying.
         </p>
       </Reveal>
 
       {/* ── 1B: KPI Anchor Strip ── */}
-      <div className="w-full border-y border-slate-700 bg-slate-800/30 py-6 mb-16 grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-slate-700">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center mb-12">
         {kpiItems.map(({ number, label }) => (
-          <div key={number} className="flex flex-col items-center justify-center text-center px-6 py-4 sm:py-0">
+          <div key={number} className="py-4">
             <p className="text-3xl font-black text-white">{number}</p>
             <p className="text-xs text-slate-400 mt-1 max-w-[140px]">{label}</p>
           </div>
@@ -46,10 +46,10 @@ export default function InfrastructureTiers() {
       </div>
 
       {/* ── 1C: Three-Tier Card Layout ── */}
-      <div className="flex flex-col lg:flex-row items-start gap-6 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        {/* Card 1: Foundation Architecture — Left, 27% */}
-        <div className="w-full lg:w-[27%] lg:mt-8 bg-slate-800/40 border border-slate-700 rounded-2xl p-7 flex flex-col h-full">
+        {/* Card 1: Foundation Architecture - Left, 27% */}
+        <div className="order-2 md:order-none bg-slate-800/40 border border-slate-700 rounded-2xl p-7 flex flex-col">
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">TIER 01</p>
           <h3 className="text-xl font-bold text-white mb-2">Foundation Architecture</h3>
           <p className="text-sm text-slate-400 mb-5">
@@ -58,7 +58,7 @@ export default function InfrastructureTiers() {
 
           {/* One-line qualifier */}
           <div className="bg-slate-700/50 rounded-lg px-3 py-2 mb-6">
-            <p className="text-xs text-slate-300">$5K–$15K/month. Referral-dependent. No digital presence.</p>
+            <p className="text-xs text-slate-300">Your business makes $5K–$15K/month. Most new clients come from referrals. No digital system yet.</p>
           </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">INCLUDES</p>
@@ -88,26 +88,26 @@ export default function InfrastructureTiers() {
               href="/apply"
               className="text-sm text-slate-400 hover:text-white transition-colors"
             >
-              Start here if you are under $15K/month →
+              Start here if your business makes under $15K/month →
             </Link>
           </div>
         </div>
 
         {/* Card 2: Performance Engine — Center, 46% */}
-        <div className="w-full lg:w-[46%] min-h-[720px] bg-slate-800/80 border border-blue-500/30 rounded-2xl p-10 flex flex-col shadow-lg shadow-blue-500/10 relative">
+        <div className="order-first md:order-none min-h-[720px] bg-slate-800/80 border border-blue-500/30 rounded-2xl p-10 flex flex-col shadow-lg shadow-blue-500/10 relative">
           <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-xs font-bold tracking-widest uppercase px-4 py-1 rounded-full">
-            TIER 02 — RECOMMENDED
+            TIER 02: RECOMMENDED
           </span>
 
           <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-3">TIER 02</p>
           <h3 className="text-2xl font-bold text-white mb-2">Performance Engine</h3>
           <p className="text-sm text-slate-300 mb-5">
-            The full acquisition system. First qualified call within 11 days. $33 average cost per lead.
+            The full acquisition system. First new client call within 11 days. $33 average cost per booked call.
           </p>
 
           {/* One-line qualifier */}
           <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg px-3 py-2 mb-6">
-            <p className="text-xs text-blue-200">$10K–$30K/month. Inconsistent pipeline. Ready for predictable inbound.</p>
+            <p className="text-xs text-blue-200">Your business makes $10K–$30K/month. Strong work. New clients still depend on who you know.</p>
           </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-3">INCLUDES</p>
@@ -157,12 +157,12 @@ export default function InfrastructureTiers() {
         </div>
 
         {/* Card 3: Market Domination System — Right, 27% */}
-        <div className="w-full lg:w-[27%] lg:mt-8 bg-gradient-to-b from-amber-950/30 to-slate-900/80 border border-amber-500/30 rounded-2xl p-7 flex flex-col h-full">
+        <div className="order-3 md:order-none bg-gradient-to-b from-amber-950/30 to-slate-900/80 border border-amber-500/30 rounded-2xl p-7 flex flex-col">
           <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-xs font-bold tracking-widest text-amber-400 uppercase mb-4 w-fit">
             BY APPLICATION ONLY
           </span>
 
-          <p className="text-xs font-semibold tracking-widest text-amber-500/70 uppercase mb-3">TIER 03 — MARKET OWNERSHIP</p>
+          <p className="text-xs font-semibold tracking-widest text-amber-500/70 uppercase mb-3">TIER 03: MARKET OWNERSHIP</p>
           <h3 className="text-xl font-bold text-white mb-2">Market Domination System</h3>
           <p className="text-sm text-slate-400 mb-5">
             Built to make your competitors structurally irrelevant in your market. Two clients per city. No exceptions.
@@ -170,7 +170,7 @@ export default function InfrastructureTiers() {
 
           {/* One-line qualifier */}
           <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-3 py-2 mb-6">
-            <p className="text-xs text-amber-200/80">$25K–$50K/month. Established demand. Own every channel.</p>
+            <p className="text-xs text-amber-200/80">Your business makes $25K–$50K/month. Demand is real. Time to make competitors structurally irrelevant.</p>
           </div>
 
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-3">INCLUDES</p>
@@ -217,13 +217,13 @@ export default function InfrastructureTiers() {
               <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-red-500/20 text-red-400">
                 BEFORE
               </span>
-              <p className="text-sm text-slate-400">2 inbound calls per week. Zero from digital.</p>
+              <p className="text-sm text-slate-400">2 new client calls per week. Both from referrals.</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-green-500/20 text-green-400">
                 AFTER
               </span>
-              <p className="text-sm text-slate-400">11 inbound calls per week. $30K in 30 days.</p>
+              <p className="text-sm text-slate-400">11 new client calls per week. $30K in 30 days.</p>
             </div>
           </div>
           <p className="text-xs text-slate-500 mt-4">Painting contractor. Dallas, TX.</p>
@@ -233,7 +233,7 @@ export default function InfrastructureTiers() {
         <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-8 flex flex-col justify-between">
           <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">CLIENT RESULT</p>
           <p className="text-base text-white font-medium leading-relaxed">
-            &ldquo;I went from 2 inbound calls a week to 11 in the first month. The system runs. I just do the work.&rdquo;
+            &ldquo;I went from 2 calls a week to 11 in the first month. The system runs. I just do the work.&rdquo;
           </p>
           <p className="text-xs text-slate-500 mt-6">Owner, residential painting company, Dallas TX</p>
         </div>
