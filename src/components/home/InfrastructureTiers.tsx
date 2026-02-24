@@ -94,10 +94,10 @@ export default function InfrastructureTiers() {
                 $30,000
               </p>
               <p
-                className="text-xs mt-2 uppercase tracking-widest"
+                className="text-xs mt-2 tracking-wide"
                 style={{ color: "#4A6580" }}
               >
-                Revenue generated. 30 days.
+                Revenue generated in 30 days
               </p>
             </div>
             <div
@@ -111,10 +111,10 @@ export default function InfrastructureTiers() {
                 $33
               </p>
               <p
-                className="text-xs mt-2 uppercase tracking-widest"
+                className="text-xs mt-2 tracking-wide"
                 style={{ color: "#4A6580" }}
               >
-                Cost per booked call.
+                Cost per booked call
               </p>
             </div>
             <div className="py-10 px-6 text-center">
@@ -125,10 +125,10 @@ export default function InfrastructureTiers() {
                 11 days
               </p>
               <p
-                className="text-xs mt-2 uppercase tracking-widest"
+                className="text-xs mt-2 tracking-wide"
                 style={{ color: "#4A6580" }}
               >
-                Days to first booked call.
+                Days to first booked call
               </p>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function InfrastructureTiers() {
               className="text-sm mb-5"
               style={{ color: "#475569" }}
             >
-              Built before the first ad dollar runs.
+              The system that makes everything else work.
             </p>
             <span
               className="block text-xs rounded-lg px-4 py-3 mb-7 leading-relaxed"
@@ -185,11 +185,11 @@ export default function InfrastructureTiers() {
             </p>
             <ul className="flex flex-col gap-3 flex-grow">
               {[
-                "Website built to convert visitors into calls, not just look professional",
+                "Built to convert visitors into booked calls",
                 "Local SEO so buyers in your city find you on Google before your competitors",
                 "Booking flow that captures leads while you are on the job",
                 "Analytics showing exactly where calls come from",
-                "Full infrastructure documentation you own permanently",
+                "Infrastructure documentation. You own it.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <BulletSlate />
@@ -209,8 +209,8 @@ export default function InfrastructureTiers() {
               </p>
               <a
                 href="/apply"
-                className="text-sm transition-colors hover:text-slate-200"
-                style={{ color: "#64748B" }}
+                className="text-sm font-medium transition-colors hover:text-slate-200"
+                style={{ color: "#64748B", textDecoration: "underline", textUnderlineOffset: "3px" }}
               >
                 Apply for Foundation Architecture →
               </a>
@@ -291,9 +291,9 @@ export default function InfrastructureTiers() {
             <ul className="flex flex-col gap-3 flex-grow">
               {[
                 "Everything in Foundation Architecture",
-                "Google Ads targeting buyers with purchase intent, not general traffic",
-                "Dedicated landing pages per service so every ad leads somewhere that converts",
-                "AI voice agent that captures calls after hours so leads never go to voicemail",
+                "Google Ads targeting buyers ready to book, not general traffic",
+                "Landing pages per service. Every ad leads somewhere that converts.",
+                "AI voice agent that captures calls after hours. No lead goes to voicemail.",
                 "Weekly optimization loop so cost per call drops over time",
                 "Monthly report showing revenue attributed to the system",
               ].map((item) => (
@@ -321,13 +321,13 @@ export default function InfrastructureTiers() {
                 className="font-semibold text-base leading-snug mb-1"
                 style={{ color: "#FFFFFF" }}
               >
-                $900 in ad spend. $30,000 in revenue.
+                $900 spent. $30,000 returned.
               </p>
               <p
                 className="text-sm"
                 style={{ color: "#7DD3FC" }}
               >
-                Triple W Rentals, Texas. 30 days from system launch. They now hold the top position for RV rentals across their market.
+                Triple W Rentals, Texas. 30 days. They now own the RV rental market in their region.
               </p>
             </div>
             <p
@@ -349,9 +349,9 @@ export default function InfrastructureTiers() {
             </a>
             <p
               className="text-[11px] text-center mt-3 leading-relaxed"
-              style={{ color: "#334155" }}
+              style={{ color: "#4A6580" }}
             >
-              Short application. No sales call unless I think it is a fit.
+              Short application. I only book a call if I think I can help.
             </p>
           </div>
 
@@ -423,9 +423,9 @@ export default function InfrastructureTiers() {
               {[
                 "Everything in Performance Engine",
                 "Multi-city campaign architecture to expand without rebuilding from scratch",
-                "Competitor gap analysis that identifies exactly where they are vulnerable",
-                "SEO dominance buildout targeting every high-intent keyword in your market",
-                "Priority weekly strategy call with campaign decisions made in real time",
+                "Competitor gap analysis. Identifies exactly where they are exposed.",
+                "SEO buildout targeting every high-intent keyword in your market.",
+                "Priority weekly strategy call. Decisions made in real time.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <BulletAmber />
@@ -443,15 +443,15 @@ export default function InfrastructureTiers() {
               >
                 <p
                   className="text-xs leading-relaxed"
-                  style={{ color: "rgba(245, 158, 11, 0.50)" }}
+                  style={{ color: "rgba(245, 158, 11, 0.70)" }}
                 >
-                  Two clients per niche per city. This is not a marketing device. I take on a second client in your niche only when the first is fully scaled. If your competitor applies first, this closes.
+                  Two slots per niche per city. Not a marketing device. If your competitor applies before you, this tier closes for your market.
                 </p>
               </div>
               <a
                 href="/apply"
-                className="text-sm transition-colors hover:text-amber-400"
-                style={{ color: "rgba(245, 158, 11, 0.60)" }}
+                className="text-sm font-medium transition-colors hover:text-amber-400"
+                style={{ color: "rgba(245, 158, 11, 0.70)", textDecoration: "underline", textUnderlineOffset: "3px" }}
               >
                 Apply for this tier →
               </a>
@@ -462,7 +462,7 @@ export default function InfrastructureTiers() {
         {/* PART 4: Below-cards disclaimer */}
         <div className="max-w-6xl mx-auto text-center mt-12">
           <p className="text-xs" style={{ color: "#1E3A5F" }}>
-            No long-term contracts after the initial build. No hidden fees. No retainers for work not done.
+            No long-term contracts. No hidden fees. No retainers for work not done.
           </p>
         </div>
 
