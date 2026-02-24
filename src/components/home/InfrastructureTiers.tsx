@@ -258,39 +258,40 @@ export default function InfrastructureTiers() {
       </p>
 
       {/* ── 1D: Proof Snapshot Strip ── */}
-      <div className="mt-16 grid grid-cols-1 lg:grid-cols-[2fr_3fr_2fr] gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
 
         {/* Block 1: Before / After */}
-        <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6">
+        <div className="p-6 rounded-xl border border-slate-700/50 bg-slate-800/40">
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-4">BEFORE / AFTER</p>
           <div className="space-y-3">
             <div className="flex items-start gap-3">
               <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-red-500/20 text-red-400">
                 BEFORE
               </span>
-              <p className="text-sm text-slate-400">2 new client calls per week. Both from referrals.</p>
+              <p className="text-sm text-slate-400">Bookings inconsistent. Website looked unprofessional. Most clients came from word of mouth.</p>
             </div>
             <div className="flex items-start gap-3">
               <span className="shrink-0 inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-green-500/20 text-green-400">
                 AFTER
               </span>
-              <p className="text-sm text-slate-400">11 new client calls per week. $30K in 30 days.</p>
+              <p className="text-sm text-slate-400">Booking calendar full. New clients find them through search. Clients compliment the website on arrival.</p>
             </div>
           </div>
-          <p className="text-xs text-slate-500 mt-4">Painting contractor. Dallas, TX.</p>
+          <p className="text-xs text-slate-500 mt-4">Barbershop. Local SEO + website rebuild.</p>
+          <p className="text-sm text-slate-400 italic mt-2">Juan has been an amazing help.</p>
         </div>
 
-        {/* Block 2: Pull Quote (center, larger) */}
-        <div className="bg-slate-800/60 border border-slate-700 rounded-xl p-8 flex flex-col justify-between">
-          <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">CLIENT RESULT</p>
-          <p className="text-base text-white font-medium leading-relaxed">
-            &ldquo;I went from 2 calls a week to 11 in the first month. The system runs. I just do the work.&rdquo;
-          </p>
-          <p className="text-xs text-slate-500 mt-6">Owner, residential painting company, Dallas TX</p>
+        {/* Block 2: Outcome Summary */}
+        <div className="p-6 rounded-xl border border-slate-700/50 bg-slate-800/40">
+          <p className="text-xs font-semibold tracking-widest text-slate-400 uppercase mb-3">WHAT THIS LOOKS LIKE</p>
+          <h4 className="text-xl font-bold text-white mb-4 leading-snug">A Full Calendar. Calls From Strangers. Zero Chasing.</h4>
+          <p className="text-slate-300 text-sm leading-relaxed mb-2">Website rebuilt for conversion. SEO targeting buyers in your city. Paid campaigns running with tracked cost per call.</p>
+          <p className="text-slate-300 text-sm leading-relaxed mb-2">The system runs whether you are on a job or not.</p>
+          <p className="text-xs text-slate-500 mt-4 leading-relaxed">Results depend on market size, ad spend, and service type. Specifics reviewed on application call.</p>
         </div>
 
         {/* Block 3: Campaign Metrics */}
-        <div className="bg-slate-800/40 border border-slate-700 rounded-xl p-6">
+        <div className="p-6 rounded-xl border border-slate-700/50 bg-slate-800/40">
           <p className="text-xs font-semibold tracking-widest text-slate-500 uppercase mb-4">CAMPAIGN METRICS</p>
           {campaignMetrics.map(({ number, label }) => (
             <div key={number} className="flex justify-between items-center py-2 border-b border-slate-700 last:border-0">
