@@ -58,7 +58,7 @@ export default function InfrastructureTiers() {
             className="text-4xl md:text-5xl font-semibold tracking-tight mb-4"
             style={{ color: "#F1F5F9" }}
           >
-            Three Systems. Built Around Revenue Stage.
+            Three Systems.<br className="hidden md:block" /> Built Around Your Revenue Stage.
           </h2>
           <p
             className="text-base max-w-xl mx-auto leading-relaxed"
@@ -72,15 +72,16 @@ export default function InfrastructureTiers() {
         <div className="max-w-3xl mx-auto mb-16">
           <p
             className="text-center text-sm mb-5"
-            style={{ color: "#1E3A5F" }}
+            style={{ color: "#3D6080" }}
           >
             From the most recent active client account. Not projections.
           </p>
           <div
             className="max-w-3xl mx-auto grid grid-cols-3 overflow-hidden rounded-2xl"
             style={{
-              border: "1px solid rgba(99, 179, 237, 0.12)",
-              background: "rgba(99, 179, 237, 0.03)",
+              border: "1px solid rgba(99, 179, 237, 0.18)",
+              background: "rgba(14, 30, 54, 0.80)",
+              boxShadow: "0 0 0 1px rgba(99, 179, 237, 0.06) inset",
             }}
           >
             <div
@@ -139,7 +140,7 @@ export default function InfrastructureTiers() {
 
           {/* CARD 1: Foundation Architecture — FIX 3 */}
           <div
-            className="relative flex flex-col rounded-2xl p-8 h-full transition-all duration-200 hover:-translate-y-[2px]"
+            className="relative flex flex-col rounded-2xl p-8 h-full min-h-[520px] transition-all duration-200 hover:-translate-y-[2px]"
             style={{
               background: "linear-gradient(160deg, #0E1520 0%, #0A1018 100%)",
               border: "1px solid rgba(148, 163, 184, 0.10)",
@@ -161,7 +162,7 @@ export default function InfrastructureTiers() {
               className="text-sm mb-5"
               style={{ color: "#475569" }}
             >
-              The system that makes everything else work.
+              Built before you run a single ad. Paid traffic without this fails.
             </p>
             <span
               className="block text-xs rounded-lg px-4 py-3 mb-7 leading-relaxed"
@@ -471,16 +472,16 @@ export default function InfrastructureTiers() {
       {/* ── Proof Snapshot Strip ── */}
       <div
         className="w-full px-4 pb-16 pt-2"
-        style={{ background: "#070B14" }}
+        style={{ background: "transparent" }}
       >
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
 
           {/* Block 1: Before / After */}
           <div
-            className="p-6 rounded-xl"
-            style={{ background: "#0A0F1E", border: "1px solid rgba(148,163,184,0.08)" }}
+            className="rounded-2xl p-6"
+            style={{ background: "#0F1623", border: "1px solid rgba(148, 163, 184, 0.08)" }}
           >
-            <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#334155" }}>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#334155" }}>
               BEFORE / AFTER
             </p>
             <div className="space-y-3">
@@ -507,13 +508,13 @@ export default function InfrastructureTiers() {
 
           {/* Block 2: Outcome Summary */}
           <div
-            className="p-6 rounded-xl"
-            style={{ background: "#0A0F1E", border: "1px solid rgba(148,163,184,0.08)" }}
+            className="rounded-2xl p-6"
+            style={{ background: "#0F1623", border: "1px solid rgba(148, 163, 184, 0.08)" }}
           >
-            <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: "#334155" }}>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#334155" }}>
               WHAT THIS LOOKS LIKE
             </p>
-            <h4 className="text-xl font-bold mb-4 leading-snug" style={{ color: "#CBD5E1" }}>
+            <h4 className="text-xl font-semibold leading-snug mb-4" style={{ color: "#F1F5F9" }}>
               A Full Calendar. Calls From Strangers. Zero Chasing.
             </h4>
             <p className="text-sm leading-relaxed mb-2" style={{ color: "#64748B" }}>
@@ -522,17 +523,17 @@ export default function InfrastructureTiers() {
             <p className="text-sm leading-relaxed mb-2" style={{ color: "#64748B" }}>
               The system runs whether you are on a job or not.
             </p>
-            <p className="text-xs mt-4 leading-relaxed" style={{ color: "#334155" }}>
+            <p className="text-xs mt-4 leading-relaxed" style={{ color: "#1E3A5F" }}>
               Results depend on market size, ad spend, and service type. Specifics reviewed on application call.
             </p>
           </div>
 
           {/* Block 3: Campaign Metrics */}
           <div
-            className="p-6 rounded-xl"
-            style={{ background: "#0A0F1E", border: "1px solid rgba(148,163,184,0.08)" }}
+            className="rounded-2xl p-6"
+            style={{ background: "#0F1623", border: "1px solid rgba(148, 163, 184, 0.08)" }}
           >
-            <p className="text-xs font-semibold tracking-widest uppercase mb-4" style={{ color: "#334155" }}>
+            <p className="text-[10px] font-semibold tracking-[0.2em] uppercase mb-4" style={{ color: "#334155" }}>
               CAMPAIGN METRICS
             </p>
             {campaignMetrics.map(({ number, label }) => (
@@ -541,18 +542,18 @@ export default function InfrastructureTiers() {
                 className="flex justify-between items-center py-2 last:border-0"
                 style={{ borderBottom: "1px solid rgba(148,163,184,0.06)" }}
               >
-                <p className="font-bold text-sm" style={{ color: "#CBD5E1" }}>{number}</p>
-                <p className="text-xs" style={{ color: "#475569" }}>{label}</p>
+                <p className="text-2xl font-bold" style={{ color: "#E2F0FF" }}>{number}</p>
+                <p className="text-xs" style={{ color: "#334155" }}>{label}</p>
               </div>
             ))}
             <p className="text-xs mt-4" style={{ color: "#334155" }}>Triple W Rentals. Texas. Google Ads.</p>
-            <p className="text-xs mt-2 font-medium" style={{ color: "#3B82F6" }}>
+            <p className="text-xs mt-2 underline underline-offset-2 transition-colors hover:text-blue-300" style={{ color: "#3B82F6" }}>
               Triple W Rentals now dominates the RV rental niche across Texas.
             </p>
           </div>
         </div>
 
-        <p className="text-xs text-center mt-6 max-w-6xl mx-auto" style={{ color: "#1E3A5F" }}>
+        <p className="text-center text-xs mt-6 max-w-6xl mx-auto" style={{ color: "#1E3A5F" }}>
           All results are from live client accounts. Updated as new data becomes available.
         </p>
       </div>
