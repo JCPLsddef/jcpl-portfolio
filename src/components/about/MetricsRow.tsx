@@ -17,7 +17,7 @@ export default function MetricsRow() {
       <div className="grid grid-cols-3 divide-x divide-[rgba(37,99,235,0.15)] rounded-xl bg-cg-card border border-[rgba(37,99,235,0.15)]">
         <div className="flex flex-col items-center justify-center py-5 px-4 text-center">
           <span className="text-3xl sm:text-4xl md:text-[2.75rem] font-bold tabular-nums text-[#2563EB] leading-none mb-1.5">
-            $30,000
+            $41,084.85
           </span>
           <span className="text-[0.8rem] text-cg-secondary leading-snug">
             Revenue generated in first 30 days

@@ -34,7 +34,7 @@ export default function FeaturedCaseStudy() {
 
             {/* Big number */}
               <div className="text-[clamp(40px,8vw,56px)] font-extrabold text-white leading-none mb-2">
-                <CountUpValue to={30000} prefix="$" durationMs={1400} />
+                <CountUpValue to={41084.85} prefix="$" durationMs={1400} />
               </div>
 
             <p className="text-[18px] text-cg-body mb-2 relative z-10">

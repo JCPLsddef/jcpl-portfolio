@@ -132,7 +132,7 @@ function ProofCard() {
       <p className="text-xs font-semibold tracking-widest text-blue-400 uppercase mb-4">
         LIVE RESULT
       </p>
-      <p className="text-5xl font-black text-white mb-1">$30,000</p>
+  <p className="text-5xl font-black text-white mb-1">$41,084.85</p>
       <p className="text-sm text-slate-400 mb-6">
         Revenue generated. 30 days. $900 ad spend.
       </p>

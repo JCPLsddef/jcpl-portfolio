@@ -85,9 +85,9 @@ export const caseStudies: CaseStudy[] = [
     title: "Triple W Rentals",
     industry: "RV RENTAL, TEXAS",
     outcome:
-      "$30,000 in revenue generated in month one. $900 in total ad spend.",
+  "$41,084.85 in revenue generated in month one. $900 in total ad spend.",
     metrics: [
-      { label: "Revenue", value: "$30,000" },
+  { label: "Revenue", value: "$41,084.85" },
       { label: "Ad spend", value: "$900" },
       { label: "ROAS", value: "33x" },
       { label: "Timeline", value: "30 days" },

@@ -54,7 +54,7 @@ export default function Hero() {
 							href="/results"
 							className="w-full sm:w-auto bg-[rgba(255,255,255,0.06)] border border-[rgba(255,255,255,0.3)] text-white font-medium text-[15px] px-6 py-[14px] rounded-[10px] whitespace-nowrap transition-all duration-200 hover:bg-[rgba(255,255,255,0.12)] hover:border-[rgba(255,255,255,0.5)] text-center inline-flex items-center justify-center"
 						>
-							See the $30K Result
+							  See the $41,084.85 Result
 						</a>
 					</div>
 				</div>

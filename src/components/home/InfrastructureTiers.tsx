@@ -6,7 +6,7 @@ import Link from "next/link";
 const campaignMetrics = [
   { number: "33x", label: "Return on ad spend" },
   { number: "$900", label: "Total ad spend" },
-  { number: "30 days", label: "Time to $30K revenue" },
+  { number: "30 days", label: "Time to $41,084.85 revenue" },
 ];
 
 /* ─── Tier 01 bullet — slate ─── */
@@ -92,7 +92,7 @@ export default function InfrastructureTiers() {
                 className="text-[2.75rem] font-bold tracking-tight leading-none"
                 style={{ color: "#E2F0FF" }}
               >
-                $30,000
+                $41,084.85
               </p>
               <p
                 className="text-xs mt-2 tracking-wide"
@@ -338,7 +338,7 @@ export default function InfrastructureTiers() {
                 className="font-semibold text-base leading-snug mb-1"
                 style={{ color: "#FFFFFF" }}
               >
-                $900 spent. $30,000 returned.
+                $900 spent. $41,084.85 returned.
               </p>
               <p
                 className="text-sm"

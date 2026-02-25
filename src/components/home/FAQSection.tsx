@@ -22,7 +22,7 @@ const faqData = [
   {
     question: "How fast will I see results?",
     answer:
-      "The full system goes live in 2 to 4 weeks. Triple W Rentals generated $30,000 in their first 30 days on $900 in ad spend. Elite Barbershop had 90 new clients in 90 days. Results vary by market and offer, but the system is designed for speed, not a 6-month runway."
+  "The full system goes live in 2 to 4 weeks. Triple W Rentals generated $41,084.85 in their first 30 days on $900 in ad spend. Elite Barbershop had 90 new clients in 90 days. Results vary by market and offer, but the system is designed for speed, not a 6-month runway."
   },
   {
     question: "How is this different from hiring an agency?",

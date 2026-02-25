@@ -53,7 +53,7 @@ export default function GuaranteesStrip() {
               className="text-5xl font-bold mt-auto pt-8 leading-none"
               style={{ color: "#FFFFFF" }}
             >
-              $30,000
+              $41,084.85
             </p>
             <p
               className="text-xs mt-2"
