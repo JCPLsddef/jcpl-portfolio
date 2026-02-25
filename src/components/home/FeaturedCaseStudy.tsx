@@ -7,7 +7,6 @@ import { Reveal } from "@/components/motion";
 import CountUpValue from "@/components/motion/CountUpValue";
 import Link from "next/link";
 import LogoArrowLoop from "../proof/LogoArrowLoop";
-import Image from "next/image";
 
 const subStats = [
 	{ value: "$900", label: "AD SPEND", sub: "Total campaign spend" },
@@ -107,37 +106,6 @@ export default function FeaturedCaseStudy() {
 								>
 									View All Results →
 								</Link>
-							</div>
-
-							{/* Right — Google Ads proof image */}
-							<div
-								className="w-full md:w-[260px] shrink-0 rounded-[10px] flex flex-col items-center justify-center text-center p-6"
-								style={{
-									background: "rgba(37,99,235,0.06)",
-									border: "1px dashed rgba(37,99,235,0.3)",
-									minHeight: 200,
-								}}
-							>
-								<Image
-									src="https://static.wixstatic.com/media/62f926_c4b40943b49c4e5096d91da9a8ecdf32~mv2.png"
-									alt="Google Ads Proof $41,084.85"
-									width={220}
-									height={120}
-									loading="lazy"
-									style={{
-										borderRadius: 8,
-										boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-									}}
-								/>
-								<p className="text-[12px] text-cg-muted leading-snug mb-1">
-									Google Ads Dashboard
-								</p>
-								<p className="text-[11px] text-cg-dim leading-snug">
-									Triple W Rentals — verified
-								</p>
-								<p className="text-[11px] italic text-cg-dim mt-2">
-									Live account. Last verified February 2026.
-								</p>
 							</div>
 						</div>
 					</div>
