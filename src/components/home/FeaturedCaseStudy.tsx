@@ -109,10 +109,7 @@ export default function FeaturedCaseStudy() {
         </div>
       </Reveal>
 
-      {/* CLIENT LOGO LOOP — Upward Arrow Animation */}
-      <div className="mt-16 mb-10">
-        <LogoArrowLoop />
-      </div>
+      {/* CLIENT LOGO LOOP REMOVED */}
       {/* Stats Row 2 */}
       <Reveal delay={0.2}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto">
