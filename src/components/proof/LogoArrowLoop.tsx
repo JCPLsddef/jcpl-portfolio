@@ -1,183 +1,203 @@
 "use client";
 
 import Image from "next/image";
-import clsx from "clsx";
 
 const LOGOS = [
   {
-    src: "/logos/absolute-painting.png",
+    src: "https://cdn.shopify.com/s/files/1/0624/6059/2222/files/ChatGPT_Image_6_janv._2026_17_33_55.png?v=1767738915",
     alt: "Absolute Painting",
     name: "Absolute Painting",
     city: "Dallas, TX",
     service: "Painting Contractor",
   },
   {
-    src: "/logos/culture-barbershop.png",
+    src: "https://static.wixstatic.com/media/62f926_58438d6814374c1b81421512d6762ad0~mv2.png",
     alt: "Culture Barbershop",
     name: "Culture Barbershop",
     city: "Montreal, QC",
     service: "Barbershop",
   },
   {
-    src: "/logos/triple-w-rentals.png",
+    src: "https://static.wixstatic.com/media/62f926_26ca6fb6d443456c94fab653adce03cc~mv2.png",
     alt: "Triple W Rentals",
     name: "Triple W Rentals",
     city: "Texas",
     service: "RV Rental",
   },
   {
-    src: "/logos/centre-dentaire.png",
+    src: "https://static.wixstatic.com/media/62f926_5c14016a71f74c77a7eedfa86309eadd~mv2.jpg",
     alt: "Centre Dentaire Saint-Lazare",
     name: "Centre Dentaire Saint-Lazare",
     city: "Montreal, QC",
     service: "Dental Clinic",
   },
   {
-    src: "/logos/elite-service.png",
-    alt: "Elite Service",
-    name: "Elite [service]",
-    city: "[city]",
-    service: "[niche]",
+    src: "https://static.wixstatic.com/media/62f926_b2db4e8f4d74470fb8848ee6183aecde~mv2.png",
+    alt: "Centre Dentaire Saint-Elzear",
+    name: "Centre Dentaire Saint-Elzear",
+    city: "Montreal, QC",
+    service: "Dental Clinic",
   },
 ];
 
 const LOOP_COUNT = 3;
 
 export default function LogoArrowLoop() {
-  // Repeat logos for seamless loop
-  const logoSets = Array.from({ length: LOOP_COUNT }, (_, i) =>
-    LOGOS.map((logo, idx) => ({
-      ...logo,
-      key: `${logo.name}-${i}-${idx}`,
-    }))
+  const items = Array.from({ length: LOOP_COUNT }, (_, i) =>
+    LOGOS.map((logo, j) => ({ ...logo, key: `${i}-${j}` }))
   ).flat();
 
   return (
-    <div className="logo-track-wrapper">
-      <div className="logo-track">
-        {logoSets.map((logo, idx) => (
-          <div
-            key={logo.key}
-            className={clsx(
-              "logo-card",
-              idx % LOGOS.length === Math.floor(LOGOS.length / 2)
-                ? "logo-card-center"
-                : "logo-card-edge"
-            )}
-          >
-            <Image
-              src={logo.src}
-              alt={logo.alt}
-              width={120}
-              height={36}
-              loading="lazy"
-              priority={false}
-              className="logo-img"
-            />
-            <div className="logo-labels">
-              <span className="logo-name">{logo.name}</span>
-              <span className="logo-city">{logo.city}</span>
-              <span className="logo-service">{logo.service}</span>
-            </div>
+    <>
+      <div className="lal-section">
+        {/* lal-runway: centered + rotated. lal-track: animates within rotated frame */}
+        <div className="lal-runway">
+          <div className="lal-track">
+            {items.map((logo) => (
+              <div key={logo.key} className="lal-card">
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={100}
+                  height={32}
+                  loading="lazy"
+                  className="lal-img"
+                />
+                <span className="lal-name">{logo.name}</span>
+                <span className="lal-meta">
+                  {logo.city}&nbsp;·&nbsp;{logo.service}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
       <style jsx>{`
-        .logo-track-wrapper {
+        .lal-section {
           position: relative;
+          height: 260px;
           overflow: hidden;
-          width: 100%;
-          height: 180px;
-          mask-image: linear-gradient(
-            to top left,
+          -webkit-mask-image: linear-gradient(
+            to right,
             transparent 0%,
-            black 20%,
-            black 80%,
+            #000 14%,
+            #000 86%,
             transparent 100%
           );
-          -webkit-mask-image: linear-gradient(
-            to top left,
+          mask-image: linear-gradient(
+            to right,
             transparent 0%,
-            black 20%,
-            black 80%,
+            #000 14%,
+            #000 86%,
             transparent 100%
           );
         }
-        .logo-track {
-          display: flex;
-          gap: 24px;
+
+        /*
+         * lal-runway is centered in the section and rotated.
+         * translate(-50%, -50%) centres it around the section midpoint.
+         * rotate(-20deg) tilts the card strip so cards appear to flow
+         * from bottom-right → top-left (upward-arrow direction).
+         */
+        .lal-runway {
           position: absolute;
-          will-change: transform;
-          animation: scroll-arrow 24s linear infinite;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%) rotate(-20deg);
           white-space: nowrap;
         }
-        @keyframes scroll-arrow {
-          0% {
-            transform: translate(0px, 0px);
-          }
-          100% {
-            transform: translate(-600px, -120px);
-          }
+
+        /*
+         * lal-track holds all LOOP_COUNT copies of the logos side-by-side.
+         * translateX(-33.3334%) = exactly one copy's width → seamless loop.
+         * % is relative to the track's own width (= LOOP_COUNT × one-set-width),
+         * so 1/3 of that = one set. With margin-right on every card (including
+         * the last in each set) the inter-set gap matches the intra-set gap.
+         */
+        .lal-track {
+          display: inline-flex;
+          flex-wrap: nowrap;
+          will-change: transform;
+          animation: lal-scroll 24s linear infinite;
         }
-        .logo-card {
-          background: #fff;
-          border-radius: 14px;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-          padding: 16px 24px;
-          min-width: 160px;
-          display: flex;
+
+        .lal-card {
+          flex-shrink: 0;
+          display: inline-flex;
           flex-direction: column;
           align-items: center;
-          opacity: 0.7;
-          transform: scale(0.85);
-          transition: opacity 0.3s, transform 0.3s;
+          gap: 8px;
+          padding: 14px 18px;
+          margin-right: 20px;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          min-width: 160px;
         }
-        .logo-card-center {
-          opacity: 1;
-          transform: scale(1);
+
+        .lal-img {
+          object-fit: contain;
         }
-        .logo-img {
-          max-height: 36px;
-          max-width: 120px;
-          margin-bottom: 8px;
-        }
-        .logo-labels {
-          text-align: center;
-          font-size: 13px;
-          color: #222;
-        }
-        .logo-name {
-          font-weight: 600;
-        }
-        .logo-city,
-        .logo-service {
+
+        .lal-name {
+          display: block;
           font-size: 12px;
-          color: #666;
+          font-weight: 700;
+          color: #fff;
+          white-space: nowrap;
+          text-align: center;
         }
-        @media (max-width: 767px) {
-          .logo-track-wrapper {
-            height: 80px;
-            mask-image: linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%);
-          }
-          .logo-track {
-            animation: scroll-horizontal 18s linear infinite;
-          }
-          @keyframes scroll-horizontal {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-          }
-          .logo-labels { display: none; }
-          .logo-card { min-width: 80px; padding: 8px 12px; }
+
+        .lal-meta {
+          display: block;
+          font-size: 10px;
+          color: rgba(255, 255, 255, 0.4);
+          white-space: nowrap;
+          text-align: center;
         }
-        @media (prefers-reduced-motion: reduce) {
-          .logo-track {
-            animation-play-state: paused;
+
+        @keyframes lal-scroll {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-33.3334%);
           }
         }
-        .logo-track-wrapper:hover .logo-track {
+
+        /* Pause on hover */
+        .lal-section:hover .lal-track {
           animation-play-state: paused;
         }
+
+        /* Mobile: flat horizontal marquee, hide text labels */
+        @media (max-width: 767px) {
+          .lal-section {
+            height: 96px;
+          }
+          .lal-runway {
+            /* remove the diagonal rotation */
+            transform: translate(-50%, -50%);
+          }
+          .lal-name,
+          .lal-meta {
+            display: none;
+          }
+          .lal-card {
+            min-width: 80px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-right: 12px;
+          }
+        }
+
+        /* Respect prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+          .lal-track {
+            animation-play-state: paused !important;
+          }
+        }
       `}</style>
-    </div>
+    </>
   );
 }
