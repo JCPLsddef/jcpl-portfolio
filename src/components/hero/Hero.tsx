@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import UnicornHeroBackground from "./UnicornHeroBackground";
-import LaserFlow from "./LaserFlow";
 import TextSplitter from "./TextSplitter";
 import { prefersReducedMotion } from "@/lib/motion";
 import "./hero.css";
@@ -16,12 +15,18 @@ const HEADLINE = "DOMINATE YOUR MARKET";
 const SUBHEADLINE =
 	"I build one complete system: a conversion website, Google Ads targeting people ready to hire today, and AI that qualifies leads before your phone rings.";
 
-const CTA_PRIMARY = { label: "Apply for Growth Partnership", href: "/apply" };
-const CTA_SECONDARY = { label: "See the $41,084.85 Result", href: "/results" };
+const CTA_PRIMARY = {
+	label: "Apply. I\u2019ll review you in 24h.",
+	href: "/apply",
+};
+const CTA_SECONDARY = {
+	label: "See the $41,084.85 Result",
+	href: "/results",
+};
 
 /* ═══════════════════════════════════════════════════
-   COMPONENT — Command Bridge Hero (Refined)
-   3-Layer depth: BG gradient → Laser beam → Content
+   COMPONENT — Command Bridge Hero
+   3-Layer: Unicorn BG → Vignette overlay → Content
    ═══════════════════════════════════════════════════ */
 export default function Hero() {
 	const sectionRef = useRef<HTMLElement>(null);
@@ -34,10 +39,8 @@ export default function Hero() {
 	const proofRef = useRef<HTMLDivElement>(null);
 	const bgLayerRef = useRef<HTMLDivElement>(null);
 	const contentLayerRef = useRef<HTMLDivElement>(null);
-	const laserRef = useRef<HTMLDivElement>(null);
-	const [laserReady, setLaserReady] = useState(false);
 
-	/* ── mousemove parallax (bg: 6px, content: 3px, laser glow: 4px) ── */
+	/* ── mousemove parallax (bg: 6px, content: 3px) ── */
 	const handleMouseMove = useCallback((e: MouseEvent) => {
 		if (prefersReducedMotion()) return;
 		const cx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -45,14 +48,20 @@ export default function Hero() {
 
 		if (bgLayerRef.current) {
 			gsap.to(bgLayerRef.current, {
-				x: cx * 6, y: cy * 6,
-				duration: 1.2, ease: "power2.out", overwrite: "auto",
+				x: cx * 6,
+				y: cy * 6,
+				duration: 1.2,
+				ease: "power2.out",
+				overwrite: "auto",
 			});
 		}
 		if (contentLayerRef.current) {
 			gsap.to(contentLayerRef.current, {
-				x: cx * 3, y: cy * 3,
-				duration: 1.4, ease: "power2.out", overwrite: "auto",
+				x: cx * 3,
+				y: cy * 3,
+				duration: 1.4,
+				ease: "power2.out",
+				overwrite: "auto",
 			});
 		}
 	}, []);
@@ -62,7 +71,7 @@ export default function Hero() {
 		return () => window.removeEventListener("mousemove", handleMouseMove);
 	}, [handleMouseMove]);
 
-	/* ── GSAP cinematic entrance ── */
+	/* ── GSAP cinematic entrance timeline ── */
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
 
@@ -78,18 +87,17 @@ export default function Hero() {
 			allEls.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
 			if (headlineRef.current) {
 				gsap.set(headlineRef.current.querySelectorAll("[data-char]"), {
-					opacity: 1, y: 0,
+					opacity: 1,
+					y: 0,
 				});
 			}
 			if (borderRef.current) gsap.set(borderRef.current, { opacity: 1 });
 			return;
 		}
 
-		const tl = gsap.timeline({
-			defaults: { ease: "power3.out" },
-		});
+		const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-		// 1. Frame appears (0 → 0.8s)
+		// 1. Frame raises in (0.8s)
 		if (frameRef.current) {
 			tl.fromTo(
 				frameRef.current,
@@ -99,7 +107,7 @@ export default function Hero() {
 			);
 		}
 
-		// 2. Border highlight sweep (0.2 → 1.2s)
+		// 2. Border sweep fades in
 		if (borderRef.current) {
 			tl.fromTo(
 				borderRef.current,
@@ -109,7 +117,7 @@ export default function Hero() {
 			);
 		}
 
-		// 3. Eyebrow fades in
+		// 3. Eyebrow
 		if (eyebrowRef.current) {
 			tl.fromTo(
 				eyebrowRef.current,
@@ -119,18 +127,14 @@ export default function Hero() {
 			);
 		}
 
-		// 4. Headline chars stagger in (0.04s per char)
+		// 4. Headline chars stagger (0.035s per char)
 		if (headlineRef.current) {
 			const chars = headlineRef.current.querySelectorAll("[data-char]");
 			if (chars.length) {
 				tl.fromTo(
 					chars,
 					{ opacity: 0, y: 40 },
-					{
-						opacity: 1, y: 0,
-						duration: 0.7,
-						stagger: 0.035,
-					},
+					{ opacity: 1, y: 0, duration: 0.7, stagger: 0.035 },
 					0.45
 				);
 			}
@@ -146,7 +150,7 @@ export default function Hero() {
 			);
 		}
 
-		// 6. CTAs slide in
+		// 6. CTAs slide in last
 		if (ctasRef.current) {
 			const buttons = ctasRef.current.querySelectorAll("a");
 			if (buttons.length) {
@@ -159,7 +163,7 @@ export default function Hero() {
 			}
 		}
 
-		// 7. Proof line
+		// 7. Proof
 		if (proofRef.current) {
 			tl.fromTo(
 				proofRef.current,
@@ -169,7 +173,9 @@ export default function Hero() {
 			);
 		}
 
-		return () => { tl.kill(); };
+		return () => {
+			tl.kill();
+		};
 	}, []);
 
 	return (
@@ -178,19 +184,22 @@ export default function Hero() {
 			className="cb"
 			aria-label="Hero — Growth Systems"
 		>
-			{/* ═════════════════════════════════════════════
-          LAYER 0 — Ambient gradient drift (30s loop)
-          ═════════════════════════════════════════════ */}
+			{/* ── Ambient gradient drift ── */}
 			<div className="cb-ambient" aria-hidden="true" />
 
-			{/* ═════════════════════════════════════════════
+			{/* ═══════════════════════════════════════════
           THE COMMAND BRIDGE FRAME
-          ═════════════════════════════════════════════ */}
+          ═══════════════════════════════════════════ */}
 			<div ref={frameRef} className="cb-frame" style={{ opacity: 0 }}>
-				{/* ── Border highlight sweep (animated conic gradient) ── */}
-				<div ref={borderRef} className="cb-border-sweep" aria-hidden="true" style={{ opacity: 0 }} />
+				{/* Border highlight sweep */}
+				<div
+					ref={borderRef}
+					className="cb-border-sweep"
+					aria-hidden="true"
+					style={{ opacity: 0 }}
+				/>
 
-				{/* ── Frame corner labels (Avatar-style micro-nav) ── */}
+				{/* Frame corner labels (Avatar micro-nav) */}
 				<div className="cb-frame-label cb-frame-label--tl" aria-hidden="true">
 					SYS_CORE // 01
 				</div>
@@ -204,47 +213,22 @@ export default function Hero() {
 					v2.0
 				</div>
 
-				{/* ── Inner surface ── */}
+				{/* Inner surface */}
 				<div className="cb-surface">
-
-					{/* ═══ LAYER 1 — Background (WebGL + parallax) ═══ */}
-					<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
+					{/* ═══ LAYER 1 — Unicorn Studio WebGL background ═══ */}
+					<div
+						ref={bgLayerRef}
+						className="cb-layer cb-layer--bg"
+						aria-hidden="true"
+					>
 						<UnicornHeroBackground />
 					</div>
 
-					{/* ═══ LAYER 2 — Laser beam (central energy) ═══ */}
-					<div ref={laserRef} className="cb-layer cb-layer--laser" aria-hidden="true">
-						<LaserFlow
-							className="cb-laser-canvas"
-							horizontalBeamOffset={0}
-							verticalBeamOffset={-0.15}
-							wispDensity={0.6}
-							wispIntensity={2.5}
-							wispSpeed={12}
-							flowSpeed={0.3}
-							fogIntensity={0.2}
-							fogScale={0.25}
-							decay={1.1}
-							falloffStart={1.2}
-							verticalSizing={6.0}
-							horizontalSizing={0.8}
-							color="var(--brand-accent)"
-							introDuration={1.8}
-							introDelay={0.4}
-							onIntroComplete={() => setLaserReady(true)}
-						/>
-					</div>
-
-					{/* ── Radial laser glow (centered bloom) ── */}
-					<div className="cb-layer cb-laser-glow" aria-hidden="true" />
-
-					{/* ── Vignette (edge darkening) ── */}
+					{/* ═══ LAYER 2 — Vignette + gradient overlay ═══ */}
 					<div className="cb-layer cb-vignette" aria-hidden="true" />
-
-					{/* ── Grain texture ── */}
 					<div className="cb-layer cb-grain" aria-hidden="true" />
 
-					{/* ═══ LAYER 3 — Content (parallax at 3px) ═══ */}
+					{/* ═══ LAYER 3 — Content (with parallax) ═══ */}
 					<div ref={contentLayerRef} className="cb-content-wrap">
 						<div className="cb-content">
 							{/* Eyebrow */}
@@ -257,7 +241,7 @@ export default function Hero() {
 								<span>{EYEBROW}</span>
 							</div>
 
-							{/* DOMINATE H1 — with laser text gradient mask */}
+							{/* DOMINATE H1 */}
 							<h1 className="cb-headline">
 								<TextSplitter
 									ref={headlineRef}
@@ -268,25 +252,22 @@ export default function Hero() {
 							</h1>
 
 							{/* Subheadline */}
-							<p
-								ref={subRef}
-								className="cb-sub"
-								style={{ opacity: 0 }}
-							>
+							<p ref={subRef} className="cb-sub" style={{ opacity: 0 }}>
 								{SUBHEADLINE}
 							</p>
 
 							{/* CTAs */}
-							<div
-								ref={ctasRef}
-								className="cb-ctas"
-								style={{ opacity: 0 }}
-							>
+							<div ref={ctasRef} className="cb-ctas" style={{ opacity: 0 }}>
 								<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
 									{CTA_PRIMARY.label}
-									<span className="cb-cta-arrow" aria-hidden="true">→</span>
+									<span className="cb-cta-arrow" aria-hidden="true">
+										→
+									</span>
 								</a>
-								<a href={CTA_SECONDARY.href} className="cb-cta cb-cta--secondary">
+								<a
+									href={CTA_SECONDARY.href}
+									className="cb-cta cb-cta--secondary"
+								>
 									{CTA_SECONDARY.label}
 								</a>
 							</div>
@@ -297,9 +278,13 @@ export default function Hero() {
 								className="cb-proof"
 								style={{ opacity: 0 }}
 							>
-								<span className="cb-proof-item">Last result: $900 ad spend → $41,084.85 revenue</span>
+								<span className="cb-proof-item">
+									Last result: $900 ad spend → $41,084.85 revenue
+								</span>
 								<span className="cb-proof-sep">·</span>
-								<span className="cb-proof-item">Texas RV company. 30 days.</span>
+								<span className="cb-proof-item">
+									Texas RV company. 30 days.
+								</span>
 							</div>
 						</div>
 					</div>
