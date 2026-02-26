@@ -1,61 +1,55 @@
 import dynamic from "next/dynamic";
 import Hero from "@/components/hero/Hero";
-import LogoLoop from "@/components/hero/LogoLoop";
-import { caseStudyLogos } from "@/components/hero/LogoLoopData";
 
-/* Dynamic imports for below-the-fold sections — reduces initial JS bundle */
-const ClientReality = dynamic(() => import("@/components/home/ClientReality"));
-const GrowthArchitecture = dynamic(() => import("@/components/home/GrowthArchitecture"));
+/* ── Above-fold (eager) ── */
+import ProofBar from "@/components/home/ProofBar";
+
+/* ── Below-fold (lazy) ── */
+const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
+const FounderBridge   = dynamic(() => import("@/components/home/FounderBridge"));
+const PinnedSystem    = dynamic(() => import("@/components/home/PinnedSystem"));
+const MicroCTA        = dynamic(() => import("@/components/home/MicroCTA"));
 const FeaturedCaseStudy = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
-const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
-const HowWeWork = dynamic(() => import("@/components/home/HowWeWork"));
-const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
-const InfrastructureTiers = dynamic(() => import("@/components/home/InfrastructureTiers"));
-const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
-const QualificationCTA = dynamic(() => import("@/components/home/QualificationCTA"));
+const QualificationCTA  = dynamic(() => import("@/components/home/QualificationCTA"));
+const HowWeWork         = dynamic(() => import("@/components/home/HowWeWork"));
+const FAQSection        = dynamic(() => import("@/components/home/FAQSection"));
+const SpotsLeftSection  = dynamic(() => import("@/components/home/SpotsLeftSection"));
 
 export default function HomePage() {
   return (
     <>
-      {/* A — Hero */}
+      {/* 1 ── HERO */}
       <Hero />
 
-      {/* B — Client Reality: Pain bullets */}
+      {/* 2 ── PROOF BAR: logo chips + cycling metric card */}
+      <ProofBar />
+
+      {/* 3 ── DIAGNOSIS: pain bullets — "The real reason your pipeline stalls" */}
       <ClientReality />
-  {/* Removed explicit spacer div for tighter section flow */}
-      {/* C — Qualification (For You / Not For You) */}
-      <QualificationCTA />
 
-      {/* D — The Growth Architecture: 4 pillars */}
-      <GrowthArchitecture />
+      {/* 4 ── FOUNDER BRIDGE: static human trust anchor (zero animation by design) */}
+      <FounderBridge />
 
-      {/* E — Proof Injection: Featured case study */}
+      {/* 5 ── SYSTEM SECTION: pinned GSAP scroll — Traffic → Conversion → Follow-Up → Booked Revenue */}
+      <PinnedSystem />
+
+      {/* 6 ── MICRO-CTA: calm checkpoint for visitors ready to act */}
+      <MicroCTA />
+
+      {/* 7 ── CASE STUDY HIGHLIGHT: Triple W Rentals — one client, full detail */}
       <FeaturedCaseStudy />
 
-      {/* Client logos */}
-      <div className="py-10 md:py-14 bg-sv-surface">
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-2">CLIENTS</p>
-        <p className="text-center text-[13px] text-sv-text-dim mb-7">Every business below is a real active or past client account.</p>
-        <LogoLoop logos={caseStudyLogos} speed={120} gap={40} logoHeight={40} />
-      </div>
+      {/* 8 ── WHO IT'S FOR: qualify the visitor, self-select in/out */}
+      <QualificationCTA />
 
-      {/* Data benchmark — stark single-number section */}
-      <DataBenchmarkBlock />
-
-      {/* F — Process: 3-step */}
+      {/* 9 ── OFFER + PROCESS: what's included + 3-step process */}
       <HowWeWork />
 
-      {/* G — Differentiation: Comparison table */}
-      <Differentiation />
-
-      {/* H — Infrastructure Tiers: Three-tier pricing */}
-      <InfrastructureTiers />
-
-      {/* FAQ — Objection handling */}
+      {/* 10 ── FAQ / OBJECTIONS: accordion — resolve final resistance */}
       <FAQSection />
 
-      {/* Spots Left Section — now at the end before footer */}
-      {require("@/components/home/SpotsLeftSection").default()}
+      {/* 11 ── FINAL CTA: close the page with one clear action */}
+      <SpotsLeftSection />
     </>
   );
 }
