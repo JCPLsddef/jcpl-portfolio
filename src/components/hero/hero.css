@@ -1,61 +1,172 @@
 /* ═══════════════════════════════════════════════════
-   HERO — Avatar-style UI Frame
-   Layer stack:
-     1. hero-bg      WebGL scene        z-0
-     2. hero-vignette dark overlay      z-1
-     3. hero-frame   rounded border     z-2
-        hero-notch   top-center plate   z-5  (overflows frame top)
-        hero-corner  4 corner brackets  z-3
-        hero-glass   tinted fill panel  z-0 (local)
-          ::after    grain texture      z-1
-          side text  vertical labels    z-2
-          bottom gem ornament           z-2
-          content    headline + CTA     z-3
-   Sky-blue accent tokens:
-     --cg-sky  #8DEBFF   --cg-sky-2  #55F9FF
-     --cg-ink  #05080E   --cg-glass  rgba(6,12,20,0.55)
+   COMMAND BRIDGE HERO — Cinematic Institutional
+   Avatar frame + Unicorn WebGL BG
+   3-Layer: WebGL → Readability overlay → Content
+   Token-based only (Sapphire Veil / sv tokens)
    ═══════════════════════════════════════════════════ */
 
-/* ── Sky-blue tokens (scoped to hero so they don't pollute global :root) ── */
-.hero {
-  --cg-sky:   #8DEBFF;
-  --cg-sky-2: #55F9FF;
-  --cg-ink:   #05080E;
-  --cg-glass: rgba(6, 12, 20, 0.55);
-}
-
-/* ═══ SECTION ═══ */
-.hero {
+/* ── Section ── */
+.cb {
   position: relative;
   min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* top padding clears the fixed nav (--nav-h: 72px) + 20px gap */
-  padding: 20px;
-  padding-top: calc(var(--nav-h, 72px) + 20px);
-  background: var(--bg-base, #05080E);
   overflow: hidden;
+  background: var(--bg-base);
+  padding: 24px;
 }
 
-@media (max-width: 767px) {
-  .hero {
-    min-height: 100svh;
-    padding: 12px;
-    /* mobile nav approx 64px */
-    padding-top: calc(64px + 12px);
+@media (min-width: 768px) {
+  .cb {
+    padding: 32px;
   }
 }
 
-/* ═══ LAYER 1 — WebGL background ═══ */
-.hero-bg {
+@media (min-width: 1024px) {
+  .cb {
+    padding: 48px;
+  }
+}
+
+/* ── Ambient gradient drift ── */
+.cb-ambient {
   position: absolute;
   inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 40%, rgba(43, 90, 140, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 65%, rgba(43, 90, 140, 0.04) 0%, transparent 50%);
+  animation: cb-drift 25s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes cb-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(-3%, 2%) scale(1.02);
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   THE AVATAR FRAME
+   ═══════════════════════════════════════════════════ */
+.cb-frame {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  height: calc(100svh - 48px);
+  border-radius: 28px;
+  /* Avatar-style border — solid, luminous sapphire stroke */
+  border: 1.5px solid rgba(43, 90, 140, 0.72);
+  box-shadow:
+    /* Top edge pearl shimmer */
+    inset 0 1px 0 rgba(107, 141, 184, 0.22),
+    /* Inner blue glow */
+    inset 0 0 80px rgba(43, 90, 140, 0.10),
+    /* Bottom edge depth */
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    /* Outer glow — Avatar luminous halo */
+    0 0 0 1px rgba(43, 90, 140, 0.18),
+    0 0 24px rgba(43, 90, 140, 0.28),
+    0 0 60px rgba(43, 90, 140, 0.14);
+  overflow: hidden;
+  will-change: transform, opacity;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Corner bracket divs removed — border handled by HeroAvatarFrame.module.css ::before */
+
+@media (min-width: 768px) {
+  .cb-frame {
+    height: calc(100svh - 64px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cb-frame {
+    height: calc(100svh - 96px);
+  }
+}
+
+/* Border sweep removed — replaced by HeroAvatarFrame.module.css ::before gradient stroke */
+
+/* Rail label/dot/status styles removed — module handles the full rail */
+
+/* ── Bottom center ornament (z-7 — above content, below frame ::before) ── */
+.cb-bottom-ornament {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 7;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cb-bottom-gem {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(107, 141, 184, 0.55);
+  box-shadow:
+    0 0 10px rgba(43, 90, 140, 0.40),
+    inset 0 0 4px rgba(43, 90, 140, 0.30);
+  position: relative;
+}
+
+/* Horizontal tick marks flanking the gem */
+.cb-bottom-gem::before,
+.cb-bottom-gem::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 16px;
+  height: 1px;
+  background: rgba(107, 141, 184, 0.35);
+  transform: translateY(-50%);
+}
+
+.cb-bottom-gem::before { right: calc(100% + 5px); }
+.cb-bottom-gem::after  { left:  calc(100% + 5px); }
+
+/* ═══════════════════════════════════════════════════
+   INNER SURFACE
+   ═══════════════════════════════════════════════════ */
+.cb-surface {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-elevated);
+  overflow: hidden;
+  /* Push flex-center down so content clears the floating topRail (46px) */
+  padding-top: 46px;
+}
+
+/* ── Generic layer ── */
+.cb-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ═══ LAYER 1 — WebGL BG ═══ */
+.cb-layer--bg {
+  inset: -12px;
   z-index: 0;
   will-change: transform;
 }
 
-.hero-bg-wrap {
+.hero-webgl-wrap {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -63,8 +174,8 @@
   overflow: hidden;
 }
 
-/* Force Unicorn Studio canvas to fill the container */
-.hero-bg-wrap canvas {
+/* Force UnicornStudio canvas to fill the container — cover behavior */
+.hero-webgl-wrap canvas {
   position: absolute !important;
   top: 0 !important;
   left: 0 !important;
@@ -72,302 +183,42 @@
   height: 100% !important;
 }
 
-/* Static gradient shown when canvas is hidden (reduced motion) */
-@media (prefers-reduced-motion: reduce) {
-  .hero-bg-wrap {
-    background: linear-gradient(135deg, #0D2340 0%, #081828 55%, #05080E 100%);
-  }
+/* ═══ LAYER 2 — Readability overlays ═══ */
 
-  .hero-bg-wrap canvas {
-    display: none;
-  }
-}
-
-/* ═══ LAYER 2 — Vignette overlay ═══ */
-.hero-vignette {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background:
-    /* Top-heavy darkening for headline legibility */
-    linear-gradient(
-      to bottom,
-      rgba(5, 8, 14, 0.72) 0%,
-      rgba(5, 8, 14, 0.42) 35%,
-      transparent 65%
-    ),
-    /* Edge vignette */
-    radial-gradient(
-      ellipse 100% 100% at 50% 50%,
-      transparent 28%,
-      rgba(5, 8, 14, 0.42) 65%,
-      rgba(5, 8, 14, 0.78) 100%
-    );
-}
-
-/* ═══ LAYER 3 — Avatar frame ═══ */
-.hero-frame {
-  position: relative;
-  width: 100%;
-  max-width: 1300px;
-  /* fill the padded space: full svh minus nav height minus top+bottom padding */
-  height: calc(100svh - var(--nav-h, 72px) - 40px);
-  border-radius: 28px;
-
-  /* Sky-blue luminous border */
-  border: 1.5px solid rgba(141, 235, 255, 0.48);
-  box-shadow:
-    /* Outer sky glow */
-    0 0 0 1px rgba(141, 235, 255, 0.10),
-    0 0 24px rgba(141, 235, 255, 0.10),
-    0 0 64px rgba(141, 235, 255, 0.05),
-    /* Inner top shimmer */
-    inset 0 1px 0 rgba(141, 235, 255, 0.22),
-    /* Inner ambient */
-    inset 0 0 80px rgba(141, 235, 255, 0.04),
-    /* Bottom depth */
-    inset 0 -1px 0 rgba(0, 0, 0, 0.45);
-
-  z-index: 2;
-  /* overflow: visible lets the notch overlap the top border */
-  overflow: visible;
-  will-change: transform, opacity;
-  display: flex;
-  align-items: stretch;
-  /* Subtle border pulse — frame breathes with the WebGL */
-  animation: hero-frame-pulse 7s ease-in-out infinite;
-}
-
-@keyframes hero-frame-pulse {
-  0%, 100% {
-    box-shadow:
-      0 0 0 1px rgba(141, 235, 255, 0.10),
-      0 0 24px rgba(141, 235, 255, 0.10),
-      0 0 64px rgba(141, 235, 255, 0.05),
-      inset 0 1px 0 rgba(141, 235, 255, 0.22),
-      inset 0 0 80px rgba(141, 235, 255, 0.04),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.45);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(141, 235, 255, 0.16),
-      0 0 36px rgba(141, 235, 255, 0.16),
-      0 0 90px rgba(141, 235, 255, 0.09),
-      inset 0 1px 0 rgba(141, 235, 255, 0.32),
-      inset 0 0 100px rgba(141, 235, 255, 0.07),
-      inset 0 -1px 0 rgba(0, 0, 0, 0.45);
-  }
-}
-
-@media (max-width: 767px) {
-  .hero-frame {
-    height: calc(100svh - 64px - 24px);
-    border-radius: 18px;
-  }
-}
-
-/* ── Notch — centered badge that straddles the top border ── */
-/*
-   top: 0; transform: translate(-50%, -50%)
-   → centers the notch exactly ON the frame's top border line.
-   The upper half sits above the border (outside frame),
-   the lower half sits inside — perfect Avatar-style overlap.
-*/
-.hero-notch {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 22px;
-  border-radius: 100px;
-  border: 1px solid rgba(141, 235, 255, 0.42);
-  background: rgba(5, 8, 14, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  /* Outer sky glow — the "hot" center badge */
-  box-shadow:
-    0 0 0 1px rgba(141, 235, 255, 0.08),
-    0 0 14px rgba(141, 235, 255, 0.18),
-    0 0 32px rgba(141, 235, 255, 0.08);
-
-  font-size: clamp(0.46rem, 0.85vw, 0.62rem);
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: rgba(141, 235, 255, 0.80);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-
-  /* Subtle glow breathe in sync with the frame */
-  animation: hero-notch-glow 7s ease-in-out infinite;
-}
-
-@keyframes hero-notch-glow {
-  0%, 100% {
-    box-shadow:
-      0 0 0 1px rgba(141, 235, 255, 0.08),
-      0 0 14px rgba(141, 235, 255, 0.18),
-      0 0 32px rgba(141, 235, 255, 0.08);
-    color: rgba(141, 235, 255, 0.80);
-  }
-  50% {
-    box-shadow:
-      0 0 0 1px rgba(141, 235, 255, 0.14),
-      0 0 20px rgba(141, 235, 255, 0.28),
-      0 0 48px rgba(141, 235, 255, 0.12);
-    color: rgba(141, 235, 255, 0.96);
-  }
-}
-
-.hero-notch-line {
-  width: 32px;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgba(141, 235, 255, 0.50),
-    transparent
-  );
-  flex-shrink: 0;
-}
-
-/* ── Corner brackets (L-shaped, inside frame border) ── */
-.hero-corner {
-  position: absolute;
-  width: 18px;
-  height: 18px;
-  pointer-events: none;
+/* Top-heavy gradient — darkens the upper 60% for H1 legibility */
+.cb-overlay-top {
   z-index: 3;
+  background: linear-gradient(to bottom,
+      rgba(6, 14, 26, 0.75) 0%,
+      rgba(6, 14, 26, 0.55) 30%,
+      rgba(6, 14, 26, 0.25) 55%,
+      transparent 75%);
 }
 
-.hero-corner--tl {
-  top: 8px;
-  left: 8px;
-  border-top: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-left: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-top-left-radius: 3px;
+/* Edge vignette — subtle darkening around all edges */
+.cb-overlay-vignette {
+  z-index: 4;
+  background: radial-gradient(ellipse 100% 100% at 50% 50%,
+      transparent 25%,
+      rgba(6, 14, 26, 0.45) 70%,
+      rgba(6, 14, 26, 0.75) 100%);
 }
 
-.hero-corner--tr {
-  top: 8px;
-  right: 8px;
-  border-top: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-right: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-top-right-radius: 3px;
-}
-
-.hero-corner--bl {
-  bottom: 8px;
-  left: 8px;
-  border-bottom: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-left: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-bottom-left-radius: 3px;
-}
-
-.hero-corner--br {
-  bottom: 8px;
-  right: 8px;
-  border-bottom: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-right: 1.5px solid rgba(141, 235, 255, 0.62);
-  border-bottom-right-radius: 3px;
-}
-
-/* ═══ Glass panel — tinted fill inside the frame ═══ */
-.hero-glass {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--cg-glass);
-  border-radius: inherit;
-  overflow: hidden;
-  /* Reserve vertical space so content clears the notch */
-  padding-top: 36px;
-}
-
-/* Grain texture overlay */
-.hero-glass::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 0.025;
+/* Grain */
+.cb-grain {
+  z-index: 5;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   mix-blend-mode: overlay;
-  pointer-events: none;
 }
 
-/* ── Vertical side labels ── */
-.hero-side-text {
-  position: absolute;
-  top: 50%;
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(141, 235, 255, 0.16);
-  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 2;
-  user-select: none;
-}
-
-.hero-side-text--left {
-  left: 18px;
-  transform: translateY(-50%) rotate(-90deg);
-}
-
-.hero-side-text--right {
-  right: 18px;
-  transform: translateY(-50%) rotate(90deg);
-}
-
-/* ── Bottom ornament ── */
-.hero-bottom-gem {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 1px solid rgba(141, 235, 255, 0.38);
-  box-shadow:
-    0 0 10px rgba(141, 235, 255, 0.22),
-    inset 0 0 4px rgba(141, 235, 255, 0.14);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.hero-bottom-gem::before,
-.hero-bottom-gem::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: 16px;
-  height: 1px;
-  background: rgba(141, 235, 255, 0.26);
-  transform: translateY(-50%);
-}
-
-.hero-bottom-gem::before { right: calc(100% + 5px); }
-.hero-bottom-gem::after  { left:  calc(100% + 5px); }
-
-/* ═══ Content layer ═══ */
-.hero-content-wrap {
+/* ═══════════════════════════════════════════════════
+   LAYER 3 — Content (z-6, below frame ::before stroke at z-10)
+   ═══════════════════════════════════════════════════ */
+.cb-content-wrap {
   position: relative;
-  z-index: 3;
+  z-index: 6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -376,7 +227,7 @@
   will-change: transform;
 }
 
-.hero-content {
+.cb-content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -387,14 +238,14 @@
 }
 
 @media (min-width: 768px) {
-  .hero-content {
+  .cb-content {
     padding: 3rem 2rem;
     gap: 1.25rem;
   }
 }
 
 /* ── Eyebrow ── */
-.hero-eyebrow {
+.cb-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -402,79 +253,93 @@
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--cg-sky);
+  color: var(--brand-accent);
   will-change: transform, opacity;
 }
 
-.hero-eyebrow-dot {
+.cb-eyebrow-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--cg-sky);
-  box-shadow: 0 0 10px rgba(141, 235, 255, 0.52);
-  animation: hero-pulse 3s ease-in-out infinite;
+  background: var(--brand-accent);
+  box-shadow: 0 0 10px rgba(43, 90, 140, 0.5);
+  animation: cb-pulse 3s ease-in-out infinite;
   flex-shrink: 0;
 }
 
-@keyframes hero-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.3; transform: scale(0.75); }
+@keyframes cb-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: scale(0.75);
+  }
 }
 
-/* ── DOMINATE H1 ── */
-.hero-headline {
-  font-size: clamp(2.75rem, 7vw, 6.5rem);
+/* ═══════════════════════════════════════════════════
+   DOMINATE H1
+   ═══════════════════════════════════════════════════ */
+.cb-headline {
+  font-size: clamp(2.8rem, 10vw + 0.5rem, 9rem);
   font-weight: 800;
   line-height: 0.95;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-primary, #E8EDF3);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   margin: 0;
+  max-width: none;
   /* Never hyphenate or break within a word */
   word-break: keep-all;
   hyphens: none;
   overflow-wrap: normal;
 }
 
-/* Word wrapper — keeps characters together, line-breaks only at word boundaries */
-.hero-word {
+/* Word wrapper — keeps characters together, break only at word boundaries */
+.cb-word {
   display: inline-block;
   white-space: nowrap;
 }
 
-.hero-char {
+.cb-char {
   display: inline-block;
   will-change: transform, opacity;
 }
 
 /* ── Mechanism line ── */
-.hero-mechanism {
-  font-size: clamp(0.875rem, 1.2vw, 1.125rem);
+.cb-mechanism {
+  font-size: clamp(0.88rem, 1.1vw + 0.2rem, 1rem);
   line-height: 1.7;
-  color: var(--text-muted, rgba(232, 237, 243, 0.55));
+  color: var(--text-muted);
   max-width: 480px;
   will-change: transform, opacity;
 }
 
 /* ── Proof line ── */
-.hero-proof {
+.cb-proof-line {
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--text-dim, rgba(232, 237, 243, 0.35));
+  color: var(--text-dim);
   will-change: transform, opacity;
 }
 
-/* ── CTA ── */
-.hero-cta-wrap {
+/* ═══════════════════════════════════════════════════
+   CTA
+   ═══════════════════════════════════════════════════ */
+.cb-cta-wrap {
   margin-top: 0.5rem;
   will-change: transform, opacity;
 }
 
-.hero-cta {
+.cb-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -482,73 +347,105 @@
   font-size: 0.9rem;
   font-weight: 600;
   padding: 0.9rem 2rem;
-  border-radius: var(--radius-md, 8px);
+  border-radius: var(--radius-md);
   text-decoration: none;
   white-space: nowrap;
-
-  /* Sky-blue ghost button */
-  background: rgba(141, 235, 255, 0.10);
-  color: var(--cg-sky);
-  border: 1px solid rgba(141, 235, 255, 0.32);
-  box-shadow:
-    0 0 16px rgba(141, 235, 255, 0.08),
-    inset 0 1px 0 rgba(141, 235, 255, 0.12);
-
   transition:
-    background 0.22s ease,
-    box-shadow 0.22s ease,
-    transform 0.22s ease;
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
-.hero-cta:hover {
-  background: rgba(141, 235, 255, 0.18);
+.cb-cta--primary {
+  background: var(--brand-accent);
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  box-shadow: 0 4px 20px rgba(43, 90, 140, 0.3);
+}
+
+.cb-cta--primary:hover {
+  background: var(--brand-deep);
   box-shadow:
-    0 0 32px rgba(141, 235, 255, 0.18),
-    0 4px 20px rgba(141, 235, 255, 0.10),
-    inset 0 1px 0 rgba(141, 235, 255, 0.18);
+    0 6px 28px rgba(43, 90, 140, 0.4),
+    0 0 40px rgba(43, 90, 140, 0.12);
   transform: translateY(-1px);
 }
 
-.hero-cta-arrow {
+.cb-cta-arrow {
   display: inline-block;
   transition: transform 0.3s ease;
 }
 
-.hero-cta:hover .hero-cta-arrow {
+.cb-cta--primary:hover .cb-cta-arrow {
   transform: translateX(4px);
 }
 
-/* ═══ REDUCED MOTION ═══ */
+/* ═══════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .hero-eyebrow-dot,
-  .hero-notch,
-  .hero-frame {
+
+  .cb-eyebrow-dot,
+  .cb-rail-dot {
     animation: none;
   }
 
-  .hero-char {
+  .cb-ambient {
+    animation: none;
+  }
+
+  .cb-border-sweep {
+    animation: none;
+    opacity: 0.5;
+  }
+
+  .cb-char {
     will-change: auto;
+  }
+
+  /* Static gradient fallback when WebGL is skipped */
+  .hero-webgl-wrap {
+    background: linear-gradient(
+      135deg,
+      #122845 0%,
+      #0E1F35 55%,
+      #060E1A 100%
+    );
+  }
+
+  .hero-webgl-wrap canvas {
+    display: none;
   }
 }
 
-/* ═══ MOBILE ═══ */
+/* ═══════════════════════════════════════════════════
+   MOBILE
+   ═══════════════════════════════════════════════════ */
 @media (max-width: 767px) {
-  .hero-headline {
+  .cb {
+    padding: 12px;
+  }
+
+  .cb-frame {
+    height: calc(100svh - 24px);
+    border-radius: 18px;
+  }
+
+  .cb-rail-label {
+    font-size: 0.42rem;
+  }
+
+  .cb-headline {
     letter-spacing: 0.04em;
   }
 
-  .hero-cta-wrap {
+  .cb-cta-wrap {
     width: 100%;
     max-width: 320px;
   }
 
-  .hero-cta {
+  .cb-cta {
     width: 100%;
     justify-content: center;
-  }
-
-  /* Hide side labels on small screens — too cramped */
-  .hero-side-text {
-    display: none;
   }
 }
