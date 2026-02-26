@@ -1,0 +1,130 @@
+/* ═══════════════════════════════════════════════════
+   HERO AVATAR FRAME — CSS Module
+   Premium border stroke + inner glow via pseudo-elements.
+   Z-index ordering (all local to the isolation stacking context):
+     ::after inner glow  → z-index 2   (below overlays)
+     overlays            → z-index 3–5
+     content             → z-index 6
+     ::before border     → z-index 10  (above content, only paints 1.5px edge)
+     topRail             → z-index 11
+
+   rgba values map to sv design tokens:
+     (43, 90, 140)   = --brand-accent   #2B5A8C
+     (107, 141, 184) = --sv-muted       #6B8DB8
+     (232, 237, 243) = --text-primary   #E8EDF3
+   ═══════════════════════════════════════════════════ */
+
+.frame {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  /* Explicit stacking context so pseudo-element z-indexes are local */
+  isolation: isolate;
+}
+
+/* ── PREMIUM BORDER STROKE ── */
+/*
+   Gradient painted into a 1.5px ring using the padding + mask technique.
+   The mask excludes the content-box, leaving only the padding area visible —
+   effectively a gradient "border" that renders above all other layers.
+*/
+.frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px;           /* thickness of the visible border ring */
+  z-index: 10;
+  pointer-events: none;
+
+  background: linear-gradient(
+    135deg,
+    rgba(107, 141, 184, 0.70) 0%,    /* --sv-muted at top-left  */
+    rgba(43,  90,  140, 0.22) 30%,   /* --brand-accent mid-fade */
+    rgba(232, 237, 243, 0.05) 60%,   /* near-transparent        */
+    rgba(107, 141, 184, 0.50) 100%   /* --sv-muted at bottom-right */
+  );
+
+  /* Exclude the content-box — only the 1.5px padding ring is visible */
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+}
+
+/* ── INNER GLOW + DEPTH ── */
+/*
+   Ambient blue glow at the top edge + vignette darkening at the bottom.
+   Sits at z-index 2 — BELOW content (6) and overlays (3+), ABOVE WebGL (0).
+   This means text/CTA always render on top of the glow.
+*/
+.frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 2;
+  pointer-events: none;
+
+  background:
+    /* Top-edge blue ambient glow — Avatar immersion */
+    radial-gradient(
+      ellipse 100% 55% at 50% 0%,
+      rgba(43, 90, 140, 0.22),
+      transparent 65%
+    ),
+    /* Bottom vignette — depth below content */
+    radial-gradient(
+      ellipse 100% 45% at 50% 100%,
+      rgba(0, 0, 0, 0.38),
+      transparent 65%
+    );
+}
+
+/* ── TOP UI RAIL ── */
+/*
+   Absolutely positioned HUD overlay — floats above the WebGL surface.
+   Avatar-style: left labels | ── gradient line ── | right label + status.
+   z-index 11 — topmost within the frame stacking context.
+*/
+.topRail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  z-index: 11;
+  pointer-events: none;
+  /* Fade-out gradient so the rail blends into the WebGL below */
+  background: linear-gradient(
+    to bottom,
+    rgba(6, 14, 26, 0.72) 0%,
+    rgba(6, 14, 26, 0.20) 75%,
+    transparent 100%
+  );
+  border-bottom: 1px solid rgba(43, 90, 140, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Expanding gradient line — fills middle of the rail */
+.railLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(43, 90, 140, 0.55) 50%,
+    transparent 100%
+  );
+  min-width: 20px;
+}

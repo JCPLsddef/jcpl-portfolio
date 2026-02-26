@@ -4,6 +4,7 @@ import { useRef, useEffect, useCallback, Fragment } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
 import { prefersReducedMotion } from "@/lib/motion";
+import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
 
 /* ═══════════════════════════════════════════════════
@@ -182,42 +183,22 @@ export default function Hero() {
 			{/* ═══════════════════════════════
           THE AVATAR FRAME
           ═══════════════════════════════ */}
-			<div ref={frameRef} className="cb-frame" style={{ opacity: 0 }}>
-				{/* Border highlight sweep */}
-				<div
-					ref={borderRef}
-					className="cb-border-sweep"
-					aria-hidden="true"
-					style={{ opacity: 0 }}
-				/>
+			{/* styles.frame adds ::before border stroke + ::after inner glow */}
+			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
 
-				{/* ── Avatar corner L-brackets (4 corners) ── */}
-				<div className="cb-corner cb-corner--tl" aria-hidden="true" />
-				<div className="cb-corner cb-corner--tr" aria-hidden="true" />
-				<div className="cb-corner cb-corner--bl" aria-hidden="true" />
-				<div className="cb-corner cb-corner--br" aria-hidden="true" />
-
-				{/* UI Rail — Avatar style: left | ── TITLE ── | right */}
-				<div className="cb-rail" aria-hidden="true">
-					<div className="cb-rail-left">
-						<span className="cb-rail-label">SYS_CORE</span>
-						<span className="cb-rail-divider" />
-						<span className="cb-rail-label">AUTH GATE ACTIVE</span>
-					</div>
-					<div className="cb-rail-center">
-						<span className="cb-rail-line" aria-hidden="true" />
-						<span className="cb-rail-title">JCPL.BUILD</span>
-						<span className="cb-rail-line" aria-hidden="true" />
-					</div>
-					<div className="cb-rail-right">
-						<span className="cb-rail-status">
-							<span className="cb-rail-dot" />
-							LIVE
-						</span>
-					</div>
+				{/* ── TOP UI RAIL (HUD overlay, z-11) ── */}
+				<div className={styles.topRail} aria-hidden="true">
+					<span className="cb-rail-label">CLIENT GROWTH</span>
+					<span className="cb-rail-divider" />
+					<span className="cb-rail-status">
+						<span className="cb-rail-dot" />
+						LIVE
+					</span>
+					<div className={styles.railLine} />
+					<span className="cb-rail-label">AUTH GATE ACTIVE</span>
 				</div>
 
-				{/* Inner surface */}
+				{/* Inner surface — full frame height, padding-top reserves rail space */}
 				<div className="cb-surface">
 					{/* ═══ LAYER 1 — WebGL background ═══ */}
 					<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">

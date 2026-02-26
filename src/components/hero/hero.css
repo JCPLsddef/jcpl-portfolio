@@ -80,44 +80,7 @@
   flex-direction: column;
 }
 
-/* ── Avatar corner L-bracket decorations ── */
-.cb-corner {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  z-index: 28;
-  pointer-events: none;
-}
-
-.cb-corner::before,
-.cb-corner::after {
-  content: "";
-  position: absolute;
-  background: rgba(107, 141, 184, 0.70);
-  border-radius: 1px;
-}
-
-/* Horizontal leg */
-.cb-corner::before {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 1.5px;
-}
-
-/* Vertical leg */
-.cb-corner::after {
-  top: 0;
-  left: 0;
-  width: 1.5px;
-  height: 100%;
-}
-
-/* Position each corner — offset 14px to stay inside the border-radius clip */
-.cb-corner--tl { top: 14px; left: 14px; }
-.cb-corner--tr { top: 14px; right: 14px; transform: scaleX(-1); }
-.cb-corner--bl { bottom: 14px; left: 14px; transform: scaleY(-1); }
-.cb-corner--br { bottom: 14px; right: 14px; transform: scale(-1); }
+/* Corner bracket divs removed — border handled by HeroAvatarFrame.module.css ::before */
 
 @media (min-width: 768px) {
   .cb-frame {
@@ -131,113 +94,12 @@
   }
 }
 
-/* ── Border highlight sweep ── */
-@property --cb-sweep-angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.cb-border-sweep {
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: conic-gradient(from var(--cb-sweep-angle),
-      transparent 0%,
-      rgba(43, 90, 140, 0.00) 15%,
-      rgba(43, 90, 140, 0.30) 25%,
-      rgba(107, 141, 184, 0.18) 30%,
-      rgba(43, 90, 140, 0.00) 40%,
-      transparent 50%,
-      transparent 100%);
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  z-index: 30;
-  animation: cb-sweep-rotate 8s linear infinite;
-}
-
-@keyframes cb-sweep-rotate {
-  to {
-    --cb-sweep-angle: 360deg;
-  }
-}
+/* Border sweep removed — replaced by HeroAvatarFrame.module.css ::before gradient stroke */
 
 /* ═══════════════════════════════════════════════════
-   UI RAIL — Avatar 3-column: left | ── TITLE ── | right
+   UI RAIL — shared token styles used by HeroAvatarFrame topRail
+   (layout/positioning handled by CSS module)
    ═══════════════════════════════════════════════════ */
-.cb-rail {
-  position: relative;
-  z-index: 25;
-  display: flex;
-  align-items: center;
-  height: 38px;
-  padding: 0 16px;
-  border-bottom: 1px solid rgba(43, 90, 140, 0.14);
-  background: rgba(6, 14, 26, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  flex-shrink: 0;
-  gap: 0;
-}
-
-/* Left cluster */
-.cb-rail-left {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  flex-shrink: 0;
-}
-
-/* Center — title flanked by expanding lines */
-.cb-rail-center {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 12px;
-  min-width: 0;
-}
-
-/* Expanding line */
-.cb-rail-line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(
-    to right,
-    transparent 0%,
-    rgba(43, 90, 140, 0.50) 50%,
-    transparent 100%
-  );
-  min-width: 20px;
-}
-
-/* Center title */
-.cb-rail-title {
-  font-size: 0.58rem;
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(232, 237, 243, 0.55);
-  font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-  white-space: nowrap;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-/* Right cluster */
-.cb-rail-right {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
 
 .cb-rail-label {
   font-size: 0.5rem;
@@ -277,13 +139,13 @@
   animation: cb-pulse 3s ease-in-out infinite;
 }
 
-/* ── Bottom center ornament ── */
+/* ── Bottom center ornament (z-7 — above content, below frame ::before) ── */
 .cb-bottom-ornament {
   position: absolute;
   bottom: 22px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 25;
+  z-index: 7;
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -327,6 +189,8 @@
   justify-content: center;
   background: var(--bg-elevated);
   overflow: hidden;
+  /* Push flex-center down so content clears the floating topRail (40px) */
+  padding-top: 40px;
 }
 
 /* ── Generic layer ── */
@@ -391,11 +255,11 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   LAYER 3 — Content
+   LAYER 3 — Content (z-6, below frame ::before stroke at z-10)
    ═══════════════════════════════════════════════════ */
 .cb-content-wrap {
   position: relative;
-  z-index: 10;
+  z-index: 6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -608,34 +472,9 @@
     border-radius: 18px;
   }
 
-  .cb-rail {
-    padding: 0 10px;
-    height: 34px;
-  }
-
   .cb-rail-label {
     font-size: 0.42rem;
   }
-
-  /* Hide secondary left label on smallest screens */
-  .cb-rail-left .cb-rail-divider,
-  .cb-rail-left .cb-rail-label:last-child {
-    display: none;
-  }
-
-  .cb-corner {
-    width: 14px;
-    height: 14px;
-  }
-
-  .cb-corner--tl,
-  .cb-corner--tr { top: 10px; }
-  .cb-corner--bl,
-  .cb-corner--br { bottom: 10px; }
-  .cb-corner--tl,
-  .cb-corner--bl { left: 10px; }
-  .cb-corner--tr,
-  .cb-corner--br { right: 10px; }
 
   .cb-headline {
     letter-spacing: 0.04em;
