@@ -52,15 +52,110 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   THE AVATAR FRAME
+   SKY-BLUE OUTER DEVICE CASING
+   The visible "device body" — thick sky-blue shell that
+   holds the inner dark screen. Notch + lines + bottom plate.
+   ═══════════════════════════════════════════════════ */
+.hero-casing {
+  position: relative;
+  width: 100%;
+  max-width: 1300px;
+  /* top padding = notch height (46px) so screen starts below notch */
+  padding: 46px 22px 22px;
+  background: #C8EAF5;
+  border-radius: 34px;
+  overflow: hidden;
+  box-shadow:
+    /* Outer lift shadow — device sitting on surface */
+    0 28px 70px rgba(0, 0, 0, 0.28),
+    0 8px 24px rgba(0, 0, 0, 0.14),
+    /* Top highlight — light catching the casing bevel */
+    inset 0 1px 0 rgba(255, 255, 255, 0.70),
+    /* Bottom inner shadow — depth below the screen */
+    inset 0 -2px 6px rgba(0, 80, 120, 0.10);
+  z-index: 1;
+}
+
+/* Horizontal teal lines that run through the notch zone,
+   left and right of the notch plate.
+   The notch (z-index 5) sits above this line and covers the center.  */
+.hero-casing::before {
+  content: "";
+  position: absolute;
+  /* Vertically centered in the 46px notch zone = 23px from top */
+  top: 23px;
+  left: 32px;
+  right: 32px;
+  height: 1.5px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(0, 105, 155, 0.45) 6%,
+    rgba(0, 105, 155, 0.45) 94%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Top notch plate — centered, overlapping the screen's top edge ── */
+.hero-notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 46px;
+  background: #C8EAF5;
+  border-radius: 0 0 18px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+  /* Subtle bottom shadow so notch reads as a raised plate */
+  box-shadow: 0 2px 8px rgba(0, 80, 130, 0.12);
+}
+
+/* Notch wordmark — equivalent of "AVATAR" in the reference */
+.hero-notch-logo {
+  font-size: clamp(0.58rem, 1vw, 0.72rem);
+  font-weight: 800;
+  letter-spacing: 0.30em;
+  text-transform: uppercase;
+  color: rgba(0, 75, 125, 0.78);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* ── Bottom mini plate — small sky-blue tab at casing bottom center ── */
+.hero-bottom-plate {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 22px;
+  background: #C8EAF5;
+  border-radius: 12px 12px 0 0;
+  pointer-events: none;
+  z-index: 5;
+  /* Subtle top shadow so it reads as a raised tab */
+  box-shadow: 0 -2px 6px rgba(0, 80, 130, 0.10);
+}
+
+/* ═══════════════════════════════════════════════════
+   THE AVATAR FRAME — inner dark screen
    ═══════════════════════════════════════════════════ */
 .cb-frame {
   position: relative;
   width: 100%;
-  max-width: 1300px;
-  height: calc(100svh - 48px);
-  border-radius: 28px;
-  /* Avatar-style border — solid, luminous sapphire stroke */
+  /* Height fills casing content area (100svh - section padding - casing padding) */
+  /* Default section padding: 24px × 2 = 48px. Casing: top 46px + bottom 22px = 68px */
+  height: calc(100svh - 48px - 68px);
+  border-radius: 22px;
+  /* Subtle inner screen border — distinct from casing edge */
   border: 1.5px solid rgba(43, 90, 140, 0.72);
   box-shadow:
     /* Top edge pearl shimmer */
@@ -69,28 +164,27 @@
     inset 0 0 80px rgba(43, 90, 140, 0.10),
     /* Bottom edge depth */
     inset 0 -1px 0 rgba(0, 0, 0, 0.35),
-    /* Outer glow — Avatar luminous halo */
+    /* Screen inset shadow — screen sits inside casing */
     0 0 0 1px rgba(43, 90, 140, 0.18),
-    0 0 24px rgba(43, 90, 140, 0.28),
-    0 0 60px rgba(43, 90, 140, 0.14);
+    0 4px 18px rgba(0, 0, 0, 0.30);
   overflow: hidden;
   will-change: transform, opacity;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   flex-direction: column;
 }
 
-/* Corner bracket divs removed — border handled by HeroAvatarFrame.module.css ::before */
-
 @media (min-width: 768px) {
   .cb-frame {
-    height: calc(100svh - 64px);
+    /* Section 32px × 2 = 64px + casing 68px = 132px */
+    height: calc(100svh - 64px - 68px);
   }
 }
 
 @media (min-width: 1024px) {
   .cb-frame {
-    height: calc(100svh - 96px);
+    /* Section 48px × 2 = 96px + casing 68px = 164px */
+    height: calc(100svh - 96px - 68px);
   }
 }
 
@@ -426,9 +520,34 @@
     padding: 12px;
   }
 
+  /* Casing scales down on mobile */
+  .hero-casing {
+    padding: 40px 14px 14px;
+    border-radius: 24px;
+  }
+
+  /* Narrower notch on small screens */
+  .hero-notch {
+    width: 200px;
+    height: 40px;
+  }
+
+  /* Adjust line to match smaller notch height center */
+  .hero-casing::before {
+    top: 20px;
+    left: 20px;
+    right: 20px;
+  }
+
+  .hero-bottom-plate {
+    width: 72px;
+    height: 14px;
+  }
+
   .cb-frame {
-    height: calc(100svh - 24px);
-    border-radius: 18px;
+    /* Section 12px × 2 = 24px + casing top 40px + bottom 14px = 78px */
+    height: calc(100svh - 24px - 54px);
+    border-radius: 14px;
   }
 
   .cb-rail-label {

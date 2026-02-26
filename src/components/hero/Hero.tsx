@@ -180,114 +180,126 @@ export default function Hero() {
 			{/* Ambient drift */}
 			<div className="cb-ambient" aria-hidden="true" />
 
-			{/* ═══════════════════════════════
-          THE AVATAR FRAME
-          ═══════════════════════════════ */}
-			{/* styles.frame adds ::before border stroke + ::after inner glow */}
-			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
+			{/* ═══════════════════════════════════════════════════
+			    SKY-BLUE OUTER DEVICE CASING — Avatar-style frame
+			    ═══════════════════════════════════════════════════ */}
+			<div className="hero-casing">
 
-				{/* ═══════════════════════════════════════════════════
-				    TOP UI RAIL — Avatar-faithful
-				    [HOME][APPLY]  ──── ◆ CLIENT GROWTH ◆ ────  [RESULTS][CONTACT]
-				    ═══════════════════════════════════════════════════ */}
-				<div className={styles.topRail} aria-hidden="true">
-
-					{/* Left pill cluster: HOME · APPLY */}
-					<div className={styles.railSide}>
-						<span className={styles.railPill}>HOME</span>
-						<span className={styles.railPill}>APPLY</span>
-					</div>
-
-					{/* Center: line ◆ CLIENT GROWTH ◆ line */}
-					<div className={styles.railCenter}>
-						<div className={styles.railLine} />
-						<div className={styles.railConnector} aria-hidden="true" />
-						<div className={styles.centerLogo}>CLIENT&nbsp;GROWTH</div>
-						<div className={styles.railConnector} aria-hidden="true" />
-						<div className={styles.railLine} />
-					</div>
-
-					{/* Right pill cluster: RESULTS · CONTACT */}
-					<div className={styles.railSide}>
-						<span className={styles.railPill}>RESULTS</span>
-						<span className={styles.railPill}>CONTACT</span>
-					</div>
+				{/* ── Centered top notch plate — sits above the inner screen ── */}
+				<div className="hero-notch" aria-hidden="true">
+					<span className="hero-notch-logo">CLIENT&nbsp;GROWTH</span>
 				</div>
 
-				{/* Inner surface — full frame height, padding-top reserves rail space */}
-				<div className="cb-surface">
-					{/* ═══ LAYER 1 — WebGL background ═══ */}
-					<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
-						<HeroWebGLBackground />
+				{/* ── Inner dark screen — WebGL + content ── */}
+				<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
+
+					{/* ═══════════════════════════════════════════════════
+					    TOP UI RAIL — Avatar-faithful HUD inside screen
+					    [HOME][APPLY]  ──── ◆ CLIENT GROWTH ◆ ────  [RESULTS][CONTACT]
+					    ═══════════════════════════════════════════════════ */}
+					<div className={styles.topRail} aria-hidden="true">
+
+						{/* Left pill cluster: HOME · APPLY */}
+						<div className={styles.railSide}>
+							<span className={styles.railPill}>HOME</span>
+							<span className={styles.railPill}>APPLY</span>
+						</div>
+
+						{/* Center: line ◆ CLIENT GROWTH ◆ line */}
+						<div className={styles.railCenter}>
+							<div className={styles.railLine} />
+							<div className={styles.railConnector} aria-hidden="true" />
+							<div className={styles.centerLogo}>CLIENT&nbsp;GROWTH</div>
+							<div className={styles.railConnector} aria-hidden="true" />
+							<div className={styles.railLine} />
+						</div>
+
+						{/* Right pill cluster: RESULTS · CONTACT */}
+						<div className={styles.railSide}>
+							<span className={styles.railPill}>RESULTS</span>
+							<span className={styles.railPill}>CONTACT</span>
+						</div>
 					</div>
 
-					{/* ═══ LAYER 2 — Readability overlay ═══ */}
-					<div className="cb-layer cb-overlay-top" aria-hidden="true" />
-					<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
-					<div className="cb-layer cb-grain" aria-hidden="true" />
+					{/* Inner surface — full frame height, padding-top reserves rail space */}
+					<div className="cb-surface">
+						{/* ═══ LAYER 1 — WebGL background ═══ */}
+						<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
+							<HeroWebGLBackground />
+						</div>
 
-					{/* Side vertical labels (Avatar: "2024" left, "NETFLIX" right) */}
-					<div className={`${styles.sideText} ${styles.sideTextLeft}`} aria-hidden="true">
-						JCPL · BUILD
-					</div>
-					<div className={`${styles.sideText} ${styles.sideTextRight}`} aria-hidden="true">
-						GROWTH SYS
-					</div>
+						{/* ═══ LAYER 2 — Readability overlay ═══ */}
+						<div className="cb-layer cb-overlay-top" aria-hidden="true" />
+						<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
+						<div className="cb-layer cb-grain" aria-hidden="true" />
 
-					{/* Bottom center ornament — Avatar's circular connector symbol */}
-					<div className="cb-bottom-ornament" aria-hidden="true">
-						<div className="cb-bottom-gem" />
-					</div>
+						{/* Side vertical labels (Avatar: "2024" left, "NETFLIX" right) */}
+						<div className={`${styles.sideText} ${styles.sideTextLeft}`} aria-hidden="true">
+							JCPL · BUILD
+						</div>
+						<div className={`${styles.sideText} ${styles.sideTextRight}`} aria-hidden="true">
+							GROWTH SYS
+						</div>
 
-					{/* ═══ LAYER 3 — Content ═══ */}
-					<div ref={contentLayerRef} className="cb-content-wrap">
-						<div className="cb-content">
-							{/* Eyebrow */}
-							<div ref={eyebrowRef} className="cb-eyebrow" style={{ opacity: 0 }}>
-								<span className="cb-eyebrow-dot" aria-hidden="true" />
-								<span>{EYEBROW}</span>
-							</div>
+						{/* Bottom center ornament — Avatar's circular connector symbol */}
+						<div className="cb-bottom-ornament" aria-hidden="true">
+							<div className="cb-bottom-gem" />
+						</div>
 
-							{/* DOMINATE H1 — words wrapped in cb-word (white-space:nowrap)
-							    so browser can only break BETWEEN words, never mid-word */}
-							<h1 className="cb-headline">
-								<span ref={headlineRef} aria-label={HEADLINE}>
-									{HEADLINE.split(" ").map((word, wi, arr) => (
-										<Fragment key={wi}>
-											<span className="cb-word" aria-hidden="true">
-												{word.split("").map((char, ci) => (
-													<span key={ci} data-char="" className="cb-char">
-														{char}
-													</span>
-												))}
-											</span>
-											{/* Plain space = natural word-boundary line-break opportunity */}
-											{wi < arr.length - 1 && " "}
-										</Fragment>
-									))}
-								</span>
-							</h1>
+						{/* ═══ LAYER 3 — Content ═══ */}
+						<div ref={contentLayerRef} className="cb-content-wrap">
+							<div className="cb-content">
+								{/* Eyebrow */}
+								<div ref={eyebrowRef} className="cb-eyebrow" style={{ opacity: 0 }}>
+									<span className="cb-eyebrow-dot" aria-hidden="true" />
+									<span>{EYEBROW}</span>
+								</div>
 
-							{/* Mechanism line */}
-							<p ref={mechRef} className="cb-mechanism" style={{ opacity: 0 }}>
-								{MECHANISM}
-							</p>
+								{/* DOMINATE H1 — words wrapped in cb-word (white-space:nowrap)
+								    so browser can only break BETWEEN words, never mid-word */}
+								<h1 className="cb-headline">
+									<span ref={headlineRef} aria-label={HEADLINE}>
+										{HEADLINE.split(" ").map((word, wi, arr) => (
+											<Fragment key={wi}>
+												<span className="cb-word" aria-hidden="true">
+													{word.split("").map((char, ci) => (
+														<span key={ci} data-char="" className="cb-char">
+															{char}
+														</span>
+													))}
+												</span>
+												{/* Plain space = natural word-boundary line-break opportunity */}
+												{wi < arr.length - 1 && " "}
+											</Fragment>
+										))}
+									</span>
+								</h1>
 
-							{/* Proof line */}
-							<p ref={proofRef} className="cb-proof-line" style={{ opacity: 0 }}>
-								{PROOF}
-							</p>
+								{/* Mechanism line */}
+								<p ref={mechRef} className="cb-mechanism" style={{ opacity: 0 }}>
+									{MECHANISM}
+								</p>
 
-							{/* CTA */}
-							<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
-								<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
-									{CTA_PRIMARY.label}
-									<span className="cb-cta-arrow" aria-hidden="true">→</span>
-								</a>
+								{/* Proof line */}
+								<p ref={proofRef} className="cb-proof-line" style={{ opacity: 0 }}>
+									{PROOF}
+								</p>
+
+								{/* CTA */}
+								<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
+									<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
+										{CTA_PRIMARY.label}
+										<span className="cb-cta-arrow" aria-hidden="true">→</span>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+
+				{/* ── Bottom mini plate — small sky-blue tab at frame bottom ── */}
+				<div className="hero-bottom-plate" aria-hidden="true" />
+
 			</div>
 		</section>
 	);
