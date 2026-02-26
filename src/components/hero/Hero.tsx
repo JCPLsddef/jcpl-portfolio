@@ -186,26 +186,32 @@ export default function Hero() {
 			{/* styles.frame adds ::before border stroke + ::after inner glow */}
 			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
 
-				{/* ── TOP UI RAIL — Avatar style: [HOME] ──── CLIENT·GROWTH ──── [APPLY] ── */}
+				{/* ═══════════════════════════════════════════════════
+				    TOP UI RAIL — Avatar-faithful
+				    [HOME][APPLY]  ──── ◆ CLIENT GROWTH ◆ ────  [RESULTS][CONTACT]
+				    ═══════════════════════════════════════════════════ */}
 				<div className={styles.topRail} aria-hidden="true">
-					{/* Far-left micro label */}
-					<span className={styles.railLabel}>HOME</span>
 
-					{/* Left line — expands from label to logo */}
-					<div className={styles.railLine} />
-
-					{/* Center wordmark (Avatar equivalent of "AVATAR" title) */}
-					<div className={styles.centerLogo}>
-						<span>CLIENT</span>
-						<span className={styles.centerLogoDot} aria-hidden="true" />
-						<span>GROWTH</span>
+					{/* Left pill cluster: HOME · APPLY */}
+					<div className={styles.railSide}>
+						<span className={styles.railPill}>HOME</span>
+						<span className={styles.railPill}>APPLY</span>
 					</div>
 
-					{/* Right line — expands from logo to label */}
-					<div className={styles.railLine} />
+					{/* Center: line ◆ CLIENT GROWTH ◆ line */}
+					<div className={styles.railCenter}>
+						<div className={styles.railLine} />
+						<div className={styles.railConnector} aria-hidden="true" />
+						<div className={styles.centerLogo}>CLIENT&nbsp;GROWTH</div>
+						<div className={styles.railConnector} aria-hidden="true" />
+						<div className={styles.railLine} />
+					</div>
 
-					{/* Far-right micro label */}
-					<span className={styles.railLabel}>APPLY</span>
+					{/* Right pill cluster: RESULTS · CONTACT */}
+					<div className={styles.railSide}>
+						<span className={styles.railPill}>RESULTS</span>
+						<span className={styles.railPill}>CONTACT</span>
+					</div>
 				</div>
 
 				{/* Inner surface — full frame height, padding-top reserves rail space */}
@@ -220,7 +226,15 @@ export default function Hero() {
 					<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
 					<div className="cb-layer cb-grain" aria-hidden="true" />
 
-					{/* Bottom center ornament (Avatar style) */}
+					{/* Side vertical labels (Avatar: "2024" left, "NETFLIX" right) */}
+					<div className={`${styles.sideText} ${styles.sideTextLeft}`} aria-hidden="true">
+						JCPL · BUILD
+					</div>
+					<div className={`${styles.sideText} ${styles.sideTextRight}`} aria-hidden="true">
+						GROWTH SYS
+					</div>
+
+					{/* Bottom center ornament — Avatar's circular connector symbol */}
 					<div className="cb-bottom-ornament" aria-hidden="true">
 						<div className="cb-bottom-gem" />
 					</div>

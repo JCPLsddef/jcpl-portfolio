@@ -148,8 +148,8 @@
   justify-content: center;
   background: var(--bg-elevated);
   overflow: hidden;
-  /* Push flex-center down so content clears the floating topRail (44px) */
-  padding-top: 44px;
+  /* Push flex-center down so content clears the floating topRail (46px) */
+  padding-top: 46px;
 }
 
 /* ── Generic layer ── */
