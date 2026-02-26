@@ -5,16 +5,17 @@ import { useEffect, useRef } from "react";
 const SDK_URL =
 	"https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js";
 const SCRIPT_ID = "unicornstudio-embed";
-const PROJECT_ID = "XM6RVpVCzZNadvE1Pxqw";
+const PROJECT_ID = "UykNLkYklTyqyIZODvIi";
 
 /**
  * Renders a Unicorn Studio WebGL scene as a full-bleed cover background.
  *
  * - Client-only: no `window` usage outside useEffect
- * - Script dedup: guarded by DOM id check
- * - Cover behavior: scale(1.06) + inset:-12px on parent ensures full coverage
+ * - Init logic mirrors the official embed snippet exactly
+ * - Script dedup: checks window.UnicornStudio sentinel + DOM script id
+ * - Cover behavior: CSS forces canvas to fill container; scale(1.06) on project div
  * - Non-blocking: script loads after hydration
- * - Reduced motion: skips WebGL init; static gradient shown via CSS
+ * - Reduced motion: skips WebGL init; CSS shows static gradient fallback
  */
 export default function HeroWebGLBackground() {
 	const wrapRef = useRef<HTMLDivElement>(null);
@@ -22,34 +23,47 @@ export default function HeroWebGLBackground() {
 	useEffect(() => {
 		if (typeof window === "undefined") return;
 
-		// Skip WebGL for users who prefer reduced motion
+		// Skip WebGL for users who prefer reduced motion (fallback gradient shown via CSS)
 		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-		const initUnicorn = () => {
-			const us = (window as any).UnicornStudio;
-			if (us && typeof us.init === "function") {
-				us.init();
-			}
-		};
+		const w = window as any;
 
-		// If SDK already loaded, re-init to pick up new project containers
-		if (document.getElementById(SCRIPT_ID)) {
-			initUnicorn();
+		// Mirror the official Unicorn Studio embed snippet
+		const u = w.UnicornStudio;
+		if (u && u.init) {
+			// SDK already loaded — call init immediately or after DOM ready
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", () => u.init(), { once: true });
+			} else {
+				u.init();
+			}
 			return;
 		}
 
-		// Load SDK once, non-blocking
-		const script = document.createElement("script");
-		script.id = SCRIPT_ID;
-		script.src = SDK_URL;
-		script.async = true;
-		script.onload = () => initUnicorn();
-		document.head.appendChild(script);
+		// SDK not yet loaded — set sentinel and inject script once
+		if (!document.getElementById(SCRIPT_ID)) {
+			w.UnicornStudio = { isInitialized: false };
+			const script = document.createElement("script");
+			script.id = SCRIPT_ID;
+			script.src = SDK_URL;
+			script.onload = () => {
+				if (document.readyState === "loading") {
+					document.addEventListener(
+						"DOMContentLoaded",
+						() => w.UnicornStudio.init(),
+						{ once: true }
+					);
+				} else {
+					w.UnicornStudio.init();
+				}
+			};
+			(document.head || document.body).appendChild(script);
+		}
 	}, []);
 
 	return (
 		<div ref={wrapRef} className="hero-webgl-wrap" aria-hidden="true">
-			{/* Scale slightly larger than container for full cover — no letterboxing */}
+			{/* Scale(1.06) ensures no letterboxing — canvas cover via CSS */}
 			<div
 				data-us-project={PROJECT_ID}
 				style={{
