@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect, useCallback, Fragment } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
-import TextSplitter from "./TextSplitter";
 import { prefersReducedMotion } from "@/lib/motion";
 import "./hero.css";
 
@@ -224,14 +223,24 @@ export default function Hero() {
 								<span>{EYEBROW}</span>
 							</div>
 
-							{/* DOMINATE H1 */}
+							{/* DOMINATE H1 — words wrapped in cb-word (white-space:nowrap)
+							    so browser can only break BETWEEN words, never mid-word */}
 							<h1 className="cb-headline">
-								<TextSplitter
-									ref={headlineRef}
-									text={HEADLINE}
-									by="chars"
-									charClassName="cb-char"
-								/>
+								<span ref={headlineRef} aria-label={HEADLINE}>
+									{HEADLINE.split(" ").map((word, wi, arr) => (
+										<Fragment key={wi}>
+											<span className="cb-word" aria-hidden="true">
+												{word.split("").map((char, ci) => (
+													<span key={ci} data-char="" className="cb-char">
+														{char}
+													</span>
+												))}
+											</span>
+											{/* Plain space = natural word-boundary line-break opportunity */}
+											{wi < arr.length - 1 && " "}
+										</Fragment>
+									))}
+								</span>
 							</h1>
 
 							{/* Mechanism line */}
