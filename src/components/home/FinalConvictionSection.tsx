@@ -23,6 +23,55 @@ export default function FinalConvictionSection() {
     }
   }, []);
 
+  // Cursor → click forwarding — makes the horse react to hover/proximity.
+  // UnicornStudio's project has an "on click" trigger; by dispatching a synthetic
+  // click at the cursor position on every pointer move (RAF-throttled), the horse
+  // tracks the cursor continuously without requiring an actual user click.
+  useEffect(() => {
+    const wrap  = wrapRef.current;
+    const embed = embedRef.current;
+    if (!wrap || !embed) return;
+
+    let rafId: ReturnType<typeof requestAnimationFrame> | null = null;
+    let pendingEvent: PointerEvent | null = null;
+
+    function flush() {
+      rafId = null;
+      if (!pendingEvent) return;
+      const e = pendingEvent;
+      pendingEvent = null;
+
+      // Find the canvas UnicornStudio created inside the embed div
+      const canvas = embed!.querySelector("canvas");
+      if (!canvas) return;
+
+      // Dispatch a synthetic click at the real cursor position — UnicornStudio's
+      // click listener moves the horse toward that point.
+      canvas.dispatchEvent(
+        new MouseEvent("click", {
+          bubbles:    true,
+          cancelable: true,
+          view:       window,
+          clientX:    e.clientX,
+          clientY:    e.clientY,
+        })
+      );
+    }
+
+    function onPointerMove(e: PointerEvent) {
+      pendingEvent = e;
+      if (rafId === null) rafId = requestAnimationFrame(flush);
+    }
+
+    // passive:true — never blocks page scroll on touch devices
+    wrap.addEventListener("pointermove", onPointerMove, { passive: true });
+
+    return () => {
+      wrap.removeEventListener("pointermove", onPointerMove);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   // Responsive scaling: stretch the fixed 1440-wide embed to fill its wrapper.
   // aspectRatio CSS handles the wrapper height — no JS height math needed.
   useEffect(() => {
