@@ -167,7 +167,7 @@ class Physics {
     // Balls 1-N evenly spaced around a ring — intentional start composition.
     // RING_R=2.5 fits comfortably within any viewport; center attraction +
     // physics will spread them naturally from this base arrangement.
-    const RING_R = 2.5;
+    const RING_R = 5.0; // larger ring for bigger balls so they don't all start overlapping
     for (let i = 1; i < c.count; i++) {
       const b      = 3 * i;
       const angle  = (i / (c.count - 1)) * Math.PI * 2; // evenly distributed
@@ -304,16 +304,16 @@ export default function LogoBallpit({
     // ── Physics ──
     const physCfg: PhysicsConfig = {
       count:          ballCount,
-      minSize:        0.92,   // bigger balls (was 0.72)
-      maxSize:        1.35,   // bigger balls (was 1.00)
-      size0:          1.10,   // bigger balls (was 0.88)
+      minSize:        2.8,     // 3× bigger (was 0.92) — ~95px diameter on screen
+      maxSize:        4.0,     // 3× bigger (was 1.35) — ~135px diameter on screen
+      size0:          3.4,     // 3× bigger (was 1.10)
       gravity:        0,       // zero gravity → floating cluster (no bottom-piling)
-      friction:       0.988,   // strong damping → balls slow fast, premium feel (was 0.995)
-      wallBounce:     0.28,    // very soft wall bounce → no pinball energy (was 0.55)
-      maxVelocity:    0.055,   // lower top speed (was 0.09)
+      friction:       0.988,   // strong damping → balls slow fast, premium feel
+      wallBounce:     0.28,    // very soft wall bounce → no pinball energy
+      maxVelocity:    0.055,   // lower top speed
       maxX:           5,
       maxY:           5,
-      maxZ:           1.5,
+      maxZ:           3.0,     // more depth variation for bigger balls (was 1.5)
       controlSphere0: false,
       centerStr:      0.0018,  // gentle pull toward world origin
     };
@@ -367,17 +367,25 @@ export default function LogoBallpit({
       groups.push(group);
     }
 
-    // ── Load logo textures (async, non-blocking) ──
+    // ── Load logo textures via Next.js image proxy (avoids CORS entirely) ──
+    // /_next/image is served from the SAME origin — no cross-origin request.
+    // Shopify CDN + Wixstatic are already in next.config.ts remotePatterns.
     const loader = new TextureLoader();
-    loader.crossOrigin = "anonymous";
     logos.forEach((item, i) => {
-      loader.load(item.logo, (tex) => {
-        tex.colorSpace = SRGBColorSpace;
-        const mat = logoPlanes[i].material as MeshBasicMaterial;
-        mat.map     = tex;
-        mat.opacity = 0.9;
-        mat.needsUpdate = true;
-      });
+      const proxied = `/_next/image?url=${encodeURIComponent(item.logo)}&w=256&q=80`;
+      loader.load(
+        proxied,
+        (tex) => {
+          tex.colorSpace  = SRGBColorSpace;
+          tex.needsUpdate = true;
+          const mat       = logoPlanes[i].material as MeshBasicMaterial;
+          mat.map         = tex;
+          mat.opacity     = 0.92;
+          mat.needsUpdate = true;
+        },
+        undefined,
+        () => console.warn("[LogoBallpit] logo failed to load:", item.logo),
+      );
     });
 
     // ── Resize ──

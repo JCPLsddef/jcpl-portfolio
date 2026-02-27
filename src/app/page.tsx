@@ -39,7 +39,7 @@ export default function HomePage() {
         <p className="text-center text-[13px] text-sv-text-dim mb-3">
           Every ball below is a real active or past client account.
         </p>
-        <LogoBallpit logos={proofBalls} height={200} count={7} />
+        <LogoBallpit logos={proofBalls} height={280} count={7} />
       </div>
       <DataBenchmarkBlock />
 
