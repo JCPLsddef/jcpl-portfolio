@@ -56,13 +56,12 @@ function makeCircleMask(): CanvasTexture {
   return new CanvasTexture(cv);
 }
 
-// ─── Subsurface-scattering material (ported from user's Ballpit source) ───────
+// ─── Subsurface-scattering material ───────────────────────────────────────────
 // Adds a real-time scattering term on top of MeshPhysicalMaterial so balls feel
-// translucent and lit from within — matching the original Ballpit premium look.
+// translucent and lit from within — matching the premium Ballpit look.
 
 class BallMaterial extends MeshPhysicalMaterial {
   declare uniforms: Record<string, { value: number }>;
-  onBeforeCompile2?: (s: any) => void;
 
   constructor(params: ConstructorParameters<typeof MeshPhysicalMaterial>[0]) {
     super(params);
@@ -119,19 +118,15 @@ class BallMaterial extends MeshPhysicalMaterial {
         "#include <lights_fragment_begin>",
         replaced
       );
-
-      this.onBeforeCompile2?.(shader);
     };
   }
 }
 
-// ─── Physics engine (ported from user's Ballpit W class) ──────────────────────
-// Unchanged physics: gravity, friction, wall bounce, ball-ball collision.
-// Ball 0 optionally follows cursor (controlSphere0 flag).
+// ─── Physics engine ───────────────────────────────────────────────────────────
 
 const _I = new Vector3(), _B = new Vector3(), _O = new Vector3(),
       _N = new Vector3(), _D = new Vector3(), _j = new Vector3(),
-      _H = new Vector3(), _T = new Vector3(), _F = new Vector3();
+      _H = new Vector3(), _T = new Vector3();
 
 interface PhysicsConfig {
   count:          number;
@@ -188,7 +183,7 @@ class Physics {
 
     if (c.controlSphere0) {
       start = 1;
-      _F.fromArray(p, 0).lerp(center, 0.1).toArray(p, 0);
+      new Vector3().fromArray(p, 0).lerp(center, 0.1).toArray(p, 0);
       new Vector3().toArray(v, 0);
     }
 
@@ -223,18 +218,6 @@ class Physics {
         }
       }
 
-      if (c.controlSphere0) {
-        _D.copy(_F).sub(_I);
-        const dist = _D.length();
-        const sum0 = ri + s[0];
-        if (dist < sum0) {
-          const d0 = sum0 - dist;
-          _j.copy(_D.normalize()).multiplyScalar(d0);
-          _H.copy(_j).multiplyScalar(Math.max(_B.length(), 2));
-          _I.sub(_j); _B.sub(_H);
-        }
-      }
-
       if (Math.abs(_I.x) + ri > c.maxX) { _I.x = Math.sign(_I.x) * (c.maxX - ri); _B.x = -_B.x * c.wallBounce; }
       if (c.gravity === 0) {
         if (Math.abs(_I.y) + ri > c.maxY) { _I.y = Math.sign(_I.y) * (c.maxY - ri); _B.y = -_B.y * c.wallBounce; }
@@ -257,18 +240,24 @@ const BALL_COLORS = [
   new Color("#0b2542"),
 ];
 
+// ─── Repulsion field constants ─────────────────────────────────────────────────
+// Touch/cursor pushes balls away — feels natural on mobile and desktop.
+
+const REPULSION_RADIUS   = 3.2; // world-space units
+const REPULSION_STRENGTH = 0.05; // velocity impulse per pointer event
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function LogoBallpit({
   logos,
-  className    = "",
-  height       = 360,
-  followCursor = false, // disabled by default — balls drift autonomously
+  className = "",
+  height    = 360,
+  count,       // total balls rendered; balls beyond logos.length = plain glass
 }: {
-  logos:        LogoBallItem[];
-  className?:   string;
-  height?:      number;
-  followCursor?: boolean;
+  logos:      LogoBallItem[];
+  className?: string;
+  height?:    number;
+  count?:     number;
 }) {
   const wrapRef   = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -278,7 +267,8 @@ export default function LogoBallpit({
     const wrap   = wrapRef.current;
     if (!canvas || !wrap || !logos.length) return;
 
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const ballCount = count ?? logos.length;
+    const reduced   = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // ── Renderer ──
     const renderer = new WebGLRenderer({ canvas, powerPreference: "high-performance", antialias: true, alpha: true });
@@ -300,22 +290,20 @@ export default function LogoBallpit({
 
     // ── Lights ──
     const ambient = new AmbientLight(0xffffff, 1.1);
-    // Fixed position — NOT tracking ball 0. Tracking ball 0 made it glow white
-    // and appear as a "special" cursor ball. Fixed light = all balls lit equally.
     const point   = new PointLight(0x4488ff, 160);
-    point.position.set(3, 4, 8);
+    point.position.set(3, 4, 8); // fixed — not tracking any ball
     scene.add(ambient, point);
 
     // ── Physics ──
     const physCfg: PhysicsConfig = {
-      count:          logos.length,
-      minSize:        0.72,
-      maxSize:        1.0,
-      size0:          0.88,
-      gravity:        reduced ? 0 : 0.18, // gentler fall (was 0.35)
-      friction:       0.995,              // more drag — balls slow down sooner (was 0.9975)
-      wallBounce:     0.55,               // soft bounce — no pinball energy (was 0.88)
-      maxVelocity:    0.07,               // slower top speed (was 0.13)
+      count:          ballCount,
+      minSize:        0.92,   // bigger balls (was 0.72)
+      maxSize:        1.35,   // bigger balls (was 1.00)
+      size0:          1.10,   // bigger balls (was 0.88)
+      gravity:        reduced ? 0 : 0.18,
+      friction:       0.995,
+      wallBounce:     0.55,
+      maxVelocity:    0.09,   // slightly faster to feel responsive to touch (was 0.07)
       maxX:           5,
       maxY:           5,
       maxZ:           1.5,
@@ -324,16 +312,17 @@ export default function LogoBallpit({
     const physics = new Physics(physCfg);
 
     // ── Shared geometries + mask ──
-    const sphereGeo   = new SphereGeometry(1, 36, 36);
-    const planeGeo    = new PlaneGeometry(2.0, 2.0);
-    const circleMask  = makeCircleMask();
+    const sphereGeo  = new SphereGeometry(1, 36, 36);
+    const planeGeo   = new PlaneGeometry(2.0, 2.0);
+    const circleMask = makeCircleMask();
 
-    // ── Build one Group per logo ball ──
-    // Each Group = sphere mesh (BallMaterial) + logo plane (billboard, MeshBasicMaterial).
+    // ── Build one Group per ball ──
+    // Balls 0..logos.length-1 carry a logo plane.
+    // Balls logos.length..ballCount-1 are plain glass spheres.
     const groups:     Group[] = [];
     const logoPlanes: Mesh[]  = [];
 
-    logos.forEach((item, i) => {
+    for (let i = 0; i < ballCount; i++) {
       const group = new Group();
 
       // Sphere
@@ -348,26 +337,27 @@ export default function LogoBallpit({
       (mat as any).envMapRotation.x = -Math.PI / 2;
       group.add(new Mesh(sphereGeo, mat));
 
-      // Logo plane — starts transparent, texture added once image loads
-      const logoMat = new MeshBasicMaterial({
-        transparent: true,
-        alphaMap:    circleMask,
-        opacity:     0,
-        depthWrite:  false,
-      });
-      const plane = new Mesh(planeGeo, logoMat);
-      plane.position.z   = 1.02; // just outside sphere surface
-      plane.renderOrder  = 1;
-      group.add(plane);
-      logoPlanes.push(plane);
+      // Logo plane — only for balls that have a matching logo
+      if (i < logos.length) {
+        const logoMat = new MeshBasicMaterial({
+          transparent: true,
+          alphaMap:    circleMask,
+          opacity:     0,
+          depthWrite:  false,
+        });
+        const plane = new Mesh(planeGeo, logoMat);
+        plane.position.z  = 1.02; // just outside sphere surface
+        plane.renderOrder = 1;
+        group.add(plane);
+        logoPlanes.push(plane);
+      }
 
-      // Set initial physics-driven position/scale
       group.position.fromArray(physics.positionData, 3 * i);
       group.scale.setScalar(physics.sizeData[i]);
 
       scene.add(group);
       groups.push(group);
-    });
+    }
 
     // ── Load logo textures (async, non-blocking) ──
     const loader = new TextureLoader();
@@ -390,22 +380,26 @@ export default function LogoBallpit({
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
-      // Keep physics bounds matched to world space
-      const fovRad             = (camera.fov * Math.PI) / 180;
-      const wH                 = 2 * Math.tan(fovRad / 2) * camera.position.z;
-      const wW                 = wH * camera.aspect;
-      physics.config.maxX      = (wW / 2) * 0.88;
-      physics.config.maxY      = (wH / 2) * 0.88;
+      const fovRad        = (camera.fov * Math.PI) / 180;
+      const wH            = 2 * Math.tan(fovRad / 2) * camera.position.z;
+      const wW            = wH * camera.aspect;
+      physics.config.maxX = (wW / 2) * 0.88;
+      physics.config.maxY = (wH / 2) * 0.88;
     }
     resize();
     const resizeObs = new ResizeObserver(resize);
     resizeObs.observe(wrap);
 
-    // ── Cursor interaction (ball 0 follows cursor, pushes others) ──
-    const pointer    = new Vector2();
-    const raycaster  = new Raycaster();
-    const planeZ     = new Plane(new Vector3(0, 0, 1), 0);
-    const cursorPt   = new Vector3();
+    // ── Touch / cursor repulsion field ────────────────────────────────────────
+    // Always active — pointer pushes all balls within REPULSION_RADIUS away.
+    // Works with mouse (desktop) and touch (mobile) via Pointer Events API.
+    const pointer   = new Vector2();
+    const raycaster = new Raycaster();
+    const planeZ    = new Plane(new Vector3(0, 0, 1), 0);
+    const cursorPt  = new Vector3();
+
+    canvas.style.touchAction = "none"; // prevent scroll hijack on touch
+    canvas.style.userSelect  = "none";
 
     function onPointerMove(e: PointerEvent) {
       const rect = canvas!.getBoundingClientRect();
@@ -415,19 +409,25 @@ export default function LogoBallpit({
       );
       raycaster.setFromCamera(pointer, camera);
       raycaster.ray.intersectPlane(planeZ, cursorPt);
-      physics.center.copy(cursorPt);
-      physics.config.controlSphere0 = true;
-    }
-    function onPointerLeave() {
-      physics.config.controlSphere0 = false;
+
+      if (reduced) return;
+
+      // Apply repulsion impulse to every ball within radius
+      for (let i = 0; i < ballCount; i++) {
+        const b  = 3 * i;
+        const dx = physics.positionData[b]     - cursorPt.x;
+        const dy = physics.positionData[b + 1] - cursorPt.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < REPULSION_RADIUS * REPULSION_RADIUS && d2 > 0.001) {
+          const dist  = Math.sqrt(d2);
+          const force = (1 - dist / REPULSION_RADIUS) * REPULSION_STRENGTH;
+          physics.velocityData[b]     += (dx / dist) * force;
+          physics.velocityData[b + 1] += (dy / dist) * force;
+        }
+      }
     }
 
-    if (followCursor && !reduced) {
-      canvas.style.touchAction    = "none";
-      canvas.style.userSelect     = "none";
-      canvas.addEventListener("pointermove",  onPointerMove);
-      canvas.addEventListener("pointerleave", onPointerLeave);
-    }
+    canvas.addEventListener("pointermove",  onPointerMove, { passive: true });
 
     // ── Intersection observer — pause RAF when off-screen ──
     let visible = false;
@@ -445,14 +445,15 @@ export default function LogoBallpit({
       if (!visible) return;
 
       const delta = Math.min(clock.getDelta(), 0.05);
-
       if (!reduced) physics.update({ delta });
 
-      for (let i = 0; i < logos.length; i++) {
+      for (let i = 0; i < ballCount; i++) {
         groups[i].position.fromArray(physics.positionData, 3 * i);
         groups[i].scale.setScalar(physics.sizeData[i]);
-        // Billboard: logo plane always faces camera
-        logoPlanes[i].quaternion.copy(camera.quaternion);
+        // Billboard: only logo-bearing balls need camera-facing quaternion
+        if (i < logos.length) {
+          logoPlanes[i].quaternion.copy(camera.quaternion);
+        }
       }
 
       renderer.render(scene, camera);
@@ -463,8 +464,7 @@ export default function LogoBallpit({
     return () => {
       running = false;
       cancelAnimationFrame(rafId);
-      canvas.removeEventListener("pointermove",  onPointerMove);
-      canvas.removeEventListener("pointerleave", onPointerLeave);
+      canvas.removeEventListener("pointermove", onPointerMove);
       resizeObs.disconnect();
       intObs.disconnect();
       sphereGeo.dispose();
@@ -474,16 +474,14 @@ export default function LogoBallpit({
       groups.forEach((g) =>
         g.traverse((obj) => {
           if (obj instanceof Mesh) {
-            (Array.isArray(obj.material)
-              ? obj.material
-              : [obj.material]
-            ).forEach((m) => { m.dispose(); });
+            (Array.isArray(obj.material) ? obj.material : [obj.material])
+              .forEach((m) => { m.dispose(); });
           }
         })
       );
       renderer.dispose();
     };
-  }, [logos, followCursor]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [logos, count]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div ref={wrapRef} className={className} style={{ height, width: "100%" }}>
