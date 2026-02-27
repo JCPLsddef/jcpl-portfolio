@@ -31,14 +31,14 @@ export default function HomePage() {
       <Hero />
 
       {/* 2 — Proof: Logo ball pit — one ball per real client */}
-      <div className="bg-sv-surface pt-5 md:pt-7 pb-2">
+      <div className="bg-sv-surface pt-4 md:pt-5 pb-1">
         <p className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-2">
           CLIENTS
         </p>
         <p className="text-center text-[13px] text-sv-text-dim mb-3">
           Every ball below is a real active or past client account.
         </p>
-        <LogoBallpit logos={proofBalls} height={260} count={7} />
+        <LogoBallpit logos={proofBalls} height={200} count={7} />
       </div>
       <DataBenchmarkBlock />
 

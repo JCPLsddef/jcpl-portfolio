@@ -141,6 +141,7 @@ interface PhysicsConfig {
   maxY:           number;
   maxZ:           number;
   controlSphere0: boolean;
+  centerStr?:     number; // gentle center attraction strength (0 = off)
 }
 
 class Physics {
@@ -162,11 +163,17 @@ class Physics {
 
   init() {
     const { config: c, positionData: p } = this;
-    this.center.toArray(p, 0);
+    this.center.toArray(p, 0); // ball 0 at world center
+    // Balls 1-N evenly spaced around a ring — intentional start composition.
+    // RING_R=2.5 fits comfortably within any viewport; center attraction +
+    // physics will spread them naturally from this base arrangement.
+    const RING_R = 2.5;
     for (let i = 1; i < c.count; i++) {
-      const b = 3 * i;
-      p[b]     = MathUtils.randFloatSpread(2 * c.maxX);
-      p[b + 1] = MathUtils.randFloatSpread(2 * c.maxY);
+      const b      = 3 * i;
+      const angle  = (i / (c.count - 1)) * Math.PI * 2; // evenly distributed
+      const jitter = MathUtils.randFloat(0.8, 1.2);      // ±20% radius jitter
+      p[b]     = Math.cos(angle) * RING_R * jitter;
+      p[b + 1] = Math.sin(angle) * RING_R * jitter;
       p[b + 2] = MathUtils.randFloatSpread(2 * c.maxZ);
     }
   }
@@ -243,8 +250,8 @@ const BALL_COLORS = [
 // ─── Repulsion field constants ─────────────────────────────────────────────────
 // Touch/cursor pushes balls away — feels natural on mobile and desktop.
 
-const REPULSION_RADIUS   = 3.2; // world-space units
-const REPULSION_STRENGTH = 0.05; // velocity impulse per pointer event
+const REPULSION_RADIUS   = 2.6; // world-space units
+const REPULSION_STRENGTH = 0.025; // velocity impulse per pointer event (controlled, not explosive)
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
@@ -300,14 +307,15 @@ export default function LogoBallpit({
       minSize:        0.92,   // bigger balls (was 0.72)
       maxSize:        1.35,   // bigger balls (was 1.00)
       size0:          1.10,   // bigger balls (was 0.88)
-      gravity:        reduced ? 0 : 0.18,
-      friction:       0.995,
-      wallBounce:     0.55,
-      maxVelocity:    0.09,   // slightly faster to feel responsive to touch (was 0.07)
+      gravity:        0,       // zero gravity → floating cluster (no bottom-piling)
+      friction:       0.988,   // strong damping → balls slow fast, premium feel (was 0.995)
+      wallBounce:     0.28,    // very soft wall bounce → no pinball energy (was 0.55)
+      maxVelocity:    0.055,   // lower top speed (was 0.09)
       maxX:           5,
       maxY:           5,
       maxZ:           1.5,
       controlSphere0: false,
+      centerStr:      0.0018,  // gentle pull toward world origin
     };
     const physics = new Physics(physCfg);
 
@@ -445,7 +453,21 @@ export default function LogoBallpit({
       if (!visible) return;
 
       const delta = Math.min(clock.getDelta(), 0.05);
-      if (!reduced) physics.update({ delta });
+
+      if (!reduced) {
+        // Center attraction — gently pulls each ball toward world origin.
+        // Prevents wall-camping; keeps the cluster visually intentional.
+        // Runs before physics.update() so friction + wall-bounce process it.
+        const CENTER_STR = physics.config.centerStr ?? 0.0018;
+        const pd = physics.positionData;
+        const vd = physics.velocityData;
+        for (let i = 0; i < ballCount; i++) {
+          const b = 3 * i;
+          vd[b]     += -pd[b]     * CENTER_STR;
+          vd[b + 1] += -pd[b + 1] * CENTER_STR;
+        }
+        physics.update({ delta });
+      }
 
       for (let i = 0; i < ballCount; i++) {
         groups[i].position.fromArray(physics.positionData, 3 * i);
