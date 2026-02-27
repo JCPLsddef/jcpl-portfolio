@@ -2,11 +2,9 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/hero/Hero";
 import { caseStudyLogos } from "@/components/hero/LogoLoopData";
 import SpotsLeftSection from "@/components/home/SpotsLeftSection";
-import type { LogoBallItem } from "@/components/home/LogoBallpit";
+import LogoLoop from "@/components/home/LogoLoop";
 
 /* Dynamic imports for below-the-fold sections — reduces initial JS bundle */
-// LogoBallpit: Three.js runs inside useEffect — SSR renders a safe div+canvas shell
-const LogoBallpit     = dynamic(() => import("@/components/home/LogoBallpit"));
 const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
 const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
@@ -18,28 +16,27 @@ const HowWeWork  = dynamic(() => import("@/components/home/HowWeWork"));
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
 const FinalConvictionSection = dynamic(() => import("@/components/home/FinalConvictionSection"));
 
-// Map LogoLoopData → LogoBallItem (one ball per real client)
-const proofBalls: LogoBallItem[] = caseStudyLogos.map((l) => ({
-  id:   l.alt ?? l.src,
-  name: l.name ?? l.alt ?? "",
-  logo: l.src,
-}));
-
 export default function HomePage() {
   return (
     <>
       {/* 1 — Hero: Hook + authority signal */}
       <Hero />
 
-      {/* 2 — Proof: Logo ball pit — one ball per real client */}
-      <div className="bg-sv-surface pt-4 md:pt-5 pb-1">
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-2">
+      {/* 2 — Proof: Scrolling client logo strip */}
+      <div className="bg-sv-surface py-6">
+        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-5">
           CLIENTS
         </p>
-        <p className="text-center text-[13px] text-sv-text-dim mb-3">
-          Every ball below is a real active or past client account.
-        </p>
-        <LogoBallpit logos={proofBalls} height={280} count={7} />
+        <LogoLoop
+          logos={caseStudyLogos}
+          speed={60}
+          pauseOnHover
+          fadeOut
+          fadeOutColor="#0E1F35"
+          logoHeight={44}
+          gap={56}
+          ariaLabel="Client logos"
+        />
       </div>
       <DataBenchmarkBlock />
 
