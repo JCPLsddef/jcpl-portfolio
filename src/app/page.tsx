@@ -14,6 +14,7 @@ const QualificationCTA   = dynamic(() => import("@/components/home/Qualification
 const InfrastructureTiers = dynamic(() => import("@/components/home/InfrastructureTiers"));
 const HowWeWork  = dynamic(() => import("@/components/home/HowWeWork"));
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
+const CompetitiveEdgeSection = dynamic(() => import("@/components/home/CompetitiveEdgeSection"));
 const FinalConvictionSection = dynamic(() => import("@/components/home/FinalConvictionSection"));
 
 export default function HomePage() {
@@ -64,7 +65,10 @@ export default function HomePage() {
       {/* 10 — FAQ: Objection handling */}
       <FAQSection />
 
-      {/* 11 — Final CTA: Spots Left */}
+      {/* 11 — Competitive Edge: Market-dominance conviction visual */}
+      <CompetitiveEdgeSection />
+
+      {/* 12 — Final CTA: Spots Left */}
       <SpotsLeftSection />
 
       {/* 12 — Conviction: Final visual momentum block before footer */}
