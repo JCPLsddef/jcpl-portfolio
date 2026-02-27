@@ -5,8 +5,8 @@ import SpotsLeftSection from "@/components/home/SpotsLeftSection";
 import type { LogoBallItem } from "@/components/home/LogoBallpit";
 
 /* Dynamic imports for below-the-fold sections — reduces initial JS bundle */
-// LogoBallpit: Three.js, must be client-only (ssr:false)
-const LogoBallpit     = dynamic(() => import("@/components/home/LogoBallpit"),   { ssr: false });
+// LogoBallpit: Three.js runs inside useEffect — SSR renders a safe div+canvas shell
+const LogoBallpit     = dynamic(() => import("@/components/home/LogoBallpit"));
 const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
 const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
