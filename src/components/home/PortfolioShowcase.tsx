@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import SectionWrapper from "@/components/ui/SectionWrapper";
-import SectionLabel from "@/components/ui/SectionLabel";
 import CTAButton from "@/components/ui/CTAButton";
 import { Reveal } from "@/components/motion";
 import { ctaCopy } from "@/lib/content";
@@ -10,220 +9,351 @@ import { ctaCopy } from "@/lib/content";
 type Slide = { image: string; caption: string };
 
 type Project = {
-  id: string;
+  id: number;
   featured: boolean;
-  tag: string;
-  title: string;
-  description: string;
+  businessName: string;
+  niche: string;
+  city: string;
   result: string;
-  heroScreenshot: string;
+  resultMetric: string;
   logo: string;
-  liveUrl: string;
+  heroScreenshot: string;
   slides: Slide[];
+  liveUrl: string;
 };
 
 const websiteProjects: Project[] = [
   {
-    id: "triple-w",
+    id: 1,
     featured: true,
-    tag: "RV RENTAL · TEXAS",
-    title: "Triple W Rentals",
-    description:
-      "Full acquisition system: conversion website, Google Ads funnel, and booking automation — built from scratch.",
-    result: "$41,084 in revenue · 30 days · $900 ad spend",
-    heroScreenshot: "",
-    logo: "https://static.wixstatic.com/media/62f926_5c14016a71f74c77a7eedfa86309eadd~mv2.jpg",
-    liveUrl: "https://triplewrentals.com",
+    businessName: "Triple W Rentals",
+    niche: "RV Rentals",
+    city: "Texas",
+    result: "First booking in 11 days of going live",
+    resultMetric: "$41,084 revenue · 30 days · $900 ad spend",
+    logo: "/images/portfolio/triplew-logo.png",
+    heroScreenshot: "/images/portfolio/triplew-hero.png",
     slides: [
-      {
-        image:
-          "https://static.wixstatic.com/media/62f926_5c7a609ac5c143e48028810fda21af82~mv2.png",
-        caption: "Google Ads campaign — $900 spend → $41,084 revenue",
-      },
-      { image: "", caption: "Conversion landing page" },
+      { image: "/images/portfolio/triplew-desktop.png", caption: "Built to make them call before they scroll" },
+      { image: "/images/portfolio/triplew-mobile.png", caption: "60% of buyers search on mobile. This is what they see." },
+      { image: "/images/portfolio/triplew-booking.png", caption: "The booking page that captures leads at 2am" },
     ],
+    liveUrl: "https://triplewrentals.com",
   },
   {
-    id: "culture",
+    id: 2,
     featured: false,
-    tag: "BARBERSHOP · MONTREAL",
-    title: "Culture Barbershop",
-    description:
-      "Brand identity, conversion website, and local SEO foundation for a Montreal barbershop.",
-    result: "Page 1 local SEO · Under 60 days",
-    heroScreenshot: "",
-    logo: "https://static.wixstatic.com/media/62f926_ca6524ec96fe4822a3da0d0481995989~mv2.png",
-    liveUrl: "https://culturemtl.ca",
+    businessName: "Culture Barbershop",
+    niche: "Barbershop",
+    city: "Montreal, QC",
+    result: "Calendar fully booked within 3 weeks",
+    resultMetric: "Page 1 local SEO · Under 60 days",
+    logo: "/images/portfolio/culture-logo.png",
+    heroScreenshot: "/images/portfolio/culture-hero.png",
     slides: [
-      { image: "", caption: "Homepage design" },
-      { image: "", caption: "Booking flow" },
+      { image: "/images/portfolio/culture-desktop.png", caption: "Brand identity translated into a booking machine" },
+      { image: "/images/portfolio/culture-mobile.png", caption: "Clients book directly from Google — zero friction" },
+      { image: "/images/portfolio/culture-booking.png", caption: "Integrated booking flow. No call needed to book." },
     ],
+    liveUrl: "https://culturebarbershop.com",
   },
 ];
 
-type LB = { projectIdx: number; slideIdx: number } | null;
-
-function hideOnError(e: React.SyntheticEvent<HTMLImageElement>) {
+function hideImg(e: React.SyntheticEvent<HTMLImageElement>) {
   (e.target as HTMLImageElement).style.display = "none";
 }
 
+function hideParent(e: React.SyntheticEvent<HTMLImageElement>) {
+  const parent = (e.target as HTMLImageElement).parentElement;
+  if (parent) parent.style.display = "none";
+}
+
 export default function PortfolioShowcase() {
-  const [lb, setLb] = useState<LB>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [activeProject, setActiveProject] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
   const touchStartX = useRef<number | null>(null);
 
-  const openLb = useCallback((projectIdx: number) => {
-    setLb({ projectIdx, slideIdx: 0 });
+  const currentProject = websiteProjects[activeProject];
+
+  const openLightbox = useCallback((index: number) => {
+    setActiveProject(index);
+    setActiveSlide(0);
+    setLightboxOpen(true);
     document.body.style.overflow = "hidden";
   }, []);
 
-  const closeLb = useCallback(() => {
-    setLb(null);
+  const closeLightbox = useCallback(() => {
+    setLightboxOpen(false);
     document.body.style.overflow = "";
   }, []);
 
-  const prevSlide = useCallback(() => {
-    setLb((prev) => {
-      if (!prev || prev.slideIdx === 0) return prev;
-      return { ...prev, slideIdx: prev.slideIdx - 1 };
-    });
-  }, []);
-
   const nextSlide = useCallback(() => {
-    setLb((prev) => {
-      if (!prev) return prev;
-      const project = websiteProjects[prev.projectIdx];
-      if (prev.slideIdx >= project.slides.length - 1) return prev;
-      return { ...prev, slideIdx: prev.slideIdx + 1 };
-    });
+    setActiveSlide((prev) =>
+      prev < currentProject.slides.length - 1 ? prev + 1 : prev
+    );
+  }, [currentProject.slides.length]);
+
+  const prevSlide = useCallback(() => {
+    setActiveSlide((prev) => (prev > 0 ? prev - 1 : prev));
   }, []);
 
   useEffect(() => {
-    if (!lb) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeLb();
+    if (!lightboxOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
       else if (e.key === "ArrowRight") nextSlide();
       else if (e.key === "ArrowLeft") prevSlide();
     };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [lb, closeLb, nextSlide, prevSlide]);
+    window.addEventListener("keydown", handleKey);
+    return () => {
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [lightboxOpen, closeLightbox, nextSlide, prevSlide]);
 
-  // Clean up scroll lock if component unmounts while lightbox is open
   useEffect(() => {
     return () => { document.body.style.overflow = ""; };
   }, []);
 
-  const activeProject = lb !== null ? websiteProjects[lb.projectIdx] : null;
-  const activeSlide =
-    activeProject && lb !== null ? activeProject.slides[lb.slideIdx] : null;
+  const GREEN = "var(--color-accent-green, #4ade80)";
+  const BLUE = "var(--brand-accent, #2B5A8C)";
 
   return (
     <SectionWrapper id="portfolio" variant="default">
       {/* Header */}
-      <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
-        <SectionLabel label="CUSTOM BUILD" className="mb-5" />
-        <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em] max-w-xl mx-auto">
-          Built to Convert. Not to Impress.
+      <Reveal className="text-center mb-16">
+        <p style={{
+          fontSize: "11px", fontWeight: 600, letterSpacing: "0.14em",
+          textTransform: "uppercase", opacity: 0.45, marginBottom: "20px",
+          color: "white",
+        }}>
+          CUSTOM BUILD
+        </p>
+        <h2 style={{
+          fontSize: "clamp(44px, 5.5vw, 68px)", fontWeight: 800,
+          letterSpacing: "-0.03em", lineHeight: 1.0,
+          color: "white", margin: "0 auto 20px",
+        }}>
+          Your Competitors Have Templates.<br />
+          Your Business Gets Its Own.
         </h2>
-        <p className="mt-5 text-sv-text-sub max-w-lg mx-auto leading-[1.75] text-[18px]">
-          Every site I build is designed around one goal: qualified calls on
-          your calendar.
+        <p style={{
+          fontSize: "18px", fontWeight: 400, lineHeight: 1.65, opacity: 0.68,
+          maxWidth: "520px", margin: "0 auto", color: "white",
+        }}>
+          Every website I build is fully custom coded — designed around your
+          brand, your market, and one outcome: qualified calls on your calendar.
         </p>
       </Reveal>
 
-      {/* Card Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-5 max-w-5xl mx-auto">
-        {websiteProjects.map((project, i) => (
-          <Reveal key={project.id} delay={0.08 * i}>
-            <button
-              type="button"
-              onClick={() => openLb(i)}
-              className="group relative w-full text-left rounded-2xl overflow-hidden bg-sv-surface border border-[rgba(255,255,255,0.07)] hover:border-[rgba(37,99,235,0.35)] transition-all duration-300 focus-visible:outline-2 focus-visible:outline-sv-primary focus-visible:outline-offset-2 cursor-pointer"
-              aria-label={`View ${project.title} build`}
-            >
-              {/* Screenshot zone */}
+      {/* Card grid */}
+      <div style={{
+        display: "grid",
+        gridTemplateColumns: "1.65fr 1fr",
+        gap: "20px",
+        maxWidth: "1100px",
+        margin: "0 auto",
+      }}
+        className="portfolio-grid"
+      >
+        {/* Featured card */}
+        {(() => {
+          const p = websiteProjects[0];
+          return (
+            <Reveal>
               <div
-                className={`relative overflow-hidden bg-sv-elevated ${
-                  project.featured ? "aspect-[16/9]" : "aspect-[4/3]"
-                }`}
+                role="button"
+                tabIndex={0}
+                onClick={() => openLightbox(0)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(0); } }}
+                className="portfolio-card"
+                style={{
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.09)",
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  background: "rgba(255,255,255,0.025)",
+                  transition: "border-color 220ms ease, box-shadow 220ms ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.22)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 0 1px rgba(255,255,255,0.08)";
+                  const img = (e.currentTarget as HTMLDivElement).querySelector<HTMLImageElement>(".card-img");
+                  const overlay = (e.currentTarget as HTMLDivElement).querySelector<HTMLDivElement>(".card-overlay");
+                  const label = (e.currentTarget as HTMLDivElement).querySelector<HTMLSpanElement>(".card-label");
+                  if (img) img.style.transform = "scale(1.04)";
+                  if (overlay) overlay.style.background = "rgba(0,0,0,0.50)";
+                  if (label) label.style.opacity = "1";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.09)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                  const img = (e.currentTarget as HTMLDivElement).querySelector<HTMLImageElement>(".card-img");
+                  const overlay = (e.currentTarget as HTMLDivElement).querySelector<HTMLDivElement>(".card-overlay");
+                  const label = (e.currentTarget as HTMLDivElement).querySelector<HTMLSpanElement>(".card-label");
+                  if (img) img.style.transform = "scale(1)";
+                  if (overlay) overlay.style.background = "rgba(0,0,0,0)";
+                  if (label) label.style.opacity = "0";
+                }}
               >
-                {project.heroScreenshot && (
+                {/* Screenshot area */}
+                <div style={{ width: "100%", aspectRatio: "16/9", overflow: "hidden", position: "relative", background: "rgba(255,255,255,0.04)" }}>
                   <img
-                    src={project.heroScreenshot}
-                    alt={`${project.title} website`}
-                    className="absolute inset-0 w-full h-full object-cover object-top"
-                    onError={hideOnError}
+                    src={p.heroScreenshot}
+                    alt={`${p.businessName} website`}
+                    className="card-img"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", transition: "transform 500ms ease", display: "block" }}
+                    onError={hideImg}
                   />
-                )}
-                {/* Hover overlay */}
-                <div className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <span className="text-white font-[600] text-[15px] border border-white/30 rounded-lg px-5 py-2.5 bg-white/10 backdrop-blur-sm">
-                    View Build →
-                  </span>
+                  <div className="card-overlay" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 250ms ease" }}>
+                    <span className="card-label" style={{ color: "white", fontSize: "14px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0, transition: "opacity 250ms ease", border: "1px solid rgba(255,255,255,0.40)", padding: "10px 24px", borderRadius: "4px" }}>
+                      View Build →
+                    </span>
+                  </div>
                 </div>
-                {/* Tag badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="text-[10px] font-[600] uppercase tracking-[0.12em] text-white/70 bg-black/50 backdrop-blur-sm rounded px-2 py-1">
-                    {project.tag}
-                  </span>
+                {/* Footer — row layout */}
+                <div style={{ padding: "20px 24px 22px", display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                    <img src={p.logo} alt={p.businessName} style={{ height: "30px", width: "auto", objectFit: "contain", opacity: 0.88 }} onError={hideImg} />
+                    <div>
+                      <p style={{ fontSize: "14px", fontWeight: 700, margin: 0, color: "white" }}>{p.businessName}</p>
+                      <p style={{ fontSize: "11px", fontWeight: 500, opacity: 0.42, letterSpacing: "0.09em", textTransform: "uppercase", margin: "2px 0 0", color: "white" }}>{p.niche} · {p.city}</p>
+                    </div>
+                  </div>
+                  <div style={{ textAlign: "right", flexShrink: 0 }}>
+                    <p style={{ fontSize: "13px", fontWeight: 600, margin: 0, color: GREEN }}>{p.result}</p>
+                    <p style={{ fontSize: "11px", fontWeight: 400, opacity: 0.40, margin: "3px 0 0", color: "white" }}>{p.resultMetric}</p>
+                  </div>
                 </div>
               </div>
+            </Reveal>
+          );
+        })()}
 
-              {/* Footer */}
-              <div className="p-5 md:p-6">
-                <div className="flex items-center gap-3 mb-3">
+        {/* Secondary card */}
+        {(() => {
+          const p = websiteProjects[1];
+          return (
+            <Reveal delay={0.08}>
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => openLightbox(1)}
+                onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(1); } }}
+                className="portfolio-card"
+                style={{
+                  borderRadius: "12px",
+                  border: "1px solid rgba(255,255,255,0.09)",
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  background: "rgba(255,255,255,0.025)",
+                  transition: "border-color 220ms ease, box-shadow 220ms ease",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.22)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "0 0 0 1px rgba(255,255,255,0.08)";
+                  const img = (e.currentTarget as HTMLDivElement).querySelector<HTMLImageElement>(".card-img");
+                  const overlay = (e.currentTarget as HTMLDivElement).querySelector<HTMLDivElement>(".card-overlay");
+                  const label = (e.currentTarget as HTMLDivElement).querySelector<HTMLSpanElement>(".card-label");
+                  if (img) img.style.transform = "scale(1.04)";
+                  if (overlay) overlay.style.background = "rgba(0,0,0,0.50)";
+                  if (label) label.style.opacity = "1";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.09)";
+                  (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+                  const img = (e.currentTarget as HTMLDivElement).querySelector<HTMLImageElement>(".card-img");
+                  const overlay = (e.currentTarget as HTMLDivElement).querySelector<HTMLDivElement>(".card-overlay");
+                  const label = (e.currentTarget as HTMLDivElement).querySelector<HTMLSpanElement>(".card-label");
+                  if (img) img.style.transform = "scale(1)";
+                  if (overlay) overlay.style.background = "rgba(0,0,0,0)";
+                  if (label) label.style.opacity = "0";
+                }}
+              >
+                {/* Screenshot area */}
+                <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", position: "relative", background: "rgba(255,255,255,0.04)" }}>
                   <img
-                    src={project.logo}
-                    alt={`${project.title} logo`}
-                    className="h-7 w-auto object-contain rounded"
-                    onError={hideOnError}
+                    src={p.heroScreenshot}
+                    alt={`${p.businessName} website`}
+                    className="card-img"
+                    style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center", transition: "transform 500ms ease", display: "block" }}
+                    onError={hideImg}
                   />
-                  <span className="text-[15px] font-[700] text-white">
-                    {project.title}
-                  </span>
+                  <div className="card-overlay" style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0)", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 250ms ease" }}>
+                    <span className="card-label" style={{ color: "white", fontSize: "14px", fontWeight: 700, letterSpacing: "0.06em", textTransform: "uppercase", opacity: 0, transition: "opacity 250ms ease", border: "1px solid rgba(255,255,255,0.40)", padding: "10px 24px", borderRadius: "4px" }}>
+                      View Build →
+                    </span>
+                  </div>
                 </div>
-                <p className="text-[13px] font-[400] leading-[1.6] opacity-[0.65] mb-4">
-                  {project.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-[600] text-emerald-400">
-                    {project.result}
-                  </span>
-                  <span className="text-[13px] font-[500] text-sv-primary opacity-80">
-                    View Build →
-                  </span>
+                {/* Footer — stacked layout */}
+                <div style={{ padding: "20px 24px 22px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "10px" }}>
+                    <img src={p.logo} alt={p.businessName} style={{ height: "28px", width: "auto", objectFit: "contain", opacity: 0.88 }} onError={hideImg} />
+                    <div>
+                      <p style={{ fontSize: "14px", fontWeight: 700, margin: 0, color: "white" }}>{p.businessName}</p>
+                      <p style={{ fontSize: "11px", fontWeight: 500, opacity: 0.42, letterSpacing: "0.09em", textTransform: "uppercase", margin: "2px 0 0", color: "white" }}>{p.niche} · {p.city}</p>
+                    </div>
+                  </div>
+                  <p style={{ fontSize: "12px", fontWeight: 600, margin: 0, color: GREEN }}>{p.result}</p>
+                  <p style={{ fontSize: "11px", fontWeight: 400, opacity: 0.40, margin: "3px 0 0", color: "white" }}>{p.resultMetric}</p>
+                  <p style={{ fontSize: "13px", fontWeight: 700, marginTop: "12px", color: BLUE }}>View Build →</p>
                 </div>
               </div>
-            </button>
-          </Reveal>
-        ))}
+            </Reveal>
+          );
+        })()}
       </div>
 
-      {/* CTA strip */}
-      <Reveal delay={0.2}>
-        <div className="mt-14 text-center">
-          <p className="text-sm text-sv-text-sub mb-5">
-            Ready to see what we can build for your business?
-          </p>
+      {/* Closing strip */}
+      <Reveal delay={0.15}>
+        <div
+          className="portfolio-strip"
+          style={{
+            marginTop: "40px",
+            padding: "26px 32px",
+            borderRadius: "10px",
+            border: "1px solid rgba(255,255,255,0.07)",
+            background: "rgba(255,255,255,0.02)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: "16px",
+            maxWidth: "1100px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <div>
+            <p style={{ fontSize: "16px", fontWeight: 600, margin: 0, color: "white" }}>
+              Want something built exactly for your business?
+            </p>
+            <p style={{ fontSize: "13px", fontWeight: 400, opacity: 0.50, margin: "4px 0 0", color: "white" }}>
+              Every build starts with your market. Not your logo preferences.
+            </p>
+          </div>
           <CTAButton
             href={ctaCopy.href}
             variant="primary"
             size="md"
             eventName="portfolio_cta_click"
           >
-            Apply for Growth Partnership
+            Apply for a Custom Build
           </CTAButton>
         </div>
       </Reveal>
 
       {/* Lightbox */}
-      {lb !== null && activeProject && activeSlide && (
+      {lightboxOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 transition-opacity duration-200"
-          onClick={closeLb}
-          onTouchStart={(e) => {
-            touchStartX.current = e.touches[0].clientX;
+          style={{
+            position: "fixed", inset: 0, zIndex: 9999,
+            background: "rgba(0,0,0,0.93)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "20px",
+            animation: "lightboxFadeIn 220ms ease forwards",
           }}
+          onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
           onTouchEnd={(e) => {
             if (touchStartX.current === null) return;
             const delta = e.changedTouches[0].clientX - touchStartX.current;
@@ -231,110 +361,108 @@ export default function PortfolioShowcase() {
             if (delta > 50) prevSlide();
             else if (delta < -50) nextSlide();
           }}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${activeProject.title} — slide ${lb.slideIdx + 1} of ${activeProject.slides.length}`}
         >
-          {/* Close button */}
-          <button
-            type="button"
-            onClick={closeLb}
-            className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors text-xl leading-none"
-            aria-label="Close"
-          >
-            ×
-          </button>
+          {/* Click-outside */}
+          <div onClick={closeLightbox} style={{ position: "absolute", inset: 0, zIndex: 0 }} />
 
-          {/* Prev arrow */}
-          {lb.slideIdx > 0 && (
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-              className="absolute left-3 md:left-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label="Previous slide"
-            >
-              ‹
-            </button>
-          )}
-
-          {/* Next arrow */}
-          {lb.slideIdx < activeProject.slides.length - 1 && (
-            <button
-              type="button"
-              onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-              className="absolute right-3 md:right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
-              aria-label="Next slide"
-            >
-              ›
-            </button>
-          )}
-
-          {/* Content box */}
-          <div
-            className="relative w-full max-w-3xl mx-4 rounded-2xl overflow-hidden bg-sv-elevated border border-[rgba(255,255,255,0.1)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Slide image */}
-            <div className="relative aspect-[16/9] bg-sv-surface">
-              {activeSlide.image && (
+          {/* Content */}
+          <div style={{
+            position: "relative", zIndex: 1,
+            width: "100%", maxWidth: "1080px",
+            animation: "lightboxScaleIn 220ms ease forwards",
+          }}>
+            {/* Top bar */}
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "14px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <img
-                  src={activeSlide.image}
-                  alt={activeSlide.caption}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  onError={hideOnError}
+                  src={currentProject.logo}
+                  alt={currentProject.businessName}
+                  style={{ height: "26px", opacity: 0.82 }}
+                  onError={hideImg}
                 />
-              )}
+                <span style={{ fontSize: "14px", fontWeight: 700, opacity: 0.92, color: "white" }}>
+                  {currentProject.businessName}
+                </span>
+                <span style={{ fontSize: "11px", fontWeight: 500, opacity: 0.38, letterSpacing: "0.09em", textTransform: "uppercase", color: "white" }}>
+                  {currentProject.niche} · {currentProject.city}
+                </span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+                <span style={{ fontSize: "12px", fontWeight: 400, opacity: 0.36, color: "white" }}>
+                  {activeSlide + 1} / {currentProject.slides.length}
+                </span>
+                <button
+                  onClick={closeLightbox}
+                  style={{ background: "none", border: "none", color: "white", fontSize: "26px", fontWeight: 200, cursor: "pointer", opacity: 0.60, padding: "4px 8px", lineHeight: 1 }}
+                  aria-label="Close"
+                >×</button>
+              </div>
             </div>
 
-            {/* Caption + meta */}
-            <div className="px-6 py-5">
-              <div className="flex items-start justify-between gap-4 mb-3">
-                <div>
-                  <p className="text-[11px] font-[600] uppercase tracking-[0.12em] text-sv-text-muted mb-1">
-                    {activeProject.tag}
-                  </p>
-                  <p className="text-[15px] font-[500] text-white opacity-[0.90]">
-                    {activeSlide.caption}
-                  </p>
-                </div>
-                <a
-                  href={activeProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-[13px] font-[600] text-sv-primary hover:text-white transition-colors"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  Visit Live Site →
-                </a>
+            {/* Main image */}
+            <div style={{ width: "100%", borderRadius: "8px", overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)", aspectRatio: "16/9", background: "rgba(255,255,255,0.03)" }}>
+              <img
+                key={`${activeProject}-${activeSlide}`}
+                src={currentProject.slides[activeSlide].image}
+                alt={currentProject.slides[activeSlide].caption}
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top", display: "block", animation: "slideFadeIn 180ms ease forwards" }}
+                onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0"; }}
+              />
+            </div>
+
+            {/* Bottom bar */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "14px", gap: "16px" }}>
+              <button
+                onClick={prevSlide}
+                disabled={activeSlide === 0}
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: "6px", color: "white", padding: "8px 18px", cursor: "pointer", fontSize: "16px", flexShrink: 0, opacity: activeSlide === 0 ? 0.20 : 0.75, transition: "opacity 150ms" }}
+                aria-label="Previous slide"
+              >←</button>
+
+              <div style={{ textAlign: "center", flex: 1 }}>
+                <p style={{ fontSize: "14px", fontWeight: 400, opacity: 0.60, margin: 0, color: "white" }}>
+                  {currentProject.slides[activeSlide].caption}
+                </p>
+                <p style={{ fontSize: "12px", fontWeight: 600, color: GREEN, margin: "5px 0 0" }}>
+                  {currentProject.result}
+                </p>
               </div>
 
-              {/* Dot indicators */}
-              {activeProject.slides.length > 1 && (
-                <div className="flex items-center gap-2 mt-4">
-                  {activeProject.slides.map((_, dotIdx) => (
-                    <button
-                      key={dotIdx}
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setLb((prev) =>
-                          prev ? { ...prev, slideIdx: dotIdx } : prev
-                        );
-                      }}
-                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                        dotIdx === lb.slideIdx
-                          ? "bg-sv-primary w-5"
-                          : "bg-white/30 hover:bg-white/60"
-                      }`}
-                      aria-label={`Go to slide ${dotIdx + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
+              <button
+                onClick={nextSlide}
+                disabled={activeSlide === currentProject.slides.length - 1}
+                style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)", borderRadius: "6px", color: "white", padding: "8px 18px", cursor: "pointer", fontSize: "16px", flexShrink: 0, opacity: activeSlide === currentProject.slides.length - 1 ? 0.20 : 0.75, transition: "opacity 150ms" }}
+                aria-label="Next slide"
+              >→</button>
+            </div>
+
+            {/* Live site link */}
+            <div style={{ textAlign: "center", marginTop: "18px" }}>
+              <a
+                href={currentProject.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                style={{ fontSize: "12px", fontWeight: 600, color: "rgba(255,255,255,0.45)", textDecoration: "none", letterSpacing: "0.06em", textTransform: "uppercase", borderBottom: "1px solid rgba(255,255,255,0.18)", paddingBottom: "2px" }}
+              >
+                View live site →
+              </a>
             </div>
           </div>
         </div>
       )}
+
+      {/* Mobile responsive styles */}
+      <style>{`
+        @media (max-width: 1024px) and (min-width: 768px) {
+          .portfolio-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 767px) {
+          .portfolio-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .portfolio-strip { flex-direction: column !important; align-items: flex-start !important; }
+          .portfolio-strip a { width: 100% !important; text-align: center; }
+        }
+      `}</style>
     </SectionWrapper>
   );
 }

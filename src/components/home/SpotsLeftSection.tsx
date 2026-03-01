@@ -4,6 +4,19 @@ export default function SpotsLeftSection() {
   return (
     <section className="bg-sv-base py-16 md:py-24 text-center">
       <div className="max-w-xl mx-auto px-4">
+        <div style={{ display: "flex", justifyContent: "center", marginBottom: "28px" }}>
+          <img
+            src="/images/juan.jpg"
+            alt="Juan — Client Growth"
+            style={{
+              width: "68px", height: "68px",
+              borderRadius: "50%", objectFit: "cover",
+              border: "2px solid rgba(255,255,255,0.14)",
+              display: "block",
+            }}
+            onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = "none"; }}
+          />
+        </div>
         <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
           I Run 3 Partnerships at a Time.
         </h2>

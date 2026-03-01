@@ -14,18 +14,6 @@ export default function ClientReality() {
         </h2>
       </Reveal>
 
-      {/* Featured Pain Card — full width, dark blue border */}
-      <Reveal className="max-w-4xl mx-auto mb-5">
-        <div className="group relative rounded-[14px] border border-[rgba(37,99,235,0.35)] bg-sv-surface p-10 transition-all duration-300 hover:border-[rgba(37,99,235,0.55)] hover:-translate-y-[2px]">
-          <h3 className="text-[28px] font-[700] text-white mb-3 leading-snug">
-            Right Now, 3 to 8 People in Your City Are Searching Your Exact Service.
-          </h3>
-          <p className="text-[16px] text-sv-text-sub leading-[1.75] max-w-2xl">
-            None of them will find you. Not because your work is worse. Because your digital infrastructure does not exist where they are looking. Google, AI search, maps. Your competitor is there. You are not. That call is gone before you knew it existed.
-          </p>
-        </div>
-      </Reveal>
-
       {/* Scene Block — "picture this" moment */}
       <Reveal className="max-w-4xl mx-auto mb-8">
         <div
@@ -92,9 +80,6 @@ export default function ClientReality() {
         >
           <p className="text-[18px] md:text-[20px] font-bold text-red-400 leading-snug mb-3">
             At $33 per qualified call, every week this system is not running costs you 3 to 7 booked calls you will never get back.
-          </p>
-          <p className="text-[15px] opacity-[0.68] mb-3">
-            That is $100 to $230 in pipeline. Per week. While your competitor&apos;s system runs every single night.
           </p>
           <p className="text-[15px] font-bold opacity-[0.68]">
             It does not pause while you think about it. It either runs for you or it runs for them.

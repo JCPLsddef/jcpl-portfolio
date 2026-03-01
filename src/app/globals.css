@@ -589,10 +589,33 @@ body::before {
   line-height: 1;
 }
 
+/* ── Proof metric ($41,085 number) ── */
+.proof-metric {
+  font-size: 88px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
 /* ── Mobile overrides (< 768px) ── */
 @media (max-width: 767px) {
   .type-section-headline { font-size: clamp(32px, 9vw, 44px); }
   .type-card-title { font-size: 19px; }
   .type-body { font-size: 14px; }
-  .type-metric { font-size: clamp(72px, 18vw, 96px); }
+  .type-metric { font-size: clamp(80px, 20vw, 110px); }
+  .proof-metric { font-size: clamp(56px, 14vw, 80px); }
+}
+
+/* ── Lightbox keyframes ── */
+@keyframes lightboxFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lightboxScaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

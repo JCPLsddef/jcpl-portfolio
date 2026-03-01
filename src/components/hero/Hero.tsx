@@ -3,6 +3,7 @@
 import { useRef, useEffect, useCallback, Fragment } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
+import CurvedLoop from "./CurvedLoop";
 import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
@@ -14,7 +15,11 @@ const EYEBROW = "Growth Architecture™";
 const HEADLINE = "DOMINATE YOUR MARKET";
 const MECHANISM =
 	"One system: conversion site, Google Ads for ready-to-hire buyers, and AI that qualifies leads before your phone rings.";
-const PROOF = "Last result: $900 ad spend → $41,084.85 revenue. Texas RV company. 30 days.";
+const RESULT_STATS = [
+	{ value: "$41,084", label: "Revenue generated" },
+	{ value: "46x", label: "Return on ad spend" },
+	{ value: "11 days", label: "Time to first call" },
+];
 const CTA_PRIMARY = {
 	label: "Apply. I\u2019ll review you in 24h.",
 	href: "/apply",
@@ -31,7 +36,7 @@ export default function Hero() {
 	const headlineRef = useRef<HTMLSpanElement>(null);
 	const eyebrowRef = useRef<HTMLDivElement>(null);
 	const mechRef = useRef<HTMLParagraphElement>(null);
-	const proofRef = useRef<HTMLParagraphElement>(null);
+	const stripRef = useRef<HTMLParagraphElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
 	const bgLayerRef = useRef<HTMLDivElement>(null);
 	const contentLayerRef = useRef<HTMLDivElement>(null);
@@ -75,7 +80,7 @@ export default function Hero() {
 			frameRef.current,
 			eyebrowRef.current,
 			mechRef.current,
-			proofRef.current,
+			stripRef.current,
 			ctaRef.current,
 		].filter(Boolean);
 
@@ -137,9 +142,9 @@ export default function Hero() {
 		}
 
 		// 6. Proof line
-		if (proofRef.current) {
+		if (stripRef.current) {
 			tl.fromTo(
-				proofRef.current,
+				stripRef.current,
 				{ opacity: 0, y: 12 },
 				{ opacity: 1, y: 0, duration: 0.55 },
 				1.15
@@ -175,6 +180,18 @@ export default function Hero() {
 			    No outer frame. Section IS the container.
 			    ═══════════════════════════════════════════════ */}
 			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
+
+				{/* ── Curved ambient text arch ── */}
+				<div className="cb-curved-loop" aria-hidden="true">
+					<CurvedLoop
+						marqueeText="GROWTH ARCHITECTURE™  ·  CALLS BOOKED  ·  DOMINATE YOUR MARKET  ·  "
+						speed={0.4}
+						curveAmount={120}
+						direction="left"
+						interactive={false}
+						className="hero-curved-loop-text"
+					/>
+				</div>
 
 				{/* ── LAYER 1 — WebGL background ── */}
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
@@ -219,10 +236,15 @@ export default function Hero() {
 							{MECHANISM}
 						</p>
 
-						{/* Proof line */}
-						<p ref={proofRef} className="cb-proof-line" style={{ opacity: 0 }}>
-							{PROOF}
-						</p>
+						{/* Result strip */}
+						<div ref={stripRef} className="cb-result-strip" style={{ opacity: 0 }}>
+							{RESULT_STATS.map((stat) => (
+								<div key={stat.label} className="cb-result-stat">
+									<p className="cb-result-value">{stat.value}</p>
+									<p className="cb-result-label">{stat.label}</p>
+								</div>
+							))}
+						</div>
 
 						{/* CTA */}
 						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>

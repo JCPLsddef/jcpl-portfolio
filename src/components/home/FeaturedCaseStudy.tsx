@@ -57,12 +57,25 @@ export default function FeaturedCaseStudy() {
 						<div className="flex flex-col md:flex-row gap-8 items-start">
 							{/* Left — numbers */}
 							<div className="flex-1">
-								<div className="text-[88px] font-[900] text-white leading-none tracking-[-0.03em] mb-2">
+								<div className="proof-metric text-white mb-2">
 									<CountUpValue to={41084.85} prefix="$" durationMs={1400} />
 								</div>
 								<p className="text-[16px] font-[500] opacity-[0.80] mb-3">
 									in revenue. First 30 days.
 								</p>
+
+								{/* Dashboard screenshot */}
+								<div style={{
+									marginTop: '24px', borderRadius: '8px', overflow: 'hidden',
+									border: '1px solid rgba(255,255,255,0.07)'
+								}}>
+									<img
+										src="/images/proof/triplew-ads-dashboard.png"
+										alt="Google Ads dashboard — Triple W Rentals campaign"
+										style={{ width: '100%', display: 'block', opacity: 0.90 }}
+										onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = 'none'; }}
+									/>
+								</div>
 								<p className="text-[11px] font-[500] opacity-[0.42] tracking-[0.08em] uppercase mb-6">
 									$900 IN AD SPEND&nbsp;·&nbsp;GOOGLE ADS FUNNEL&nbsp;·&nbsp;30 DAYS
 								</p>
