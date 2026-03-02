@@ -30,12 +30,12 @@ export default function CurvedLoop({
   const pathD = `M-200,150 Q720,${150 - curveAmount} 1640,150`;
 
   // Add extra spaces for seamless wrapping
-  const textWithSpaces = `${marqueeText}          `;
+  const textWithSpaces = `${marqueeText}                    `;
 
   useEffect(() => {
     if (prefersReducedMotion()) {
       textRef1.current?.setAttribute("startOffset", "0%");
-      textRef2.current?.setAttribute("startOffset", "50%");
+      textRef2.current?.setAttribute("startOffset", "100%"); // Start second copy off-screen
       return;
     }
 
@@ -46,8 +46,8 @@ export default function CurvedLoop({
       let pct1 = ((offsetRef.current % 100) + 100) % 100;
       textRef1.current?.setAttribute("startOffset", `${pct1}%`);
       
-      // Second copy offset by 50% for seamless loop
-      let pct2 = (((offsetRef.current + 50) % 100) + 100) % 100;
+      // Second copy offset by 100% so it only appears when first copy exits
+      let pct2 = (((offsetRef.current + 100) % 100) + 100) % 100;
       textRef2.current?.setAttribute("startOffset", `${pct2}%`);
       
       rafRef.current = requestAnimationFrame(tick);
@@ -122,7 +122,7 @@ export default function CurvedLoop({
           animation: "letterGlow 2s ease-out 0.1s",
         }}
       >
-        <textPath ref={textRef2} href={`#${pathId}`} startOffset="50%">
+        <textPath ref={textRef2} href={`#${pathId}`} startOffset="100%">
           {textWithSpaces}
         </textPath>
       </text>
