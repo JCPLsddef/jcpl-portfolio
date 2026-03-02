@@ -14,7 +14,7 @@ interface Props {
 
 export default function CurvedLoop({
   marqueeText,
-  speed = 3.5, // Even faster!
+  speed = 8.0, // Way faster!
   curveAmount = 80,
   direction = "left",
   interactive = false,
@@ -40,7 +40,7 @@ export default function CurvedLoop({
     }
 
     const tick = () => {
-      offsetRef.current += (direction === "left" ? -speed : speed) * 0.15;
+      offsetRef.current += (direction === "left" ? -speed : speed) * 0.25; // Even faster multiplier!
       
       // First copy
       let pct1 = ((offsetRef.current % 100) + 100) % 100;
