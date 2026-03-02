@@ -14,7 +14,7 @@ interface Props {
 
 export default function CurvedLoop({
   marqueeText,
-  speed = 0.4,
+  speed = 1.2,
   curveAmount = 80,
   direction = "left",
   interactive = false,
@@ -23,28 +23,29 @@ export default function CurvedLoop({
   const pathId = useId().replace(/:/g, "-");
   const textRef1 = useRef<SVGTextPathElement>(null);
   const textRef2 = useRef<SVGTextPathElement>(null);
-  const textRef3 = useRef<SVGTextPathElement>(null);
   const offsetRef = useRef(0);
   const rafRef = useRef<number>(0);
 
-  const pathD = `M-100,100 Q500,${100 - curveAmount} 1540,100`;
-
-  const initialOffsets = [0, 50, 100]; // Adjusted spacing between text paths
+  // Path sits at y=150 so ascenders are fully visible inside the 200px viewBox
+  const pathD = `M-200,150 Q720,${150 - curveAmount} 1640,150`;
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
+    if (prefersReducedMotion()) {
+      textRef1.current?.setAttribute("startOffset", "0%");
+      textRef2.current?.setAttribute("startOffset", "50%");
+      return;
+    }
 
-    const refs = [textRef1, textRef2, textRef3];
-    // Stagger the three copies evenly across the loop
+    const refs = [textRef1, textRef2];
 
     const tick = () => {
-      const delta = (direction === "left" ? -speed : speed) * 0.06;
-      offsetRef.current += delta;
+      // speed unit = % per frame  (at 60fps, speed=1.2 → ~72% per sec → ~1.4s full loop)
+      offsetRef.current += (direction === "left" ? -speed : speed) * 0.12;
 
       refs.forEach((ref, idx) => {
         if (!ref.current) return;
-        let pct = initialOffsets[idx] + offsetRef.current;
-        // Wrap within [0, 100)
+        // Space the 2 copies exactly 50% apart so they never overlap
+        let pct = idx * 50 + offsetRef.current;
         pct = ((pct % 100) + 100) % 100;
         ref.current.setAttribute("startOffset", `${pct}%`);
       });
@@ -56,73 +57,44 @@ export default function CurvedLoop({
     return () => cancelAnimationFrame(rafRef.current);
   }, [speed, direction]);
 
-  useEffect(() => {
-    const updateOffsets = () => {
-      if (textRef1.current) textRef1.current.setAttribute("startOffset", `${initialOffsets[0]}%`);
-      if (textRef2.current) textRef2.current.setAttribute("startOffset", `${initialOffsets[1]}%`);
-      if (textRef3.current) textRef3.current.setAttribute("startOffset", `${initialOffsets[2]}%`);
-    };
-
-    updateOffsets();
-  }, [initialOffsets]);
-
-  if (!interactive) {
-    return (
-      <svg
-        viewBox="0 0 1440 160"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-        style={{
-          width: "100%",
-          height: "160px",
-          display: "block",
-          overflow: "hidden",
-          pointerEvents: "none",
-        }}
-      >
-        <defs>
-          <path id={pathId} d={pathD} />
-        </defs>
-        <text className={className}>
-          <textPath ref={textRef1} href={`#${pathId}`} startOffset="0%">
-            {marqueeText}
-          </textPath>
-          <textPath ref={textRef2} href={`#${pathId}`} startOffset="33.33%">
-            {marqueeText}
-          </textPath>
-          <textPath ref={textRef3} href={`#${pathId}`} startOffset="66.66%">
-            {marqueeText}
-          </textPath>
-        </text>
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      viewBox="0 0 1440 160"
-      preserveAspectRatio="none"
-      style={{
-        width: "100%",
-        height: "160px",
-        display: "block",
-        overflow: "hidden",
-      }}
-    >
+  const svgContent = (
+    <>
       <defs>
         <path id={pathId} d={pathD} />
       </defs>
-      <text className={className}>
+      {/* fontSize + letterSpacing keep words readable and well-spaced */}
+      <text
+        className={className}
+        fontSize="72"
+        fontWeight="bold"
+        letterSpacing="10"
+        xmlSpace="preserve"
+      >
         <textPath ref={textRef1} href={`#${pathId}`} startOffset="0%">
-          {marqueeText}
+          {marqueeText}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </textPath>
-        <textPath ref={textRef2} href={`#${pathId}`} startOffset="33.33%">
-          {marqueeText}
-        </textPath>
-        <textPath ref={textRef3} href={`#${pathId}`} startOffset="66.66%">
-          {marqueeText}
+        <textPath ref={textRef2} href={`#${pathId}`} startOffset="50%">
+          {marqueeText}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </textPath>
       </text>
+    </>
+  );
+
+  return (
+    <svg
+      viewBox="0 0 1440 200"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+      style={{
+        width: "100%",
+        height: "200px",
+        display: "block",
+        // overflow visible so ascenders aren't clipped
+        overflow: "visible",
+        pointerEvents: interactive ? "auto" : "none",
+      }}
+    >
+      {svgContent}
     </svg>
   );
 }
