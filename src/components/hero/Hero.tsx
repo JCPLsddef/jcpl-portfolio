@@ -221,7 +221,7 @@ export default function Hero() {
 								curveAmount={120}
 								direction="left"
 								interactive={false}
-								className="rainbow-text"
+								className="curved-loop-white-text"
 							/>
 						</h1>
 

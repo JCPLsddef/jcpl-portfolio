@@ -288,6 +288,11 @@
   fill: rgba(255, 255, 255, 0.12);
 }
 
+.curved-loop-white-text {
+  fill: white; /* Ensures the text is white */
+  font-weight: bold;
+}
+
 /* ═══════════════════════════════════════════════════
    RESULT STRIP — 3-stat row below CTA
    ═══════════════════════════════════════════════════ */
