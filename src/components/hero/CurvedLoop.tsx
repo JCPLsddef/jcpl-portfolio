@@ -29,12 +29,13 @@ export default function CurvedLoop({
 
   const pathD = `M-100,100 Q500,${100 - curveAmount} 1540,100`;
 
+  const initialOffsets = [0, 50, 100]; // Adjusted spacing between text paths
+
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
     const refs = [textRef1, textRef2, textRef3];
     // Stagger the three copies evenly across the loop
-    const initialOffsets = [0, 33.33, 66.66];
 
     const tick = () => {
       const delta = (direction === "left" ? -speed : speed) * 0.06;
@@ -54,6 +55,16 @@ export default function CurvedLoop({
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
   }, [speed, direction]);
+
+  useEffect(() => {
+    const updateOffsets = () => {
+      if (textRef1.current) textRef1.current.setAttribute("startOffset", `${initialOffsets[0]}%`);
+      if (textRef2.current) textRef2.current.setAttribute("startOffset", `${initialOffsets[1]}%`);
+      if (textRef3.current) textRef3.current.setAttribute("startOffset", `${initialOffsets[2]}%`);
+    };
+
+    updateOffsets();
+  }, [initialOffsets]);
 
   if (!interactive) {
     return (

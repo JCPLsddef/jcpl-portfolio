@@ -217,7 +217,7 @@ export default function Hero() {
 						<h1 className="cb-headline">
 							<CurvedLoop
 								marqueeText="DOMINATE YOUR MARKET"
-								speed={0.4}
+								speed={1.2} // Increased speed for faster movement
 								curveAmount={120}
 								direction="left"
 								interactive={false}
