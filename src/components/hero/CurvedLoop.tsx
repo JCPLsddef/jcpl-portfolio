@@ -14,7 +14,7 @@ interface Props {
 
 export default function CurvedLoop({
   marqueeText,
-  speed = 1.2,
+  speed = 2.5, // Faster!
   curveAmount = 80,
   direction = "left",
   interactive = false,
@@ -28,9 +28,9 @@ export default function CurvedLoop({
   // Path sits at y=150 so ascenders are fully visible inside the 200px viewBox
   const pathD = `M-200,150 Q720,${150 - curveAmount} 1640,150`;
 
-  // Repeat the text enough times with lots of spaces so it wraps smoothly
-  const repeatedText = Array(4)
-    .fill(`${marqueeText}     `)
+  // Repeat the text many times with lots of spaces for a seamless infinite loop
+  const repeatedText = Array(12)
+    .fill(`${marqueeText}        `)
     .join("");
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export default function CurvedLoop({
       </defs>
       <text
         className={className}
-        fontSize="96" // bigger text
+        fontSize="120" // Bigger text!
         fontWeight="bold"
         letterSpacing="12"
         xmlSpace="preserve"
