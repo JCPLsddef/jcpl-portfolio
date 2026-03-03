@@ -276,6 +276,7 @@ export const servicesShowcaseContent = {
   services: [
     {
       id: "website",
+      accentColor: "#FE7F26",
       title: "Conversion Website System",
       subtitle: "Trust + action in one experience",
       description:
@@ -290,6 +291,7 @@ export const servicesShowcaseContent = {
     },
     {
       id: "seo",
+      accentColor: "#38A169",
       title: "SEO That Compounds",
       subtitle: "Rank above competitors over time",
       description:
@@ -304,6 +306,7 @@ export const servicesShowcaseContent = {
     },
     {
       id: "geo",
+      accentColor: "#3B82F6",
       title: "AI Search Presence",
       subtitle: "Show up inside AI answers",
       description:
@@ -318,6 +321,7 @@ export const servicesShowcaseContent = {
     },
     {
       id: "copy",
+      accentColor: "#D4A017",
       title: "Copy That Converts",
       subtitle: "Words engineered to sell",
       description:

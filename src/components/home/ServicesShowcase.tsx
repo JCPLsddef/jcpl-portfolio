@@ -9,7 +9,6 @@ import { Reveal } from "@/components/motion";
 import { usePrefersReducedMotionSafe } from "@/components/motion/usePrefersReducedMotionSafe";
 import { cn } from "@/lib/utils";
 
-const ACCENT_ORANGE = "#FE7F26";
 const IMAGE_TRANSITION = { duration: 0.38, ease: [0.16, 1, 0.3, 1] as const };
 const BG_GLOW_TRANSITION = { duration: 0.75, ease: [0.16, 1, 0.3, 1] as const };
 
@@ -25,6 +24,7 @@ type Service = (typeof servicesShowcaseContent.services)[number];
 interface ServiceTabCardProps {
   title: string;
   subtitle?: string;
+  accentColor: string;
   isActive: boolean;
   index: number;
   onClick: () => void;
@@ -35,12 +35,21 @@ interface ServiceTabCardProps {
 function ServiceTabCard({
   title,
   subtitle,
+  accentColor,
   isActive,
   index,
   onClick,
   onKeyDown,
   reducedMotion,
 }: ServiceTabCardProps) {
+  const rgb = (() => {
+    const hex = accentColor.replace("#", "");
+    const r = parseInt(hex.slice(0, 2), 16);
+    const g = parseInt(hex.slice(2, 4), 16);
+    const b = parseInt(hex.slice(4, 6), 16);
+    return `${r},${g},${b}`;
+  })();
+
   return (
     <motion.button
       type="button"
@@ -55,19 +64,26 @@ function ServiceTabCard({
       className={cn(
         "group relative w-full text-left rounded-[10px] border transition-all duration-200",
         "min-h-[120px] md:min-h-[157px] p-5 flex flex-col justify-center pr-10",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FE7F26]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-sv-base",
-        isActive
-          ? "border-[#FE7F26]/60 bg-[#0f2640] shadow-[0_0_28px_rgba(254,127,38,0.1)]"
-          : "border-[rgba(255,255,255,0.08)] bg-sv-surface/80 hover:border-[#FE7F26]/30"
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-sv-base",
+        isActive ? "bg-[#0f2640]" : "border-[rgba(255,255,255,0.08)] bg-sv-surface/80 hover:border-white/20"
       )}
+      style={
+        isActive
+          ? {
+              borderColor: `${accentColor}99`,
+              boxShadow: `0 0 28px rgba(${rgb},0.1)`,
+              ["--tw-ring-color" as string]: `${accentColor}80`,
+            }
+          : { ["--tw-ring-color" as string]: `${accentColor}80` }
+      }
     >
-      {/* Top orange strip (active only) */}
+      {/* Top strip (active only) */}
       <span
         className={cn(
           "absolute left-0 right-0 top-0 h-[3px] rounded-t-[10px] transition-all duration-200",
           isActive ? "opacity-100" : "opacity-0 group-hover:opacity-50"
         )}
-        style={{ backgroundColor: ACCENT_ORANGE }}
+        style={{ backgroundColor: accentColor }}
       />
       <h3
         className={cn(
@@ -82,7 +98,7 @@ function ServiceTabCard({
       {isActive && (
         <span
           className="absolute right-5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full"
-          style={{ backgroundColor: ACCENT_ORANGE }}
+          style={{ backgroundColor: accentColor }}
           aria-hidden
         />
       )}
@@ -93,7 +109,7 @@ function ServiceTabCard({
 export default function ServicesShowcase() {
   const [activeIndex, setActiveIndex] = useState(0);
   const reducedMotion = usePrefersReducedMotionSafe();
-  const { brandTitle, brandParagraph, services } = servicesShowcaseContent;
+  const { services } = servicesShowcaseContent;
   const activeService = services[activeIndex] as Service;
   const bgGlowColor = SERVICE_BG_GLOWS[activeService.id] ?? SERVICE_BG_GLOWS.website;
 
@@ -186,13 +202,24 @@ export default function ServicesShowcase() {
         >
           {/* Left column */}
           <div className="w-full shrink-0">
-            <Reveal delay={0.05}>
-              <h2 className="text-[clamp(32px,4vw,48px)] font-[800] text-white leading-[1.1] tracking-[-0.025em] mb-5">
-                {brandTitle}
-              </h2>
-              <p className="text-[16px] md:text-[17px] text-sv-text-sub leading-[1.7]">
-                {brandParagraph}
-              </p>
+            <Reveal delay={0.05} className="relative min-h-[140px] md:min-h-[180px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeService.id}
+                  initial={imageVariants.initial}
+                  animate={imageVariants.animate}
+                  exit={imageVariants.exit}
+                  transition={IMAGE_TRANSITION}
+                  className="absolute inset-0"
+                >
+                  <h2 className="text-[clamp(32px,4vw,48px)] font-[800] text-white leading-[1.1] tracking-[-0.025em] mb-5">
+                    {activeService.title}
+                  </h2>
+                  <p className="text-[16px] md:text-[17px] text-sv-text-sub leading-[1.7]">
+                    {activeService.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </Reveal>
           </div>
 
@@ -270,6 +297,7 @@ export default function ServicesShowcase() {
                 <ServiceTabCard
                   title={service.title}
                   subtitle={service.subtitle}
+                  accentColor={service.accentColor}
                   isActive={activeIndex === index}
                   index={index}
                   onClick={() => setActiveIndex(index)}
