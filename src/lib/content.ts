@@ -270,37 +270,49 @@ export const differentiation = {
 
 /* ─── Services Showcase (Figma-style section) ─── */
 export const servicesShowcaseContent = {
-  brandTitle: "Food Zone",
+  brandTitle: "Conversion-Built Marketing Systems",
   brandParagraph:
-    "From invisible to impossible to ignore. I built the full acquisition system — conversion website, Google Ads, and AI search presence — so every buyer in their city sees Food Zone first.",
+    "Website, SEO, GEO, and copywriting — engineered to turn clicks into booked calls. One integrated system, not five disconnected vendors.",
   services: [
     {
-      id: "conversion-website",
+      id: "website",
       title: "Conversion Website",
-      tagline: "Trust + action in one experience",
-      imageSrc: "/images/system/card-website.png",
-      imageAlt: "Food Zone conversion website",
+      subtitle: "Trust + action in one experience",
+      description:
+        "A premium site engineered to turn clicks into booked calls — fast, clean, persuasive.",
+      imageUrl:
+        "https://static.wixstatic.com/media/62f926_b75fd5a18ec14881b9e4a9d82c36bc5e~mv2.png",
+      imageAlt: "Conversion website showcase",
     },
     {
-      id: "google-ads",
-      title: "Google Ads",
-      tagline: "Paid traffic that converts",
-      imageSrc: "/images/system/card-ads.png",
-      imageAlt: "Food Zone Google Ads funnel",
+      id: "seo",
+      title: "SEO",
+      subtitle: "Rank above competitors",
+      description:
+        "Technical + content SEO that compounds. Get found when buyers are searching.",
+      imageUrl:
+        "https://static.wixstatic.com/media/62f926_816997cd50b14f1181c99704a6fe1a2b~mv2.png",
+      imageAlt: "SEO presence showcase",
     },
     {
-      id: "seo-geo",
-      title: "SEO & GEO",
-      tagline: "Rank above competitors on Google and AI",
-      imageSrc: "/images/system/card-seo.png",
-      imageAlt: "Food Zone SEO and GEO presence",
+      id: "geo",
+      title: "GEO",
+      subtitle: "AI Search Presence",
+      description:
+        "Get recommended inside AI answers (ChatGPT, Gemini, etc.) with structured authority signals.",
+      imageUrl:
+        "https://static.wixstatic.com/media/62f926_f59f91d54df04cf38b7acfb4f81f3b25~mv2.png",
+      imageAlt: "GEO AI search presence showcase",
     },
     {
-      id: "analytics",
-      title: "Analytics & Optimization",
-      tagline: "Data-driven improvements every week",
-      imageSrc: "/images/system/card-analytics.png",
-      imageAlt: "Food Zone analytics dashboard",
+      id: "copy",
+      title: "Copywriting",
+      subtitle: "Words that sell",
+      description:
+        "Messaging, offers, and landing-page copy built to convert cold traffic into revenue.",
+      imageUrl:
+        "https://static.wixstatic.com/media/62f926_69911d750f2741e689fb60f65c28deea~mv2.png",
+      imageAlt: "Copywriting showcase",
     },
   ],
 } as const;
