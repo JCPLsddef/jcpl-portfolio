@@ -4,9 +4,11 @@ import { useMemo } from "react";
 import {
   RAIL_COLORS,
   RAIL_OPACITY,
+  RAIL_GLOW,
   DIMENSIONS,
   BALL,
   TRAIL,
+  PROGRESS_SEGMENTS,
 } from "@/lib/marbleConfig";
 
 const { width: W, height: H, railGap } = DIMENSIONS;
@@ -16,45 +18,76 @@ const rail1Y = 70;
 const rail2Y = 70 + railGap;
 const rail3Y = 70 + railGap * 2;
 
-/* Progress segments (0–1): rail1 roll, drop1, rail2 roll, drop2, rail3 roll */
-const R1_END = 0.33;
-const D1_END = 0.38;
-const R2_END = 0.66;
-const D2_END = 0.71;
+const {
+  RAIL1_END,
+  DWELL1_END,
+  DROP1_END,
+  RAIL2_END,
+  DWELL2_END,
+  DROP2_END,
+  RAIL3_END,
+} = PROGRESS_SEGMENTS;
 
 function lerp(a: number, b: number, t: number) {
   return a + (b - a) * t;
+}
+
+/* easeOut: decelerate at end of roll */
+function easeOut(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
+/* subtle bounce: slight overshoot at bottom for drop settle */
+function dropBounce(t: number): number {
+  if (t < 0.85) return t / 0.85;
+  const overshoot = (t - 0.85) / 0.15;
+  return 1 + 0.04 * Math.sin(overshoot * Math.PI);
 }
 
 function progressToPosition(progress: number): { x: number; y: number } {
   if (progress <= 0) return { x: left, y: rail1Y };
   if (progress >= 1) return { x: right, y: rail3Y };
 
-  if (progress < R1_END) {
-    const t = progress / R1_END;
-    return { x: lerp(left, right, t), y: rail1Y };
+  if (progress < RAIL1_END) {
+    const t = progress / RAIL1_END;
+    const eased = easeOut(t);
+    return { x: lerp(left, right, eased), y: rail1Y };
   }
-  if (progress < D1_END) {
-    const t = (progress - R1_END) / (D1_END - R1_END);
-    return { x: right, y: lerp(rail1Y, rail2Y, t) };
+  if (progress < DWELL1_END) {
+    return { x: right, y: rail1Y };
   }
-  if (progress < R2_END) {
-    const t = (progress - D1_END) / (R2_END - D1_END);
-    return { x: lerp(right, left, t), y: rail2Y };
+  if (progress < DROP1_END) {
+    const t = (progress - DWELL1_END) / (DROP1_END - DWELL1_END);
+    const eased = dropBounce(t);
+    return { x: right, y: lerp(rail1Y, rail2Y, eased) };
   }
-  if (progress < D2_END) {
-    const t = (progress - R2_END) / (D2_END - R2_END);
-    return { x: left, y: lerp(rail2Y, rail3Y, t) };
+  if (progress < RAIL2_END) {
+    const t = (progress - DROP1_END) / (RAIL2_END - DROP1_END);
+    const eased = easeOut(t);
+    return { x: lerp(right, left, eased), y: rail2Y };
   }
-  const t = (progress - D2_END) / (1 - D2_END);
-  return { x: lerp(left, right, t), y: rail3Y };
+  if (progress < DWELL2_END) {
+    return { x: left, y: rail2Y };
+  }
+  if (progress < DROP2_END) {
+    const t = (progress - DWELL2_END) / (DROP2_END - DWELL2_END);
+    const eased = dropBounce(t);
+    return { x: left, y: lerp(rail2Y, rail3Y, eased) };
+  }
+  if (progress < RAIL3_END) {
+    const t = (progress - DROP2_END) / (RAIL3_END - DROP2_END);
+    const eased = easeOut(t);
+    return { x: lerp(left, right, eased), y: rail3Y };
+  }
+  return { x: right, y: rail3Y };
 }
 
 function progressToActiveRail(progress: number): number | null {
-  if (progress < R1_END) return 0;
-  if (progress < D1_END) return null;
-  if (progress < R2_END) return 1;
-  if (progress < D2_END) return null;
+  if (progress < RAIL1_END) return 0;
+  if (progress < DROP1_END) return null;
+  if (progress < RAIL2_END) return 1;
+  if (progress < DROP2_END) return null;
+  if (progress <= 1) return 2;
   return 2;
 }
 
@@ -72,7 +105,7 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
     const samples: { x: number; y: number }[] = [];
     const count = TRAIL.count;
     for (let i = count; i >= 0; i--) {
-      const p = Math.max(0, progress - (i * 0.015));
+      const p = Math.max(0, progress - (i * 0.012));
       samples.push(progressToPosition(p));
     }
     return samples;
@@ -89,48 +122,51 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
         >
           <defs>
             <filter id="marble-rail-glow-blue" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <filter id="marble-rail-glow-purple" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <filter id="marble-rail-glow-violet" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
             <filter id="marble-rail-glow-emerald" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+              <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-            <radialGradient id="marble-ball-gloss" cx="35%" cy="35%" r="50%">
+            <radialGradient id="marble-ball-gloss" cx="32%" cy="32%" r="50%">
               <stop offset="0%" stopColor={BALL.glossHighlight} stopOpacity="1" />
-              <stop offset="70%" stopColor={BALL.baseColor} stopOpacity="1" />
-              <stop offset="100%" stopColor="rgba(240,240,245,0.98)" stopOpacity="1" />
+              <stop offset="55%" stopColor={BALL.baseColor} stopOpacity="1" />
+              <stop offset="100%" stopColor="rgba(248,248,252,0.98)" stopOpacity="1" />
             </radialGradient>
           </defs>
           <Rail
             line={{ x1: left, y1: rail1Y, x2: right, y2: rail1Y }}
             color={RAIL_COLORS.blue}
-            filter="url(#marble-rail-glow-blue)"
+            filterBase="url(#marble-rail-glow-blue)"
+            filterActive="url(#marble-rail-glow-blue-active)"
             active={false}
           />
           <Rail
             line={{ x1: left, y1: rail2Y, x2: right, y2: rail2Y }}
-            color={RAIL_COLORS.purple}
-            filter="url(#marble-rail-glow-purple)"
+            color={RAIL_COLORS.violet}
+            filterBase="url(#marble-rail-glow-violet)"
+            filterActive="url(#marble-rail-glow-violet-active)"
             active={false}
           />
           <Rail
             line={{ x1: left, y1: rail3Y, x2: right, y2: rail3Y }}
             color={RAIL_COLORS.emerald}
-            filter="url(#marble-rail-glow-emerald)"
+            filterBase="url(#marble-rail-glow-emerald)"
+            filterActive="url(#marble-rail-glow-emerald-active)"
             active={false}
           />
           <g
@@ -144,7 +180,7 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
               cy={0}
               r={BALL.radius}
               fill="url(#marble-ball-gloss)"
-              opacity={0.9}
+              opacity={0.92}
             />
           </g>
         </svg>
@@ -162,56 +198,80 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
       >
         <defs>
           <filter id="marble-rail-glow-blue" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <filter id="marble-rail-glow-purple" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+          <filter id="marble-rail-glow-blue-active" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevActive} result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="marble-rail-glow-violet" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="marble-rail-glow-violet-active" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevActive} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
           <filter id="marble-rail-glow-emerald" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevBase} result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="marble-rail-glow-emerald-active" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation={RAIL_GLOW.blurStdDevActive} result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
           <filter id="marble-ball-glow" x="-100%" y="-100%" width="300%" height="300%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="4" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
-          <radialGradient id="marble-ball-gloss" cx="35%" cy="35%" r="50%">
+          <radialGradient id="marble-ball-gloss" cx="32%" cy="32%" r="50%">
             <stop offset="0%" stopColor={BALL.glossHighlight} stopOpacity="1" />
-            <stop offset="70%" stopColor={BALL.baseColor} stopOpacity="1" />
-            <stop offset="100%" stopColor="rgba(240,240,245,0.98)" stopOpacity="1" />
+            <stop offset="55%" stopColor={BALL.baseColor} stopOpacity="1" />
+            <stop offset="100%" stopColor="rgba(248,248,252,0.98)" stopOpacity="1" />
           </radialGradient>
         </defs>
 
         <Rail
           line={{ x1: left, y1: rail1Y, x2: right, y2: rail1Y }}
           color={RAIL_COLORS.blue}
-          filter="url(#marble-rail-glow-blue)"
+          filterBase="url(#marble-rail-glow-blue)"
+          filterActive="url(#marble-rail-glow-blue-active)"
           active={activeRailIndex === 0}
         />
         <Rail
           line={{ x1: left, y1: rail2Y, x2: right, y2: rail2Y }}
-          color={RAIL_COLORS.purple}
-          filter="url(#marble-rail-glow-purple)"
+          color={RAIL_COLORS.violet}
+          filterBase="url(#marble-rail-glow-violet)"
+          filterActive="url(#marble-rail-glow-violet-active)"
           active={activeRailIndex === 1}
         />
         <Rail
           line={{ x1: left, y1: rail3Y, x2: right, y2: rail3Y }}
           color={RAIL_COLORS.emerald}
-          filter="url(#marble-rail-glow-emerald)"
+          filterBase="url(#marble-rail-glow-emerald)"
+          filterActive="url(#marble-rail-glow-emerald-active)"
           active={activeRailIndex === 2}
         />
 
@@ -223,10 +283,10 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
               key={`trail-${i}-${p.x.toFixed(0)}-${p.y.toFixed(0)}`}
               cx={p.x}
               cy={p.y}
-              r={BALL.radius * 0.6}
-              fill="rgba(255,255,255,0.6)"
+              r={BALL.radius * 0.55}
+              fill="rgba(255,255,255,0.65)"
               opacity={opacity}
-              style={{ filter: "blur(2px)" }}
+              style={{ filter: "blur(3px)" }}
             />
           );
         })}
@@ -253,41 +313,48 @@ export default function MarbleRailsAnimation({ progress, reduced }: MarbleRailsA
 function Rail({
   line,
   color,
-  filter,
+  filterBase,
+  filterActive,
   active,
 }: {
   line: { x1: number; y1: number; x2: number; y2: number };
   color: string;
-  filter: string;
+  filterBase: string;
+  filterActive: string;
   active?: boolean;
 }) {
   const glowOpacity = active ? RAIL_OPACITY.active : RAIL_OPACITY.base;
-  const lineOpacity = active ? 1 : RAIL_OPACITY.centerLine;
+  const lineOpacity = active ? RAIL_OPACITY.centerLineActive : RAIL_OPACITY.centerLine;
+  const strokeWidth = active ? RAIL_GLOW.strokeWidthActive : RAIL_GLOW.strokeWidthBase;
+  const filter = active ? filterActive : filterBase;
+
   return (
     <g>
+      {/* Sharp center core */}
       <line
         x1={line.x1}
         y1={line.y1}
         x2={line.x2}
         y2={line.y2}
         stroke={color}
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLinecap="round"
         opacity={lineOpacity}
         fill="none"
-        style={{ transition: "opacity 0.3s ease" }}
+        style={{ transition: "opacity 0.4s ease" }}
       />
+      {/* Soft outer glow */}
       <line
         x1={line.x1}
         y1={line.y1}
         x2={line.x2}
         y2={line.y2}
         stroke={color}
-        strokeWidth="24"
+        strokeWidth={strokeWidth}
         strokeLinecap="round"
         opacity={glowOpacity}
         fill="none"
-        style={{ filter, transition: "opacity 0.3s ease" }}
+        style={{ filter, transition: "opacity 0.4s ease" }}
       />
     </g>
   );

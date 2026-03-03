@@ -48,7 +48,7 @@ export default function MarbleSystemSection() {
         start: "top top",
         end: `+=${pinDuration}vh`,
         pin: viewportRef.current,
-        scrub: true,
+        scrub: 1,
         onUpdate: (self) => {
           const p = self.progress;
           setProgress(p);
@@ -108,9 +108,9 @@ export default function MarbleSystemSection() {
     >
       <div
         ref={viewportRef}
-        className="min-h-screen flex flex-col md:flex-row md:items-center md:justify-between gap-12 md:gap-16 lg:gap-24 py-16 md:py-20"
+        className="min-h-screen flex flex-col md:flex-row md:items-center md:justify-between gap-16 md:gap-20 lg:gap-28 py-20 md:py-24"
       >
-        <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-12 md:gap-16 lg:gap-24 w-full">
+        <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-16 md:gap-20 lg:gap-28 w-full">
           <div className="flex-1 max-w-xl">
             <SectionLabel
               label={marbleSystemSection.label}
@@ -130,16 +130,16 @@ export default function MarbleSystemSection() {
                 return (
                   <div
                     key={i}
-                    className="transition-all duration-500 ease-out"
+                    className="transition-all duration-700 ease-out"
                     style={{
-                      opacity: isRevealed ? (isCurrent ? 1 : 0.55) : 0,
-                      transform: isRevealed ? "translateY(0)" : "translateY(12px)",
+                      opacity: isRevealed ? (isCurrent ? 1 : 0.4) : 0,
+                      transform: isRevealed ? "translateY(0)" : "translateY(8px)",
                       pointerEvents: isRevealed ? "auto" : "none",
                     }}
                   >
                     <h3
                       className={`text-lg font-semibold ${
-                        isCurrent ? "text-neutral-900" : "text-neutral-600"
+                        isCurrent ? "text-neutral-900" : "text-neutral-500"
                       }`}
                     >
                       {step.title}
@@ -157,7 +157,7 @@ export default function MarbleSystemSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex items-center justify-center min-h-[280px] md:min-w-[400px]">
+          <div className="flex-1 flex items-center justify-center min-h-[320px] md:min-w-[420px]">
             <MarbleRailsAnimation progress={progress} reduced={false} />
           </div>
         </div>
