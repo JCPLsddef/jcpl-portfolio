@@ -269,14 +269,29 @@ export const differentiation = {
 };
 
 /* ─── Services Showcase (Figma-style section) ─── */
+export type ServiceBgKey = "website" | "seo" | "geo" | "copy" | "googleAds";
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  imageUrl: string;
+  imageAlt: string;
+  accentColor: string;
+  hoverAccentColor: string;
+  imagePosition?: string;
+  imageScale?: number;
+  bgKey: ServiceBgKey;
+}
+
 export const servicesShowcaseContent = {
   brandTitle: "Conversion-Built Marketing Systems",
   brandParagraph:
-    "Website, SEO, GEO, and copywriting — engineered to turn clicks into booked calls. One integrated system, not four disconnected freelancers.",
+    "Website, SEO, GEO, copywriting, and Google Ads — engineered to turn clicks into booked calls. One integrated system, not five disconnected freelancers.",
   services: [
     {
       id: "website",
-      accentColor: "#FE7F26",
       title: "Conversion Website System",
       subtitle: "Trust + action in one experience",
       description:
@@ -284,14 +299,14 @@ export const servicesShowcaseContent = {
       imageUrl:
         "https://static.wixstatic.com/media/62f926_b75fd5a18ec14881b9e4a9d82c36bc5e~mv2.png",
       imageAlt: "Conversion website showcase",
+      accentColor: "#F97316",
+      hoverAccentColor: "#F97316",
       imagePosition: "center",
       imageScale: 1.03,
-      panelGlow: "rgba(254,127,38,0.10)",
-      objectFit: "cover" as const,
+      bgKey: "website" as const,
     },
     {
       id: "seo",
-      accentColor: "#38A169",
       title: "SEO That Compounds",
       subtitle: "Rank above competitors over time",
       description:
@@ -299,40 +314,56 @@ export const servicesShowcaseContent = {
       imageUrl:
         "https://static.wixstatic.com/media/62f926_816997cd50b14f1181c99704a6fe1a2b~mv2.png",
       imageAlt: "SEO presence showcase",
+      accentColor: "#22C55E",
+      hoverAccentColor: "#22C55E",
       imagePosition: "center",
       imageScale: 1.0,
-      panelGlow: "rgba(64,200,120,0.10)",
-      objectFit: "cover" as const,
+      bgKey: "seo" as const,
     },
     {
       id: "geo",
-      accentColor: "#3B82F6",
       title: "AI Search Presence",
       subtitle: "Show up inside AI answers",
       description:
-        "Get recommended inside AI answers (ChatGPT, Gemini, etc.) with structured authority signals.",
+        "Get recommended inside AI answers with structured authority signals.",
       imageUrl:
         "https://static.wixstatic.com/media/62f926_f59f91d54df04cf38b7acfb4f81f3b25~mv2.png",
       imageAlt: "GEO AI search presence showcase",
+      accentColor: "#A855F7",
+      hoverAccentColor: "#A855F7",
       imagePosition: "center",
       imageScale: 0.98,
-      panelGlow: "rgba(80,160,255,0.10)",
-      objectFit: "cover" as const,
+      bgKey: "geo" as const,
     },
     {
       id: "copy",
-      accentColor: "#D4A017",
-      title: "Copy That Converts",
+      title: "Copy Engineered to Convert",
       subtitle: "Words engineered to sell",
       description:
         "Messaging, offers, and landing-page copy built to convert cold traffic into revenue.",
       imageUrl:
         "https://static.wixstatic.com/media/62f926_69911d750f2741e689fb60f65c28deea~mv2.png",
       imageAlt: "Copywriting showcase",
+      accentColor: "#FACC15",
+      hoverAccentColor: "#FACC15",
       imagePosition: "72% center",
       imageScale: 1.08,
-      panelGlow: "rgba(255,210,100,0.10)",
-      objectFit: "cover" as const,
+      bgKey: "copy" as const,
+    },
+    {
+      id: "googleAds",
+      title: "Google Ads",
+      subtitle: "Paid traffic that converts",
+      description:
+        "Intent-driven campaigns engineered to turn search demand into qualified booked calls.",
+      // TODO: Replace with real Google Ads showcase image when available
+      imageUrl: "/services/google-ads-placeholder.png",
+      imageAlt: "Google Ads campaigns showcase",
+      accentColor: "#3B82F6",
+      hoverAccentColor: "#3B82F6",
+      imagePosition: "center",
+      imageScale: 1.0,
+      bgKey: "googleAds" as const,
     },
   ],
 } as const;
