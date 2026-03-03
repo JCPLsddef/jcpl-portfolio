@@ -256,6 +256,13 @@ export const howWeWork = {
   ],
 };
 
+/* ─── Marble System Animation (3-step visualization) ─── */
+export const marbleSystemSection = {
+  label: "THE SYSTEM",
+  headline: "Diagnose → Build → Scale",
+  subheadline: "A clear path from where you are to where you need to be.",
+};
+
 /* ─── Section G: Differentiation ─── */
 export const differentiation = {
   label: "THE DIFFERENCE",

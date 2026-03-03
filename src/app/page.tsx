@@ -15,6 +15,7 @@ const FeaturedCaseStudy  = dynamic(() => import("@/components/home/FeaturedCaseS
 const QualificationCTA   = dynamic(() => import("@/components/home/QualificationCTA"));
 const InfrastructureTiers = dynamic(() => import("@/components/home/InfrastructureTiers"));
 const HowWeWork  = dynamic(() => import("@/components/home/HowWeWork"));
+const MarbleSystemSection = dynamic(() => import("@/components/home/MarbleSystemSection"));
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
 const FinalConvictionSection = dynamic(() => import("@/components/home/FinalConvictionSection"));
 
@@ -48,10 +49,13 @@ export default function HomePage() {
       {/* 4 — Trust Bridge: Agencies vs. Growth Architecture — why this is different */}
       <Differentiation />
 
-      {/* 4a — Services Showcase: What we build for brands (Figma-style) */}
+      {/* 4a — Marble System: 3-step visualization (premium animation) */}
+      <MarbleSystemSection />
+
+      {/* 4b — Services Showcase: What we build for brands (Figma-style) */}
       <ServicesShowcase />
 
-      {/* 4b — Portfolio: Custom build showcase */}
+      {/* 4c — Portfolio: Custom build showcase */}
       <PortfolioShowcase />
 
       {/* 5 — System: The 4-pillar Growth Architecture */}
