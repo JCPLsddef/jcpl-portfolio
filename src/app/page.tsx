@@ -8,6 +8,7 @@ import LogoLoop from "@/components/home/LogoLoop";
 const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
 const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
+const ServicesShowcase = dynamic(() => import("@/components/home/ServicesShowcase"));
 const PortfolioShowcase  = dynamic(() => import("@/components/home/PortfolioShowcase"));
 const GrowthArchitecture = dynamic(() => import("@/components/home/GrowthArchitecture"));
 const FeaturedCaseStudy  = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
@@ -46,6 +47,9 @@ export default function HomePage() {
 
       {/* 4 — Trust Bridge: Agencies vs. Growth Architecture — why this is different */}
       <Differentiation />
+
+      {/* 4a — Services Showcase: What we build for brands (Figma-style) */}
+      <ServicesShowcase />
 
       {/* 4b — Portfolio: Custom build showcase */}
       <PortfolioShowcase />

@@ -268,6 +268,43 @@ export const differentiation = {
   ],
 };
 
+/* ─── Services Showcase (Figma-style section) ─── */
+export const servicesShowcaseContent = {
+  brandTitle: "Food Zone",
+  brandParagraph:
+    "From invisible to impossible to ignore. I built the full acquisition system — conversion website, Google Ads, and AI search presence — so every buyer in their city sees Food Zone first.",
+  services: [
+    {
+      id: "conversion-website",
+      title: "Conversion Website",
+      tagline: "Trust + action in one experience",
+      imageSrc: "/images/system/card-website.png",
+      imageAlt: "Food Zone conversion website",
+    },
+    {
+      id: "google-ads",
+      title: "Google Ads",
+      tagline: "Paid traffic that converts",
+      imageSrc: "/images/system/card-ads.png",
+      imageAlt: "Food Zone Google Ads funnel",
+    },
+    {
+      id: "seo-geo",
+      title: "SEO & GEO",
+      tagline: "Rank above competitors on Google and AI",
+      imageSrc: "/images/system/card-seo.png",
+      imageAlt: "Food Zone SEO and GEO presence",
+    },
+    {
+      id: "analytics",
+      title: "Analytics & Optimization",
+      tagline: "Data-driven improvements every week",
+      imageSrc: "/images/system/card-analytics.png",
+      imageAlt: "Food Zone analytics dashboard",
+    },
+  ],
+} as const;
+
 /* ─── Section H: Qualification + Final CTA ─── */
 export const qualification = {
   forYouIf: [
