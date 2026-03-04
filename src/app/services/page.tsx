@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import ServicesHero from "@/components/services/ServicesHero";
 import FitCheck from "@/components/services/FitCheck";
-import InfrastructureTiers from "@/components/home/InfrastructureTiers";
+import PremiumPricingSection from "@/components/pricing/PremiumPricingSection";
 import ServicesFinalCTA from "@/components/services/ServicesFinalCTA";
 import "@/styles/services.css";
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
     <>
       <ServicesHero />
       <FitCheck />
-      <InfrastructureTiers />
+      <PremiumPricingSection />
       <ServicesFinalCTA />
     </>
   );
