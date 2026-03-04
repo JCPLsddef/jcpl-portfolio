@@ -8,14 +8,13 @@ import LogoLoop from "@/components/home/LogoLoop";
 const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
 const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
-const ServicesShowcase = dynamic(() => import("@/components/home/ServicesShowcase"));
 const PortfolioShowcase  = dynamic(() => import("@/components/home/PortfolioShowcase"));
 const GrowthArchitecture = dynamic(() => import("@/components/home/GrowthArchitecture"));
 const FeaturedCaseStudy  = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
 const QualificationCTA   = dynamic(() => import("@/components/home/QualificationCTA"));
 const InfrastructureTiers = dynamic(() => import("@/components/home/InfrastructureTiers"));
 const HowWeWork  = dynamic(() => import("@/components/home/HowWeWork"));
-const MarbleSystemSection = dynamic(() => import("@/components/home/MarbleSystemSection"));
+const MarbleToServicesBridge = dynamic(() => import("@/components/home/MarbleToServicesBridge"));
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
 const FinalConvictionSection = dynamic(() => import("@/components/home/FinalConvictionSection"));
 
@@ -49,11 +48,8 @@ export default function HomePage() {
       {/* 4 — Trust Bridge: Agencies vs. Growth Architecture — why this is different */}
       <Differentiation />
 
-      {/* 4a — Marble System: 3-step visualization (premium animation) */}
-      <MarbleSystemSection />
-
-      {/* 4b — Services Showcase: What we build for brands (Figma-style) */}
-      <ServicesShowcase />
+      {/* 4a — Marble System + cinematic drop → 4b Services Showcase */}
+      <MarbleToServicesBridge />
 
       {/* 4c — Portfolio: Custom build showcase */}
       <PortfolioShowcase />

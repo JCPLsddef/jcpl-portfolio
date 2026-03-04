@@ -171,7 +171,11 @@ const cardVariants = {
     reduced ? { opacity: 1 } : { opacity: 1, x: 0, y: 0 },
 };
 
-export default function ServicesShowcase() {
+interface ServicesShowcaseProps {
+  impactRevealed?: boolean;
+}
+
+export default function ServicesShowcase({ impactRevealed = false }: ServicesShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const reducedMotion = usePrefersReducedMotionSafe();
   const { services } = servicesShowcaseContent;
@@ -242,8 +246,9 @@ export default function ServicesShowcase() {
       <motion.div
         className="relative z-10 w-full"
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
+        animate={impactRevealed ? "visible" : undefined}
+        whileInView={!impactRevealed ? "visible" : undefined}
+        viewport={!impactRevealed ? { once: true, amount: 0.35 } : undefined}
         variants={sectionVariants}
         custom={reducedMotion}
         transition={{ duration: 0.8, ease: EASE }}
