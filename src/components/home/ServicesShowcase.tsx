@@ -208,7 +208,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
             {/* Removed ambient service-colored glow behind image */}
 
             {/* Inner stage - positioned left and lower */}
-            <div className="absolute inset-0 flex items-end justify-start p-4 md:p-6 lg:p-8 pt-8 md:pt-10 lg:pt-12 pl-4 md:pl-6 lg:pl-8 pr-8 md:pr-10 pb-6 md:pb-8 lg:pb-10">
+            <div className="absolute inset-0 flex items-center justify-center">
               {/* Media glow - only for transparent-logo */}
               {/* Removed media glow for transparent-logo */}
 
@@ -226,7 +226,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       transform: isTransparentLogo ? "scale(1)" : `scale(${imageScale})`,
                     }}
                   >
-                    <div className="relative w-full h-full flex items-center justify-center min-h-[700px] translate-y-1/2">
+                    <div className="relative w-full h-full flex items-center justify-center min-h-[1000px] translate-y-1/2">
                       <Image
                         src={activeService.imageUrl}
                         alt={activeService.imageAlt}
