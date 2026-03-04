@@ -22,16 +22,25 @@ export default function MarbleSystemSection() {
     useRef<HTMLDivElement>(null),
   ] as const;
 
-  const [isMobile, setIsMobile] = useState(false);
+  const [breakpoint, setBreakpoint] = useState<"mobile" | "tablet" | "desktop">("desktop");
 
   const reduced = usePrefersReducedMotionSafe();
 
   useEffect(() => {
-    const mq = window.matchMedia("(max-width: 768px)");
-    const handler = () => setIsMobile(mq.matches);
-    handler();
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
+    const mqMobile = window.matchMedia("(max-width: 767px)");
+    const mqTablet = window.matchMedia("(min-width: 768px) and (max-width: 1023px)");
+    const update = () => {
+      if (mqMobile.matches) setBreakpoint("mobile");
+      else if (mqTablet.matches) setBreakpoint("tablet");
+      else setBreakpoint("desktop");
+    };
+    update();
+    mqMobile.addEventListener("change", update);
+    mqTablet.addEventListener("change", update);
+    return () => {
+      mqMobile.removeEventListener("change", update);
+      mqTablet.removeEventListener("change", update);
+    };
   }, []);
 
   useEffect(() => {
@@ -48,105 +57,128 @@ export default function MarbleSystemSection() {
     }
 
     const ctx = gsap.context(() => {
-      const entryAboveY = 40;
       const tubeTopY = 80;
       const startX = 580;
-      const dropDistance = 180;
+      const dropDistance = 160;
       const [d0, d1, d2] = stepRefs.map((r) => r.current).filter(Boolean) as [HTMLDivElement, HTMLDivElement, HTMLDivElement];
+
+      const pinEnd = breakpoint === "mobile" ? "+=1200" : breakpoint === "tablet" ? "+=2000" : "+=2500";
 
       gsap.set(marbleRef.current, {
         x: startX,
-        y: entryAboveY,
+        y: tubeTopY,
         scale: 1,
-        opacity: 0.9,
-        filter: "blur(2px)",
+        opacity: 1,
+        filter: "blur(0px)",
         transformOrigin: "50% 50%",
       });
 
-      // Initial step states: Diagnose incoming, Build & Scale hidden
-      gsap.set(d0, { opacity: 0, y: 10, filter: "blur(1px)" });
-      gsap.set(d1, { opacity: 0, y: 10, filter: "blur(1px)" });
-      gsap.set(d2, { opacity: 0, y: 10, filter: "blur(1px)" });
+      // Initial step states: all visible, Diagnose active, Build & Scale subdued
+      gsap.set(d0, { opacity: 1, y: 0, filter: "blur(0px)", borderLeftColor: "#262626" });
+      gsap.set(d1, { opacity: 0.45, y: 2, filter: "blur(0px)", borderLeftColor: "#d4d4d4" });
+      gsap.set(d2, { opacity: 0.45, y: 2, filter: "blur(0px)", borderLeftColor: "#d4d4d4" });
 
       const path = motionPathRef.current;
-      if (!path) {
-        return;
-      }
+      if (!path) return;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: isMobile ? "+=2200" : "+=3000",
+          end: pinEnd,
           pin: pinRef.current,
-          scrub: 1.2,
+          scrub: 1,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
         },
         defaults: { ease: "none" },
       });
 
-      // Segment A – entrance (0.00–0.15)
-      tl.to(
-        marbleRef.current,
-        {
-          duration: 0.15,
-          y: tubeTopY,
-          scale: 1.04,
-          opacity: 1,
-          filter: "blur(0.6px)",
-          ease: "power2.out",
-        },
-        0
-      );
+      // Intro (0.00–0.05): minimal settle
+      tl.to(marbleRef.current, { scale: 1.02, duration: 0.05, ease: "power2.out" }, 0);
 
-      // Segment B – motion along path (0.15–0.90)
+      // Diagnose phase (0.05–0.33): ball path 0→0.33, scale 1.0→1.08
       tl.to(
         marbleRef.current,
         {
-          duration: 0.75,
+          duration: 0.28,
           motionPath: {
             path,
             align: path,
             alignOrigin: [0.5, 0.5],
             start: 0,
-            end: 1,
+            end: 0.33,
           },
-          scale: 1.26,
+          scale: 1.08,
           opacity: 1,
-          filter: "blur(0px)",
         },
-        0.15
+        0.05
       );
 
-      // Segment C – forward nudge + drop (0.90–1.00)
+      // Build phase (0.33–0.66): ball path 0.33→0.66, scale 1.08→1.12
       tl.to(
         marbleRef.current,
         {
-          duration: 0.1,
-          x: `+=12`,
-          y: `+=${dropDistance}`,
-          scale: 1.15,
-          opacity: 0.65,
-          filter: "blur(1.4px)",
-          ease: "power2.out",
+          duration: 0.33,
+          motionPath: {
+            path,
+            align: path,
+            alignOrigin: [0.5, 0.5],
+            start: 0.33,
+            end: 0.66,
+          },
+          scale: 1.12,
+          opacity: 1,
         },
-        0.9
+        0.33
       );
 
-      // Step 0 – Diagnose: fade in 0.10–0.15, active 0.15–0.38, subdued 0.38–0.42
-      tl.to(d0, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.05, ease: "power2.out" }, 0.1);
-      tl.to(d0, { opacity: 0.4, y: 4, filter: "blur(0.5px)", duration: 0.04, ease: "none" }, 0.38);
+      // Scale phase (0.66–0.95): ball path 0.66→1, scale 1.12→1.15
+      tl.to(
+        marbleRef.current,
+        {
+          duration: 0.29,
+          motionPath: {
+            path,
+            align: path,
+            alignOrigin: [0.5, 0.5],
+            start: 0.66,
+            end: 1,
+          },
+          scale: 1.15,
+          opacity: 1,
+        },
+        0.66
+      );
 
-      // Step 1 – Build: fade in 0.34–0.38, active 0.38–0.68, subdued 0.68–0.72
-      tl.to(d1, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.04, ease: "power2.out" }, 0.34);
-      tl.to(d1, { opacity: 0.4, y: 4, filter: "blur(0.5px)", duration: 0.04, ease: "none" }, 0.68);
+      // Drop (0.95–1.00): nudge + drop
+      tl.to(
+        marbleRef.current,
+        {
+          duration: 0.05,
+          x: `+=10`,
+          y: `+=${dropDistance}`,
+          scale: 1.12,
+          opacity: 0.65,
+          filter: "blur(1.2px)",
+          ease: "power2.out",
+        },
+        0.95
+      );
 
-      // Step 2 – Scale: fade in 0.64–0.68, active 0.68–0.90
-      tl.to(d2, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.04, ease: "power2.out" }, 0.64);
+      // Step emphasis + border highlight: Diagnose active 0.00–0.33, Build 0.33–0.66, Scale 0.66+
+      tl.to(d0, { opacity: 1, y: 0, borderLeftColor: "#262626", duration: 0.02 }, 0.05);
+      tl.to(d1, { opacity: 0.45, y: 2, borderLeftColor: "#d4d4d4", duration: 0.04 }, 0.05);
+      tl.to(d2, { opacity: 0.45, y: 2, borderLeftColor: "#d4d4d4", duration: 0.04 }, 0.05);
+      tl.to(d0, { opacity: 0.45, y: 2, borderLeftColor: "#d4d4d4", duration: 0.04 }, 0.31);
+      tl.to(d1, { opacity: 1, y: 0, borderLeftColor: "#262626", duration: 0.04 }, 0.31);
+      tl.to(d0, { opacity: 0.45, y: 2, borderLeftColor: "#d4d4d4", duration: 0.04 }, 0.64);
+      tl.to(d1, { opacity: 0.45, y: 2, borderLeftColor: "#d4d4d4", duration: 0.04 }, 0.64);
+      tl.to(d2, { opacity: 1, y: 0, borderLeftColor: "#262626", duration: 0.04 }, 0.64);
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [reduced, isMobile]);
+  }, [reduced, breakpoint]);
 
   const steps = marbleSystemSection.steps ?? [];
 
@@ -180,7 +212,7 @@ export default function MarbleSystemSection() {
               </div>
             </div>
 
-            <div className="flex-1 flex items-center justify-center min-h-[360px] md:min-h-[420px] lg:min-h-[520px]">
+            <div className="flex-1 flex items-center justify-center min-h-[320px] w-full max-w-[280px] md:max-w-[340px] mx-auto">
               <svg
                 ref={svgRef}
                 width="700"
@@ -232,7 +264,7 @@ export default function MarbleSystemSection() {
                      Q 580 920, 580 1020 
                      L 580 1320"
                   stroke="url(#tubeGradient)"
-                  strokeWidth="105"
+                  strokeWidth="65"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   fill="none"
@@ -279,9 +311,13 @@ export default function MarbleSystemSection() {
               {marbleSystemSection.subheadline}
             </p>
 
-            <div className="mt-10 md:mt-12 min-h-[280px] md:min-h-[320px] flex flex-col space-y-6 md:space-y-8">
+            <div className="mt-10 md:mt-12 min-h-[240px] md:min-h-[280px] flex flex-col space-y-4 md:space-y-5">
               {steps.map((step, i) => (
-                <div key={i} ref={stepRefs[i]}>
+                <div
+                  key={i}
+                  ref={stepRefs[i]}
+                  className="border-l-2 border-neutral-300 pl-5 md:pl-6 transition-[border-color]"
+                >
                   <h3 className="text-lg md:text-xl font-semibold text-neutral-900">
                     {step.title}
                   </h3>
@@ -293,7 +329,7 @@ export default function MarbleSystemSection() {
             </div>
           </div>
 
-          <div className="flex-1 flex items-center justify-center min-h-[360px] md:min-h-[460px] lg:min-h-[620px]">
+          <div className="flex-1 flex items-center justify-center min-h-[320px] md:min-h-[380px] w-full max-w-[260px] sm:max-w-[300px] md:max-w-[340px] lg:max-w-[380px] mx-auto">
             <svg
               ref={svgRef}
               width="700"
@@ -345,7 +381,7 @@ export default function MarbleSystemSection() {
                    Q 580 920, 580 1020 
                    L 580 1320"
                 stroke="url(#tubeGradient)"
-                strokeWidth="105"
+                strokeWidth="65"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 fill="none"
