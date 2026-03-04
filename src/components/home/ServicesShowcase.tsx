@@ -238,7 +238,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                 />
               )}
 
-              {/* Image wrapper - fills stage, centers content */}
+              {/* Image wrapper - fills stage, centers content, subtle downward nudge */}
               <div className="relative w-full h-full min-h-0 flex items-center justify-center">
                 <AnimatePresence mode="wait">
                   <motion.div
@@ -252,7 +252,8 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       transform: isTransparentLogo ? "scale(1)" : `scale(${imageScale})`,
                     }}
                   >
-                    <Image
+                    <div className="relative w-full h-full flex items-center justify-center translate-y-2 sm:translate-y-3 lg:translate-y-4">
+                      <Image
                       src={activeService.imageUrl}
                       alt={activeService.imageAlt}
                       fill
@@ -265,6 +266,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       }}
                       priority={activeIndex === 0}
                     />
+                    </div>
                   </motion.div>
                 </AnimatePresence>
               </div>
