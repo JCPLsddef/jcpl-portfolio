@@ -337,7 +337,7 @@ export const servicesShowcaseContent = {
       description:
         "Technical + content SEO that compounds. Get found when buyers are searching.",
       imageUrl:
-        "https://static.wixstatic.com/media/62f926_816997cd50b14f1181c99704a6fe1a2b~mv2.png",
+        "https://static.wixstatic.com/media/62f926_fd8b1bd527a4497695e774ae1df51cfc~mv2.png",
       imageAlt: "SEO presence showcase",
       accentColor: "#22C55E",
       hoverAccentColor: "#22C55E",
