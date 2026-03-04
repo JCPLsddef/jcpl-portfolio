@@ -90,7 +90,7 @@ export default function MarbleSystemSection({
     const dropDistance = 160;
 
     const pinEnd =
-      breakpoint === "mobile" ? "+=1400" : breakpoint === "tablet" ? "+=2000" : "+=2500";
+      breakpoint === "mobile" ? "+=1100" : breakpoint === "tablet" ? "+=1600" : "+=2000";
 
     gsap.set(marbleRef.current, {
       x: startX,
@@ -281,10 +281,10 @@ export default function MarbleSystemSection({
       <section
         ref={sectionRef}
         id="marble-system"
-        className="section bg-[#fafafa] py-20 md:py-28"
+        className="section bg-[#fafafa] py-16 md:py-20 !pt-8 md:!pt-12"
       >
         <div className="container">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-16 md:gap-20">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12 lg:gap-16">
             <div className="flex-1 max-w-xl">
               <SectionLabel
                 label={marbleSystemSection.label}
@@ -296,17 +296,17 @@ export default function MarbleSystemSection({
               <p className="mt-5 text-neutral-600 max-w-xl leading-[1.75] text-[17px]">
                 {marbleSystemSection.subheadline}
               </p>
-              <div className="mt-16 space-y-10">
+              <div className="mt-8 md:mt-10 space-y-3 md:space-y-4 min-h-[180px] md:min-h-[200px]">
                 {steps.map((step, i) => (
-                  <div key={i} className="border-l-2 border-neutral-300 pl-8">
-                    <h3 className="text-xl font-semibold text-neutral-900">{step.title}</h3>
-                    <p className="mt-2 text-neutral-600 leading-relaxed">{step.copy}</p>
+                  <div key={i} className="border-l-2 border-neutral-300 pl-4 md:pl-6">
+                    <h3 className="text-lg md:text-xl font-semibold text-neutral-900">{step.title}</h3>
+                    <p className="mt-1.5 md:mt-2 text-neutral-600 leading-relaxed text-[15px] md:text-base">{step.copy}</p>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="flex-1 flex items-center justify-center min-h-[320px] w-full max-w-[280px] md:max-w-[340px] mx-auto">
+            <div className="flex-1 flex items-center justify-center min-h-[200px] w-full max-w-[200px] sm:max-w-[240px] md:max-w-[280px] lg:max-w-[340px] mx-auto shrink-0">
               <svg
                 ref={svgRef}
                 width="700"
@@ -386,13 +386,13 @@ export default function MarbleSystemSection({
     <section
       ref={sectionRef}
       id="marble-system"
-      className="section bg-[#fafafa]"
+      className="section bg-[#fafafa] !pt-8 md:!pt-12 lg:!pt-16"
     >
       <div
         ref={pinRef}
-        className="min-h-screen flex flex-col md:flex-row md:items-center md:justify-center py-24 md:py-28"
+        className="min-h-[85vh] lg:min-h-[90vh] flex flex-col md:flex-row md:items-center md:justify-center pt-10 pb-14 md:pt-12 md:pb-16 lg:pt-14 lg:pb-20"
       >
-        <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-16 md:gap-24 lg:gap-32 w-full">
+        <div className="container flex flex-col md:flex-row md:items-center md:justify-between gap-8 md:gap-12 lg:gap-16 w-full">
           <div className="flex-1 max-w-xl">
             <SectionLabel
               label={marbleSystemSection.label}
@@ -405,14 +405,14 @@ export default function MarbleSystemSection({
               {marbleSystemSection.subheadline}
             </p>
 
-            <div className="mt-10 md:mt-12 min-h-[240px] md:min-h-[280px] flex flex-col space-y-4 md:space-y-5">
+            <div className="mt-8 md:mt-10 min-h-[180px] md:min-h-[200px] lg:min-h-[220px] flex flex-col space-y-3 md:space-y-4">
               {steps.map((step, i) => {
                 const isActive = activeStep === i + 1;
                 const isRevealed = activeStep >= i + 1;
                 return (
                   <div
                     key={i}
-                    className="border-l-2 pl-5 md:pl-6 transition-all duration-300"
+                    className="border-l-2 pl-4 md:pl-6 transition-all duration-300"
                     style={{
                       borderLeftColor: isActive ? "#262626" : "#d4d4d4",
                       opacity: isRevealed ? (isActive ? 1 : 0.5) : 0.4,
@@ -437,7 +437,7 @@ export default function MarbleSystemSection({
                         step.title
                       )}
                     </h3>
-                    <p className="mt-2 leading-relaxed text-neutral-600">
+                    <p className="mt-1.5 md:mt-2 leading-relaxed text-neutral-600 text-[15px] md:text-base">
                       {isRevealed ? (
                         <BlurText
                           text={step.copy}
@@ -463,8 +463,11 @@ export default function MarbleSystemSection({
           </div>
 
           <div
-            className="flex-1 flex items-center justify-center min-h-[320px] md:min-h-[380px] w-full mx-auto"
-            style={{ width: "clamp(240px, 26vw, 420px)" }}
+            className="flex-1 flex items-center justify-center w-full mx-auto shrink-0
+              max-w-[200px] min-h-[200px]
+              sm:max-w-[240px] sm:min-h-[220px]
+              md:max-w-[280px] md:min-h-[260px]
+              lg:max-w-[340px] lg:min-h-[300px]"
           >
             <svg
               ref={svgRef}
