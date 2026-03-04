@@ -226,20 +226,16 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       transform: isTransparentLogo ? "scale(1)" : `scale(${imageScale})`,
                     }}
                   >
-                    <div className="relative w-full h-full flex items-center justify-center -translate-x-4 sm:-translate-x-6 lg:-translate-x-8 translate-y-4 sm:translate-y-5 lg:translate-y-6">
+                    <div className={`relative w-full h-full flex items-center justify-center ${activeService.id !== 'seo' ? 'min-h-[900px]' : ''}`}>
                       <Image
-                      src={activeService.imageUrl}
-                      alt={activeService.imageAlt}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 680px"
-                      className={
-                        isTransparentLogo ? "object-contain object-center" : "object-cover"
-                      }
-                      style={{
-                        objectPosition: isTransparentLogo ? "center" : imagePosition,
-                      }}
-                      priority={activeIndex === 0}
-                    />
+                        src={activeService.imageUrl}
+                        alt={activeService.imageAlt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 80vw, 1400px"
+                        className={activeService.id !== 'seo' ? "object-contain object-center" : "object-cover"}
+                        style={{ objectPosition: imagePosition }}
+                        priority={activeIndex === 0}
+                      />
                     </div>
                   </motion.div>
                 </AnimatePresence>
