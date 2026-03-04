@@ -182,12 +182,12 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                   animate={imageVariants.animate}
                   exit={imageVariants.exit}
                   transition={IMAGE_TRANSITION}
-                  className="absolute inset-0 flex flex-col justify-center h-full px-8 lg:px-24 gap-6"
+                  className="absolute inset-0 flex flex-col justify-center h-full px-8 lg:px-32 gap-8"
                 >
-                  <h2 className="text-[clamp(36px,5vw,56px)] font-[800] text-white leading-[1.08] tracking-[-0.03em] mb-2 lg:mb-4">
+                  <h2 className="text-[clamp(40px,6vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.035em] mb-3 lg:mb-6 drop-shadow-lg">
                     {activeService.title}
                   </h2>
-                  <p className="text-[18px] md:text-[20px] text-sv-text-sub leading-[1.8] max-w-3xl mx-auto text-left">
+                  <p className="text-[20px] md:text-[22px] text-sv-text-sub leading-[1.7] max-w-4xl text-left mx-0 lg:mx-0 drop-shadow text-balance">
                     {activeService.description}
                   </p>
                 </motion.div>
