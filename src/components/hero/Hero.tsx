@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useEffect, useCallback, Fragment } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
 import CurvedLoop from "./CurvedLoop";
+import HeadlineMarquee from "./HeadlineMarquee";
 import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
@@ -11,15 +12,6 @@ import "./hero.css";
 /* ═══════════════════════════════════════════════════
    COPY — DOMINATE style, institutional authority
    ═══════════════════════════════════════════════════ */
-const EYEBROW = "Growth Architecture™";
-const HEADLINE = "DOMINATE YOUR MARKET";
-const MECHANISM =
-	"One system: conversion site, Google Ads for ready-to-hire buyers, and AI that qualifies leads before your phone rings.";
-const RESULT_STATS = [
-	{ value: "$41,084", label: "Revenue generated" },
-	{ value: "46x", label: "Return on ad spend" },
-	{ value: "11 days", label: "Time to first call" },
-];
 const CTA_PRIMARY = {
 	label: "Apply. I\u2019ll review you in 24h.",
 	href: "/apply",
@@ -32,11 +24,7 @@ const CTA_PRIMARY = {
 export default function Hero() {
 	const sectionRef = useRef<HTMLElement>(null);
 	const frameRef = useRef<HTMLDivElement>(null);
-	const borderRef = useRef<HTMLDivElement>(null);
-	const headlineRef = useRef<HTMLSpanElement>(null);
-	const eyebrowRef = useRef<HTMLDivElement>(null);
-	const mechRef = useRef<HTMLParagraphElement>(null);
-	const stripRef = useRef<HTMLParagraphElement>(null);
+	const headlineRef = useRef<HTMLDivElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
 	const bgLayerRef = useRef<HTMLDivElement>(null);
 	const contentLayerRef = useRef<HTMLDivElement>(null);
@@ -76,23 +64,10 @@ export default function Hero() {
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
 
-		const allEls = [
-			frameRef.current,
-			eyebrowRef.current,
-			mechRef.current,
-			stripRef.current,
-			ctaRef.current,
-		].filter(Boolean);
+		const allEls = [frameRef.current, headlineRef.current, ctaRef.current].filter(Boolean);
 
 		if (reduced) {
 			allEls.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
-			if (headlineRef.current) {
-				gsap.set(headlineRef.current.querySelectorAll("[data-char]"), {
-					opacity: 1,
-					y: 0,
-				});
-			}
-			if (borderRef.current) gsap.set(borderRef.current, { opacity: 1 });
 			return;
 		}
 
@@ -108,56 +83,23 @@ export default function Hero() {
 			);
 		}
 
-		// 3. Eyebrow
-		if (eyebrowRef.current) {
-			tl.fromTo(
-				eyebrowRef.current,
-				{ opacity: 0, y: 14 },
-				{ opacity: 1, y: 0, duration: 0.6 },
-				0.3
-			);
-		}
-
-		// 4. Headline chars stagger (0.04s/char)
+		// 2. Headline fades in
 		if (headlineRef.current) {
-			const chars = headlineRef.current.querySelectorAll("[data-char]");
-			if (chars.length) {
-				tl.fromTo(
-					chars,
-					{ opacity: 0, y: 40 },
-					{ opacity: 1, y: 0, duration: 0.7, stagger: 0.04 },
-					0.45
-				);
-			}
-		}
-
-		// 5. Mechanism line fades in
-		if (mechRef.current) {
 			tl.fromTo(
-				mechRef.current,
-				{ opacity: 0, y: 18 },
-				{ opacity: 1, y: 0, duration: 0.65 },
-				0.9
+				headlineRef.current,
+				{ opacity: 0, y: 40 },
+				{ opacity: 1, y: 0, duration: 0.8 },
+				0.4
 			);
 		}
 
-		// 6. Proof line
-		if (stripRef.current) {
-			tl.fromTo(
-				stripRef.current,
-				{ opacity: 0, y: 12 },
-				{ opacity: 1, y: 0, duration: 0.55 },
-				1.15
-			);
-		}
-
-		// 7. CTA appears last
+		// 3. CTA appears last
 		if (ctaRef.current) {
 			tl.fromTo(
 				ctaRef.current,
 				{ opacity: 0, y: 16 },
 				{ opacity: 1, y: 0, duration: 0.55 },
-				1.35
+				0.9
 			);
 		}
 
@@ -207,38 +149,10 @@ export default function Hero() {
 				<div ref={contentLayerRef} className="cb-content-wrap">
 					<div className="cb-content">
 
-						{/* Eyebrow */}
-						<div ref={eyebrowRef} className="cb-eyebrow" style={{ opacity: 0 }}>
-							<span className="cb-eyebrow-dot" aria-hidden="true" />
-							<span>{EYEBROW}</span>
-						</div>
-
-						{/* DOMINATE H1 */}
-						<h1 className="cb-headline">
-							<CurvedLoop
-								marqueeText="DOMINATE YOUR MARKET"
-								speed={1.2} // Increased speed for faster movement
-								curveAmount={120}
-								direction="left"
-								interactive={false}
-								className="curved-loop-white-text"
-							/>
+						{/* DOMINATE H1 — infinite marquee */}
+						<h1 ref={headlineRef} className="cb-headline" style={{ opacity: 0 }}>
+							<HeadlineMarquee />
 						</h1>
-
-						{/* Mechanism line */}
-						<p ref={mechRef} className="cb-mechanism" style={{ opacity: 0 }}>
-							{MECHANISM}
-						</p>
-
-						{/* Result strip */}
-						<div ref={stripRef} className="cb-result-strip" style={{ opacity: 0 }}>
-							{RESULT_STATS.map((stat) => (
-								<div key={stat.label} className="cb-result-stat">
-									<p className="cb-result-value">{stat.value}</p>
-									<p className="cb-result-label">{stat.label}</p>
-								</div>
-							))}
-						</div>
 
 						{/* CTA */}
 						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>

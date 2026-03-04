@@ -5,7 +5,6 @@ import SpotsLeftSection from "@/components/home/SpotsLeftSection";
 import LogoLoop from "@/components/home/LogoLoop";
 
 /* Dynamic imports for below-the-fold sections — reduces initial JS bundle */
-const DataBenchmarkBlock = dynamic(() => import("@/components/home/DataBenchmarkBlock"));
 const ClientReality   = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
 const PortfolioShowcase  = dynamic(() => import("@/components/home/PortfolioShowcase"));
@@ -40,7 +39,6 @@ export default function HomePage() {
           ariaLabel="Client logos"
         />
       </div>
-      <DataBenchmarkBlock />
 
       {/* 3 — Diagnosis: Pain bullets — what they're living with */}
       <ClientReality />

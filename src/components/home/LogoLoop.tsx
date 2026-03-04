@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
+import { usePrefersReducedMotionSafe } from "@/components/motion/usePrefersReducedMotionSafe";
 import "./LogoLoop.css";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -45,7 +46,7 @@ interface LogoLoopProps {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
+const ANIMATION_CONFIG = { SMOOTH_TAU: 0.15, MIN_COPIES: 2, COPY_HEADROOM: 2 };
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -123,6 +124,7 @@ function useAnimationLoop(
   isHovered:      boolean,
   hoverSpeed:     number | undefined,
   isVertical:     boolean,
+  reducedMotion:  boolean,
 ) {
   const rafRef           = useRef<number | null>(null);
   const lastTimestampRef = useRef<number | null>(null);
@@ -130,30 +132,46 @@ function useAnimationLoop(
   const velocityRef      = useRef(0);
 
   useEffect(() => {
-    const track   = trackRef.current;
+    const track = trackRef.current;
     if (!track) return;
 
     const seqSize = isVertical ? seqHeight : seqWidth;
 
-    if (seqSize > 0) {
-      offsetRef.current = ((offsetRef.current % seqSize) + seqSize) % seqSize;
+    if (reducedMotion) {
       track.style.transform = isVertical
-        ? `translate3d(0, ${-offsetRef.current}px, 0)`
-        : `translate3d(${-offsetRef.current}px, 0, 0)`;
+        ? "translate3d(0, 0, 0)"
+        : "translate3d(0, 0, 0)";
+      return;
+    }
+
+    if (seqSize > 0) {
+      let o = offsetRef.current;
+      while (o >= seqSize) o -= seqSize;
+      while (o < 0) o += seqSize;
+      offsetRef.current = o;
+      track.style.transform = isVertical
+        ? `translate3d(0, ${-o}px, 0)`
+        : `translate3d(${-o}px, 0, 0)`;
     }
 
     const animate = (timestamp: number) => {
       if (lastTimestampRef.current === null) lastTimestampRef.current = timestamp;
-      const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      const deltaTime = Math.max(0, Math.min(timestamp - lastTimestampRef.current, 100)) / 1000;
       lastTimestampRef.current = timestamp;
 
       const target = isHovered && hoverSpeed !== undefined ? hoverSpeed : targetVelocity;
-      const easing = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
-      velocityRef.current += (target - velocityRef.current) * easing;
+      const isTransitioning = isHovered && hoverSpeed !== undefined;
+      if (isTransitioning) {
+        const easing = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
+        velocityRef.current += (target - velocityRef.current) * easing;
+      } else {
+        velocityRef.current = target;
+      }
 
       if (seqSize > 0) {
         let next = offsetRef.current + velocityRef.current * deltaTime;
-        next = ((next % seqSize) + seqSize) % seqSize;
+        while (next >= seqSize) next -= seqSize;
+        while (next < 0) next += seqSize;
         offsetRef.current = next;
         track.style.transform = isVertical
           ? `translate3d(0, ${-next}px, 0)`
@@ -172,7 +190,7 @@ function useAnimationLoop(
       }
       lastTimestampRef.current = null;
     };
-  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef]);
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, reducedMotion, trackRef]);
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -202,6 +220,7 @@ export const LogoLoop = memo(function LogoLoop({
   const [seqHeight, setSeqHeight] = useState(0);
   const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
   const [isHovered, setIsHovered] = useState(false);
+  const reducedMotion = usePrefersReducedMotionSafe();
 
   const effectiveHoverSpeed = useMemo(() => {
     if (hoverSpeed   !== undefined) return hoverSpeed;
@@ -248,7 +267,7 @@ export const LogoLoop = memo(function LogoLoop({
 
   useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, isVertical]);
   useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
-  useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
+  useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical, reducedMotion);
 
   const cssVariables = useMemo(
     () => ({

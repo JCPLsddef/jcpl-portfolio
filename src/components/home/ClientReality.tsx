@@ -3,101 +3,144 @@
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
+import Link from "next/link";
+
+const CARDS = [
+  {
+    num: "01",
+    title: "Leads hit your site. Then leave.",
+    body: "Website that doesn't answer \"why you, why now\" is a leaky bucket. Visitors leave. Most agency sites convert under 1%.",
+    sting: "That click paid your competitor.",
+  },
+  {
+    num: "02",
+    title: "Your marketing lives on your to-do list.",
+    body: "Every hour on ads is an hour not doing billable work. DIY marketing doesn't compound.",
+    sting: "Your best competitor grows while you stay busy.",
+  },
+  {
+    num: "03",
+    title: "Referrals keep you alive. They won't scale.",
+    body: "Good months, quiet months. Referrals don't run at 2am or rank on Google.",
+    sting: "Referral-only growth is luck wearing a good month.",
+  },
+] as const;
 
 export default function ClientReality() {
   return (
-    <SectionWrapper id="reality" variant="alt" className="border-b border-slate-700/40">
-      <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
-        <SectionLabel label="THE REALITY" className="mb-5" />
-        <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em] max-w-xl mx-auto">
-          Your Work Is Good. Your Pipeline Shouldn&apos;t Be This Uncertain.
-        </h2>
-      </Reveal>
-
-      {/* Scene Block — "picture this" moment */}
-      <Reveal className="max-w-4xl mx-auto mb-8">
-        <div
-          className="w-full rounded-[12px] px-8 py-7 text-center"
-          style={{
-            background: "#0A0E18",
-            borderTop: "1px solid rgba(255,255,255,0.06)",
-            borderBottom: "1px solid rgba(255,255,255,0.06)",
-          }}
-        >
-          <p className="text-[16px] italic font-[400] leading-[1.85] opacity-[0.78] max-w-2xl mx-auto">
-            Picture it: Someone in your city searched &ldquo;painting contractor near me&rdquo; this morning. They clicked the first result. That company&apos;s phone rang at 8:47am. They booked a $1,400 job before breakfast. Your phone was quiet. Not because your work is worse. Because that company had the system and you didn&apos;t.
+    <SectionWrapper
+      id="reality"
+      variant="alt"
+      className="border-b border-slate-700/40 bg-[#060E1A] py-16 md:py-24"
+    >
+      <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+        {/* 1. Eyebrow + 2. Headline + 3. Subhead + 4. Supporting line */}
+        <Reveal className="mx-auto mb-12 max-w-[980px] text-center md:mb-14">
+          <SectionLabel label="THE REALITY" className="mb-5" />
+          <h2 className="mx-auto mb-5 max-w-[900px] text-[clamp(34px,4.5vw,52px)] font-[800] leading-[1.15] tracking-[-0.025em] text-white">
+            Your Work Is Good. Your Pipeline Shouldn&apos;t Be This Uncertain.
+          </h2>
+          <p className="mx-auto mb-4 max-w-[900px] text-[clamp(17px,2vw,19px)] font-[500] leading-[1.5] text-sv-text-sub">
+            Untracked demand, a leaky website, and no follow-up turn good work into quiet weeks.
           </p>
-        </div>
-      </Reveal>
+          <p className="mx-auto text-[15px] font-[400] leading-[1.6] text-sv-text-muted">
+            Most competitors don&apos;t work harder. They run a system.
+          </p>
+        </Reveal>
 
-      {/* Three Pain Cards — 3-col grid, each with red left border */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto mb-8">
-        {[
-          {
-            title: "Your Website Looks Fine. It Doesn't Close.",
-            body: "A website that doesn't immediately answer 'why you, why now' is not an asset. It's a leaky bucket. Visitors come, feel nothing, and leave. Most agency sites convert less than 1% of visitors.",
-            kicker: "That visitor who just bounced? They booked your competitor instead.",
-          },
-          {
-            title: "You're Doing Marketing on Top of Everything Else.",
-            body: "Every hour you spend on ads is an hour you are not doing the work clients pay you for. DIY marketing costs more than it saves. And it still doesn't compound.",
-            kicker: "Your competitor outsourced this. Their system runs while they sleep.",
-          },
-          {
-            title: "Referrals Keep You Alive. They Won't Help You Grow.",
-            body: "Good months. Quiet months. No way to predict the next one. Referrals don't run at 2am when someone searches your service. They don't rank on Google. They will not save a slow month.",
-            kicker: "If your pipeline depends on who someone happens to mention you to, you are not running a business. You are running on luck.",
-          },
-        ].map((pain, i) => (
-          <Reveal key={pain.title} delay={0.08 * (i + 1)}>
-            <div
-              className="group relative rounded-[14px] bg-sv-surface p-7 md:p-8 h-full flex flex-col transition-all duration-300 hover:-translate-y-[2px]"
-              style={{ borderLeft: "3px solid rgba(239,68,68,0.5)", border: "1px solid rgba(255,255,255,0.07)", borderLeftWidth: "3px", borderLeftColor: "rgba(239,68,68,0.5)" }}
-            >
-              <h3 className="text-[22px] font-[700] text-white mb-3 leading-snug">
-                {pain.title}
-              </h3>
-              <p className="text-[14px] font-[400] leading-[1.75] opacity-[0.60] mb-4 flex-1">
-                {pain.body}
-              </p>
-              <p className="text-[15px] font-[600] text-red-400 leading-snug mt-auto">
-                {pain.kicker}
-              </p>
-            </div>
-          </Reveal>
-        ))}
+        {/* 5. Story box — emotional anchor */}
+        <Reveal className="mx-auto mb-12 max-w-[900px] md:mb-14">
+          <div
+            className="relative mx-auto max-w-[900px] rounded-[14px] border border-white/[0.08] bg-[#0A0E18] px-6 py-8 text-center shadow-[0_0_60px_-20px_rgba(192,57,43,0.2)] sm:px-8 sm:py-10"
+            style={{
+              boxShadow:
+                "0 0 80px -20px rgba(192,57,43,0.15), 0 1px 0 0 rgba(255,255,255,0.04)",
+            }}
+          >
+            <p className="mb-6 text-[13px] font-[500] uppercase tracking-[0.15em] text-sv-text-muted">
+              8:47 AM · Today
+            </p>
+            <p className="mx-auto max-w-[820px] text-[16px] font-[400] leading-[1.85] text-sv-text-sub sm:text-[17px]">
+              Someone in your city searched &ldquo;painting contractor near me&rdquo; this
+              morning. They clicked the first result. That company&apos;s phone rang at 8:47
+              AM. They booked a $1,400 job before breakfast. Not because your work is
+              worse. Because that company had the system.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* 6. Diagnosis cards — center emphasized */}
+        <div className="mb-12 grid gap-5 sm:grid-cols-2 lg:mb-14 lg:grid-cols-3">
+          {CARDS.map((card, i) => {
+            const isCenter = i === 1;
+            return (
+              <Reveal key={card.num} delay={0.08 * (i + 1)}>
+                <div
+                  className={`group relative flex h-full flex-col rounded-[14px] border p-7 transition-all duration-[280ms] hover:-translate-y-[2px] md:p-8 ${
+                    isCenter
+                      ? "border-[rgba(192,57,43,0.25)] bg-sv-surface shadow-[0_0_40px_-15px_rgba(192,57,43,0.12)] hover:border-[rgba(192,57,43,0.35)]"
+                      : "border-white/[0.06] bg-sv-surface hover:border-white/[0.12]"
+                  }`}
+                >
+                  <span
+                    className={`mb-4 inline-flex w-fit rounded-md px-2 py-1 text-[11px] font-[600] uppercase tracking-wider ${
+                      isCenter
+                        ? "bg-[rgba(192,57,43,0.15)] text-[#C0392B]"
+                        : "bg-white/[0.06] text-sv-text-muted"
+                    }`}
+                  >
+                    {card.num}
+                  </span>
+                  <h3 className="mb-3 text-[22px] font-[700] leading-snug text-white">
+                    {card.title}
+                  </h3>
+                  <p className="mb-4 flex-1 text-[14px] font-[400] leading-[1.75] text-sv-text-muted">
+                    {card.body}
+                  </p>
+                  <p
+                    className={`mt-auto text-[15px] font-[600] leading-snug ${
+                      isCenter ? "text-[#C0392B]" : "text-sv-text-sub"
+                    }`}
+                  >
+                    {card.sting}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        {/* 7. Consequence strip — slim, integrated */}
+        <Reveal delay={0.15} className="mx-auto mb-10 max-w-[900px]">
+          <div
+            className="rounded-[12px] border border-white/[0.06] px-6 py-6 text-center sm:px-8"
+            style={{
+              borderColor: "rgba(192,57,43,0.12)",
+              boxShadow: "0 0 30px -10px rgba(192,57,43,0.08)",
+            }}
+          >
+            <p className="mb-2 text-[17px] font-[600] leading-snug text-white sm:text-[18px]">
+              At roughly $33 per qualified call, every week this system stays offline
+              costs you booked calls you will never recover.
+            </p>
+            <p className="text-[14px] font-[500] leading-snug text-sv-text-muted">
+              It does not pause while you think about it. It runs for you, or it runs
+              for them.
+            </p>
+          </div>
+        </Reveal>
+
+        {/* 8. CTA */}
+        <Reveal delay={0.2} className="mx-auto text-center">
+          <Link
+            href="/apply"
+            className="inline-flex items-center gap-2 rounded-xl border border-[rgba(192,57,43,0.3)] bg-[rgba(192,57,43,0.12)] px-8 py-4 text-[16px] font-[600] text-white transition-all duration-300 hover:border-[rgba(192,57,43,0.5)] hover:bg-[rgba(192,57,43,0.18)] hover:shadow-[0_0_30px_-5px_rgba(192,57,43,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C0392B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#060E1A]"
+          >
+            Show me the system
+            <span aria-hidden="true">→</span>
+          </Link>
+        </Reveal>
       </div>
-
-      {/* Urgency Strip */}
-      <Reveal delay={0.15}>
-        <div
-          className="max-w-4xl mx-auto rounded-[12px] px-8 py-8 mb-10 text-center"
-          style={{
-            background: "rgba(254,242,242,0.04)",
-            borderTop: "2px solid rgba(239,68,68,0.5)",
-            borderBottom: "2px solid rgba(239,68,68,0.5)",
-          }}
-        >
-          <p className="text-[18px] md:text-[20px] font-bold text-red-400 leading-snug mb-3">
-            At $33 per qualified call, every week this system is not running costs you 3 to 7 booked calls you will never get back.
-          </p>
-          <p className="text-[15px] font-bold opacity-[0.68]">
-            It does not pause while you think about it. It either runs for you or it runs for them.
-          </p>
-        </div>
-      </Reveal>
-
-      {/* Bridge Lines */}
-      <Reveal delay={0.2}>
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[clamp(22px,3vw,28px)] font-bold text-white leading-snug">
-            This is why I built the Growth Architecture.
-          </p>
-          <p className="mt-3 text-[16px] italic text-sv-text-sub leading-[1.75] max-w-md mx-auto">
-            One system. Four layers. Solves all of it at once.
-          </p>
-        </div>
-      </Reveal>
     </SectionWrapper>
   );
 }
