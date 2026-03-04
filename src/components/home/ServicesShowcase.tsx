@@ -226,13 +226,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       transform: isTransparentLogo ? "scale(1)" : `scale(${imageScale})`,
                     }}
                   >
-                    <div className={`relative w-full h-full flex items-center justify-center
-                      ${activeService.id === 'seo'
-                        ? 'min-h-[400px] translate-y-[80%] left-1/2 -translate-x-1/2'
-                        : 'min-h-[1000px] translate-y-1/3 left-[45%] -translate-x-1/2'}
-                      sm:min-h-[300px] sm:translate-y-1/2 sm:left-1/2 sm:-translate-x-1/2
-                      xs:min-h-[180px] xs:translate-y-0 xs:left-1/2 xs:-translate-x-1/2
-                    `}> 
+                    <div className={`relative w-full h-full flex items-center justify-center ${activeService.id === 'seo' ? 'min-h-[400px] translate-y-[80%] left-1/2 -translate-x-1/2' : 'min-h-[1000px] translate-y-1/3 left-[45%] -translate-x-1/2'}`}> 
                       <Image
                         src={activeService.imageUrl}
                         alt={activeService.imageAlt}
