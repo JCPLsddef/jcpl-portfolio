@@ -12,7 +12,7 @@ const PortfolioShowcase  = dynamic(() => import("@/components/home/PortfolioShow
 const GrowthArchitecture = dynamic(() => import("@/components/home/GrowthArchitecture"));
 const FeaturedCaseStudy  = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
 const QualificationCTA   = dynamic(() => import("@/components/home/QualificationCTA"));
-const InfrastructureTiers = dynamic(() => import("@/components/home/InfrastructureTiers"));
+const PremiumPricingSection = dynamic(() => import("@/components/pricing/PremiumPricingSection"));
 const HowWeWork  = dynamic(() => import("@/components/home/HowWeWork"));
 const MarbleToServicesBridge = dynamic(() => import("@/components/home/MarbleToServicesBridge"));
 const FAQSection = dynamic(() => import("@/components/home/FAQSection"));
@@ -63,8 +63,8 @@ export default function HomePage() {
       {/* 7 — Who It's For: Qualification grid */}
       <QualificationCTA />
 
-      {/* 8 — Offer Stack: Infrastructure tiers */}
-      <InfrastructureTiers />
+      {/* 8 — Offer Stack: Premium pricing tiers */}
+      <PremiumPricingSection />
 
       {/* 9 — Process: 3-step — Diagnose → Build → Scale */}
       <HowWeWork />
