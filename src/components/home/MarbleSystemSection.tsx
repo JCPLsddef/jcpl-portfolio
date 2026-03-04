@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,50 +10,18 @@ import SectionLabel from "@/components/ui/SectionLabel";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-const STEP_RANGES: [number, number][] = [
-  [0.12, 0.35], // Diagnose
-  [0.35, 0.68], // Build
-  [0.68, 0.9], // Scale
-];
-
-function getStepStyle(
-  progress: number,
-  stepIndex: number
-): { opacity: number; transform: string; filter?: string } {
-  const [rangeStart, rangeEnd] = STEP_RANGES[stepIndex];
-
-  const fadeInStart = stepIndex === 0 ? 0.04 : rangeStart - 0.04;
-  const fadeInEnd = rangeStart + 0.02;
-
-  if (progress <= fadeInStart) {
-    return { opacity: 0, transform: "translateY(10px)", filter: "blur(1px)" };
-  }
-
-  if (progress >= rangeStart && progress <= rangeEnd) {
-    return { opacity: 1, transform: "translateY(0)", filter: "blur(0px)" };
-  }
-
-  if (progress > rangeEnd) {
-    return { opacity: 0.35, transform: "translateY(4px)", filter: "blur(0.5px)" };
-  }
-
-  const t = Math.min(1, Math.max(0, (progress - fadeInStart) / (fadeInEnd - fadeInStart)));
-  const eased = t * t;
-  return {
-    opacity: eased,
-    transform: `translateY(${10 - 10 * eased}px)`,
-    filter: "blur(0.75px)",
-  };
-}
-
 export default function MarbleSystemSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const pinRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const motionPathRef = useRef<SVGPathElement>(null);
   const marbleRef = useRef<SVGGElement>(null);
+  const stepRefs = [
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+    useRef<HTMLDivElement>(null),
+  ] as const;
 
-  const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
   const reduced = usePrefersReducedMotionSafe();
@@ -68,7 +35,15 @@ export default function MarbleSystemSection() {
   }, []);
 
   useEffect(() => {
-    if (reduced || !sectionRef.current || !pinRef.current || !motionPathRef.current || !marbleRef.current) {
+    const stepEls = stepRefs.map((r) => r.current).filter(Boolean);
+    if (
+      reduced ||
+      !sectionRef.current ||
+      !pinRef.current ||
+      !motionPathRef.current ||
+      !marbleRef.current ||
+      stepEls.length !== 3
+    ) {
       return;
     }
 
@@ -77,6 +52,7 @@ export default function MarbleSystemSection() {
       const tubeTopY = 80;
       const startX = 580;
       const dropDistance = 180;
+      const [d0, d1, d2] = stepRefs.map((r) => r.current).filter(Boolean) as [HTMLDivElement, HTMLDivElement, HTMLDivElement];
 
       gsap.set(marbleRef.current, {
         x: startX,
@@ -87,24 +63,33 @@ export default function MarbleSystemSection() {
         transformOrigin: "50% 50%",
       });
 
+      // Initial step states: Diagnose incoming, Build & Scale hidden
+      gsap.set(d0, { opacity: 0, y: 10, filter: "blur(1px)" });
+      gsap.set(d1, { opacity: 0, y: 10, filter: "blur(1px)" });
+      gsap.set(d2, { opacity: 0, y: 10, filter: "blur(1px)" });
+
+      const path = motionPathRef.current;
+      if (!path) {
+        return;
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: isMobile ? "+=2400" : "+=2800",
+          end: isMobile ? "+=2200" : "+=3000",
           pin: pinRef.current,
-          scrub: 1.1,
+          scrub: 1.2,
           anticipatePin: 1,
-          onUpdate: (self) => setProgress(self.progress),
         },
         defaults: { ease: "none" },
       });
 
-      // Segment A – entrance (0.00–0.12)
+      // Segment A – entrance (0.00–0.15)
       tl.to(
         marbleRef.current,
         {
-          duration: 0.12,
+          duration: 0.15,
           y: tubeTopY,
           scale: 1.04,
           opacity: 1,
@@ -114,15 +99,11 @@ export default function MarbleSystemSection() {
         0
       );
 
-      // Segment B – motion along path (0.12–0.90)
-      const path = motionPathRef.current;
-      if (!path) {
-        return;
-      }
+      // Segment B – motion along path (0.15–0.90)
       tl.to(
         marbleRef.current,
         {
-          duration: 0.78,
+          duration: 0.75,
           motionPath: {
             path,
             align: path,
@@ -134,7 +115,7 @@ export default function MarbleSystemSection() {
           opacity: 1,
           filter: "blur(0px)",
         },
-        0.12
+        0.15
       );
 
       // Segment C – forward nudge + drop (0.90–1.00)
@@ -151,17 +132,23 @@ export default function MarbleSystemSection() {
         },
         0.9
       );
+
+      // Step 0 – Diagnose: fade in 0.10–0.15, active 0.15–0.38, subdued 0.38–0.42
+      tl.to(d0, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.05, ease: "power2.out" }, 0.1);
+      tl.to(d0, { opacity: 0.4, y: 4, filter: "blur(0.5px)", duration: 0.04, ease: "none" }, 0.38);
+
+      // Step 1 – Build: fade in 0.34–0.38, active 0.38–0.68, subdued 0.68–0.72
+      tl.to(d1, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.04, ease: "power2.out" }, 0.34);
+      tl.to(d1, { opacity: 0.4, y: 4, filter: "blur(0.5px)", duration: 0.04, ease: "none" }, 0.68);
+
+      // Step 2 – Scale: fade in 0.64–0.68, active 0.68–0.90
+      tl.to(d2, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.04, ease: "power2.out" }, 0.64);
     }, sectionRef);
 
     return () => ctx.revert();
   }, [reduced, isMobile]);
 
   const steps = marbleSystemSection.steps ?? [];
-
-  const stepStyles = useMemo(
-    () => [getStepStyle(progress, 0), getStepStyle(progress, 1), getStepStyle(progress, 2)],
-    [progress]
-  );
 
   if (reduced) {
     return (
@@ -292,13 +279,9 @@ export default function MarbleSystemSection() {
               {marbleSystemSection.subheadline}
             </p>
 
-            <div className="mt-14 md:mt-20 space-y-10 md:space-y-12">
+            <div className="mt-10 md:mt-12 min-h-[280px] md:min-h-[320px] flex flex-col space-y-6 md:space-y-8">
               {steps.map((step, i) => (
-                <div
-                  key={i}
-                  className="will-change-transform transition-[opacity,transform,filter] duration-200 ease-out"
-                  style={stepStyles[i]}
-                >
+                <div key={i} ref={stepRefs[i]}>
                   <h3 className="text-lg md:text-xl font-semibold text-neutral-900">
                     {step.title}
                   </h3>
