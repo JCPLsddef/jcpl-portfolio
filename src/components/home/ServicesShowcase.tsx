@@ -197,7 +197,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
 
           {/* Image panel */}
           <motion.div
-            className="relative w-full aspect-[1052/776] max-w-[680px] rounded-[14px] overflow-hidden border border-[rgba(255,255,255,0.06)] bg-sv-surface shadow-[inset_0_2px_20px_rgba(0,0,0,0.4)]"
+            className="relative w-full aspect-[1052/776] max-w-[680px] overflow-hidden"
             role="tabpanel"
             id={`services-panel-${activeIndex}`}
             aria-labelledby={`services-tab-${activeIndex}`}
@@ -214,18 +214,8 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
               aria-hidden
             />
 
-            {/* Vignette overlay */}
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{
-                background:
-                  "radial-gradient(ellipse 80% 80% at 50% 50%, transparent 40%, rgba(0,0,0,0.4) 100%)",
-              }}
-              aria-hidden
-            />
-
-            {/* Centered inner stage */}
-            <div className="absolute inset-0 flex items-center justify-center p-6 md:p-8 lg:p-10">
+            {/* Inner stage - positioned left and lower */}
+            <div className="absolute inset-0 flex items-end justify-start p-4 md:p-6 lg:p-8 pt-8 md:pt-10 lg:pt-12 pl-4 md:pl-6 lg:pl-8 pr-8 md:pr-10 pb-6 md:pb-8 lg:pb-10">
               {/* Media glow - only for transparent-logo */}
               {useGlow && (
                 <div
@@ -252,7 +242,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                       transform: isTransparentLogo ? "scale(1)" : `scale(${imageScale})`,
                     }}
                   >
-                    <div className="relative w-full h-full flex items-center justify-center translate-y-2 sm:translate-y-3 lg:translate-y-4">
+                    <div className="relative w-full h-full flex items-center justify-center -translate-x-4 sm:-translate-x-6 lg:-translate-x-8 translate-y-4 sm:translate-y-5 lg:translate-y-6">
                       <Image
                       src={activeService.imageUrl}
                       alt={activeService.imageAlt}
