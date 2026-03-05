@@ -195,6 +195,7 @@ export type TranslationsShape = {
     bullet2: string;
     bullet3: string;
     cta: string;
+    notice: string;
   };
 };
 
@@ -298,6 +299,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       bullet2: "Clear next steps",
       bullet3: "No bloated sales process",
       cta: "Book a strategy call →",
+      notice: "Client Growth runs a limited number of strategy calls per week. For a faster response, email juan@clientgrowth.ca for a same-day reply.",
     },
   },
   fr: {
@@ -400,6 +402,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       bullet2: "Prochaines étapes claires",
       bullet3: "Pas de processus commercial lourd",
       cta: "Réserver un appel stratégie →",
+      notice: "Client Growth offre un nombre limité d'appels stratégie par semaine. Pour une réponse plus rapide, écrivez à juan@clientgrowth.ca.",
     },
   },
 };

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "@/context/LocaleContext";
 
 const CAL_LINK = "clientgrowth/15min";
-const CAL_BOOKING_URL = `https://app.cal.com/${CAL_LINK}`;
+const CAL_BOOKING_URL = `https://app.cal.com/${CAL_LINK}?layout=column&hideEventTypeDetails=1`;
 
 export default function CalendarSection() {
   const t = useTranslations();
@@ -45,23 +45,33 @@ export default function CalendarSection() {
             </p>
           </div>
 
-          {/* Right column: calendar */}
-          <div className="relative min-h-[500px] flex-1 overflow-hidden rounded-[14px] border border-white/[0.08] bg-[#111111] md:min-h-[600px]">
-            {!isVisible ? (
-              <div
-                className="absolute inset-0 flex h-full min-h-[500px] items-center justify-center bg-[#111111] text-white/70 text-[15px] md:min-h-[600px]"
-                aria-live="polite"
-              >
-                Loading calendar…
-              </div>
-            ) : (
-              <iframe
-                src={CAL_BOOKING_URL}
-                title="Book a call"
-                className="h-full min-h-[500px] w-full border-0 md:min-h-[600px]"
-                style={{ width: "100%", height: "100%" }}
-              />
-            )}
+          {/* Right column: notice + calendar */}
+          <div className="flex flex-1 flex-col gap-4">
+            {/* Notice box - Designjoy style */}
+            <div
+              className="rounded-lg border border-pink-400/30 bg-pink-500/20 px-4 py-3 text-sm text-white/90"
+              role="status"
+            >
+              {t<string>("bookCall.notice")}
+            </div>
+
+            <div className="relative min-h-[560px] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[#111111] md:min-h-[640px]">
+              {!isVisible ? (
+                <div
+                  className="absolute inset-0 flex h-full min-h-[560px] items-center justify-center bg-[#111111] text-white/70 text-[15px] md:min-h-[640px]"
+                  aria-live="polite"
+                >
+                  Loading calendar…
+                </div>
+              ) : (
+                <iframe
+                  src={CAL_BOOKING_URL}
+                  title="Book a call"
+                  className="h-full min-h-[560px] w-full border-0 md:min-h-[640px]"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>
