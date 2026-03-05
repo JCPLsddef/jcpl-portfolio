@@ -1,14 +1,34 @@
 "use client";
 
 import { useState, useCallback } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { useTranslations } from "@/context/LocaleContext";
 import Reveal from "@/components/motion/Reveal";
 import { usePrefersReducedMotionSafe } from "@/components/motion/usePrefersReducedMotionSafe";
-import { ChevronDown, Mail } from "lucide-react";
+import { ShaderGradientCanvas, ShaderGradient } from "@shadergradient/react";
+import { ChevronDown, Mail, Send, ArrowRight, User } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const KNIGHT_AVATAR = "/knight-avatar.png";
+
+function KnightAvatar() {
+  const [imgError, setImgError] = useState(false);
+  return imgError ? (
+    <User className="w-10 h-10 md:w-12 md:h-12 text-sv-primary/80" aria-hidden />
+  ) : (
+    <Image
+      src={KNIGHT_AVATAR}
+      alt=""
+      width={96}
+      height={96}
+      className="w-full h-full object-cover"
+      onError={() => setImgError(true)}
+    />
+  );
+}
 
 function ChevronIcon({ open }: { open: boolean }) {
   return (
@@ -35,10 +55,8 @@ export default function FAQ() {
     ctaBody: string;
     ctaButton: string;
     ctaEmail: string;
+    ctaEmailLabel: string;
   };
-
-  const CTA_IMAGE_URL =
-    "https://static.wixstatic.com/media/62f926_145f629a54634971b81de3e9565c7928~mv2.png";
 
   const toggle = useCallback(
     (i: number) => setActiveIndex((prev) => (prev === i ? null : i)),
@@ -120,42 +138,106 @@ export default function FAQ() {
           </div>
         </div>
 
-        {/* Right: CTA card with Wix image background */}
+        {/* Right: CTA card with ShaderGradient + knight avatar */}
         <Reveal delay={0.15} className="lg:sticky lg:top-24 self-start">
-          <div
-            className="relative rounded-3xl overflow-hidden p-6 md:p-8 shadow-[0_8px_40px_rgba(0,0,0,0.3)]"
-            style={{
-              backgroundImage: `url(${CTA_IMAGE_URL})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
+          <div className="relative rounded-3xl overflow-hidden min-h-[300px] border border-white/[0.06] shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
+            {/* Animated gradient or static fallback */}
+            {reduced ? (
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "radial-gradient(ellipse 80% 80% at 50% 0%, rgba(43,90,140,0.25) 0%, transparent 50%), radial-gradient(ellipse 60% 60% at 80% 100%, rgba(14,31,53,0.6) 0%, transparent 50%), #0E1F35",
+                }}
+                aria-hidden
+              />
+            ) : (
+              <ShaderGradientCanvas
+                style={{ position: "absolute", inset: 0 }}
+                fov={45}
+                pixelDensity={1}
+              >
+                <ShaderGradient
+                  animate="on"
+                  type="waterPlane"
+                  color1="#0E1F35"
+                  color2="#2B5A8C"
+                  color3="#6B8DB8"
+                  brightness={0.9}
+                  cAzimuthAngle={170}
+                  cDistance={4.4}
+                  cPolarAngle={70}
+                  cameraZoom={1}
+                  lightType="3d"
+                  envPreset="city"
+                  grain="off"
+                  positionX={0}
+                  positionY={0.9}
+                  positionZ={-0.3}
+                  range="disabled"
+                  rangeEnd={40}
+                  rangeStart={0}
+                  reflection={0.1}
+                  rotationX={45}
+                  rotationY={0}
+                  rotationZ={0}
+                  shader="defaults"
+                  uAmplitude={0}
+                  uDensity={1.2}
+                  uFrequency={0}
+                  uSpeed={0.2}
+                  uStrength={3.4}
+                  uTime={0}
+                  wireframe={false}
+                />
+              </ShaderGradientCanvas>
+            )}
+            {/* Subtle starry overlay */}
             <div
-              className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/75"
+              className="absolute inset-0 opacity-40"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 20% 30%, rgba(255,255,255,0.03) 0%, transparent 1px), radial-gradient(circle at 60% 70%, rgba(255,255,255,0.02) 0%, transparent 1px), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.025) 0%, transparent 1px)",
+                backgroundSize: "24px 24px",
+              }}
               aria-hidden
             />
-            <div className="relative z-10">
-              <h3 className="text-[20px] md:text-[22px] font-[700] text-white leading-tight mb-3">
+            <div className="relative z-10 flex flex-col items-center p-6 md:p-8">
+              {/* Circular knight avatar */}
+              <div className="mb-5 flex justify-center">
+                <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-[#0A1628] flex items-center justify-center overflow-hidden ring-2 ring-white/10 shadow-lg">
+                  <KnightAvatar />
+                </div>
+              </div>
+              <h3 className="text-[20px] md:text-[22px] font-[700] text-white leading-tight text-center mb-2">
                 {faqBooking.ctaTitle}
               </h3>
-              <p className="text-[15px] text-white/90 leading-[1.6] mb-6">
+              <p className="text-[15px] text-white/90 leading-[1.6] text-center mb-6 max-w-[280px]">
                 {faqBooking.ctaBody}
               </p>
               <Link
                 href="#book-call"
-                className="flex items-center justify-center w-full py-3.5 px-5 rounded-lg bg-sv-primary text-white font-[600] text-[15px] hover:bg-sv-primary-hov transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+                className="flex items-center justify-center w-full py-3.5 px-5 rounded-full bg-white text-[#0E1F35] font-[600] text-[15px] hover:bg-white/95 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white shadow-lg"
               >
                 {faqBooking.ctaButton}
               </Link>
-              <p className="mt-4 text-[13px] text-white/80 flex items-center justify-center gap-2">
-                <Mail className="w-3.5 h-3.5 shrink-0" aria-hidden />
-                <a
-                  href={`mailto:${faqBooking.ctaEmail}`}
-                  className="hover:text-white transition-colors underline underline-offset-2"
-                >
-                  {faqBooking.ctaEmail}
-                </a>
-              </p>
+              <div className="mt-6 flex flex-col items-center gap-3">
+                <p className="text-[13px] text-white/75 flex items-center gap-2">
+                  {faqBooking.ctaEmailLabel}{" "}
+                  <a
+                    href={`mailto:${faqBooking.ctaEmail}`}
+                    className="text-white/95 hover:text-white transition-colors underline underline-offset-2 font-medium"
+                  >
+                    {faqBooking.ctaEmail}
+                  </a>
+                </p>
+                <div className="flex items-center gap-3 text-white/60">
+                  <Send className="w-4 h-4" aria-hidden />
+                  <span className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                    <ArrowRight className="w-4 h-4" aria-hidden />
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>

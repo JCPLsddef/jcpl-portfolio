@@ -183,6 +183,7 @@ export type TranslationsShape = {
     ctaBody: string;
     ctaButton: string;
     ctaEmail: string;
+    ctaEmailLabel: string;
   };
   bookCall: {
     eyebrow: string;
@@ -280,9 +281,10 @@ export const translations: Record<Locale, TranslationsShape> = {
         { question: "Who is this best for?", answer: "Service businesses doing $5K+/month that want predictable leads from the internet instead of relying on referrals." },
       ],
       ctaTitle: "Book a 15-min strategy call",
-      ctaBody: "We'll review your market, your current pipeline, and whether this system makes sense for your business.",
+      ctaBody: "We'll review your market, pipeline, and whether this system fits. No pressure — just clarity.",
       ctaButton: "Book a strategy call →",
-      ctaEmail: "hello@clientgrowth.ca",
+      ctaEmail: "juan@clientgrowth.ca",
+      ctaEmailLabel: "Prefer email?",
     },
     bookCall: {
       eyebrow: "BOOK A CALL",
@@ -379,9 +381,10 @@ export const translations: Record<Locale, TranslationsShape> = {
         { question: "Pour qui est-ce le mieux?", answer: "Entreprises de services à 5 000 $+/mois qui veulent des leads prévisibles sur Internet plutôt que les références." },
       ],
       ctaTitle: "Réservez un appel stratégie de 15 min",
-      ctaBody: "On examinera votre marché, votre pipeline actuel et si ce système convient à votre entreprise.",
+      ctaBody: "On examinera votre marché, votre pipeline et si ce système convient. Pas de pression — juste de la clarté.",
       ctaButton: "Réserver un appel stratégie →",
-      ctaEmail: "hello@clientgrowth.ca",
+      ctaEmail: "juan@clientgrowth.ca",
+      ctaEmailLabel: "Préférez le courriel?",
     },
     bookCall: {
       eyebrow: "RÉSERVER UN APPEL",
