@@ -7,14 +7,11 @@ import LogoLoop from "@/components/home/LogoLoop";
 /* Dynamic imports for below-the-fold sections — reduces initial JS bundle */
 const ClientReality = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
-const PortfolioShowcase = dynamic(() => import("@/components/home/PortfolioShowcase"));
-const GrowthArchitecture = dynamic(() => import("@/components/home/GrowthArchitecture"));
 const FeaturedCaseStudy = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
 const QualificationCTA = dynamic(() => import("@/components/home/QualificationCTA"));
 const PremiumPricingSection = dynamic(
   () => import("@/components/pricing/PremiumPricingSection")
 );
-const HowWeWork = dynamic(() => import("@/components/home/HowWeWork"));
 const MarbleToServicesBridge = dynamic(
   () => import("@/components/home/MarbleToServicesBridge")
 );
@@ -55,13 +52,7 @@ export default function HomePage() {
       {/* 4a — Marble System + cinematic drop → 4b Services Showcase */}
       <MarbleToServicesBridge />
 
-      {/* 4c — Portfolio: Custom build showcase */}
-      <PortfolioShowcase />
-
-      {/* 5 — System: The 4-pillar Growth Architecture */}
-      <GrowthArchitecture />
-
-      {/* 6 — Case Study: Proof the system works */}
+      {/* 5 — Case Study: Proof the system works */}
       <FeaturedCaseStudy />
 
       {/* 7 — Who It's For: Qualification grid */}
@@ -70,10 +61,7 @@ export default function HomePage() {
       {/* 8 — Offer Stack: Premium pricing tiers */}
       <PremiumPricingSection />
 
-      {/* 9 — Process: 3-step — Diagnose → Build → Scale */}
-      <HowWeWork />
-
-      {/* 10 — FAQ: Objection handling */}
+      {/* 9 — FAQ: Objection handling */}
       <FAQSection />
 
       {/* 11 — Final CTA: Spots Left */}
