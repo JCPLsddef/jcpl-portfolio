@@ -177,6 +177,7 @@ export type TranslationsShape = {
   };
   faqBooking: {
     heading: string;
+    supportingLine: string;
     items: Array<{ question: string; answer: string }>;
     ctaTitle: string;
     ctaBody: string;
@@ -265,6 +266,7 @@ export const translations: Record<Locale, TranslationsShape> = {
     },
     faqBooking: {
       heading: "Frequently asked questions",
+      supportingLine: "Get clear answers before you apply.",
       items: [
         { question: "How fast can this go live?", answer: "Most clients are live within 2–4 weeks. We start with a quick audit, then build. No lengthy discovery phases." },
         { question: "What if I already have a website?", answer: "We can overhaul your existing site for conversion, or build a new one. The goal is the same: qualified calls." },
@@ -363,6 +365,7 @@ export const translations: Record<Locale, TranslationsShape> = {
     },
     faqBooking: {
       heading: "Questions fréquentes",
+      supportingLine: "Obtenez des réponses claires avant de postuler.",
       items: [
         { question: "En combien de temps c'est en ligne?", answer: "La plupart des clients sont en ligne en 2 à 4 semaines. On commence par un audit rapide, puis on construit." },
         { question: "Et si j'ai déjà un site web?", answer: "On peut refondre votre site existant pour la conversion, ou en créer un nouveau. L'objectif reste le même: des appels qualifiés." },

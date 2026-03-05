@@ -3,7 +3,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
-import CurvedLoop from "./CurvedLoop";
 import HeadlineMarquee from "./HeadlineMarquee";
 import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
@@ -119,18 +118,6 @@ export default function Hero() {
 
 			{/* HERO — full-bleed WebGL + content layers */}
 			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
-
-				{/* Curved ambient text arch */}
-				<div className="cb-curved-loop" aria-hidden="true">
-					<CurvedLoop
-						marqueeText="GROWTH ARCHITECTURE™  ·  CALLS BOOKED  ·  DOMINATE YOUR MARKET  ·  "
-						speed={0.4}
-						curveAmount={120}
-						direction="left"
-						interactive={false}
-						className="hero-curved-loop-text"
-					/>
-				</div>
 
 				{/* LAYER 1 — WebGL background */}
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">

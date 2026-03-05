@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "@/context/LocaleContext";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -10,6 +10,8 @@ import Link from "next/link";
 const CAL_SCRIPT_ID = "cal-embed-script";
 const CAL_CONTAINER_ID = "my-cal-inline-15min";
 const CAL_SCRIPT_URL = "https://app.cal.com/embed/embed.js";
+const MAX_RETRIES = 30;
+const RETRY_INTERVAL = 100;
 
 declare global {
   interface Window {
@@ -36,6 +38,25 @@ function loadCalScript(): Promise<void> {
   });
 }
 
+function waitForCal(): Promise<typeof window.Cal> {
+  return new Promise((resolve) => {
+    let attempts = 0;
+    const check = () => {
+      if (typeof window.Cal === "function") {
+        resolve(window.Cal);
+        return;
+      }
+      if (attempts < MAX_RETRIES) {
+        attempts++;
+        setTimeout(check, RETRY_INTERVAL);
+      } else {
+        resolve(window.Cal as typeof window.Cal);
+      }
+    };
+    check();
+  });
+}
+
 function initCalEmbed() {
   const Cal = window.Cal;
   if (typeof Cal !== "function") return;
@@ -53,8 +74,8 @@ function initCalEmbed() {
       ns("ui", { hideEventTypeDetails: false, layout: "month_view" });
       return;
     }
-    if (attempts < 20) {
-      setTimeout(() => tryInline(attempts + 1), 50);
+    if (attempts < MAX_RETRIES) {
+      setTimeout(() => tryInline(attempts + 1), RETRY_INTERVAL);
     }
   };
   tryInline();
@@ -64,6 +85,7 @@ export default function BookCall() {
   const t = useTranslations();
   const containerRef = useRef<HTMLDivElement>(null);
   const mountedRef = useRef(false);
+  const [calReady, setCalReady] = useState(false);
 
   useEffect(() => {
     if (mountedRef.current) return;
@@ -71,9 +93,13 @@ export default function BookCall() {
 
     const run = async () => {
       await loadCalScript();
+      await waitForCal();
       const container = document.getElementById(CAL_CONTAINER_ID);
-      if (container) {
+      if (container && typeof window.Cal === "function") {
         initCalEmbed();
+        setTimeout(() => setCalReady(true), 400);
+      } else {
+        setCalReady(true);
       }
     };
 
@@ -117,11 +143,19 @@ export default function BookCall() {
 
         {/* Right: Cal.com embed wrapper */}
         <Reveal>
-          <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
+          <div className="relative rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
+            {!calReady && (
+              <div
+                className="absolute inset-0 z-10 flex min-h-[720px] md:min-h-[860px] items-center justify-center bg-sv-surface text-sv-text-muted text-[15px]"
+                aria-live="polite"
+              >
+                Loading calendar…
+              </div>
+            )}
             <div
               ref={containerRef}
               id={CAL_CONTAINER_ID}
-              className="w-full min-h-[860px] md:min-h-[760px] overflow-hidden"
+              className="w-full min-h-[720px] md:min-h-[860px] overflow-hidden"
             />
           </div>
         </Reveal>
