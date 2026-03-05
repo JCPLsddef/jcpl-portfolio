@@ -2,8 +2,10 @@
 
 import { useEffect, useRef } from "react";
 import CTAButton from "@/components/ui/CTAButton";
+import { useTranslations } from "@/context/LocaleContext";
 
 export default function FinalConvictionSection() {
+  const t = useTranslations();
   const wrapRef  = useRef<HTMLDivElement>(null);
   const embedRef = useRef<HTMLDivElement>(null);
 
@@ -111,7 +113,7 @@ export default function FinalConvictionSection() {
       {/* ── Single CTA — anchored directly below the knight ── */}
       <div className="flex justify-center px-4 py-12 md:py-16">
         <CTAButton href="/apply" size="lg">
-          Now Or Never
+          {t<string>("finalCta.button")}
         </CTAButton>
       </div>
     </section>

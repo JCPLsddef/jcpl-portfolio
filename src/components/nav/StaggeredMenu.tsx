@@ -26,6 +26,10 @@ export interface StaggeredMenuProps {
   onMenuOpen?: () => void;
   onMenuClose?: () => void;
   isFixed?: boolean;
+  languageSwitcher?: React.ReactNode;
+  languageSwitcherPanel?: React.ReactNode;
+  menuLabel?: string;
+  closeLabel?: string;
 }
 
 export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
@@ -43,6 +47,10 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   closeOnClickAway: closeOnClickAwayProp = true,
   onMenuOpen,
   onMenuClose,
+  languageSwitcher,
+  languageSwitcherPanel = languageSwitcher,
+  menuLabel = 'Menu',
+  closeLabel = 'Close',
 }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
@@ -55,7 +63,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
   const iconRef = useRef<HTMLSpanElement | null>(null);
   const textInnerRef = useRef<HTMLSpanElement | null>(null);
   const textWrapRef = useRef<HTMLSpanElement | null>(null);
-  const [textLines, setTextLines] = useState<string[]>(['Menu']);
+  const [textLines, setTextLines] = useState<string[]>([menuLabel]);
 
   const openTlRef = useRef<gsap.core.Timeline | null>(null);
   const closeTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -263,9 +271,9 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
     if (!inner) return;
     textCycleAnimRef.current?.kill();
 
-    const currentLabel = opening ? 'Menu' : 'Close';
-    const targetLabel = opening ? 'Close' : 'Menu';
-    const seq = [currentLabel, targetLabel === 'Close' ? 'Close' : 'Menu', currentLabel === 'Menu' ? 'Close' : 'Menu', targetLabel];
+    const currentLabel = opening ? menuLabel : closeLabel;
+    const targetLabel = opening ? closeLabel : menuLabel;
+    const seq = [currentLabel, targetLabel, currentLabel, targetLabel];
 
     setTextLines(seq);
     gsap.set(inner, { yPercent: 0 });
@@ -280,7 +288,7 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
         gsap.set(inner, { yPercent: 0 });
       },
     });
-  }, []);
+  }, [menuLabel, closeLabel]);
 
   /* ─── Toggle menu ─── */
   const toggleMenu = useCallback(() => {
@@ -420,12 +428,17 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
               </li>
             )}
           </ul>
+          {languageSwitcherPanel && (
+            <footer className="sm-panel-footer">
+              <div className="sm-lang">{languageSwitcherPanel}</div>
+            </footer>
+          )}
         </div>
       </aside>
 
-      {/* Header bar with logo + toggle */}
+      {/* Header bar with logo + language switcher + toggle */}
       <header className="staggered-menu-header" aria-label="Main navigation header">
-  <div className="sm-logo" aria-label="Logo">
+        <div className="sm-logo" aria-label="Logo">
           {logoUrl ? (
             <a href="/" tabIndex={0} aria-label="Home" style={{ display: 'inline-block' }}>
               <img
@@ -444,10 +457,11 @@ export const StaggeredMenu: React.FC<StaggeredMenuProps> = ({
             </a>
           )}
         </div>
+        {languageSwitcher && <div className="sm-lang sm-lang-header">{languageSwitcher}</div>}
         <button
           ref={toggleBtnRef}
           className="sm-toggle"
-          aria-label={open ? 'Close menu' : 'Open menu'}
+          aria-label={open ? `${closeLabel} menu` : `${menuLabel} menu`}
           aria-expanded={open}
           aria-controls="staggered-menu-panel"
           onClick={toggleMenu}

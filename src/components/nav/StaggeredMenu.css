@@ -236,6 +236,29 @@
   will-change: transform;
 }
 
+/* ─── language switcher ─── */
+.sm-lang {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.staggered-menu-header .sm-lang {
+  margin-left: auto;
+  margin-right: 0.5rem;
+}
+
+.sm-panel-footer {
+  padding-top: 2rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.sm-panel-footer .sm-lang {
+  justify-content: flex-start;
+}
+
 /* ─── socials ─── */
 .sm-socials {
   padding-top: 0.5rem;

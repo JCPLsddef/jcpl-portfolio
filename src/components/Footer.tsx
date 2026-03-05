@@ -1,7 +1,17 @@
+"use client";
+
 import Link from "next/link";
-import { navigation, siteConfig } from "@/lib/content";
+import { navigation } from "@/lib/content";
+import { useTranslations } from "@/context/LocaleContext";
 
 export default function Footer() {
+  const t = useTranslations();
+  const navItems = [
+    { href: "/", label: t<string>("nav.home") },
+    { href: "/services", label: t<string>("nav.services") },
+    { href: "/results", label: t<string>("nav.results") },
+    { href: "/about", label: t<string>("nav.about") },
+  ];
   return (
     <footer className="border-t border-[rgba(255,255,255,0.06)] bg-[#030812]">
       <div className="container py-10 md:py-14">
@@ -18,10 +28,10 @@ export default function Footer() {
           {/* Navigation */}
           <div className="space-y-3">
             <h4 className="text-[12px] uppercase tracking-[0.14em] font-medium text-sv-text-muted mb-4">
-              Navigation
+              {t<string>("footer.navigation")}
             </h4>
             <ul className="space-y-2.5">
-              {navigation.map((item) => (
+              {navItems.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -37,7 +47,7 @@ export default function Footer() {
           {/* Legal */}
           <div className="space-y-3">
             <h4 className="text-[12px] uppercase tracking-[0.14em] font-medium text-sv-text-muted mb-4">
-              Legal
+              {t<string>("footer.legal")}
             </h4>
             <ul className="space-y-2.5">
               <li>
@@ -45,7 +55,7 @@ export default function Footer() {
                   href="/privacy"
                   className="text-[15px] text-sv-text-sub transition-colors duration-150 hover:text-white"
                 >
-                  Privacy Policy
+                  {t<string>("footer.privacy")}
                 </Link>
               </li>
               <li>
@@ -53,7 +63,7 @@ export default function Footer() {
                   href="/terms"
                   className="text-[15px] text-sv-text-sub transition-colors duration-150 hover:text-white"
                 >
-                  Terms of Service
+                  {t<string>("footer.terms")}
                 </Link>
               </li>
               <li>
@@ -69,7 +79,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-8 pt-6 border-t border-[rgba(255,255,255,0.06)] text-center text-[13px] text-sv-text-dim">
-          © {new Date().getFullYear()} Client Growth. All rights reserved.
+          © {new Date().getFullYear()} Client Growth. {t<string>("footer.rights")}.
         </div>
       </div>
     </footer>

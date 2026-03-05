@@ -2,12 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import SpeedPopup from "@/components/SpeedPopup";
-import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
-import RouteScrollManager from "@/components/system/RouteScrollManager";
-import SmoothFollower from "@/components/ui/SmoothFollower";
+import ClientAppShell from "@/components/ClientAppShell";
 import { siteConfig } from "@/lib/content";
 import {
   generateOrganizationSchema,
@@ -86,20 +81,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} antialiased bg-[var(--bg-base)] text-[var(--text-primary)]`}>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--brand-accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white focus:outline-none"
-        >
-          Skip to content
-        </a>
-        <SmoothScrollProvider>
-          <SmoothFollower />
-          <RouteScrollManager />
-          <Navbar />
-          <main id="main-content" className="min-h-screen">{children}</main>
-          <Footer />
-          <SpeedPopup />
-        </SmoothScrollProvider>
+        <ClientAppShell>{children}</ClientAppShell>
       </body>
     </html>
   );
