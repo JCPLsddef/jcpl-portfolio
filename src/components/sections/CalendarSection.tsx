@@ -9,18 +9,60 @@ const CAL_SCRIPT_URL = "https://app.cal.com/embed/embed.js";
 
 declare global {
   interface Window {
-    Cal?: ((action: string, namespace?: string, opts?: Record<string, unknown>) => void) & {
-      ns?: Record<string, (action: string, opts?: Record<string, unknown>) => void>;
+    Cal?: ((action: string, ...args: unknown[]) => void) & {
+      q?: unknown[];
+      ns?: Record<string, (action: string, ...args: unknown[]) => void>;
     };
+  }
+}
+
+/**
+ * Cal.com embed requires a loader stub (window.Cal + Cal.q) to exist BEFORE
+ * embed.js loads. The embed.js script processes the queued instructions on load.
+ * We create the stub, queue our inline instruction, then load the script.
+ */
+function ensureCalLoader(): void {
+  const w = window;
+  if (w.Cal && Array.isArray(w.Cal.q)) return; // Already set up
+
+  w.Cal =
+    w.Cal ||
+    function (...args: unknown[]) {
+      (w.Cal!.q = w.Cal!.q || []).push(args);
+    };
+  if (!Array.isArray(w.Cal.q)) w.Cal.q = [];
+}
+
+function queueOrRunInline(): void {
+  const inlineArgs = {
+    elementOrSelector: `#${CAL_CONTAINER_ID}`,
+    calLink: "clientgrowth/15min",
+    config: {
+      layout: "month_view",
+      useSlotsViewOnSmallScreen: "true",
+    },
+  };
+
+  // If Cal loaded and has .loaded, call directly; otherwise queue
+  const Cal = window.Cal;
+  if (typeof Cal === "function") {
+    Cal("inline", inlineArgs);
   }
 }
 
 function loadCalScript(): Promise<void> {
   return new Promise((resolve) => {
-    if (document.getElementById(CAL_SCRIPT_ID)) {
+    const existing = document.getElementById(CAL_SCRIPT_ID);
+    if (existing) {
+      // Script already loaded — run inline directly (Cal may be real or stub)
+      queueOrRunInline();
       resolve();
       return;
     }
+
+    ensureCalLoader();
+    queueOrRunInline();
+
     const script = document.createElement("script");
     script.id = CAL_SCRIPT_ID;
     script.src = CAL_SCRIPT_URL;
@@ -29,51 +71,6 @@ function loadCalScript(): Promise<void> {
     script.onerror = () => resolve();
     document.head.appendChild(script);
   });
-}
-
-function waitForCal(): Promise<typeof window.Cal> {
-  return new Promise((resolve) => {
-    let attempts = 0;
-    const maxRetries = 50;
-    const interval = 100;
-    const check = () => {
-      if (typeof window.Cal === "function") {
-        resolve(window.Cal);
-        return;
-      }
-      if (attempts < maxRetries) {
-        attempts++;
-        setTimeout(check, interval);
-      } else {
-        resolve(window.Cal as typeof window.Cal);
-      }
-    };
-    check();
-  });
-}
-
-function initCalEmbed(): void {
-  const Cal = window.Cal;
-  if (typeof Cal !== "function") return;
-
-  Cal("init", "15min", { origin: "https://app.cal.com" });
-
-  const tryInline = (attempts = 0) => {
-    const ns = Cal.ns?.["15min"];
-    if (ns) {
-      ns("inline", {
-        elementOrSelector: `#${CAL_CONTAINER_ID}`,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-        calLink: "clientgrowth/15min",
-      });
-      ns("ui", { hideEventTypeDetails: false, layout: "month_view" });
-      return;
-    }
-    if (attempts < 50) {
-      setTimeout(() => tryInline(attempts + 1), 100);
-    }
-  };
-  tryInline();
 }
 
 export default function CalendarSection() {
@@ -92,15 +89,10 @@ export default function CalendarSection() {
         initRef.current = true;
 
         const run = async () => {
-          await loadCalScript();
-          await waitForCal();
           const container = document.getElementById(CAL_CONTAINER_ID);
-          if (container && typeof window.Cal === "function") {
-            initCalEmbed();
-            setTimeout(() => setCalReady(true), 400);
-          } else {
-            setCalReady(true);
-          }
+          if (!container) return;
+          await loadCalScript();
+          setTimeout(() => setCalReady(true), 800);
         };
 
         run();
