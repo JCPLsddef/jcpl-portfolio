@@ -20,7 +20,7 @@ const FAQ = dynamic(() => import("@/components/sections/FAQ"));
 const FinalConvictionSection = dynamic(
   () => import("@/components/home/FinalConvictionSection")
 );
-const BookCall = dynamic(() => import("@/components/sections/BookCall"));
+const CalendarSection = dynamic(() => import("@/components/sections/CalendarSection"));
 
 export default function HomePage() {
   return (
@@ -76,7 +76,7 @@ export default function HomePage() {
       <FinalConvictionSection />
 
       {/* 13 — Book a call: Cal.com embed (right before footer) */}
-      <BookCall />
+      <CalendarSection />
     </>
   );
 }
