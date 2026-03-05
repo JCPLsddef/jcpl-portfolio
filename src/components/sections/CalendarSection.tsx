@@ -1,109 +1,32 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import Cal, { getCalApi } from "@calcom/embed-react";
 import { useTranslations } from "@/context/LocaleContext";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Reveal from "@/components/motion/Reveal";
 import Link from "next/link";
 
-const CAL_SCRIPT_ID = "cal-embed-script";
 const CAL_CONTAINER_ID = "my-cal-inline-15min";
-const CAL_SCRIPT_URL = "https://app.cal.com/embed/embed.js";
-const MAX_RETRIES = 30;
-const RETRY_INTERVAL = 100;
-
-declare global {
-  interface Window {
-    Cal?: ((action: string, namespace?: string, opts?: Record<string, unknown>) => void) & {
-      ns?: Record<string, (action: string, opts?: Record<string, unknown>) => void>;
-    };
-  }
-}
-
-function loadCalScript(): Promise<void> {
-  return new Promise((resolve) => {
-    const existing = document.getElementById(CAL_SCRIPT_ID);
-    if (existing) {
-      resolve();
-      return;
-    }
-    const script = document.createElement("script");
-    script.id = CAL_SCRIPT_ID;
-    script.src = CAL_SCRIPT_URL;
-    script.async = true;
-    script.onload = () => resolve();
-    script.onerror = () => resolve();
-    document.head.appendChild(script);
-  });
-}
-
-function waitForCal(): Promise<typeof window.Cal> {
-  return new Promise((resolve) => {
-    let attempts = 0;
-    const check = () => {
-      if (typeof window.Cal === "function") {
-        resolve(window.Cal);
-        return;
-      }
-      if (attempts < MAX_RETRIES) {
-        attempts++;
-        setTimeout(check, RETRY_INTERVAL);
-      } else {
-        resolve(window.Cal as typeof window.Cal);
-      }
-    };
-    check();
-  });
-}
-
-function initCalEmbed(): void {
-  const Cal = window.Cal;
-  if (typeof Cal !== "function") return;
-
-  Cal("init", "15min", { origin: "https://app.cal.com" });
-
-  const tryInline = (attempts = 0) => {
-    const ns = Cal.ns?.["15min"];
-    if (ns) {
-      ns("inline", {
-        elementOrSelector: `#${CAL_CONTAINER_ID}`,
-        config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-        calLink: "clientgrowth/15min",
-      });
-      ns("ui", { hideEventTypeDetails: false, layout: "month_view" });
-      return;
-    }
-    if (attempts < MAX_RETRIES) {
-      setTimeout(() => tryInline(attempts + 1), RETRY_INTERVAL);
-    }
-  };
-  tryInline();
-}
 
 export default function CalendarSection() {
   const t = useTranslations();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mountedRef = useRef(false);
   const [calReady, setCalReady] = useState(false);
 
   useEffect(() => {
-    if (mountedRef.current) return;
-    mountedRef.current = true;
-
-    const run = async () => {
-      await loadCalScript();
-      await waitForCal();
-      const container = document.getElementById(CAL_CONTAINER_ID);
-      if (container && typeof window.Cal === "function") {
-        initCalEmbed();
-        setTimeout(() => setCalReady(true), 400);
-      } else {
-        setCalReady(true);
-      }
-    };
-
-    run();
+    (async function () {
+      const cal = await getCalApi({ namespace: "15min" });
+      cal("ui", {
+        cssVarsPerTheme: {
+          light: { "cal-brand": "#252de7" },
+          dark: { "cal-brand": "#252de7" },
+        },
+        hideEventTypeDetails: false,
+        layout: "month_view",
+      });
+      setTimeout(() => setCalReady(true), 400);
+    })();
   }, []);
 
   return (
@@ -160,11 +83,16 @@ export default function CalendarSection() {
               </div>
             )}
             <div
-              ref={containerRef}
               id={CAL_CONTAINER_ID}
               className="w-full min-h-[620px] md:min-h-[720px] overflow-auto"
-              style={{ width: "100%", height: "100%" }}
-            />
+            >
+              <Cal
+                namespace="15min"
+                calLink="clientgrowth/15min"
+                style={{ width: "100%", height: "100%", overflow: "scroll" }}
+                config={{ layout: "month_view", useSlotsViewOnSmallScreen: "true" }}
+              />
+            </div>
           </div>
         </Reveal>
       </div>
