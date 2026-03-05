@@ -3,17 +3,29 @@
 import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
+import CurvedLoop from "./CurvedLoop";
+import HeadlineMarquee from "./HeadlineMarquee";
 import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
 
 /* ═══════════════════════════════════════════════════
+   COPY — DOMINATE style, institutional authority
+   ═══════════════════════════════════════════════════ */
+const CTA_PRIMARY = {
+	label: "Apply. I'll review you in 24h.",
+	href: "/apply",
+};
+
+/* ═══════════════════════════════════════════════════
    COMPONENT — Command Bridge Hero
-   WebGL background + overlays only (no ticker, headline, CTA)
+   3 Layers: WebGL BG → Readability overlay → Content
    ═══════════════════════════════════════════════════ */
 export default function Hero() {
 	const sectionRef = useRef<HTMLElement>(null);
 	const frameRef = useRef<HTMLDivElement>(null);
+	const headlineRef = useRef<HTMLDivElement>(null);
+	const ctaRef = useRef<HTMLDivElement>(null);
 	const bgLayerRef = useRef<HTMLDivElement>(null);
 	const contentLayerRef = useRef<HTMLDivElement>(null);
 
@@ -52,19 +64,42 @@ export default function Hero() {
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
 
-		if (reduced && frameRef.current) {
-			gsap.set(frameRef.current, { opacity: 1, y: 0 });
+		const allEls = [frameRef.current, headlineRef.current, ctaRef.current].filter(Boolean);
+
+		if (reduced) {
+			allEls.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
 			return;
 		}
 
 		const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
+		// 1. Frame rises in (0.8s)
 		if (frameRef.current) {
 			tl.fromTo(
 				frameRef.current,
 				{ opacity: 0, y: 30 },
 				{ opacity: 1, y: 0, duration: 0.8 },
 				0
+			);
+		}
+
+		// 2. Headline fades in
+		if (headlineRef.current) {
+			tl.fromTo(
+				headlineRef.current,
+				{ opacity: 0, y: 40 },
+				{ opacity: 1, y: 0, duration: 0.8 },
+				0.4
+			);
+		}
+
+		// 3. CTA appears last
+		if (ctaRef.current) {
+			tl.fromTo(
+				ctaRef.current,
+				{ opacity: 0, y: 16 },
+				{ opacity: 1, y: 0, duration: 0.55 },
+				0.9
 			);
 		}
 
@@ -82,8 +117,20 @@ export default function Hero() {
 			{/* Ambient drift */}
 			<div className="cb-ambient" aria-hidden="true" />
 
-			{/* HERO — full-bleed WebGL + overlays */}
+			{/* HERO — full-bleed WebGL + content layers */}
 			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
+
+				{/* Curved ambient text arch */}
+				<div className="cb-curved-loop" aria-hidden="true">
+					<CurvedLoop
+						marqueeText="GROWTH ARCHITECTURE™  ·  CALLS BOOKED  ·  DOMINATE YOUR MARKET  ·  "
+						speed={0.4}
+						curveAmount={120}
+						direction="left"
+						interactive={false}
+						className="hero-curved-loop-text"
+					/>
+				</div>
 
 				{/* LAYER 1 — WebGL background */}
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
@@ -95,9 +142,24 @@ export default function Hero() {
 				<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
 				<div className="cb-layer cb-grain" aria-hidden="true" />
 
-				{/* LAYER 3 — Content (empty, structure preserved for future use) */}
+				{/* LAYER 3 — Content */}
 				<div ref={contentLayerRef} className="cb-content-wrap">
-					<div className="cb-content" />
+					<div className="cb-content">
+
+						{/* DOMINATE H1 — infinite marquee */}
+						<h1 ref={headlineRef} className="cb-headline" style={{ opacity: 0 }}>
+							<HeadlineMarquee />
+						</h1>
+
+						{/* CTA */}
+						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
+							<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
+								{CTA_PRIMARY.label}
+								<span className="cb-cta-arrow" aria-hidden="true">→</span>
+							</a>
+						</div>
+
+					</div>
 				</div>
 
 			</div>
