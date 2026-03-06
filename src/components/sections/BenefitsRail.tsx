@@ -7,30 +7,43 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import Reveal from "@/components/motion/Reveal";
 import { usePrefersReducedMotionSafe } from "@/components/motion/usePrefersReducedMotionSafe";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
+
+const Grainient = dynamic(
+  () => import("@/components/ui/Grainient").then((m) => m.default),
+  { ssr: false }
+);
 
 const CARD_WIDTH = 300;
 const GAP = 24;
 
+const GRAINIENT_PALETTES: { color1: string; color2: string; color3: string }[] = [
+  { color1: "#FF9FFC", color2: "#5227FF", color3: "#B19EEF" },
+  { color1: "#00D9FF", color2: "#0099CC", color3: "#66E0FF" },
+  { color1: "#FFB347", color2: "#FF6B35", color3: "#FFA07A" },
+  { color1: "#00E676", color2: "#00C853", color3: "#69F0AE" },
+  { color1: "#FF6B9D", color2: "#C2185B", color3: "#F48FB1" },
+  { color1: "#7C4DFF", color2: "#304FFE", color3: "#B388FF" },
+];
+
 function BenefitCardArt({ index }: { index: number }) {
-  const gradients = [
-    "from-sv-primary/30 via-sv-elevated to-sv-base",
-    "from-sv-primary/20 via-sv-soft to-sv-base",
-    "from-sv-primary/25 via-sv-elevated to-sv-base",
-    "from-sv-soft via-sv-primary/15 to-sv-base",
-    "from-sv-primary/20 via-sv-elevated to-sv-base",
-    "from-sv-elevated via-sv-primary/20 to-sv-base",
-  ];
+  const palette = GRAINIENT_PALETTES[index % GRAINIENT_PALETTES.length];
   return (
     <div
       className={cn(
-        "h-[120px] w-full rounded-t-lg bg-gradient-to-br flex items-center justify-center",
-        gradients[index % gradients.length]
+        "relative h-[120px] w-full rounded-t-lg flex items-center justify-center overflow-hidden"
       )}
       aria-hidden
     >
+      <Grainient
+        className="absolute inset-0 w-full h-full"
+        color1={palette.color1}
+        color2={palette.color2}
+        color3={palette.color3}
+      />
       <div
-        className="w-12 h-12 rounded-lg border border-white/10 bg-white/5"
+        className="relative w-12 h-12 rounded-lg border border-white/10 bg-white/5"
         style={{
           background:
             "linear-gradient(135deg, rgba(43,90,140,0.4) 0%, rgba(18,40,69,0.6) 100%)",
