@@ -71,7 +71,7 @@ function BenefitCardArt({
   const palette = GRAINIENT_PALETTES[index % GRAINIENT_PALETTES.length];
   return (
     <div
-      className="relative h-[320px] min-h-[320px] w-full rounded-t-xl flex items-center justify-center overflow-hidden"
+      className="relative h-[140px] min-h-[140px] w-full rounded-t-xl flex items-center justify-center overflow-hidden"
       aria-hidden
     >
       <Grainient
@@ -124,15 +124,15 @@ export default function BenefitsRail() {
       </Reveal>
 
       <Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
           {CARD_TITLE_KEYS.map((titleKey, i) => (
             <article
               key={i}
               className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-[rgba(43,90,140,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-sv-primary/50"
             >
               <BenefitCardArt index={i} icon={CARD_ICONS[i]} />
-              <div className="p-8">
-                <h3 className="text-[22px] font-semibold text-white leading-snug">
+              <div className="p-5">
+                <h3 className="text-[17px] font-semibold text-white">
                   {t<string>(titleKey)}
                 </h3>
               </div>
