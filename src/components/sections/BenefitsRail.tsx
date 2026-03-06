@@ -1,11 +1,17 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import { useTranslations } from "@/context/LocaleContext";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Reveal from "@/components/motion/Reveal";
+import { usePrefersReducedMotionSafe } from "@/components/motion/usePrefersReducedMotionSafe";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+
+const CARD_WIDTH = 300;
+const GAP = 24;
 
 const Grainient = dynamic(
   () => import("@/components/ui/Grainient").then((m) => m.default),
@@ -35,12 +41,12 @@ const CARD_ICONS: (string | "custom")[] = [
 function EliteExecutionIcon() {
   return (
     <svg
-      width="96"
-      height="96"
+      width="112"
+      height="112"
       viewBox="0 0 48 48"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-24 h-24 drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
+      className="w-[112px] h-[112px] drop-shadow-[0_0_12px_rgba(255,255,255,0.4)]"
       aria-hidden
     >
       <path
@@ -80,16 +86,16 @@ function BenefitCardArt({
         color2={palette.color2}
         color3={palette.color3}
       />
-      <div className="relative z-10 flex items-center justify-center w-24 h-24">
+      <div className="relative z-10 flex items-center justify-center w-[112px] h-[112px]">
         {icon === "custom" ? (
           <EliteExecutionIcon />
         ) : (
           <Image
             src={icon}
             alt=""
-            width={96}
-            height={96}
-            className="w-24 h-24 object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
+            width={112}
+            height={112}
+            className="w-[112px] h-[112px] object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.3)]"
             unoptimized
           />
         )}
@@ -110,6 +116,21 @@ const CARD_TITLE_KEYS = [
 
 export default function BenefitsRail() {
   const t = useTranslations();
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const reduced = usePrefersReducedMotionSafe();
+
+  const scroll = useCallback(
+    (dir: "left" | "right") => {
+      const el = scrollRef.current;
+      if (!el) return;
+      const step = CARD_WIDTH + GAP;
+      el.scrollBy({
+        left: dir === "left" ? -step : step,
+        behavior: reduced ? "instant" : "smooth",
+      });
+    },
+    [reduced]
+  );
 
   return (
     <SectionWrapper id="benefits" variant="default">
@@ -124,20 +145,49 @@ export default function BenefitsRail() {
       </Reveal>
 
       <Reveal>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
-          {CARD_TITLE_KEYS.map((titleKey, i) => (
-            <article
-              key={i}
-              className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-[rgba(43,90,140,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-sv-primary/50"
+        <div className="relative -mx-4 md:-mx-6">
+          <div
+            ref={scrollRef}
+            className="flex gap-6 overflow-x-auto overflow-y-hidden scroll-smooth scrollbar-hide py-2 px-4 md:px-6"
+            style={{
+              scrollSnapType: "x mandatory",
+              scrollPaddingInline: "var(--container-px, 24px)",
+            }}
+          >
+            {CARD_TITLE_KEYS.map((titleKey, i) => (
+              <article
+                key={i}
+                className="flex-shrink-0 w-[280px] sm:w-[300px] rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-[rgba(43,90,140,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-sv-primary/50"
+                style={{ scrollSnapAlign: "start" }}
+              >
+                <BenefitCardArt index={i} icon={CARD_ICONS[i]} />
+                <div className="p-5">
+                  <h3 className="text-[17px] font-semibold text-white">
+                    {t<string>(titleKey)}
+                  </h3>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="flex justify-center gap-3 mt-6" aria-hidden="true">
+            <button
+              type="button"
+              onClick={() => scroll("left")}
+              aria-label="Previous cards"
+              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.15)] bg-sv-surface flex items-center justify-center text-sv-text-muted hover:text-white hover:border-[rgba(255,255,255,0.3)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
             >
-              <BenefitCardArt index={i} icon={CARD_ICONS[i]} />
-              <div className="p-5">
-                <h3 className="text-[17px] font-semibold text-white">
-                  {t<string>(titleKey)}
-                </h3>
-              </div>
-            </article>
-          ))}
+              <ChevronLeft className="w-5 h-5" strokeWidth={2} />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll("right")}
+              aria-label="Next cards"
+              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.15)] bg-sv-surface flex items-center justify-center text-sv-text-muted hover:text-white hover:border-[rgba(255,255,255,0.3)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+            >
+              <ChevronRight className="w-5 h-5" strokeWidth={2} />
+            </button>
+          </div>
         </div>
       </Reveal>
     </SectionWrapper>
