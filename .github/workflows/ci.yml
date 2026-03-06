@@ -40,12 +40,12 @@ jobs:
       run: chmod +x wait-for-it.sh
 
     - name: Wait for PostgreSQL to be ready
-      run: ./wait-for-it.sh localhost:5432 --timeout=60
+      run: ./wait-for-it.sh db:5432 --timeout=60
 
     - name: Run tests with pytest
       env:
         PYTHONPATH: .
-        DATABASE_URL: postgresql://user:password@localhost:5432/testdb
+        DATABASE_URL: postgresql://user:password@db:5432/testdb
         PGDATABASE: testdb
       run: pytest app/tests/test_api.py
 
