@@ -174,6 +174,8 @@ export type TranslationsShape = {
     card5Desc: string;
     card6Title: string;
     card6Desc: string;
+    card7Title: string;
+    card7Desc: string;
   };
   faqBooking: {
     heading: string;
@@ -252,21 +254,23 @@ export const translations: Record<Locale, TranslationsShape> = {
     },
     benefits: {
       eyebrow: "SYSTEM BENEFITS",
-      headline: 'It\'s "finally a system" better',
+      headline: "Finally a System",
       paragraph:
         "Client Growth replaces scattered vendors and guesswork with one connected growth system built to turn attention into qualified calls.",
-      card1Title: "One partner, one system",
+      card1Title: "One Partner. One Growth System.",
       card1Desc: "One operator owns the full pipeline.",
-      card2Title: "Built to convert",
+      card2Title: "Engineered to Convert",
       card2Desc: "Every page engineered to drive booked calls.",
-      card3Title: "Tracked from click to call",
+      card3Title: "Tracked From Click to Revenue",
       card3Desc: "Clear attribution and reporting.",
-      card4Title: "Faster to launch",
+      card4Title: "Launch in Weeks, Not Months",
       card4Desc: "Clean execution without months of delays.",
-      card5Title: "You own the assets",
+      card5Title: "You Own Everything",
       card5Desc: "Site + data + infrastructure stays yours.",
-      card6Title: "Compounds over time",
+      card6Title: "Full Visibility",
       card6Desc: "SEO + conversion gains stack monthly.",
+      card7Title: "Elite Execution",
+      card7Desc: "",
     },
     faqBooking: {
       heading: "Frequently asked questions",
@@ -355,21 +359,23 @@ export const translations: Record<Locale, TranslationsShape> = {
     },
     benefits: {
       eyebrow: "AVANTAGES DU SYSTÈME",
-      headline: "C'est « enfin un système » mieux",
+      headline: "Enfin un Système",
       paragraph:
         "Client Growth remplace les prestataires dispersés et les approximations par un système de croissance connecté, conçu pour transformer l'attention en appels qualifiés.",
-      card1Title: "Un partenaire, un système",
+      card1Title: "Un partenaire. Un système de croissance.",
       card1Desc: "Un seul opérateur gère tout le pipeline.",
       card2Title: "Conçu pour convertir",
       card2Desc: "Chaque page conçue pour générer des appels réservés.",
-      card3Title: "Traçabilité de clic à appel",
+      card3Title: "Traçabilité du clic au revenu",
       card3Desc: "Attribution claire et rapports.",
-      card4Title: "Lancement plus rapide",
+      card4Title: "Lancement en semaines, pas en mois",
       card4Desc: "Exécution propre sans mois de délais.",
-      card5Title: "Vous possédez les actifs",
+      card5Title: "Vous possédez tout",
       card5Desc: "Site, données et infrastructure restent à vous.",
-      card6Title: "Effet cumulatif",
+      card6Title: "Visibilité complète",
       card6Desc: "SEO et conversion progressent chaque mois.",
+      card7Title: "Exécution d'excellence",
+      card7Desc: "",
     },
     faqBooking: {
       heading: "Questions fréquentes",
