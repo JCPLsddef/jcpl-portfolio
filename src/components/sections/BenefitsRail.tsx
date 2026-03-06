@@ -133,13 +133,16 @@ export default function BenefitsRail() {
   );
 
   return (
-    <SectionWrapper id="benefits" variant="default">
+    <SectionWrapper id="benefits" variant="default" className="!bg-white">
       <Reveal className="text-center mb-10 md:mb-12">
-        <SectionLabel label={t<string>("benefits.eyebrow")} className="mb-4" />
-        <h2 className="text-[clamp(28px,4vw,44px)] font-[800] text-white leading-[1.12] tracking-[-0.02em] max-w-2xl mx-auto">
+        <SectionLabel
+          label={t<string>("benefits.eyebrow")}
+          className="mb-4 !text-slate-500"
+        />
+        <h2 className="font-serif text-[clamp(32px,4.5vw,48px)] font-extrabold text-slate-900 leading-[1.12] tracking-[-0.02em] max-w-2xl mx-auto">
           {t<string>("benefits.headline")}
         </h2>
-        <p className="mt-4 text-sv-text-sub text-[16px] md:text-[17px] leading-[1.65] max-w-xl mx-auto">
+        <p className="mt-4 font-sans font-normal text-slate-600 text-[17px] md:text-[18px] leading-[1.65] max-w-xl mx-auto">
           {t<string>("benefits.paragraph")}
         </p>
       </Reveal>
@@ -157,12 +160,12 @@ export default function BenefitsRail() {
             {CARD_TITLE_KEYS.map((titleKey, i) => (
               <article
                 key={i}
-                className="flex-shrink-0 w-[280px] sm:w-[300px] rounded-xl border border-[rgba(255,255,255,0.08)] bg-sv-surface overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.2)] transition-all duration-300 hover:border-[rgba(43,90,140,0.35)] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-sv-primary/50"
+                className="flex-shrink-0 w-[280px] sm:w-[300px] rounded-xl border border-slate-200 bg-white overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.08)] transition-all duration-300 hover:border-slate-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-sv-primary/50"
                 style={{ scrollSnapAlign: "start" }}
               >
                 <BenefitCardArt index={i} icon={CARD_ICONS[i]} />
                 <div className="p-5">
-                  <h3 className="text-[17px] font-semibold text-white">
+                  <h3 className="text-[18px] font-semibold text-slate-900 leading-snug">
                     {t<string>(titleKey)}
                   </h3>
                 </div>
@@ -175,7 +178,7 @@ export default function BenefitsRail() {
               type="button"
               onClick={() => scroll("left")}
               aria-label="Previous cards"
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.15)] bg-sv-surface flex items-center justify-center text-sv-text-muted hover:text-white hover:border-[rgba(255,255,255,0.3)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+              className="w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-400 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
             >
               <ChevronLeft className="w-5 h-5" strokeWidth={2} />
             </button>
@@ -183,7 +186,7 @@ export default function BenefitsRail() {
               type="button"
               onClick={() => scroll("right")}
               aria-label="Next cards"
-              className="w-10 h-10 rounded-full border border-[rgba(255,255,255,0.15)] bg-sv-surface flex items-center justify-center text-sv-text-muted hover:text-white hover:border-[rgba(255,255,255,0.3)] transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+              className="w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-400 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
             >
               <ChevronRight className="w-5 h-5" strokeWidth={2} />
             </button>
