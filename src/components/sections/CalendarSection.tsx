@@ -16,13 +16,14 @@ export default function CalendarSection() {
   const t = useTranslations();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [showBallpit, setShowBallpit] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry?.isIntersecting) setIsVisible(true);
+        if (entry?.isIntersecting) {
+          setIsVisible(true);
+        }
       },
       { rootMargin: "100px", threshold: 0 }
     );
@@ -30,12 +31,6 @@ export default function CalendarSection() {
     if (el) observer.observe(el);
     return () => (el ? observer.unobserve(el) : undefined);
   }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-    const id = window.setTimeout(() => setShowBallpit(true), 2000);
-    return () => window.clearTimeout(id);
-  }, [isVisible]);
 
   return (
     <section
@@ -45,29 +40,32 @@ export default function CalendarSection() {
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12 lg:gap-16">
-          {/* Left column: marketing */}
-          <div className="md:w-[40%] lg:w-[38%] shrink-0">
-            <h2 className="text-[36px] font-semibold text-white">
-              {t<string>("bookCall.headline")}
-            </h2>
-            <p className="mt-2 text-[20px] italic text-white/90">
-              {t<string>("bookCall.italicSubline")}
-            </p>
-            <p className="mt-4 text-base opacity-70 text-white">
-              {t<string>("bookCall.body")}
-            </p>
-            {/* Ball pit — desktop only, starts 2s after section in view */}
-            {showBallpit && (
-              <div className="mt-6 hidden md:block">
-                <div className="min-h-[360px] w-full overflow-hidden rounded-lg">
-                  <BallPit
-                    className="h-full w-full"
-                    colors={[0x9b8bc6, 0x3b82f6, 0xffffff]}
-                    followCursor
-                  />
-                </div>
+          {/* Left column: marketing + ball pit background */}
+          <div className="relative min-h-[360px] min-w-0 md:w-[40%] lg:w-[38%] shrink-0">
+            {/* Ball pit background — desktop only, transparent, behind text */}
+            {isVisible && (
+              <div
+                className="pointer-events-none absolute inset-0 hidden md:block"
+                aria-hidden
+              >
+                <BallPit
+                  className="absolute inset-0 h-full w-full"
+                  colors={[0x9b8bc6, 0x3b82f6, 0xffffff]}
+                  followCursor={false}
+                />
               </div>
             )}
+            <div className="relative z-10">
+              <h2 className="text-[36px] font-semibold text-white">
+                {t<string>("bookCall.headline")}
+              </h2>
+              <p className="mt-2 text-[20px] italic text-white/90">
+                {t<string>("bookCall.italicSubline")}
+              </p>
+              <p className="mt-4 text-base opacity-70 text-white">
+                {t<string>("bookCall.body")}
+              </p>
+            </div>
           </div>
 
           {/* Right column: notice + calendar */}

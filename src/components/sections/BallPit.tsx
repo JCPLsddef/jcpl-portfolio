@@ -493,6 +493,9 @@ class ThreeApp {
     const parent = this.canvas.parentElement;
     const w = parent?.offsetWidth ?? window.innerWidth;
     const h = parent?.offsetHeight ?? window.innerHeight;
+    // #region agent log
+    if (typeof fetch !== 'undefined') fetch('http://127.0.0.1:7602/ingest/39ee1650-fa20-4c38-ad63-9025a4005506',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ce91c5'},body:JSON.stringify({sessionId:'ce91c5',location:'BallPit.tsx:resize',message:'BallPit resize',data:{parentOffsetW:parent?.offsetWidth,parentOffsetH:parent?.offsetHeight,w,h,visible:this.visible},hypothesisId:'H1 H3',timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
     this.size.width = w;
     this.size.height = h;
     this.size.ratio = w / h;
@@ -659,6 +662,7 @@ function createBallpit(
     rendererOptions: { antialias: true, alpha: true },
   });
 
+  app.renderer.setClearColor(0x000000, 0);
   app.renderer.toneMapping = ACESFilmicToneMapping;
   app.camera.position.set(0, 0, 20);
   app.camera.lookAt(0, 0, 0);
@@ -684,6 +688,10 @@ function createBallpit(
   }
 
   init();
+
+  // #region agent log
+  if (typeof fetch !== 'undefined') fetch('http://127.0.0.1:7602/ingest/39ee1650-fa20-4c38-ad63-9025a4005506',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'ce91c5'},body:JSON.stringify({sessionId:'ce91c5',location:'BallPit.tsx:createBallpit',message:'createBallpit initialized',data:{canvasW:canvas.width,canvasH:canvas.height,parentW:canvas.parentElement?.offsetWidth,parentH:canvas.parentElement?.offsetHeight},hypothesisId:'H1 H3 H5',timestamp:Date.now()})}).catch(()=>{});
+  // #endregion
 
   const pointerHandler = registerPointer(canvas, {
     position: new Vector2(),
@@ -759,7 +767,7 @@ export default function BallPit({
     <canvas
       ref={canvasRef}
       className={className}
-      style={{ width: "100%", height: "100%" }}
+      style={{ display: "block", width: "100%", height: "100%", minHeight: 360 }}
       aria-hidden
     />
   );
