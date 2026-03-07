@@ -30,7 +30,7 @@ export default function ScrollProgressBar() {
         background: "linear-gradient(90deg, #D4A853 0%, #C49A2A 100%)",
         zIndex: 9999,
         boxShadow: "0 0 10px rgba(212,168,83,0.55)",
-        transition: "width 60ms linear",
+        transition: "width 50ms linear",
         pointerEvents: "none",
       }}
       aria-hidden

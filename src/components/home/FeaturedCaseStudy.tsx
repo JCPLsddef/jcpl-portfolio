@@ -126,21 +126,8 @@ export default function FeaturedCaseStudy() {
             <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: "#756D63", textTransform: "uppercase", marginBottom: 16 }}>
               RV RENTAL · TEXAS · GOOGLE ADS
             </p>
-            <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: 300,
-                  height: 300,
-                  background: "radial-gradient(circle, rgba(212,168,83,0.07) 0%, transparent 65%)",
-                  pointerEvents: "none",
-                  zIndex: 0,
-                }}
-              />
-              <div className="text-[#F5F0E8] font-extrabold mb-2 stat-41085-proof stat-41085" style={{ fontSize: "5rem", lineHeight: 1, position: "relative", zIndex: 1 }}>
+            <div className="stat-glow" style={{ position: "relative" }}>
+              <div className="text-[#F5F0E8] font-extrabold mb-2 stat-41085-proof stat-41085" style={{ fontSize: "5rem", lineHeight: 1 }}>
                 <CountUpRevenue to={41085} prefix="$" />
               </div>
             </div>

@@ -58,7 +58,7 @@ function ElevenDaysStat() {
 
   return (
     <div ref={statRef} className="text-center mt-12 mb-4">
-      <div className="inline-flex items-baseline gap-2">
+      <div className="stat-glow inline-flex items-baseline gap-2">
         <span ref={numRef} className="stat-11-table text-white font-extrabold" style={{ fontSize: "4rem" }}>
           0
         </span>

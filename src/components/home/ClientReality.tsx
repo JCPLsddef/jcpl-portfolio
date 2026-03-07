@@ -64,23 +64,8 @@ function CostPerCallStat() {
   return (
     <div ref={statRef} style={{ position: "relative", textAlign: "center", padding: "40px 0" }}>
       <div
+        className="stat-glow stat-27-reality stat-27"
         style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%,-50%)",
-          width: 350,
-          height: 350,
-          background: "radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 65%)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
-      <div
-        className="stat-27-reality stat-27"
-        style={{
-          position: "relative",
-          zIndex: 1,
           fontSize: "clamp(3.5rem, 8vw, 5.5rem)",
           fontWeight: 800,
           color: "#F5F0E8",

@@ -1,6 +1,9 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import Link from "next/link";
+import { countUp } from "@/lib/animations";
+import { prefersReducedMotion } from "@/lib/motion";
 
 const JUAN_IMG_SRC = "https://static.wixstatic.com/media/62f926_880aac26b23148b180643d3682eadd6b~mv2.jpeg";
 
@@ -19,6 +22,13 @@ const FEATURES = [
 ];
 
 export default function PricingStatement() {
+  const priceRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion() || !priceRef.current) return;
+    countUp(priceRef.current, 2500, { prefix: "$", duration: 1.5 });
+  }, []);
+
   return (
     <section
       className="px-4"
@@ -183,10 +193,11 @@ style={{
 
               <div className="mb-2">
                 <span
+                  ref={priceRef}
                   className="font-extrabold text-white"
                   style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)" }}
                 >
-                  $2,500
+                  $0
                 </span>
                 <span
                   className="align-middle ml-1"

@@ -25,10 +25,6 @@ export default function FounderBlock() {
                 style={{ borderRadius: 12 }}
               />
             </div>
-            <div
-              className="absolute bottom-0 left-0 right-0 pointer-events-none"
-              style={{ height: "30%", background: "linear-gradient(to top, #1A1510, transparent)" }}
-            />
           </div>
 
           <div>

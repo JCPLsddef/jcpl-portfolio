@@ -15,43 +15,13 @@
   background: var(--bg-base);
 }
 
-/* ── Ambient gradient drift / warm mesh ── */
+/* ── Hero: flat #0D0B09 + one subtle warm glow ── */
 .cb-ambient.gradient-mesh {
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 20% 50%, rgba(212,168,83,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 80% at 80% 30%, rgba(180,130,50,0.04) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 100% at 50% 100%, rgba(30,26,20,0.8) 0%, transparent 70%);
-  animation: meshDrift 80s linear infinite;
-  transform-origin: center;
+  background: radial-gradient(ellipse at 50% 40%, rgba(212, 168, 83, 0.04) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
-}
-.cb-ambient:not(.gradient-mesh) {
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 40%, rgba(212, 168, 83, 0.03) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 70% 65%, rgba(212, 168, 83, 0.02) 0%, transparent 50%);
-  animation: cb-drift 25s ease-in-out infinite alternate;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes cb-drift {
-  0%   { transform: translate(0, 0) scale(1); }
-  100% { transform: translate(-3%, 2%) scale(1.02); }
-}
-
-@keyframes meshDrift {
-  0% { transform: rotate(0deg) scale(1.15); }
-  100% { transform: rotate(360deg) scale(1.15); }
-}
-
-.gradient-mesh {
-  animation: meshDrift 80s linear infinite;
-  transform-origin: center center;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -296,7 +266,6 @@
    REDUCED MOTION
    ═══════════════════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
-  .cb-ambient     { animation: none; }
   .cb-char        { will-change: auto; }
 
   .hero-webgl-wrap {

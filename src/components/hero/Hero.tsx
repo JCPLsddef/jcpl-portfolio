@@ -20,14 +20,6 @@ export default function Hero() {
 		if (prefersReducedMotion()) return;
 		const cx = (e.clientX / window.innerWidth - 0.5) * 2;
 		const cy = (e.clientY / window.innerHeight - 0.5) * 2;
-		const meshX = (e.clientX / window.innerWidth - 0.5) * -18;
-		const meshY = (e.clientY / window.innerHeight - 0.5) * -18;
-
-		const mesh = document.querySelector(".gradient-mesh");
-		if (mesh) {
-			gsap.to(mesh, { x: meshX, y: meshY, duration: 1.2, ease: "power1.out", overwrite: "auto" });
-		}
-
 		if (bgLayerRef.current) {
 			gsap.to(bgLayerRef.current, {
 				x: cx * 6,
@@ -99,6 +91,8 @@ export default function Hero() {
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
 					<HeroWebGLBackground />
 				</div>
+				{/* Solid overlay to blot out any WebGL blue — flat warm charcoal hero */}
+				<div className="cb-layer" aria-hidden="true" style={{ background: "#0D0B09", zIndex: 2 }} />
 				<div className="cb-layer cb-overlay-top" aria-hidden="true" />
 				<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
 				<div className="cb-layer cb-grain" aria-hidden="true" />

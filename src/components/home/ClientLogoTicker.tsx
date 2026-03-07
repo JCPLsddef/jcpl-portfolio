@@ -29,8 +29,6 @@ export default function ClientLogoTicker() {
         logos={caseStudyLogos}
         speed={55}
         pauseOnHover
-        fadeOut
-        fadeOutColor="#181410"
         logoHeight={36}
         gap={64}
         ariaLabel="Client logos"
@@ -44,7 +42,7 @@ export default function ClientLogoTicker() {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="ticker-logo transition-opacity duration-200 group-hover/logo:opacity-[0.85]"
+                className="ticker-logo"
                 style={{
                   height: 36,
                   width: "auto",
