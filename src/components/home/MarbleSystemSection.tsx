@@ -281,7 +281,8 @@ export default function MarbleSystemSection({
       <section
         ref={sectionRef}
         id="marble-system"
-        className="section bg-[#090E1C] py-16 md:py-20 !pt-8 md:!pt-12"
+        className="section py-16 md:py-20 !pt-8 md:!pt-12"
+      style={{ background: "#0D0B09" }}
       >
         <div className="container">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12 lg:gap-16">
@@ -386,7 +387,8 @@ export default function MarbleSystemSection({
     <section
       ref={sectionRef}
       id="marble-system"
-      className="section bg-[#090E1C] !pt-8 md:!pt-12 lg:!pt-16"
+      className="section !pt-8 md:!pt-12 lg:!pt-16"
+      style={{ background: "#0D0B09" }}
     >
       <div
         ref={pinRef}

@@ -3,7 +3,7 @@
 import { ReactNode, forwardRef } from "react";
 import { cn } from "@/lib/utils";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLElement> {
   children: ReactNode;
   /** Additional classes */
   className?: string;
@@ -18,7 +18,7 @@ interface Props {
  * vertical rhythm, scroll-margin, and container width.
  */
 const SectionWrapper = forwardRef<HTMLElement, Props>(
-  ({ children, className = "", id, variant = "default" }, ref) => {
+  ({ children, className = "", id, variant = "default", style, ...rest }, ref) => {
     const bgClass = {
       default: "bg-sv-base",
       alt: "bg-sv-surface",
@@ -31,6 +31,8 @@ const SectionWrapper = forwardRef<HTMLElement, Props>(
         ref={ref}
         id={id}
         className={cn("section", bgClass, className)}
+        style={style}
+        {...rest}
       >
         <div className="container">{children}</div>
       </section>

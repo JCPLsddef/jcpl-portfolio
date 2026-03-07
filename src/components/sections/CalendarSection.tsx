@@ -37,7 +37,7 @@ export default function CalendarSection() {
       ref={sectionRef}
       id="book-call"
       className="pt-20 pb-20 md:pt-[120px] md:pb-[120px]"
-      style={{ background: "#090E1C" }}
+      style={{ background: "#1A1510" }}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12 lg:gap-16">
@@ -93,8 +93,8 @@ export default function CalendarSection() {
             <div
               className="relative min-h-[560px] overflow-hidden rounded-xl p-4 md:min-h-[640px] cal-embed-wrapper"
               style={{
-                background: "#0F1628",
-                border: "1px solid #1C2640",
+                background: "#1A1510",
+                border: "1px solid #2A2318",
                 borderRadius: 12,
                 padding: 6,
                 overflow: "hidden",

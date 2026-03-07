@@ -49,8 +49,8 @@ export default function BookCallCard({
     <div
       className={`relative rounded-2xl overflow-hidden min-h-[300px] lift-card sticky-booking-card ${className}`}
       style={{
-        background: "#0F1628",
-        border: "1px solid #1C2640",
+        background: "#1E1A14",
+        border: "1px solid #2A2318",
         borderTop: "2px solid rgba(212, 168, 83, 0.35)",
         borderRadius: 16,
       }}
@@ -59,7 +59,7 @@ export default function BookCallCard({
         <div className="mb-5 flex justify-center">
           <div
             className="w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center overflow-hidden ring-2 ring-white/10 shrink-0"
-            style={{ background: "#141C2E" }}
+            style={{ background: "#2A241C" }}
           >
             <KnightAvatar />
           </div>

@@ -61,7 +61,8 @@ export default function FAQ() {
     : [faqBooking.heading];
 
   return (
-    <SectionWrapper id="faq" variant="alt" className="py-16 md:py-24 !bg-[#090E1C]">
+    <SectionWrapper id="faq" variant="alt" className="py-16 md:py-24"
+      style={{ background: "#1A1510" }}>
       <div className="max-w-[1200px] mx-auto flex flex-col gap-10 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:gap-14">
         {/* Mobile: order 1=heading, 2=CTA, 3=accordion. Desktop: left col=heading+accordion, right col=CTA */}
         {/* Block 1: Heading + supporting */}
@@ -107,7 +108,7 @@ export default function FAQ() {
                   <div
                     role="listitem"
                     className="border-b"
-                    style={{ borderColor: "#1C2640" }}
+                    style={{ borderColor: "#2A2318" }}
                   >
                     <button
                       type="button"

@@ -23,7 +23,7 @@ export default function PricingStatement() {
     <section
       className="px-4"
       style={{
-        background: "#090E1C",
+        background: "#0D0B09",
         paddingTop: "clamp(80px, 10vw, 140px)",
         paddingBottom: "clamp(80px, 10vw, 140px)",
       }}
@@ -152,7 +152,7 @@ export default function PricingStatement() {
               style={{
                 minHeight: 480,
                 background: "#070c18",
-                border: "1px solid #1C2640",
+                border: "1px solid #2A2318",
               }}
             >
               <p
@@ -178,7 +178,7 @@ export default function PricingStatement() {
 
               <div
                 className="mb-6"
-                style={{ borderTop: "1px dashed #1C2640" }}
+                style={{ borderTop: "1px dashed #2A2318" }}
               />
 
               <div className="mb-2">
@@ -212,7 +212,7 @@ export default function PricingStatement() {
                 style={{
                   fontSize: "0.7rem",
                   letterSpacing: "0.08em",
-                  background: "#141C2E",
+                  background: "#1E1A14",
                   color: "#D4A853",
                   width: "fit-content",
                 }}

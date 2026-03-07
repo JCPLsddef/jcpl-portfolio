@@ -109,7 +109,7 @@ export default function FeaturedCaseStudy() {
   }, []);
 
   return (
-    <SectionWrapper ref={sectionRef} id="proof" className="bg-[#090E1C]">
+    <SectionWrapper ref={sectionRef} id="proof" style={{ background: "#131009" }}>
       <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
         <SectionLabel label="PROOF" className="mb-5 !text-[#D4A853]" />
         <h2 className="text-[clamp(32px,5vw,48px)] font-[800] leading-[1.15] tracking-[-0.03em] max-w-2xl mx-auto">
@@ -128,8 +128,8 @@ export default function FeaturedCaseStudy() {
           <div
             className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden lift-card case-study-card case-study-card-primary"
             style={{
-              background: "#0F1628",
-              border: "1px solid #1C2640",
+              background: "#1E1A14",
+              border: "1px solid #2A2318",
               borderTop: "3px solid #D4A853",
             }}
           >
@@ -174,8 +174,8 @@ export default function FeaturedCaseStudy() {
             <div
               className="rounded-lg p-4 mt-4"
               style={{
-                background: "#141C2E",
-                border: "1px solid #1C2640",
+                background: "#1E1A14",
+                border: "1px solid #2A2318",
                 fontSize: "0.8rem",
                 color: "#756D63",
                 fontStyle: "italic",
@@ -193,8 +193,8 @@ export default function FeaturedCaseStudy() {
           <div
             className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden lift-card case-study-card case-study-card-secondary"
             style={{
-              background: "#0F1628",
-              border: "1px solid #1C2640",
+              background: "#1E1A14",
+              border: "1px solid #2A2318",
               borderTop: "3px solid rgba(212, 168, 83, 0.42)",
             }}
           >
@@ -234,7 +234,7 @@ export default function FeaturedCaseStudy() {
         <div ref={statCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-4xl mx-auto stat-cards">
           <div
             className="rounded-xl p-6 lift-card stat-card"
-            style={{ background: "#0F1628", border: "1px solid #1C2640" }}
+            style={{ background: "#1E1A14", border: "1px solid #2A2318" }}
           >
             <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853", textTransform: "uppercase", marginBottom: 8 }}>LOCAL SEO</p>
             <p className="text-3xl font-bold text-white">Page 1</p>
@@ -242,7 +242,7 @@ export default function FeaturedCaseStudy() {
           </div>
           <div
             className="rounded-xl p-6 lift-card stat-card"
-            style={{ background: "#0F1628", border: "1px solid #1C2640" }}
+            style={{ background: "#1E1A14", border: "1px solid #2A2318" }}
           >
             <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853", textTransform: "uppercase", marginBottom: 8 }}>COST PER LEAD</p>
             <p className="text-3xl font-bold text-white"><span className="stat-27-card">0</span></p>
@@ -250,7 +250,7 @@ export default function FeaturedCaseStudy() {
           </div>
           <div
             className="rounded-xl p-6 lift-card stat-card"
-            style={{ background: "#0F1628", border: "1px solid #1C2640" }}
+            style={{ background: "#1E1A14", border: "1px solid #2A2318" }}
           >
             <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853", textTransform: "uppercase", marginBottom: 8 }}>TIME TO FIRST CALL</p>
             <p className="text-3xl font-bold text-white"><span className="stat-11-card">0</span> days</p>

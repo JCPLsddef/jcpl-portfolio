@@ -76,7 +76,8 @@ export default function DiagnosticSteps() {
     <SectionWrapper
       ref={sectionRef}
       id="diagnostic"
-      className="py-16 md:py-24 !bg-[#090E1C]"
+      className="py-16 md:py-24"
+      style={{ background: "#181410" }}
     >
       <div className="max-w-4xl mx-auto text-center mb-12">
         <SectionLabel label="THE DIAGNOSTIC" className="mb-4 !text-[#D4A853]" />
@@ -96,8 +97,8 @@ export default function DiagnosticSteps() {
             className={`rounded-xl p-8 lift-card diagnostic-card-${i + 1}`}
             style={{
               opacity: 1,
-              background: "#0F1628",
-              border: "1px solid #1C2640",
+              background: "#221D17",
+              border: "1px solid #2A2318",
               ...(i === 2 && { borderTop: "3px solid #D4A853" }),
             }}
           >

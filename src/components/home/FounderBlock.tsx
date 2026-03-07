@@ -12,12 +12,12 @@ export default function FounderBlock() {
   return (
     <section
       className="py-16 md:py-24"
-      style={{ background: "#090E1C" }}
+      style={{ background: "#1A1510" }}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 md:items-center">
           <div className="relative max-w-[520px] mx-auto md:mx-0 overflow-hidden">
-            <div className="founder-photo-wrapper rounded-xl overflow-hidden" style={{ border: "1px solid rgba(30,41,59,0.5)" }}>
+            <div className="founder-photo-wrapper rounded-xl overflow-hidden" style={{ border: "1px solid #2A2318" }}>
               <img
                 src={JUAN_IMG_SRC}
                 alt="Juan Carlos Portillo-Laflamme, founder of Client Growth"
@@ -26,8 +26,8 @@ export default function FounderBlock() {
               />
             </div>
             <div
-              className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
-              style={{ background: "linear-gradient(to top, #090E1C, transparent)" }}
+              className="absolute bottom-0 left-0 right-0 pointer-events-none"
+              style={{ height: "28%", background: "linear-gradient(to top, #1A1510, transparent)" }}
             />
           </div>
 
@@ -89,8 +89,8 @@ export default function FounderBlock() {
                   key={badge}
                   className="inline-block rounded-md"
                   style={{
-                    background: "#141C2E",
-                    border: "1px solid #1C2640",
+                    background: "#221D17",
+                    border: "1px solid #2A2318",
                     borderLeft: "3px solid #D4A853",
                     color: "#D2C9B8",
                     fontSize: "0.8rem",

@@ -110,7 +110,7 @@ export default function Differentiation() {
   }, []);
 
   return (
-    <SectionWrapper id="difference" className="bg-[#090E1C]">
+    <SectionWrapper id="difference" style={{ background: "#131009" }}>
       <Reveal className="max-w-2xl mx-auto text-center mb-10 md:mb-12">
         <SectionLabel label={differentiation.label} className="mb-5 !text-[#D4A853]" />
         <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em] max-w-xl mx-auto">
@@ -132,13 +132,13 @@ export default function Differentiation() {
           <div
             className="rounded-[14px] overflow-hidden"
             style={{
-              background: "#0F1628",
-              border: "1px solid #1C2640",
+              background: "#1E1A14",
+              border: "1px solid #2A2318",
             }}
           >
             <div
               className="grid grid-cols-[1fr_1fr_1fr] border-b"
-              style={{ borderColor: "#1C2640" }}
+              style={{ borderColor: "#2A2318" }}
             >
               <div
                 className="p-5 text-xs font-semibold uppercase tracking-[0.15em]"
@@ -166,7 +166,7 @@ export default function Differentiation() {
                 ref={(el) => { rowRefs.current[i] = el; }}
                 className="grid grid-cols-[1fr_1fr_1fr] comparison-row"
                 style={{
-                  borderBottom: i < differentiation.comparisons.length - 1 ? "1px solid #1C2640" : undefined,
+                  borderBottom: i < differentiation.comparisons.length - 1 ? "1px solid #2A2318" : undefined,
                 }}
               >
                 <div className="p-5 text-sm font-semibold text-white">{row.dimension}</div>
@@ -193,7 +193,7 @@ export default function Differentiation() {
           <Reveal key={i} delay={0.06 * i}>
             <div
               className="rounded-xl p-5 depth-card"
-              style={{ border: "1px solid #1C2640", background: "#0F1628" }}
+              style={{ border: "1px solid #2A2318", background: "#1E1A14" }}
             >
               <p
                 className="text-xs font-semibold uppercase tracking-[0.15em] mb-3"

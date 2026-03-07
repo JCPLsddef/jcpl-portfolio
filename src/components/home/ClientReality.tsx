@@ -68,9 +68,9 @@ function CostPerCallStat() {
           position: "absolute",
           top: "50%",
           left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: 300,
-          height: 300,
+          transform: "translate(-50%,-50%)",
+          width: 320,
+          height: 320,
           background: "radial-gradient(circle, rgba(212,168,83,0.07) 0%, transparent 65%)",
           pointerEvents: "none",
           zIndex: 0,
@@ -131,7 +131,8 @@ export default function ClientReality() {
       ref={sectionRef}
       id="reality"
       variant="alt"
-      className="border-b border-slate-700/40 bg-[#090E1C] py-16 md:py-24"
+      className="border-b border-[#2A2318] py-16 md:py-24"
+      style={{ background: "#0D0B09" }}
     >
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
         <Reveal className="mx-auto mb-12 max-w-[980px] text-center md:mb-14">
@@ -164,7 +165,8 @@ export default function ClientReality() {
           <div
             className="relative mx-auto max-w-[900px] rounded-[14px] px-8 py-8 text-center sm:px-8 sm:py-10 lift-card"
             style={{
-              background: "#0F1628",
+              background: "#1E1A14",
+              border: "1px solid #2A2318",
               borderLeft: "3px solid #D4A853",
               boxShadow: "0 0 40px rgba(212,168,83,0.05)",
             }}
@@ -193,8 +195,8 @@ export default function ClientReality() {
               <div
                 className="group relative flex h-full flex-col rounded-[14px] border p-7 lift-card card md:p-8"
                 style={{
-                  borderColor: "rgba(30,41,59,0.6)",
-                  background: "#0F1628",
+                  border: "1px solid #2A2318",
+                  background: "#1E1A14",
                 }}
               >
                 <span
@@ -240,7 +242,7 @@ export default function ClientReality() {
         <Reveal delay={0.2} className="mx-auto text-center">
           <Link
             href="#book-call"
-            className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-[16px] font-[600] text-[#0A0E1A] cta-primary cta-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#090E1C]"
+            className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-[16px] font-[600] text-[#0A0E1A] cta-primary cta-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D4A853] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0B09]"
             style={{ background: "#D4A853" }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = "#C49A2A";

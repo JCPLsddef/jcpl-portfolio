@@ -24,7 +24,7 @@ function XIcon() {
 
 export default function QualificationCTA() {
   return (
-    <section id="qualify" className="relative overflow-hidden py-16 border-b border-[#1C2640]" style={{ background: "#090E1C" }}>
+    <section id="qualify" className="relative overflow-hidden py-16 border-b border-[#2A2318]" style={{ background: "#0D0B09" }}>
       <SectionWrapper className="relative z-10">
         <div className="max-w-3xl mx-auto">
           <div className="max-w-2xl mx-auto text-center mb-12">
@@ -48,8 +48,8 @@ export default function QualificationCTA() {
               <div
                 className="rounded-2xl p-7 md:p-8 lift-card fit-card fit-card-positive"
                 style={{
-                  border: "1px solid rgba(212,168,83,0.38)",
-                  background: "#0F1628",
+                  border: "1px solid rgba(212,168,83,0.35)",
+                  background: "#1E1A14",
                   boxShadow: "0 0 40px rgba(212, 168, 83, 0.04) inset",
                 }}
               >
@@ -69,8 +69,8 @@ export default function QualificationCTA() {
               <div
                 className="rounded-2xl p-7 md:p-8 lift-card fit-card fit-card-negative"
                 style={{
-                  border: "1px solid #1C2640",
-                  background: "#0F1628",
+                  border: "1px solid #2A2318",
+                  background: "#1E1A14",
                 }}
               >
                 <h3 className="text-[1.25rem] font-bold text-white mb-5">

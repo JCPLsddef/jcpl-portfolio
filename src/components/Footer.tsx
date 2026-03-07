@@ -16,8 +16,8 @@ export default function Footer() {
     <footer
       className="border-t"
       style={{
-        background: "#090E1C",
-        borderColor: "#1C2640",
+        background: "#0D0B09",
+        borderColor: "#2A2318",
       }}
     >
       <div
@@ -29,7 +29,7 @@ export default function Footer() {
           marginBottom: "48px",
         }}
       >
-        <div style={{ flex: 1, height: "1px", background: "#1C2640" }} />
+        <div style={{ flex: 1, height: "1px", background: "#2A2318" }} />
         <div
           style={{
             width: "7px",
@@ -40,7 +40,7 @@ export default function Footer() {
             flexShrink: 0,
           }}
         />
-        <div style={{ flex: 1, height: "1px", background: "#1C2640" }} />
+        <div style={{ flex: 1, height: "1px", background: "#2A2318" }} />
       </div>
       <div className="container py-10 md:py-14">
         <div className="grid gap-8 md:gap-10 md:grid-cols-4">
@@ -113,7 +113,7 @@ export default function Footer() {
 
         <div
           className="mt-8 pt-6 border-t text-center text-[13px]"
-          style={{ borderColor: "#1C2640", color: "#263050" }}
+          style={{ borderColor: "#2A2318", color: "#756D63" }}
         >
           © {new Date().getFullYear()} Client Growth. {t<string>("footer.rights")}.
         </div>

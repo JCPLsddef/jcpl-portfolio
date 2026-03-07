@@ -8,9 +8,9 @@ export default function ClientLogoTicker() {
     <div
       className="group/logo py-6"
       style={{
-        background: "#090E1C",
+        background: "#181410",
         paddingTop: 80,
-        borderTop: "1px solid rgba(30,41,59,0.5)",
+        borderTop: "1px solid #2A2318",
       }}
     >
       <p
@@ -29,7 +29,7 @@ export default function ClientLogoTicker() {
         speed={55}
         pauseOnHover
         fadeOut
-        fadeOutColor="#090E1C"
+        fadeOutColor="#181410"
         logoHeight={36}
         gap={64}
         ariaLabel="Client logos"
