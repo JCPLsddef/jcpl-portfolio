@@ -238,7 +238,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       threeSpots: "3 spots per quarter",
     },
     finalCta: {
-      button: "Claim the Open Spot",
+      button: "Now Or Never",
     },
     footer: {
       navigation: "Navigation",
@@ -256,7 +256,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       eyebrow: "SYSTEM BENEFITS",
       headline: "Finally a System",
       paragraph:
-        "I replace scattered vendors and guesswork with one connected growth system built to turn attention into qualified calls.",
+        "Client Growth replaces scattered vendors and guesswork with one connected growth system built to turn attention into qualified calls.",
       card1Title: "One Partner. One Growth System.",
       card1Desc: "One operator owns the full pipeline.",
       card2Title: "Engineered to Convert",
@@ -343,7 +343,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       threeSpots: "3 places par trimestre",
     },
     finalCta: {
-      button: "Réclamez la place ouverte",
+      button: "Maintenant ou jamais",
     },
     footer: {
       navigation: "Navigation",
@@ -361,7 +361,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       eyebrow: "AVANTAGES DU SYSTÈME",
       headline: "Enfin un Système",
       paragraph:
-        "Je remplace les prestataires dispersés et les approximations par un système de croissance connecté, conçu pour transformer l'attention en appels qualifiés.",
+        "Client Growth remplace les prestataires dispersés et les approximations par un système de croissance connecté, conçu pour transformer l'attention en appels qualifiés.",
       card1Title: "Un partenaire. Un système de croissance.",
       card1Desc: "Un seul opérateur gère tout le pipeline.",
       card2Title: "Conçu pour convertir",
