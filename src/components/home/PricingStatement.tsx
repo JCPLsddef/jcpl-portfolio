@@ -66,7 +66,7 @@ export default function PricingStatement() {
               className="relative rounded-2xl overflow-hidden pricing-left-card lift-card"
               style={{ minHeight: 520 }}
             >
-              <div className="founder-photo-wrapper absolute inset-0">
+              <div className="founder-photo-wrapper pricing-photo-wrapper absolute inset-0">
                 <img
                   src={JUAN_IMG_SRC}
                   alt="Juan Carlos Portillo-Laflamme"
@@ -78,7 +78,7 @@ export default function PricingStatement() {
                 className="absolute inset-0 pointer-events-none z-[1]"
                 style={{
                   background:
-                    "linear-gradient(to bottom, rgba(10,15,30,0.05) 0%, rgba(10,15,30,0.15) 35%, rgba(10,15,30,0.85) 70%, rgba(10,15,30,0.97) 100%)",
+                    "linear-gradient(to bottom, transparent 0%, transparent 50%, rgba(26,21,16,0.3) 75%, #1A1510 100%)",
                 }}
               />
 

@@ -49,10 +49,13 @@ export default function BookCallCard({
     <div
       className={`relative rounded-2xl overflow-hidden min-h-[300px] lift-card sticky-booking-card ${className}`}
       style={{
-        background: "#1E1A14",
-        border: "1px solid #2A2318",
-        borderTop: "2px solid rgba(212, 168, 83, 0.35)",
+        background: "#1A1510",
+        borderTop: "2px solid rgba(212,168,83,0.32)",
+        borderLeft: "1px solid #2A2318",
+        borderRight: "1px solid #2A2318",
+        borderBottom: "1px solid #2A2318",
         borderRadius: 16,
+        padding: "28px",
       }}
     >
       <div className="flex flex-col h-full p-6 md:p-8">

@@ -62,16 +62,16 @@ function CostPerCallStat() {
   }, []);
 
   return (
-    <div ref={statRef} style={{ position: "relative", textAlign: "center", padding: "48px 0" }}>
+    <div ref={statRef} style={{ position: "relative", textAlign: "center", padding: "40px 0" }}>
       <div
         style={{
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%,-50%)",
-          width: 320,
-          height: 320,
-          background: "radial-gradient(circle, rgba(212,168,83,0.07) 0%, transparent 65%)",
+          width: 350,
+          height: 350,
+          background: "radial-gradient(circle, rgba(212,168,83,0.08) 0%, transparent 65%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -84,6 +84,7 @@ function CostPerCallStat() {
           fontSize: "clamp(3.5rem, 8vw, 5.5rem)",
           fontWeight: 800,
           color: "#F5F0E8",
+          letterSpacing: "-0.02em",
         }}
       >
         $<span ref={numRef}>0</span>

@@ -14,7 +14,7 @@ gsap.registerPlugin(ScrollTrigger);
 function XIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M4 4l8 8M12 4l-8 8" stroke="#756D63" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -77,7 +77,7 @@ function ElevenDaysStat() {
       >
         MEDIAN FROM SIGNED AGREEMENT TO LIVE SYSTEM
       </p>
-      <p style={{ fontSize: "0.8rem", color: "#64748b", marginTop: 4 }}>
+      <p style={{ fontSize: "0.8rem", color: "#756D63", marginTop: 4 }}>
         Industry average: 6 to 8 weeks.
       </p>
     </div>
@@ -148,13 +148,13 @@ export default function Differentiation() {
               </div>
               <div
                 className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-center"
-                style={{ color: "#64748b" }}
+                style={{ color: "#756D63" }}
               >
                 Typical Agency
               </div>
               <div
-                className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-center"
-                style={{ color: "#D4A853" }}
+                className="p-5 text-xs font-semibold uppercase tracking-[0.12em] text-center col-client-growth-header"
+                style={{ color: "#D4A853", fontWeight: 700 }}
               >
                 CLIENT GROWTH
               </div>
@@ -172,13 +172,13 @@ export default function Differentiation() {
                 <div className="p-5 text-sm font-semibold text-white">{row.dimension}</div>
                 <div className="p-5 flex items-start gap-2.5 justify-center">
                   <XIcon />
-                  <span className="text-sm table-typical-agency-value" style={{ color: "#A69D8D", fontWeight: 400 }}>
+                  <span className="text-sm table-typical-agency-value col-typical-agency-value" style={{ color: "#756D63", fontWeight: 400 }}>
                     {row.them}
                   </span>
                 </div>
                 <div className="p-5 flex items-start gap-2.5 justify-center">
                   <CheckIcon />
-                  <span className="text-sm table-client-growth-value" style={{ color: "#F5F0E8", fontWeight: 600 }}>
+                  <span className="text-sm table-client-growth-value col-client-growth-value" style={{ color: "#F5F0E8", fontWeight: 600 }}>
                     {row.us}
                   </span>
                 </div>

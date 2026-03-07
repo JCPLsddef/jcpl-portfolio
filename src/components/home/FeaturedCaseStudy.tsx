@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
-import CountUpValue from "@/components/motion/CountUpValue";
 import { countUp } from "@/lib/animations";
 import Link from "next/link";
 import { prefersReducedMotion } from "@/lib/motion";
@@ -184,8 +183,16 @@ export default function FeaturedCaseStudy() {
             <p style={{ fontSize: "1rem", color: "#A69D8D", marginBottom: 24 }}>
               in under 60 days.
             </p>
-            <p style={{ fontSize: "1.25rem", color: "#F5F0E8", fontWeight: 600, marginBottom: 24 }}>
-              <CountUpValue to={27} prefix="$" durationMs={1400} /> per qualified inbound call
+            <div style={{
+              fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+              fontWeight: 800,
+              color: "#F5F0E8",
+              marginBottom: 8,
+            }}>
+              $27
+            </div>
+            <p style={{ color: "#D2C9B8", fontSize: "0.9rem", marginBottom: 8 }}>
+              avg cost per qualified inbound call
             </p>
             <p style={{ fontSize: "0.85rem", color: "#A69D8D", fontStyle: "italic" }}>
               Competitive DFW painting market. Ranking above national lead gen sites. Last verified Q4 2025.

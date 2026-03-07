@@ -24,6 +24,7 @@ export default function ClientLogoTicker() {
       >
         CURRENT CLIENTS GENERATING QUALIFIED CALLS RIGHT NOW
       </p>
+      <div className="ticker-container overflow-hidden">
       <LogoLoop
         logos={caseStudyLogos}
         speed={55}
@@ -66,6 +67,7 @@ export default function ClientLogoTicker() {
           );
         }}
       />
+      </div>
       <p
         className="text-center"
         style={{ fontSize: "0.9rem", color: "#A69D8D", marginTop: 24 }}

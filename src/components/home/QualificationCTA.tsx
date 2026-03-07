@@ -91,7 +91,7 @@ export default function QualificationCTA() {
           <Reveal delay={0.1}>
             <div
               className="border-t pt-10 pb-10"
-              style={{ borderColor: "rgba(30,41,59,0.6)" }}
+              style={{ borderColor: "#2A2318" }}
             >
               <p
                 className="text-center font-bold"
