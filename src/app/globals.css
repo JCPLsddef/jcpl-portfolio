@@ -735,19 +735,49 @@ body::before {
   .pricing-left-cta-shine:hover::after { transition: none; left: 140%; }
 }
 
-/* ── Depth card system (Priority 3) ── */
-.depth-card {
-  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+/* ── Depth / lift card system ── */
+.depth-card,
+.lift-card {
+  transition: transform 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   will-change: transform;
+  cursor: default;
 }
 
-.depth-card:hover {
+.depth-card:hover,
+.lift-card:hover {
   transform: translateY(-5px);
   box-shadow:
-    0 16px 48px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(249, 115, 22, 0.15),
-    0 0 30px rgba(249, 115, 22, 0.04);
+    0 14px 44px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(249, 115, 22, 0.14),
+    0 0 28px rgba(249, 115, 22, 0.04);
+}
+
+/* Cal.com embed */
+.cal-embed-wrapper iframe {
+  border-radius: 8px;
+}
+
+/* Case study card borders */
+.case-study-card-primary {
+  border-top: 3px solid #f97316;
+}
+
+.case-study-card-secondary {
+  border-top: 3px solid rgba(249, 115, 22, 0.42);
+}
+
+/* Logo ticker */
+.ticker-logo {
+  height: 36px;
+  width: auto;
+  opacity: 0.6;
+  filter: brightness(0) invert(1);
+  transition: opacity 300ms ease;
+}
+
+.logoloop__track:hover .ticker-logo {
+  opacity: 1;
 }
 
 /* ── CTA primary shine sweep ── */
@@ -772,32 +802,59 @@ body::before {
   left: 140%;
 }
 
-.cta-primary:hover {
+.cta-primary:hover,
+.cta-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(249,115,22,0.3);
 }
 
+.cta-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+  transition: left 0.55s ease;
+  pointer-events: none;
+}
+
+.cta-button:hover::after {
+  left: 150%;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .cta-primary:hover::after { transition: none; }
+  .cta-primary:hover::after,
+  .cta-button:hover::after { transition: none; }
 }
 
 /* ── Founder photo float ── */
-@keyframes float {
+@keyframes floatPhoto {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-10px); }
 }
 
-@keyframes photoGlow {
-  0%, 100% { box-shadow: 0 0 40px rgba(249,115,22,0.08), 0 20px 60px rgba(0,0,0,0.5); }
-  50% { box-shadow: 0 0 80px rgba(249,115,22,0.15), 0 20px 60px rgba(0,0,0,0.5); }
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(249,115,22,0.06); }
+  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 80px rgba(249,115,22,0.12); }
 }
 
-.founder-photo {
-  animation: float 4s ease-in-out infinite;
+.founder-photo-wrapper {
+  animation: floatPhoto 5s ease-in-out infinite, glowPulse 5s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .founder-photo-wrapper { animation: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .founder-photo { animation: none; }
+  .founder-photo-wrapper { animation: none; }
 }
 
 /* ── Grain texture overlay (desktop only) ── */
@@ -809,13 +866,27 @@ body::after {
   width: 200%;
   height: 200%;
   pointer-events: none;
-  z-index: 9999;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 9998;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 200px 200px;
+  background-size: 256px 256px;
+  animation: grainShift 8s steps(10) infinite;
 }
 
-@media (max-width: 767px) {
+@keyframes grainShift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2%, -3%); }
+  20% { transform: translate(3%, 1%); }
+  30% { transform: translate(-1%, 4%); }
+  40% { transform: translate(4%, -2%); }
+  50% { transform: translate(-3%, 3%); }
+  60% { transform: translate(1%, -4%); }
+  70% { transform: translate(-4%, 2%); }
+  80% { transform: translate(2%, -1%); }
+  90% { transform: translate(-2%, 4%); }
+}
+
+@media (max-width: 768px) {
   body::after { display: none; }
 }
