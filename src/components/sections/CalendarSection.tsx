@@ -61,9 +61,11 @@ export default function CalendarSection() {
               <h2 className="text-[36px] font-semibold text-white">
                 {t<string>("bookCall.headline")}
               </h2>
-              <p className="mt-2 text-[20px] italic text-white/90">
-                {t<string>("bookCall.italicSubline")}
-              </p>
+              {t<string>("bookCall.italicSubline") && (
+                <p className="mt-2 text-[20px] italic text-white/90">
+                  {t<string>("bookCall.italicSubline")}
+                </p>
+              )}
               <p className="mt-4 text-base opacity-70 text-white">
                 {t<string>("bookCall.body")}
               </p>

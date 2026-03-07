@@ -149,7 +149,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
         transition={{ duration: 0.8, ease: EASE }}
       >
         <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-4">
-          WHAT WE BUILD
+          WHAT I BUILD
         </p>
 
         <motion.div
@@ -278,6 +278,7 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                   onClick={() => setActiveIndex(index)}
                   onKeyDown={handleKeyDown(index)}
                   reducedMotion={reducedMotion}
+                  includedBadge={service.id === "website"}
                 />
               </motion.div>
             ))}

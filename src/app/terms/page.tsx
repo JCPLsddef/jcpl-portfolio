@@ -58,7 +58,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">6. Limitation of Liability</h2>
             <p className="text-sm text-sv-text-sub leading-relaxed">
-              Client Growth&apos;s liability is limited to the total fees paid in the three months prior to any claim. We are not liable for indirect, incidental, or consequential damages arising from service delivery.
+              Client Growth&apos;s liability is limited to the total fees paid in the three months prior to any claim. Client Growth is not liable for indirect, incidental, or consequential damages arising from service delivery.
             </p>
           </section>
 

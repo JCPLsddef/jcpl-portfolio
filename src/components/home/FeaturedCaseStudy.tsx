@@ -123,6 +123,55 @@ export default function FeaturedCaseStudy() {
 				</div>
 			</Reveal>
 
+			{/* Second Case Study Card — Painting Contractor */}
+			<Reveal delay={0.15}>
+				<div className="max-w-3xl mx-auto mt-8">
+					<div className="bg-sv-surface border border-[rgba(37,99,235,0.3)] rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 relative overflow-hidden">
+						<p className="text-[11px] uppercase tracking-[0.16em] text-sv-text-muted mb-5">
+							PAINTING CONTRACTOR&nbsp; /&nbsp; TEXAS&nbsp; /&nbsp; GOOGLE ADS + SEO
+						</p>
+
+						<p className="text-[18px] font-[600] text-white mb-2">
+							Page 1 ranking under 60 days
+						</p>
+
+						<p className="text-[16px] font-[500] opacity-[0.80] mb-3">
+							$27 per qualified inbound call
+						</p>
+						<p className="text-[13px] opacity-[0.65] mb-6">
+							Average cost per qualified inbound call. Active account.
+						</p>
+
+						{/* Metrics row */}
+						<div className="flex gap-6 sm:gap-10 mb-6">
+							<div className="text-center">
+								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">$27</div>
+								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">COST PER CALL</div>
+							</div>
+							<div className="text-center">
+								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">Page 1</div>
+								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">LOCAL SEO RANK</div>
+							</div>
+							<div className="text-center">
+								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">60 days</div>
+								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">TIME TO RANK</div>
+							</div>
+						</div>
+
+						<p className="text-[14px] text-sv-muted font-semibold mb-6 italic">
+							Competitive DFW painting market. Ranking above national lead gen sites. Last verified Q4 2025.
+						</p>
+
+						<Link
+							href="/results"
+							className="inline-block border border-[rgba(37,99,235,0.5)] text-sv-text-sub bg-transparent rounded-[8px] px-6 py-2.5 font-semibold text-[15px] hover:bg-sv-primary hover:text-white hover:border-sv-primary transition-all duration-200"
+						>
+							View All Results →
+						</Link>
+					</div>
+				</div>
+			</Reveal>
+
 			{/* Stats Row 2 */}
 			<Reveal delay={0.2}>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto">

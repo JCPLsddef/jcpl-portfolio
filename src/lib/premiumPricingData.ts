@@ -82,7 +82,7 @@ export const tiers: TierConfig[] = [
     tierLabel: "TIER 03",
     title: "Market Ownership",
     description: "Limit competition structurally.",
-    price: "$4,000",
+    price: "$6,000",
     subtext: "per month\n+ ad spend minimum $1,500/month",
     forSection:
       "Proven demand. Ready to own the market before a competitor does.",

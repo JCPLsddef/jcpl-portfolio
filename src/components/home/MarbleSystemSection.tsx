@@ -281,26 +281,26 @@ export default function MarbleSystemSection({
       <section
         ref={sectionRef}
         id="marble-system"
-        className="section bg-[#fafafa] py-16 md:py-20 !pt-8 md:!pt-12"
+        className="section bg-[#0a0f1e] py-16 md:py-20 !pt-8 md:!pt-12"
       >
         <div className="container">
           <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-12 lg:gap-16">
             <div className="flex-1 max-w-xl">
               <SectionLabel
                 label={marbleSystemSection.label}
-                className="mb-4 text-neutral-500"
+                className="mb-4 text-sv-text-muted"
               />
-              <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-neutral-900 leading-[1.15] tracking-[-0.025em]">
+              <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em]">
                 {marbleSystemSection.headline}
               </h2>
-              <p className="mt-5 text-neutral-600 max-w-xl leading-[1.75] text-[17px]">
+              <p className="mt-5 text-sv-text-sub max-w-xl leading-[1.75] text-[17px]">
                 {marbleSystemSection.subheadline}
               </p>
               <div className="mt-8 md:mt-10 space-y-3 md:space-y-4 min-h-[180px] md:min-h-[200px]">
                 {steps.map((step, i) => (
-                  <div key={i} className="border-l-2 border-neutral-300 pl-4 md:pl-6">
-                    <h3 className="text-lg md:text-xl font-semibold text-neutral-900">{step.title}</h3>
-                    <p className="mt-1.5 md:mt-2 text-neutral-600 leading-relaxed text-[15px] md:text-base">{step.copy}</p>
+                  <div key={i} className="border-l-2 border-[#f97316] pl-4 md:pl-6">
+                    <h3 className="text-lg md:text-xl font-semibold text-white">{step.title}</h3>
+                    <p className="mt-1.5 md:mt-2 text-sv-text-sub leading-relaxed text-[15px] md:text-base">{step.copy}</p>
                   </div>
                 ))}
               </div>
@@ -386,7 +386,7 @@ export default function MarbleSystemSection({
     <section
       ref={sectionRef}
       id="marble-system"
-      className="section bg-[#fafafa] !pt-8 md:!pt-12 lg:!pt-16"
+      className="section bg-[#0a0f1e] !pt-8 md:!pt-12 lg:!pt-16"
     >
       <div
         ref={pinRef}
@@ -396,12 +396,12 @@ export default function MarbleSystemSection({
           <div className="flex-1 max-w-xl">
             <SectionLabel
               label={marbleSystemSection.label}
-              className="mb-4 text-neutral-500"
+              className="mb-4 text-sv-text-muted"
             />
-            <h2 className="text-[clamp(32px,4vw,52px)] font-[800] text-neutral-900 leading-[1.15] tracking-[-0.025em]">
+            <h2 className="text-[clamp(32px,4vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em]">
               {marbleSystemSection.headline}
             </h2>
-            <p className="mt-5 text-neutral-600 leading-[1.75] text-[17px] max-w-lg">
+            <p className="mt-5 text-sv-text-sub leading-[1.75] text-[17px] max-w-lg">
               {marbleSystemSection.subheadline}
             </p>
 
@@ -414,11 +414,11 @@ export default function MarbleSystemSection({
                     key={i}
                     className="border-l-2 pl-4 md:pl-6 transition-all duration-300"
                     style={{
-                      borderLeftColor: isActive ? "#262626" : "#d4d4d4",
+                      borderLeftColor: isActive ? "#f97316" : "rgba(148,163,184,0.3)",
                       opacity: isRevealed ? (isActive ? 1 : 0.5) : 0.4,
                     }}
                   >
-                    <h3 className="text-lg md:text-xl font-semibold text-neutral-900">
+                    <h3 className="text-lg md:text-xl font-semibold text-white">
                       {isRevealed ? (
                         <BlurText
                           text={step.title}
@@ -437,7 +437,7 @@ export default function MarbleSystemSection({
                         step.title
                       )}
                     </h3>
-                    <p className="mt-1.5 md:mt-2 leading-relaxed text-neutral-600 text-[15px] md:text-base">
+                    <p className="mt-1.5 md:mt-2 leading-relaxed text-sv-text-sub text-[15px] md:text-base">
                       {isRevealed ? (
                         <BlurText
                           text={step.copy}

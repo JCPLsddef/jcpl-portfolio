@@ -30,8 +30,11 @@ export default function HomePage() {
 
       {/* 2 — Proof: Scrolling client logo strip */}
       <div className="bg-sv-surface py-6">
-        <p className="text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-sv-text-muted mb-5">
-          CLIENTS
+        <p
+          className="text-center uppercase tracking-[0.2em] mb-4"
+          style={{ fontSize: "0.7rem", color: "#64748b" }}
+        >
+          Active partnerships across 5 industries
         </p>
         <LogoLoop
           logos={caseStudyLogos}
@@ -43,6 +46,12 @@ export default function HomePage() {
           gap={56}
           ariaLabel="Client logos"
         />
+        <p
+          className="text-center mt-3"
+          style={{ fontSize: "0.85rem", color: "#64748b" }}
+        >
+          Each is generating qualified inbound calls from their system.
+        </p>
       </div>
 
       {/* 3 — Diagnosis: Pain bullets — what they're living with */}

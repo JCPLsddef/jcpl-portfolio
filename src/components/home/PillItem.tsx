@@ -10,6 +10,7 @@ interface PillItemProps {
   title: string;
   subtitle?: string;
   imageUrl: string;
+  includedBadge?: boolean;
   imageAlt: string;
   accentColor: string;
   hoverAccentColor: string;
@@ -32,6 +33,7 @@ export default function PillItem({
   title,
   subtitle,
   imageUrl,
+  includedBadge,
   imageAlt,
   accentColor,
   hoverAccentColor,
@@ -112,6 +114,18 @@ export default function PillItem({
 
       {/* Text block - improved spacing and hierarchy */}
       <div className="flex-1 min-w-0 flex flex-col justify-center py-0.5">
+        {includedBadge && (
+          <span
+            className="inline-flex w-fit mb-1.5 rounded px-2 py-0.5 text-[10px] font-medium"
+            style={{
+              backgroundColor: "#1e3a5f",
+              color: "#93c5fd",
+              fontSize: "0.65rem",
+            }}
+          >
+            Included in all plans
+          </span>
+        )}
         <h3
           className={cn(
             "text-[15px] md:text-[16px] font-semibold text-white leading-snug tracking-[-0.01em]",

@@ -4,7 +4,6 @@ import { differentiation } from "@/lib/content";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
-import Link from "next/link";
 
 /* ─── Inline SVG Icons ─── */
 function XIcon() {
@@ -61,7 +60,7 @@ export default function Differentiation() {
                 Typical Agency
               </div>
               <div className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-sv-muted text-center">
-                Growth Architecture
+                CLIENT GROWTH
               </div>
             </div>
 
@@ -123,19 +122,11 @@ export default function Differentiation() {
         ))}
       </div>
 
-      {/* Stat line + link to full table */}
+      {/* Stat line */}
       <Reveal delay={0.2}>
         <p className="text-sm text-slate-400 text-center mt-6 max-w-2xl mx-auto">
           Average agency onboarding takes 6 to 8 weeks. My median build time is 11 days from signed agreement to live system.
         </p>
-        <div className="text-center mt-4">
-          <Link
-            href="/services"
-            className="text-[14px] font-medium text-sv-muted hover:text-white transition-colors duration-200 underline underline-offset-4 decoration-[rgba(75,142,255,0.4)]"
-          >
-            See all 6 differences →
-          </Link>
-        </div>
       </Reveal>
     </SectionWrapper>
   );

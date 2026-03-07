@@ -21,8 +21,9 @@ export default function Footer() {
             <Link href="/" className="inline-flex items-center gap-2 text-lg font-bold text-white">
               Client Growth
             </Link>
-            {/* Tagline removed as requested */}
-            {/* LinkedIn link removed as requested */}
+            <p className="text-[0.8rem] text-[#64748b]">
+              Growth infrastructure for local service businesses.
+            </p>
           </div>
 
           {/* Navigation */}

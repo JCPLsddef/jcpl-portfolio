@@ -240,19 +240,19 @@ export default function PremiumPricingSection() {
                       scope="col"
                       className="py-4 px-4 text-center text-sm font-semibold text-white"
                     >
-                      Foundation
+                      Foundation Architecture
                     </th>
                     <th
                       scope="col"
                       className="py-4 px-4 text-center text-sm font-semibold text-white"
                     >
-                      Growth
+                      Performance Engine
                     </th>
                     <th
                       scope="col"
                       className="py-4 px-4 text-center text-sm font-semibold text-white"
                     >
-                      Domination
+                      Market Ownership
                     </th>
                   </tr>
                 </thead>
@@ -292,24 +292,15 @@ export default function PremiumPricingSection() {
               </table>
             </div>
 
-            {/* Testimonial block */}
+            {/* Proof block */}
             <div className="mt-12 pt-12 border-t border-white/[0.06] text-center">
               <p
-                className="text-lg md:text-xl mb-2"
-                style={{ color: "rgba(250,204,21,0.9)" }}
-                aria-hidden
+                className="text-base md:text-lg font-medium leading-relaxed max-w-2xl mx-auto italic"
+                style={{ color: "#cbd5e1" }}
               >
-                ★★★★★
+                Triple W Rentals went from 0 inbound calls to 14 qualified
+                bookings in 30 days on $900 in ad spend.
               </p>
-              <blockquote className="text-lg md:text-xl font-medium text-white mb-4 leading-relaxed max-w-2xl mx-auto">
-                &ldquo;Within 90 days, our booked calls tripled and ad costs
-                dropped.&rdquo;
-              </blockquote>
-              <footer className="text-sm text-white/60">
-                Founder
-                <span className="mx-1.5">—</span>
-                Service business owner
-              </footer>
             </div>
 
             {/* Optional logo row */}
@@ -329,7 +320,7 @@ export default function PremiumPricingSection() {
             {/* Final CTA */}
             <div className="mt-12 pt-12 border-t border-white/[0.06] text-center">
               <h3 className="text-xl font-semibold text-white mb-6">
-                Questions? We&apos;ve got answers.
+                Questions I get every time.
               </h3>
               <Link
                 href="/apply"

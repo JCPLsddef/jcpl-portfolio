@@ -138,12 +138,40 @@ export default function Hero() {
 							<HeadlineMarquee />
 						</h1>
 
+						{/* Static subheadline — always visible */}
+						<p
+							className="cb-subheadline"
+							style={{
+								fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
+								color: "#94a3b8",
+								maxWidth: 600,
+								margin: "16px auto 24px",
+								textAlign: "center",
+								lineHeight: 1.5,
+							}}
+						>
+							The growth infrastructure local service businesses use to stop
+							waiting for referrals and start owning their market.
+						</p>
+
 						{/* CTA */}
 						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
 							<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
 								{CTA_PRIMARY.label}
 								<span className="cb-cta-arrow" aria-hidden="true">→</span>
 							</a>
+							<p
+								className="cb-microtrust"
+								style={{
+									fontSize: "0.75rem",
+									color: "#64748b",
+									textAlign: "center",
+									marginTop: 12,
+									marginBottom: 0,
+								}}
+							>
+								Short application. I respond within one business day.
+							</p>
 						</div>
 
 					</div>

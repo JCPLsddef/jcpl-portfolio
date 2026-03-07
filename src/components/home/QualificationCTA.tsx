@@ -111,9 +111,20 @@ export default function QualificationCTA() {
 
           {/* Closing line */}
           <Reveal delay={0.1}>
-            <p className="text-center text-[18px] font-[700] text-white opacity-[1.0] leading-snug">
-              Serious operators build infrastructure. Everyone else waits for the phone to ring.
-            </p>
+            <div
+              className="border-t border-white/10 pt-12 pb-12"
+              style={{ paddingTop: 48, paddingBottom: 48 }}
+            >
+              <p
+                className="text-center text-white leading-snug"
+                style={{
+                  fontWeight: 700,
+                  fontSize: "clamp(1.1rem, 1.4vw, 1.2rem)",
+                }}
+              >
+                Serious operators build infrastructure. Everyone else waits for the phone to ring.
+              </p>
+            </div>
           </Reveal>
         </div>
       </SectionWrapper>

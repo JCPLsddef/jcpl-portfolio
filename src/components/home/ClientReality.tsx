@@ -43,7 +43,14 @@ export default function ClientReality() {
           <p className="mx-auto mb-4 max-w-[900px] text-[clamp(17px,2vw,19px)] font-[500] leading-[1.5] text-sv-text-sub">
             Untracked demand, a leaky website, and no follow-up turn good work into quiet weeks.
           </p>
-          <p className="mx-auto text-[15px] font-[400] leading-[1.6] text-sv-text-muted">
+          <p
+            className="mx-auto"
+            style={{
+              fontSize: "clamp(1rem, 1.3vw, 1.1rem)",
+              fontWeight: 600,
+              color: "#ffffff",
+            }}
+          >
             Most competitors don&apos;t work harder. They run a system.
           </p>
         </Reveal>
@@ -136,7 +143,7 @@ export default function ClientReality() {
             href="/apply"
             className="inline-flex items-center gap-2 rounded-xl border border-[rgba(192,57,43,0.3)] bg-[rgba(192,57,43,0.12)] px-8 py-4 text-[16px] font-[600] text-white transition-all duration-300 hover:border-[rgba(192,57,43,0.5)] hover:bg-[rgba(192,57,43,0.18)] hover:shadow-[0_0_30px_-5px_rgba(192,57,43,0.15)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C0392B] focus-visible:ring-offset-2 focus-visible:ring-offset-[#060E1A]"
           >
-            Show me the system
+            Show me what the system looks like
             <span aria-hidden="true">→</span>
           </Link>
         </Reveal>

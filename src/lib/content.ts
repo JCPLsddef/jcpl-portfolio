@@ -264,15 +264,15 @@ export const marbleSystemSection = {
   steps: [
     {
       title: "Diagnose",
-      copy: "Understand what is broken, what is leaking, and what is blocking growth.",
+      copy: "A full audit of your lead flow, site conversion rate, ad account performance, and search visibility. You will know exactly what is broken and what fixing it is worth. Delivered within 72 hours of signing.",
     },
     {
       title: "Build",
-      copy: "Create the system, assets, and messaging required to move the business forward.",
+      copy: "Your full growth infrastructure, built from scratch. Conversion website, Google Ads funnel, SEO foundation, AI search presence, and copy engineered to close. Live in a median of 11 days from signed agreement.",
     },
     {
       title: "Scale",
-      copy: "Turn the system into momentum through refinement, optimization, and controlled growth.",
+      copy: "Weekly optimization loops. Monthly revenue reporting tied to calls booked, not impressions. Your cost per call goes down every month. Your market share compounds. That is the only metric that matters.",
     },
   ],
 };
@@ -285,7 +285,10 @@ export const differentiation = {
   comparisons: [
     { dimension: "Ownership", them: "5+ vendors, no single owner", us: "One partner owns the full pipeline" },
     { dimension: "Speed", them: "8 to 12 weeks, constant delays", us: "2 to 4 weeks, unified execution" },
-    { dimension: "After Launch", them: "Project done. They're gone.", us: "Monthly optimization, ongoing growth" }
+    { dimension: "After Launch", them: "Project done. They're gone.", us: "Monthly optimization, ongoing growth" },
+    { dimension: "Reporting", them: "Monthly PDF nobody reads", us: "Weekly loop tied to booked calls" },
+    { dimension: "Cost tracking", them: "Impressions and clicks", us: "Cost per qualified call, tracked live" },
+    { dimension: "Commitment", them: "6-month lock-in", us: "90-day initial term, then month-to-month" }
   ],
 };
 
@@ -401,7 +404,7 @@ export const servicesShowcaseContent = {
 export const qualification = {
   forYouIf: [
     "You lie awake knowing the work is out there. You just can't find it online.",
-    "You're generating $5K or more per month and ready to invest in infrastructure that returns 5x to 10x.",
+    "You're generating consistent revenue and ready to invest in growth infrastructure.",
     "Your pipeline leans too heavily on referrals and word of mouth.",
     "You're tired of watching competitors rank above you for work you do better.",
     "You want one person who owns the full picture, not five vendors you have to coordinate."

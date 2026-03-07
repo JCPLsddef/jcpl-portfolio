@@ -45,9 +45,24 @@ export default function SpotsLeftSection() {
           </div>
         </div>
 
-        <p className="text-white text-lg font-semibold mb-3">
-          {t<string>("spots.oneSpot")}
-        </p>
+        <div
+          className="flex items-center justify-center gap-2 mb-3"
+          style={{
+            fontSize: "0.9rem",
+            color: "#86efac",
+            fontWeight: 600,
+          }}
+        >
+          <span
+            className="availability-pulse-dot rounded-full inline-block"
+            style={{
+              width: 8,
+              height: 8,
+              backgroundColor: "#22c55e",
+            }}
+          />
+          <span>One partnership slot currently open</span>
+        </div>
 
         <p className="text-sv-text-sub text-base mb-8 leading-[1.7] max-w-md mx-auto">
           {t<string>("spots.applyParagraph")}
