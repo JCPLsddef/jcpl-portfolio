@@ -163,19 +163,19 @@ export type TranslationsShape = {
     headline: string;
     paragraph: string;
     card1Title: string;
-    card1Desc: string;
+    card1Stat: string;
     card2Title: string;
-    card2Desc: string;
+    card2Stat: string;
     card3Title: string;
-    card3Desc: string;
+    card3Stat: string;
     card4Title: string;
-    card4Desc: string;
+    card4Stat: string;
     card5Title: string;
-    card5Desc: string;
+    card5Stat: string;
     card6Title: string;
-    card6Desc: string;
+    card6Stat: string;
     card7Title: string;
-    card7Desc: string;
+    card7Stat: string;
   };
   faqBooking: {
     heading: string;
@@ -258,19 +258,19 @@ export const translations: Record<Locale, TranslationsShape> = {
       paragraph:
         "Client Growth replaces scattered vendors and guesswork with one connected growth system built to turn attention into qualified calls.",
       card1Title: "One Partner. One Growth System.",
-      card1Desc: "One operator owns the full pipeline.",
+      card1Stat: "No vendor coordination. No hand-offs.",
       card2Title: "Engineered to Convert",
-      card2Desc: "Every page engineered to drive booked calls.",
+      card2Stat: "Average 3.1x lift in conversion rate vs. previous site.",
       card3Title: "Tracked From Click to Revenue",
-      card3Desc: "Clear attribution and reporting.",
+      card3Stat: "Every call tracked to its source. Cost per call updated weekly.",
       card4Title: "Launch in Weeks, Not Months",
-      card4Desc: "Clean execution without months of delays.",
+      card4Stat: "Median: 11 days from signed agreement to live system.",
       card5Title: "You Own Everything",
-      card5Desc: "Site + data + infrastructure stays yours.",
+      card5Stat: "Site, data, and infrastructure stay yours.",
       card6Title: "Full Visibility",
-      card6Desc: "SEO + conversion gains stack monthly.",
+      card6Stat: "SEO and conversion gains stack monthly.",
       card7Title: "Elite Execution",
-      card7Desc: "",
+      card7Stat: "Senior-level execution at your fingertips.",
     },
     faqBooking: {
       heading: "Questions I get every time.",
@@ -363,19 +363,19 @@ export const translations: Record<Locale, TranslationsShape> = {
       paragraph:
         "Client Growth remplace les prestataires dispersés et les approximations par un système de croissance connecté, conçu pour transformer l'attention en appels qualifiés.",
       card1Title: "Un partenaire. Un système de croissance.",
-      card1Desc: "Un seul opérateur gère tout le pipeline.",
+      card1Stat: "Aucune coordination de prestataires. Aucun transfert.",
       card2Title: "Conçu pour convertir",
-      card2Desc: "Chaque page conçue pour générer des appels réservés.",
+      card2Stat: "En moyenne 3,1x d'augmentation du taux de conversion vs. site précédent.",
       card3Title: "Traçabilité du clic au revenu",
-      card3Desc: "Attribution claire et rapports.",
+      card3Stat: "Chaque appel tracé à sa source. Coût par appel mis à jour chaque semaine.",
       card4Title: "Lancement en semaines, pas en mois",
-      card4Desc: "Exécution propre sans mois de délais.",
+      card4Stat: "Médiane: 11 jours entre la signature et le système en ligne.",
       card5Title: "Vous possédez tout",
-      card5Desc: "Site, données et infrastructure restent à vous.",
+      card5Stat: "Site, données et infrastructure restent à vous.",
       card6Title: "Visibilité complète",
-      card6Desc: "SEO et conversion progressent chaque mois.",
+      card6Stat: "SEO et conversion progressent chaque mois.",
       card7Title: "Exécution d'excellence",
-      card7Desc: "",
+      card7Stat: "Qualité de niveau senior à portée de main.",
     },
     faqBooking: {
       heading: "Questions que je reçois à chaque fois.",
