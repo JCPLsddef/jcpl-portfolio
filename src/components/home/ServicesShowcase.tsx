@@ -187,6 +187,14 @@ export default function ServicesShowcase({ impactRevealed = false }: ServicesSho
                   <h2 className="text-[clamp(40px,6vw,64px)] font-extrabold text-white leading-[1.05] tracking-[-0.035em] mb-3 lg:mb-6 drop-shadow-lg text-left pl-0 lg:pl-0">
                     {activeService.title}
                   </h2>
+                  {/* BY APPLICATION ONLY section image */}
+                  <div className="mt-4 flex justify-center">
+                    <img
+                      src="https://static.wixstatic.com/media/62f926_880aac26b23148b180643d3682eadd6b~mv2.jpeg"
+                      alt="BY APPLICATION ONLY"
+                      style={{ width: "120px", height: "120px", borderRadius: "16px", objectFit: "cover", boxShadow: "0 4px 24px rgba(0,0,0,0.18)" }}
+                    />
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
