@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const JUAN_IMG_SRC = "https://static.wixstatic.com/media/62f926_557272f0fa6547d9b0c8d0518959c14b~mv2.jpeg";
+const JUAN_IMG_SRC = "https://static.wixstatic.com/media/62f926_880aac26b23148b180643d3682eadd6b~mv2.jpeg";
 
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { Check, Calendar, ShieldCheck } from "lucide-react";
