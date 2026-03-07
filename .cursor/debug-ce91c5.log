@@ -62,3 +62,11 @@
 {"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":false},"hypothesisId":"H1 H3","timestamp":1772918053567}
 {"sessionId":"ce91c5","location":"BallPit.tsx:createBallpit","message":"createBallpit initialized","data":{"canvasW":936,"canvasH":800,"parentW":468,"parentH":400},"hypothesisId":"H1 H3 H5","timestamp":1772918053651}
 {"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":true},"hypothesisId":"H1 H3","timestamp":1772918053755}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":false},"hypothesisId":"H1 H3","timestamp":1772920833397}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":false},"hypothesisId":"H1 H3","timestamp":1772920833404}
+{"sessionId":"ce91c5","location":"BallPit.tsx:createBallpit","message":"createBallpit initialized","data":{"canvasW":936,"canvasH":800,"parentW":468,"parentH":400},"hypothesisId":"H1 H3 H5","timestamp":1772920833462}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":true},"hypothesisId":"H1 H3","timestamp":1772920833565}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":false},"hypothesisId":"H1 H3","timestamp":1772922873244}
+{"sessionId":"ce91c5","location":"BallPit.tsx:createBallpit","message":"createBallpit initialized","data":{"canvasW":936,"canvasH":800,"parentW":468,"parentH":400},"hypothesisId":"H1 H3 H5","timestamp":1772922873306}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":false},"hypothesisId":"H1 H3","timestamp":1772922873249}
+{"sessionId":"ce91c5","location":"BallPit.tsx:resize","message":"BallPit resize","data":{"parentOffsetW":468,"parentOffsetH":400,"w":468,"h":400,"visible":true},"hypothesisId":"H1 H3","timestamp":1772922873410}
