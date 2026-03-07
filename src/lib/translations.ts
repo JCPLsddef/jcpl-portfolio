@@ -161,6 +161,8 @@ export type TranslationsShape = {
   benefits: {
     eyebrow: string;
     headline: string;
+    headlineBold: string;
+    headlineItalic: string;
     paragraph: string;
     card1Title: string;
     card1Desc: string;
@@ -255,6 +257,8 @@ export const translations: Record<Locale, TranslationsShape> = {
     benefits: {
       eyebrow: "SYSTEM BENEFITS",
       headline: "Finally a System",
+      headlineBold: "Finally a system",
+      headlineItalic: "that actually works.",
       paragraph:
         "Client Growth replaces scattered vendors and guesswork with one connected growth system built to turn attention into qualified calls.",
       card1Title: "One Partner. One Growth System.",
@@ -360,6 +364,8 @@ export const translations: Record<Locale, TranslationsShape> = {
     benefits: {
       eyebrow: "AVANTAGES DU SYSTÈME",
       headline: "Enfin un Système",
+      headlineBold: "Enfin un système",
+      headlineItalic: "qui fonctionne vraiment.",
       paragraph:
         "Client Growth remplace les prestataires dispersés et les approximations par un système de croissance connecté, conçu pour transformer l'attention en appels qualifiés.",
       card1Title: "Un partenaire. Un système de croissance.",

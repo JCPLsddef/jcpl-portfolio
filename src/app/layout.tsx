@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import ClientAppShell from "@/components/ClientAppShell";
 import { siteConfig } from "@/lib/content";
@@ -11,6 +11,12 @@ import {
 } from "@/lib/schema";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -80,7 +86,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased bg-[var(--bg-base)] text-[var(--text-primary)]`}>
+      <body className={`${inter.className} ${playfair.variable} antialiased bg-[var(--bg-base)] text-[var(--text-primary)]`}>
         <ClientAppShell>{children}</ClientAppShell>
       </body>
     </html>

@@ -139,8 +139,20 @@ export default function BenefitsRail() {
           label={t<string>("benefits.eyebrow")}
           className="mb-4 !text-slate-500"
         />
-        <h2 className="font-serif text-[clamp(32px,4.5vw,48px)] font-extrabold text-slate-900 leading-[1.12] tracking-[-0.02em] max-w-2xl mx-auto">
-          {t<string>("benefits.headline")}
+        <h2 className="text-[clamp(32px,4.5vw,48px)] leading-[1.12] tracking-[-0.02em] max-w-2xl mx-auto">
+          <span className="font-bold text-slate-900 font-sans">
+            {t<string>("benefits.headlineBold")}
+          </span>{" "}
+          <span
+            className="italic font-normal"
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontSize: "1.08em",
+              color: "#57534e",
+            }}
+          >
+            {t<string>("benefits.headlineItalic")}
+          </span>
         </h2>
         <p className="mt-4 font-sans font-normal text-slate-600 text-[17px] md:text-[18px] leading-[1.65] max-w-xl mx-auto">
           {t<string>("benefits.paragraph")}
