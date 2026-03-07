@@ -68,7 +68,7 @@ export default function FeaturedCaseStudy() {
       <Reveal delay={0.1}>
         <div className="max-w-3xl mx-auto mb-8">
           <div
-            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden"
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden depth-card"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -98,17 +98,18 @@ export default function FeaturedCaseStudy() {
                 <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>DAYS</p>
               </div>
             </div>
-            <div style={{ marginTop: 24, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)" }}>
-              <img
-                src="/images/proof/triplew-ads-dashboard.png"
-                alt="Google Ads dashboard, Triple W Rentals campaign"
-                style={{ width: "100%", display: "block", opacity: 0.9 }}
-                onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = "none"; }}
-              />
-            </div>
-            <p style={{ fontSize: "0.7rem", color: "#64748b", marginTop: 12 }}>
+            <div
+              className="rounded-lg p-4 mt-4"
+              style={{
+                background: "#131d35",
+                border: "1px solid #1e293b",
+                fontSize: "0.8rem",
+                color: "#64748b",
+                fontStyle: "italic",
+              }}
+            >
               Every $1 in ad spend returned $46 in revenue. Live account. Last verified February 2026.
-            </p>
+            </div>
           </div>
         </div>
       </Reveal>
@@ -117,7 +118,7 @@ export default function FeaturedCaseStudy() {
       <Reveal delay={0.15}>
         <div className="max-w-3xl mx-auto">
           <div
-            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden"
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden depth-card"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -160,7 +161,7 @@ export default function FeaturedCaseStudy() {
           {stats2.map(({ label, value, sub }) => (
             <div
               key={label}
-              className="rounded-xl p-6"
+              className="rounded-xl p-6 depth-card"
               style={{
                 background: "#0f1729",
                 border: "1px solid #1e293b",

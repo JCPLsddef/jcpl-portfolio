@@ -47,7 +47,7 @@ export default function BookCallCard({
 }: BookCallCardProps) {
   return (
     <div
-      className={`relative rounded-2xl overflow-hidden min-h-[300px] ${className}`}
+      className={`relative rounded-2xl overflow-hidden min-h-[300px] depth-card ${className}`}
       style={{
         background: "#0f1729",
         border: "1px solid #1e293b",
@@ -68,7 +68,7 @@ export default function BookCallCard({
         </p>
         <Link
           href={buttonHref}
-          className="flex items-center justify-center w-full py-4 px-6 rounded-lg font-semibold text-white text-[15px] transition-all duration-200 hover:-translate-y-0.5"
+          className="flex items-center justify-center w-full py-4 px-6 rounded-lg font-semibold text-white text-[15px] cta-primary"
           style={{ background: "#f97316" }}
           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}

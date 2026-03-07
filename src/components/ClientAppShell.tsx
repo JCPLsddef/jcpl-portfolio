@@ -7,6 +7,8 @@ import RouteScrollManager from "@/components/system/RouteScrollManager";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SpeedPopup from "@/components/SpeedPopup";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
+import SectionLabelAnimator from "@/components/motion/SectionLabelAnimator";
 import { useTranslations } from "@/context/LocaleContext";
 
 function SkipToContent() {
@@ -25,6 +27,8 @@ export default function ClientAppShell({ children }: { children: ReactNode }) {
   return (
     <LocaleProvider>
       <SkipToContent />
+      <ScrollProgressBar />
+      <SectionLabelAnimator />
       <SmoothScrollProvider>
         <RouteScrollManager />
         <Navbar />

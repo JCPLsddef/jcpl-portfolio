@@ -35,25 +35,46 @@ export default function DiagnosticSteps() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: sectionRef.current,
-        start: "top 80%",
-        onEnter: () => {
-          gsap.fromTo(
-            stepRefs.current.filter(Boolean),
-            { opacity: 0, y: 15 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.5,
-              stagger: 0.2,
-              ease: "power2.out",
-            }
-          );
-        },
-        once: true,
-      });
+      if (isMobile) {
+        ScrollTrigger.create({
+          trigger: sectionRef.current,
+          start: "top 80%",
+          onEnter: () => {
+            gsap.fromTo(
+              stepRefs.current.filter(Boolean),
+              { opacity: 0 },
+              { opacity: 1, duration: 0.5, stagger: 0.2, ease: "power2.out" }
+            );
+          },
+          once: true,
+        });
+      } else {
+        gsap.from(".diagnostic-card-1", {
+          opacity: 0,
+          x: -24,
+          duration: 0.6,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
+        });
+        gsap.from(".diagnostic-card-2", {
+          opacity: 0,
+          y: 24,
+          duration: 0.6,
+          delay: 0.15,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
+        });
+        gsap.from(".diagnostic-card-3", {
+          opacity: 0,
+          x: 24,
+          duration: 0.6,
+          delay: 0.3,
+          ease: "power2.out",
+          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
+        });
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -75,12 +96,12 @@ export default function DiagnosticSteps() {
         </h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-14 diagnostic-section">
         {STEPS.map((step, i) => (
           <div
             key={step.num}
             ref={(el) => { stepRefs.current[i] = el; }}
-            className="rounded-xl p-8"
+            className={`rounded-xl p-8 depth-card diagnostic-card-${i + 1}`}
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -114,7 +135,7 @@ export default function DiagnosticSteps() {
       <div className="flex flex-col items-center">
         <Link
           href="#book-call"
-          className="inline-flex items-center justify-center gap-2 font-semibold text-white rounded-lg transition-all duration-200 hover:-translate-y-0.5"
+          className="inline-flex items-center justify-center gap-2 font-semibold text-white rounded-lg cta-primary"
           style={{
             background: "#f97316",
             padding: "16px 32px",

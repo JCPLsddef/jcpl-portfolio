@@ -47,35 +47,32 @@ export default function Hero() {
 
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
-		const allEls = [headlineRef.current, ctaRef.current].filter(Boolean);
-
 		if (reduced) {
-			allEls.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
+			document.querySelectorAll(".hero-bridge-line, .hero-section-label, .hero-headline .word, .hero-subheadline, .hero-cta, .hero-risk-reversal").forEach((el) => {
+				gsap.set(el as HTMLElement, { opacity: 1, y: 0 });
+			});
 			return;
 		}
 
+		const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 		const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-		if (frameRef.current) {
-			gsap.set(frameRef.current, { opacity: 1 });
-		}
+		if (frameRef.current) gsap.set(frameRef.current, { opacity: 1 });
 
-		if (headlineRef.current) {
-			tl.fromTo(
-				headlineRef.current,
-				{ opacity: 0, y: 20 },
-				{ opacity: 1, y: 0, duration: 0.8 },
-				0
-			);
-		}
-
-		if (ctaRef.current) {
-			tl.fromTo(
-				ctaRef.current,
-				{ opacity: 0 },
-				{ opacity: 1, duration: 0.5 },
-				0.3
-			);
+		if (isMobile) {
+			tl.from(".hero-bridge-line", { opacity: 0, duration: 0.4 })
+				.from(".hero-section-label", { opacity: 0, duration: 0.3 }, "-=0.1")
+				.from(".hero-headline", { opacity: 0, duration: 0.5 }, "-=0.1")
+				.from(".hero-subheadline", { opacity: 0, duration: 0.4 }, "-=0.1")
+				.from(".hero-cta", { opacity: 0, duration: 0.3 }, "-=0.1")
+				.from(".hero-risk-reversal", { opacity: 0, duration: 0.3 }, "-=0.1");
+		} else {
+			tl.from(".hero-bridge-line", { opacity: 0, y: 10, duration: 0.5 })
+				.from(".hero-section-label", { opacity: 0, duration: 0.4 }, "-=0.2")
+				.from(".hero-headline .word", { opacity: 0, y: 24, stagger: 0.04, duration: 0.6 }, "-=0.1")
+				.from(".hero-subheadline", { opacity: 0, y: 10, duration: 0.5 }, "-=0.2")
+				.from(".hero-cta", { opacity: 0, y: 10, duration: 0.4 }, "-=0.2")
+				.from(".hero-risk-reversal", { opacity: 0, duration: 0.3 }, "-=0.1");
 		}
 
 		return () => { tl.kill(); };
@@ -101,6 +98,7 @@ export default function Hero() {
 				<div ref={contentLayerRef} className="cb-content-wrap">
 					<div className="cb-content" style={{ maxWidth: 720 }}>
 						<p
+							className="hero-bridge-line"
 							style={{
 								fontSize: "0.7rem",
 								letterSpacing: "0.15em",
@@ -114,6 +112,7 @@ export default function Hero() {
 						</p>
 
 						<p
+							className="hero-section-label"
 							style={{
 								fontSize: "0.9rem",
 								color: "#64748b",
@@ -125,9 +124,8 @@ export default function Hero() {
 
 						<h1
 							ref={headlineRef}
-							className="cb-headline"
+							className="cb-headline hero-headline"
 							style={{
-								opacity: 0,
 								fontSize: "clamp(2rem, 5vw, 3rem)",
 								fontWeight: 700,
 								color: "#ffffff",
@@ -135,10 +133,15 @@ export default function Hero() {
 								marginBottom: 16,
 							}}
 						>
-							$41,085 in revenue from $900 in ad spend. In 30 days.
+							{["$41,085", "in", "revenue", "from", "$900", "in", "ad", "spend.", "In", "30", "days."].map((word, i) => (
+								<span key={i} className="word" style={{ display: "inline-block", marginRight: "0.3em" }}>
+									{word}
+								</span>
+							))}
 						</h1>
 
 						<p
+							className="hero-subheadline"
 							style={{
 								fontSize: "1.125rem",
 								color: "#94a3b8",
@@ -153,13 +156,13 @@ export default function Hero() {
 							booked calls. One person. One pipeline.
 						</p>
 
-						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
-							<a href="#book-call" className="cb-cta cb-cta--primary">
+						<div ref={ctaRef} className="cb-cta-wrap hero-cta">
+							<a href="#book-call" className="cb-cta cb-cta--primary cta-primary">
 								Book a 20-Minute Diagnostic Call
 								<span className="cb-cta-arrow" aria-hidden="true">→</span>
 							</a>
 							<p
-								className="cb-microtrust"
+								className="cb-microtrust hero-risk-reversal"
 								style={{
 									fontSize: "0.875rem",
 									color: "#64748b",

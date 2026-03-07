@@ -96,12 +96,44 @@ export default function BenefitsRail() {
         </p>
       </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-        {CARDS.map((card, i) => (
+      {/* Top row: 3 cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        {CARDS.slice(0, 3).map((card, i) => (
           <div
             key={card.title}
             ref={(el) => { cardRefs.current[i] = el; }}
-            className="rounded-xl p-8"
+            className="rounded-xl p-8 depth-card"
+            style={{
+              background: "#0f1729",
+              border: "1px solid #1e293b",
+              borderTop: "3px solid #f97316",
+            }}
+          >
+            <card.icon
+              className="mb-4"
+              size={24}
+              style={{ color: "#f97316" }}
+              aria-hidden
+            />
+            <h3 className="text-[1.125rem] font-bold text-white mb-2">
+              {card.title}
+            </h3>
+            <p style={{ fontSize: "0.9rem", color: "#cbd5e1", lineHeight: 1.6 }}>
+              {card.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+      {/* Bottom row: 2 cards, centered */}
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6 mx-auto"
+        style={{ maxWidth: "calc(66.666% + 12px)" }}
+      >
+        {CARDS.slice(3, 5).map((card, i) => (
+          <div
+            key={card.title}
+            ref={(el) => { cardRefs.current[i + 3] = el; }}
+            className="rounded-xl p-8 depth-card"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",

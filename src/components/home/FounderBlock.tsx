@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+const JUAN_IMG_SRC = "https://static.wixstatic.com/media/62f926_557272f0fa6547d9b0c8d0518959c14b~mv2.jpeg";
 
 const BADGES = [
   "3 active partnerships max",
@@ -16,32 +16,19 @@ export default function FounderBlock() {
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 md:items-center">
-          {/* TODO: add founder photo at /public/images/juan.jpg */}
-          <div
-            className="relative aspect-[4/5] max-w-sm mx-auto md:mx-0 overflow-hidden"
-            style={{
-              borderRadius: 12,
-              border: "1px solid rgba(30,41,59,0.5)",
-            }}
-          >
-            <Image
-              src="/images/juan.jpg"
-              alt="Juan - Client Growth"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 400px"
-              onError={(e) => {
-                const target = e.currentTarget;
-                target.style.display = "none";
-                const parent = target.parentElement;
-                if (parent) {
-                  const fallback = document.createElement("div");
-                  fallback.className = "absolute inset-0 flex items-center justify-center text-slate-500 text-sm";
-                  fallback.style.background = "#0a0f1e";
-                  fallback.textContent = "Juan";
-                  parent.appendChild(fallback);
-                }
+          <div className="relative max-w-[520px] mx-auto md:mx-0 overflow-hidden">
+            <img
+              src={JUAN_IMG_SRC}
+              alt="Juan Carlos Portillo-Laflamme, founder of Client Growth"
+              className="founder-photo w-full h-auto object-cover object-top rounded-xl"
+              style={{
+                borderRadius: 12,
+                border: "1px solid rgba(30,41,59,0.5)",
               }}
+            />
+            <div
+              className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
+              style={{ background: "linear-gradient(to top, #0a0f1e, transparent)" }}
             />
           </div>
 

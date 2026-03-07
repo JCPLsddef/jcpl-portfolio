@@ -6,7 +6,7 @@ interface Props {
 export default function SectionLabel({ label, className = "" }: Props) {
   return (
     <p
-      className={`text-[12px] font-semibold uppercase tracking-[0.14em] text-sv-text-muted ${className}`}
+      className={`section-label text-[12px] font-semibold uppercase tracking-[0.14em] text-sv-text-muted ${className}`}
     >
       {label}
     </p>

@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "@/context/LocaleContext";
 
 const CAL_LINK = "clientgrowth/15min";
-const CAL_BOOKING_URL = `https://app.cal.com/${CAL_LINK}?layout=column&hideEventTypeDetails=1`;
+const CAL_BOOKING_URL = `https://app.cal.com/${CAL_LINK}?layout=column&hideEventTypeDetails=1&theme=dark`;
 
 const BallPit = dynamic(() => import("./BallPit"), {
   ssr: false,
@@ -88,7 +88,7 @@ export default function CalendarSection() {
             </div>
 
             <div
-              className="relative min-h-[560px] overflow-hidden rounded-xl p-4 md:min-h-[640px]"
+              className="relative min-h-[560px] overflow-hidden rounded-xl p-4 md:min-h-[640px] cal-embed-wrapper"
               style={{
                 background: "#0f1729",
                 border: "1px solid #1e293b",

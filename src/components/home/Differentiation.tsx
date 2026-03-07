@@ -134,7 +134,7 @@ export default function Differentiation() {
       </Reveal>
 
       <Reveal delay={0.1} className="hidden md:block">
-        <div ref={tableRef} className="max-w-4xl mx-auto">
+        <div ref={tableRef} className="max-w-4xl mx-auto comparison-table">
           <div
             className="rounded-[14px] overflow-hidden"
             style={{
@@ -170,7 +170,7 @@ export default function Differentiation() {
               <div
                 key={i}
                 ref={(el) => { rowRefs.current[i] = el; }}
-                className="grid grid-cols-[1fr_1fr_1fr]"
+                className="grid grid-cols-[1fr_1fr_1fr] comparison-row"
                 style={{
                   borderBottom: i < differentiation.comparisons.length - 1 ? "1px solid #1e293b" : undefined,
                 }}
@@ -196,7 +196,7 @@ export default function Differentiation() {
         {differentiation.comparisons.map((row, i) => (
           <Reveal key={i} delay={0.06 * i}>
             <div
-              className="rounded-xl p-5"
+              className="rounded-xl p-5 depth-card"
               style={{ border: "1px solid #1e293b", background: "#0f1729" }}
             >
               <p

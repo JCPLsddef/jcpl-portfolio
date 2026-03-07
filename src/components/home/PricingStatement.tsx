@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+
+const JUAN_IMG_SRC = "https://static.wixstatic.com/media/62f926_557272f0fa6547d9b0c8d0518959c14b~mv2.jpeg";
+
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { Check, Calendar, ShieldCheck } from "lucide-react";
 
@@ -19,8 +19,6 @@ const FEATURES = [
 ];
 
 export default function PricingStatement() {
-  const leftCardRef = useRef<HTMLDivElement>(null);
-  const leftCardInView = useInView(leftCardRef, { once: true, margin: "-80px" });
   return (
     <section
       className="px-4"
@@ -65,42 +63,25 @@ export default function PricingStatement() {
             className="flex-1 min-w-0"
           >
             <div
-              ref={leftCardRef}
-              className="relative rounded-2xl overflow-hidden pricing-left-card"
-              style={{ minHeight: 480 }}
+              className="relative rounded-2xl overflow-hidden pricing-left-card depth-card"
+              style={{ minHeight: 520 }}
             >
-              {/* Full-bleed background image with Ken Burns effect */}
-              <motion.div
-                className="absolute inset-0 pricing-left-bg-image"
-                initial={{ scale: 1.05 }}
-                animate={leftCardInView ? { scale: 1 } : { scale: 1.05 }}
-                transition={{ duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
-                style={{ willChange: "transform" }}
-              >
-                <Image
-                  src="/images/juan.jpg"
-                  alt="Juan - Client Growth founder"
-                  fill
-                  className="object-cover"
-                  style={{ objectPosition: "center top" }}
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
-              </motion.div>
-
-              {/* Gradient overlay */}
+              <img
+                src={JUAN_IMG_SRC}
+                alt="Juan Carlos Portillo-Laflamme"
+                className="founder-photo absolute inset-0 w-full h-full object-cover object-top"
+                style={{ borderRadius: 16 }}
+              />
               <div
                 className="absolute inset-0 pointer-events-none z-[1]"
                 style={{
-                  background: "linear-gradient(to top, rgba(10,15,30,0.9) 0%, transparent 60%)",
+                  background:
+                    "linear-gradient(to bottom, rgba(10,15,30,0.05) 0%, rgba(10,15,30,0.15) 35%, rgba(10,15,30,0.85) 70%, rgba(10,15,30,0.97) 100%)",
                 }}
               />
 
               {/* Content stacked at bottom */}
-              <div
-                className="relative z-[2] flex flex-col justify-end p-8"
-                style={{ minHeight: 480 }}
-              >
+              <div className="absolute bottom-0 left-0 right-0 z-[2] flex flex-col p-8">
                 <div className="flex flex-col" style={{ paddingTop: 32 }}>
                   <p
                     className="uppercase mb-2"
@@ -146,7 +127,7 @@ export default function PricingStatement() {
                   </div>
                   <Link
                     href="#book-call"
-                    className="flex items-center justify-center w-full rounded-lg font-semibold text-white transition-all duration-200 py-4 hover:-translate-y-0.5"
+                    className="flex items-center justify-center w-full rounded-lg font-semibold text-white cta-primary py-4"
                     style={{ backgroundColor: "#f97316" }}
                     onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
                     onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
@@ -165,7 +146,7 @@ export default function PricingStatement() {
             className="flex-1 min-w-0"
           >
             <div
-              className="rounded-2xl p-6 md:p-8 flex flex-col transition-all duration-300 hover:border-[rgba(249,115,22,0.3)] hover:shadow-[0_0_40px_rgba(249,115,22,0.05)]"
+              className="rounded-2xl p-6 md:p-8 flex flex-col depth-card"
               style={{
                 minHeight: 480,
                 background: "#070c18",
@@ -260,7 +241,7 @@ export default function PricingStatement() {
               <div className="mt-auto space-y-2">
                 <Link
                   href="/apply"
-                  className="flex items-center justify-center w-full py-4 rounded-lg font-semibold text-white text-base transition-all duration-200 hover:-translate-y-0.5"
+                  className="flex items-center justify-center w-full py-4 rounded-lg font-semibold text-white text-base cta-primary"
                   style={{ backgroundColor: "#f97316" }}
                   onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
                   onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
