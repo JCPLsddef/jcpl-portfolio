@@ -57,7 +57,7 @@ function ElevenDaysStat() {
   }, []);
 
   return (
-    <div ref={statRef} className="text-center mt-12 mb-4">
+    <div ref={statRef} className="text-center" style={{ marginTop: 80, marginBottom: 16 }}>
       <div className="stat-glow inline-flex items-baseline gap-2">
         <span ref={numRef} className="stat-11-table text-white font-extrabold" style={{ fontSize: "4rem" }}>
           0
@@ -119,12 +119,14 @@ export default function Differentiation() {
       </Reveal>
 
       <Reveal className="max-w-2xl mx-auto mb-12">
-        <p className="text-[15px] font-[400] leading-[1.8] mb-5" style={{ color: "#A69D8D" }}>
-          An agency will take your $3,000, spend 6 weeks onboarding you, send you a report full of impressions and clicks, and invoice you again while you still wait for the phone to ring.
-        </p>
-        <p className="text-[15px] font-[400] leading-[1.8]" style={{ color: "#A69D8D" }}>
-          I have one metric: qualified calls on your calendar. If that number is not growing, I have not done my job. That is it. Nothing else counts.
-        </p>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+          <p className="text-[15px] font-[400] leading-[1.8] mb-5" style={{ color: "#A69D8D" }}>
+            An agency will take your $3,000, spend 6 weeks onboarding you, send you a report full of impressions and clicks, and invoice you again while you still wait for the phone to ring.
+          </p>
+          <p className="text-[15px] font-[400] leading-[1.8]" style={{ color: "#A69D8D" }}>
+            I have one metric: qualified calls on your calendar. If that number is not growing, I have not done my job. That is it. Nothing else counts.
+          </p>
+        </div>
       </Reveal>
 
       <Reveal delay={0.1} className="hidden md:block">

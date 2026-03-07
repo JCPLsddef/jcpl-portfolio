@@ -196,7 +196,7 @@ style={{
                 style={{ borderTop: "1px dashed #2A2318" }}
               />
 
-              <div className="mb-2">
+              <div className="mb-2 stat-glow" style={{ position: "relative" }}>
                 <span
                   ref={priceRef}
                   className="font-extrabold text-white"

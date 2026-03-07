@@ -1224,7 +1224,8 @@ body::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .founder-photo-wrapper { animation: none; }
+  .founder-photo-wrapper,
+  .pricing-photo-wrapper { animation: none; }
 }
 
 /* ── Grain texture overlay (desktop only) ── */

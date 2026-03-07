@@ -94,9 +94,10 @@ export default function DiagnosticSteps() {
           <div
             key={step.num}
             ref={(el) => { stepRefs.current[i] = el; }}
-            className={`rounded-xl p-8 lift-card diagnostic-card-${i + 1}`}
+            className={`rounded-xl lift-card diagnostic-card-${i + 1}`}
             style={{
               opacity: 1,
+              padding: "28px 28px 32px 28px",
               background: "#1E1A14",
               border: "1px solid #2A2318",
               borderTop: "3px solid #D4A853",
@@ -141,7 +142,7 @@ export default function DiagnosticSteps() {
         </Link>
         <p
           className="mt-2 text-center"
-          style={{ fontSize: "0.875rem", color: "#756D63" }}
+          style={{ fontSize: "0.875rem", color: "#D2C9B8", fontStyle: "italic" }}
         >
           If I cannot move the needle, I will tell you on the call. Before you pay anything.
         </p>

@@ -6,10 +6,11 @@ import LogoLoop from "@/components/home/LogoLoop";
 export default function ClientLogoTicker() {
   return (
     <div
-      className="group/logo py-6"
+      className="group/logo"
       style={{
         background: "#181410",
         paddingTop: 80,
+        paddingBottom: 16,
         borderTop: "1px solid #2A2318",
       }}
     >
@@ -68,7 +69,7 @@ export default function ClientLogoTicker() {
       </div>
       <p
         className="text-center"
-        style={{ fontSize: "0.9rem", color: "#A69D8D", marginTop: 24 }}
+        style={{ fontSize: "0.9rem", color: "#A69D8D", marginTop: 24, marginBottom: 0 }}
       >
         Five industries. One growth system.
       </p>

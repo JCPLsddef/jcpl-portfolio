@@ -277,7 +277,7 @@ export const translations: Record<Locale, TranslationsShape> = {
       card7Desc: "",
     },
     faqBooking: {
-      heading: "Every question I hear before someone signs.",
+      heading: "Every question I hear before someone signs. ",
       headlineItalic: "Answered.",
       supportingLine: "Get clear answers before you apply.",
       items: [
@@ -303,10 +303,10 @@ export const translations: Record<Locale, TranslationsShape> = {
       headline: "Book your diagnostic. I will tell you if I can help.",
       italicSubline: "",
       body: "I will review your market, your current pipeline, and the fastest path to qualified calls. If I cannot move the needle, I will tell you that directly before you pay anything.",
-      bullet1: "15 minutes",
+      bullet1: "20 minutes",
       bullet2: "Clear next steps",
       bullet3: "No bloated sales process",
-      cta: "Book a strategy call →",
+      cta: "Book a 20-Minute Diagnostic Call",
       notice: "I run a limited number of diagnostic calls per week. For a faster response, email juan@clientgrowth.ca for a same-day reply.",
     },
   },

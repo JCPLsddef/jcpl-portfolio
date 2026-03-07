@@ -17,6 +17,7 @@ function getStoredLocale(): Locale | null {
   try {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === "en" || stored === "fr") return stored;
+    localStorage.setItem(STORAGE_KEY, "en");
   } catch {
     // ignore
   }

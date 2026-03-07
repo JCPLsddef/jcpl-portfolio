@@ -99,6 +99,10 @@ export default function Hero() {
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
 					<HeroWebGLBackground />
 				</div>
+				{/* Solid warm overlay to mask any WebGL blue — flat #0D0B09 per Fix 1 */}
+				<div className="cb-layer" aria-hidden="true" style={{ background: "#0D0B09", zIndex: 2 }} />
+				{/* Subtle warm radial glow behind headline */}
+				<div className="cb-layer" aria-hidden="true" style={{ background: "radial-gradient(ellipse at 50% 40%, rgba(212, 168, 83, 0.04) 0%, transparent 60%)", zIndex: 2.5, pointerEvents: "none" }} />
 				<div className="cb-layer cb-overlay-top" aria-hidden="true" />
 				<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
 				<div className="cb-layer cb-grain" aria-hidden="true" />

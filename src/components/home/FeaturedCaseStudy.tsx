@@ -170,13 +170,14 @@ export default function FeaturedCaseStudy() {
             <p style={{ fontSize: "1rem", color: "#A69D8D", marginBottom: 24 }}>
               in under 60 days.
             </p>
-            <div style={{
-              fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
-              fontWeight: 800,
-              color: "#F5F0E8",
-              marginBottom: 8,
-            }}>
-              $27
+            <div className="stat-glow" style={{ position: "relative", marginBottom: 8 }}>
+              <div style={{
+                fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                fontWeight: 800,
+                color: "#F5F0E8",
+              }}>
+                $27
+              </div>
             </div>
             <p style={{ color: "#D2C9B8", fontSize: "0.9rem", marginBottom: 8 }}>
               avg cost per qualified inbound call
@@ -188,8 +189,8 @@ export default function FeaturedCaseStudy() {
         </div>
       </Reveal>
 
-      <Reveal delay={0.2} className="mt-10">
-        <div className="text-center">
+      <Reveal delay={0.2}>
+        <div className="text-center" style={{ marginTop: 24, marginBottom: 40 }}>
           <Link
             href="/results"
             className="inline-block hover:underline"
@@ -216,7 +217,7 @@ export default function FeaturedCaseStudy() {
             style={{ background: "#1E1A14", border: "1px solid #2A2318" }}
           >
             <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853", textTransform: "uppercase", marginBottom: 8 }}>COST PER LEAD</p>
-            <p className="text-3xl font-bold text-white"><span className="stat-27-card">0</span></p>
+            <p className="text-3xl font-bold text-white stat-glow"><span className="stat-27-card">0</span></p>
             <p style={{ fontSize: "0.875rem", color: "#A69D8D", marginTop: 8 }}>Avg cost per qualified inbound call. All active accounts. Q4 2025.</p>
           </div>
           <div
@@ -224,7 +225,7 @@ export default function FeaturedCaseStudy() {
             style={{ background: "#1E1A14", border: "1px solid #2A2318" }}
           >
             <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853", textTransform: "uppercase", marginBottom: 8 }}>TIME TO FIRST CALL</p>
-            <p className="text-3xl font-bold text-white"><span className="stat-11-card">0</span> days</p>
+            <p className="text-3xl font-bold text-white stat-glow"><span className="stat-11-card">0</span> days</p>
             <p style={{ fontSize: "0.875rem", color: "#A69D8D", marginTop: 8 }}>Median across all clients and niches.</p>
           </div>
         </div>
