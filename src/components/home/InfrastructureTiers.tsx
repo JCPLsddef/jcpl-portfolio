@@ -79,7 +79,7 @@ export default function InfrastructureTiers() {
             </span>
             <span style={{ color: "#1E3A5F" }}>|</span>
             <span style={{ color: "#E2F0FF", fontWeight: 600, fontSize: "15px" }}>
-              $33 cost per call
+              $27 cost per call
             </span>
             <span style={{ color: "#1E3A5F" }}>|</span>
             <span style={{ color: "#E2F0FF", fontWeight: 600, fontSize: "15px" }}>
@@ -545,7 +545,7 @@ export default function InfrastructureTiers() {
             </div>
 
             <blockquote className="text-[17px] italic font-[400] leading-[1.75] opacity-[0.90] mb-4">
-              &ldquo;Juan rebuilt our entire booking system from the ground up. Three weeks later, clients who had never heard of us were finding us on Google and booking online. Our calendar has not had a gap since.&rdquo;
+              &ldquo;Juan rebuilt the entire booking system from the ground up. Three weeks later, clients who had never heard of the business were finding it on Google and booking online. The calendar has not had a gap since.&rdquo;
             </blockquote>
 
             <p

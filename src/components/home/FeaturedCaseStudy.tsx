@@ -58,15 +58,6 @@ export default function FeaturedCaseStudy() {
 
   useEffect(() => {
     if (prefersReducedMotion()) return;
-    const card = tripleWRef.current;
-    if (card) {
-      const stat900 = card.querySelector(".stat-900");
-      const stat46 = card.querySelector(".stat-46");
-      const stat30 = card.querySelector(".stat-30days");
-      if (stat900) countUp(stat900 as HTMLElement, 900, { prefix: "$" });
-      if (stat46) countUp(stat46 as HTMLElement, 46, { suffix: "x" });
-      if (stat30) countUp(stat30 as HTMLElement, 30);
-    }
     const statCards = statCardsRef.current;
     if (statCards) {
       const el27 = statCards.querySelector(".stat-27-card");
@@ -157,20 +148,6 @@ export default function FeaturedCaseStudy() {
             <p style={{ fontSize: "1rem", color: "#A69D8D", marginBottom: 24 }}>
               in revenue. First 30 days.
             </p>
-            <div className="flex gap-8 mb-6">
-              <div className="text-center">
-                <span className="stat-900 text-white font-bold" style={{ fontSize: "1.25rem" }}>$0</span>
-                <p style={{ fontSize: "0.7rem", color: "#756D63", textTransform: "uppercase", marginTop: 4 }}>AD SPEND</p>
-              </div>
-              <div className="text-center">
-                <span className="stat-46 text-white font-bold" style={{ fontSize: "1.25rem" }}>0x</span>
-                <p style={{ fontSize: "0.7rem", color: "#756D63", textTransform: "uppercase", marginTop: 4 }}>RETURN</p>
-              </div>
-              <div className="text-center">
-                <span className="stat-30days text-white font-bold" style={{ fontSize: "1.25rem" }}>0</span>
-                <p style={{ fontSize: "0.7rem", color: "#756D63", textTransform: "uppercase", marginTop: 4 }}>DAYS</p>
-              </div>
-            </div>
             <div
               className="rounded-lg p-4 mt-4"
               style={{

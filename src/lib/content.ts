@@ -316,14 +316,14 @@ export interface ServiceItem {
 export const servicesShowcaseContent = {
   brandTitle: "Conversion-Built Marketing Systems",
   brandParagraph:
-    "Website, SEO, GEO, copywriting, and Google Ads — engineered to turn clicks into booked calls. One integrated system, not five disconnected freelancers.",
+    "Website, SEO, GEO, copywriting, and Google Ads. Engineered to turn clicks into booked calls. One integrated system, not five disconnected freelancers.",
   services: [
     {
       id: "website",
       title: "Conversion Website System",
       subtitle: "Trust + action in one experience",
       description:
-        "A premium site engineered to turn clicks into booked calls — fast, clean, persuasive.",
+        "A premium site engineered to turn clicks into booked calls. Fast, clean, persuasive.",
       imageUrl:
         "https://static.wixstatic.com/media/62f926_e3cee4593847417db3870fd5cfa77faa~mv2.png",
       imageAlt: "Conversion website showcase",

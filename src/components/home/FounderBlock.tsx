@@ -58,7 +58,7 @@ export default function FounderBlock() {
                 lineHeight: 1.75,
               }}
             >
-              Not because of artificial scarcity, but because every system I build gets my direct attention every single week. No junior staff touches your account. No account manager sits between us. When something breaks at 9 PM on a Tuesday, I fix it that night.
+              Not because of artificial scarcity, but because every system I build gets my direct attention every single week. No junior staff touches your account. No account manager sits between you and me. When something breaks at 9 PM on a Tuesday, I fix it that night.
             </p>
 
             <p

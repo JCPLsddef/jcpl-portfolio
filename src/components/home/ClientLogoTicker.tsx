@@ -43,12 +43,11 @@ export default function ClientLogoTicker() {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="ticker-logo transition-opacity duration-200 group-hover/logo:opacity-100"
+                className="ticker-logo transition-opacity duration-200 group-hover/logo:opacity-[0.85]"
                 style={{
                   height: 36,
                   width: "auto",
                   objectFit: "contain",
-                  opacity: 0.6,
                 }}
               />
               {logoItem.industryLabel && (

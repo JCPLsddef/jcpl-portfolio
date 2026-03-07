@@ -77,7 +77,7 @@ export default function DiagnosticSteps() {
       ref={sectionRef}
       id="diagnostic"
       className="py-16 md:py-24"
-      style={{ background: "#181410" }}
+      style={{ background: "#0D0B09" }}
     >
       <div className="max-w-4xl mx-auto text-center mb-12">
         <SectionLabel label="THE DIAGNOSTIC" className="mb-4 !text-[#D4A853]" />
@@ -97,9 +97,9 @@ export default function DiagnosticSteps() {
             className={`rounded-xl p-8 lift-card diagnostic-card-${i + 1}`}
             style={{
               opacity: 1,
-              background: "#221D17",
+              background: "#1E1A14",
               border: "1px solid #2A2318",
-              ...(i === 2 && { borderTop: "3px solid #D4A853" }),
+              borderTop: "3px solid #D4A853",
             }}
           >
             <div
@@ -132,16 +132,9 @@ export default function DiagnosticSteps() {
         <Link
           href="#book-call"
           className="inline-flex items-center justify-center gap-2 font-semibold text-[#0A0E1A] rounded-lg cta-primary cta-button"
-          style={{
-            background: "#D4A853",
-            padding: "16px 32px",
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = "#C49A2A";
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = "#D4A853";
-          }}
+          style={{ background: "#D4A853", padding: "16px 32px" }}
+          onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#C49A2A"; }}
+          onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#D4A853"; }}
         >
           Book a 20-Minute Diagnostic Call
           <span aria-hidden="true">→</span>

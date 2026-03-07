@@ -23,7 +23,7 @@ export default function PricingStatement() {
     <section
       className="px-4"
       style={{
-        background: "#0D0B09",
+        background: "#131009",
         paddingTop: "clamp(80px, 10vw, 140px)",
         paddingBottom: "clamp(80px, 10vw, 140px)",
       }}
@@ -149,11 +149,11 @@ export default function PricingStatement() {
           >
             <div
               className="rounded-2xl p-6 md:p-8 flex flex-col depth-card"
-              style={{
-                minHeight: 480,
-                background: "#070c18",
-                border: "1px solid #2A2318",
-              }}
+style={{
+        minHeight: 480,
+        background: "#1E1A14",
+        border: "1px solid #2A2318",
+      }}
             >
               <p
                 className="uppercase mb-4"

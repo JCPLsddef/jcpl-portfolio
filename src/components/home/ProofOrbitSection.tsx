@@ -48,7 +48,7 @@ export default function ProofOrbitSection() {
       <Reveal delay={0.1} className="mt-4 text-center">
         <p className="text-[13px] text-sv-text-muted">
           Average cost per qualified call:{" "}
-          <span className="font-semibold text-white">$33</span>
+          <span className="font-semibold text-white">$27</span>
           {" · "}Q4 2025
         </p>
       </Reveal>

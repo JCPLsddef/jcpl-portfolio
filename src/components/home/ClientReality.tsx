@@ -251,7 +251,7 @@ export default function ClientReality() {
               e.currentTarget.style.backgroundColor = "#D4A853";
             }}
           >
-            Show me what the system looks like
+            Book a 20-Minute Diagnostic Call
             <span aria-hidden="true">→</span>
           </Link>
           <p

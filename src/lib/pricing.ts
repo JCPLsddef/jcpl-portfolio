@@ -257,7 +257,7 @@ export const pricingFaqs: FaqItem[] = [
   {
     question: "What do you need from me to get started?",
     answer:
-      "Clear goals, timely feedback, and access to existing assets (if any). I handle the heavy lifting — you stay focused on running your business.",
+      "Clear goals, timely feedback, and access to existing assets (if any). I handle the heavy lifting. You stay focused on running your business.",
   },
   {
     question: "Do you offer discounts for annual billing?",
@@ -272,11 +272,11 @@ export const pricingFaqs: FaqItem[] = [
   {
     question: "What if it's not a fit?",
     answer:
-      "If I'm not the right fit, you'll get honest feedback and recommendations — no hard sell. I'd rather pass than deliver subpar work.",
+      "If I'm not the right fit, you'll get honest feedback and recommendations. No hard sell. I'd rather pass than deliver subpar work.",
   },
   {
     question: "How do you measure success?",
     answer:
-      "Pipeline metrics, conversion rates, and ROI — not vanity stats. Every engagement includes tracking from day one so results are verifiable.",
+      "Pipeline metrics, conversion rates, and ROI. Not vanity stats. Every engagement includes tracking from day one so results are verifiable.",
   },
 ];

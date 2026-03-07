@@ -91,7 +91,7 @@ export default function Hero() {
 			ref={sectionRef}
 			className="cb"
 			aria-label="Hero - Growth Infrastructure"
-			style={{ minHeight: "90vh" }}
+			style={{ minHeight: "90vh", background: "#0D0B09" }}
 		>
 			<div className="cb-ambient gradient-mesh" aria-hidden="true" />
 
@@ -122,8 +122,9 @@ export default function Hero() {
 						<p
 							className="hero-bridge"
 							style={{
-								fontSize: "0.9rem",
+								fontSize: "0.95rem",
 								color: "#756D63",
+								fontStyle: "italic",
 								margin: "0 0 16px",
 							}}
 						>
@@ -135,17 +136,19 @@ export default function Hero() {
 							className="cb-headline hero-headline"
 							style={{
 								fontSize: "clamp(2rem, 5vw, 3rem)",
-								fontWeight: 700,
 								color: "#F5F0E8",
 								lineHeight: 1.2,
 								marginBottom: 16,
 							}}
 						>
-							{["$41,085", "in", "revenue", "from", "$900", "in", "ad", "spend.", "In", "30", "days."].map((word, i) => (
-								<span key={i} className="hero-word" style={{ display: "inline-block", marginRight: "0.25em" }}>
+							{["$41,085", "in", "revenue", "from", "$900", "in", "ad", "spend."].map((word, i) => (
+								<span key={i} className="hero-word" style={{ display: "inline-block", marginRight: "0.25em", fontWeight: 800 }}>
 									{word}
 								</span>
 							))}
+							<span className="hero-word" style={{ display: "inline-block", marginRight: "0.25em", fontFamily: "var(--font-playfair), DM Serif Display, Georgia, serif", fontStyle: "italic", fontWeight: 400 }}>
+								In 30 days.
+							</span>
 						</h1>
 
 						<p

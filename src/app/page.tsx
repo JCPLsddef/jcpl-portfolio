@@ -9,6 +9,7 @@ import DiagnosticSteps from "@/components/home/DiagnosticSteps";
 const ClientReality = dynamic(() => import("@/components/home/ClientReality"));
 const Differentiation = dynamic(() => import("@/components/home/Differentiation"));
 const FeaturedCaseStudy = dynamic(() => import("@/components/home/FeaturedCaseStudy"));
+const ServicesSection = dynamic(() => import("@/components/home/ServicesSection"));
 const QualificationCTA = dynamic(() => import("@/components/home/QualificationCTA"));
 const BenefitsRail = dynamic(() => import("@/components/sections/BenefitsRail"));
 const FAQ = dynamic(() => import("@/components/sections/FAQ"));
@@ -35,19 +36,22 @@ export default function HomePage() {
       {/* 6. Proof */}
       <FeaturedCaseStudy />
 
-      {/* 7. What Happens on the Call (Diagnostic) */}
+      {/* 7. Services (icons) */}
+      <ServicesSection />
+
+      {/* 8. The Diagnostic */}
       <DiagnosticSteps />
 
-      {/* 8. Pricing */}
+      {/* 9. Pricing */}
       <PricingStatement />
 
-      {/* 9. System Benefits */}
+      {/* 10. System Benefits */}
       <BenefitsRail />
 
-      {/* 10. Who This Is For */}
+      {/* 11. Who This Is For */}
       <QualificationCTA />
 
-      {/* 11. FAQ + Booking */}
+      {/* 12. FAQ + Booking */}
       <FAQ />
       <CalendarSection />
     </>

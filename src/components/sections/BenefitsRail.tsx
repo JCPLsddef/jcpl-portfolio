@@ -33,7 +33,7 @@ const CARDS = [
   { icon: Zap, title: "Engineered to Convert", desc: "Every page built to answer why you, why now within 10 seconds and move visitors toward a booked call." },
   { icon: BarChart3, title: "Tracked From Click to Revenue", desc: "Every call traced back to its source. Cost per call updated weekly. No vanity metrics." },
   { icon: Clock, title: "Launch in Weeks, Not Months", desc: "Median 11 days from signed agreement to live system. Not 8 weeks of onboarding." },
-  { icon: FileCheck, title: "You Own Everything", desc: "Site, data, accounts, creative. If we part ways, you leave with a working system. Nothing held hostage." },
+  { icon: FileCheck, title: "You Own Everything", desc: "Site, data, accounts, creative. If you decide to leave, you leave with a working system. Nothing held hostage." },
 ];
 
 function BenefitCardArt({
@@ -105,7 +105,7 @@ export default function BenefitsRail() {
       id="benefits"
       variant="default"
       className="py-16 md:py-24"
-      style={{ background: "#131009" }}
+      style={{ background: "#181410" }}
     >
       <Reveal className="text-center mb-12">
         <SectionLabel label="SYSTEM BENEFITS" className="mb-4 !text-[#D4A853]" />
