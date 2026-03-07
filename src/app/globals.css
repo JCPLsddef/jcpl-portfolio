@@ -734,3 +734,88 @@ body::before {
   .pricing-left-card:hover .pricing-left-bg-image { transform: none; }
   .pricing-left-cta-shine:hover::after { transition: none; left: 140%; }
 }
+
+/* ── Depth card system (Priority 3) ── */
+.depth-card {
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  will-change: transform;
+}
+
+.depth-card:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(249, 115, 22, 0.15),
+    0 0 30px rgba(249, 115, 22, 0.04);
+}
+
+/* ── CTA primary shine sweep ── */
+.cta-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.cta-primary:hover::after {
+  left: 140%;
+}
+
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(249,115,22,0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta-primary:hover::after { transition: none; }
+}
+
+/* ── Founder photo float ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes photoGlow {
+  0%, 100% { box-shadow: 0 0 40px rgba(249,115,22,0.08), 0 20px 60px rgba(0,0,0,0.5); }
+  50% { box-shadow: 0 0 80px rgba(249,115,22,0.15), 0 20px 60px rgba(0,0,0,0.5); }
+}
+
+.founder-photo {
+  animation: float 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .founder-photo { animation: none; }
+}
+
+/* ── Grain texture overlay (desktop only) ── */
+body::after {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+@media (max-width: 767px) {
+  body::after { display: none; }
+}
