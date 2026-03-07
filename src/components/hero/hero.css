@@ -4,7 +4,7 @@
    3-Layer: WebGL → Readability overlay → Content
    ═══════════════════════════════════════════════════ */
 
-/* ── Section — fills viewport, centers content ── */
+/* ── Section fills viewport, centers content ── */
 .cb {
   position: relative;
   min-height: 100svh;
@@ -20,8 +20,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 30% 40%, rgba(43, 90, 140, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 70% 65%, rgba(43, 90, 140, 0.04) 0%, transparent 50%);
+    radial-gradient(ellipse 80% 60% at 30% 40%, rgba(249, 115, 22, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 70% 65%, rgba(249, 115, 22, 0.02) 0%, transparent 50%);
   animation: cb-drift 25s ease-in-out infinite alternate;
   pointer-events: none;
   z-index: 0;
@@ -143,48 +143,16 @@
 }
 
 /* ═══════════════════════════════════════════════════
-   DOMINATE H1
+   H1 Headline (static)
    ═══════════════════════════════════════════════════ */
-.cb-headline-marquee {
-  overflow: hidden;
-  width: 100%;
-  max-width: 100%;
-}
-
-.cb-headline-marquee__track {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  will-change: transform;
-}
-
-.cb-headline-marquee__content {
-  flex-shrink: 0;
-  white-space: nowrap;
-}
-
-.cb-headline-marquee-static,
-.cb-headline-static {
-  white-space: nowrap;
-}
-
 .cb-headline,
-.cb-headline-marquee__content,
-.cb-headline-marquee-static {
-  font-size: clamp(2.8rem, 10vw + 0.5rem, 9rem);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.cb-headline-static {
+  font-weight: 700;
+  line-height: 1.15;
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   margin: 0;
-  max-width: none;
-  word-break: keep-all;
-  hyphens: none;
-  overflow-wrap: normal;
 }
 
 .cb-word {
@@ -232,17 +200,16 @@
 }
 
 .cb-cta--primary {
-  background: var(--brand-accent);
-  color: var(--text-primary);
+  background: #f97316;
+  color: #ffffff;
   border: 1px solid transparent;
-  box-shadow: 0 4px 20px rgba(43, 90, 140, 0.3);
+  padding: 16px 32px;
+  border-radius: 8px;
+  transition: background-color 200ms ease;
 }
 
 .cb-cta--primary:hover {
-  background: var(--brand-deep);
-  box-shadow:
-    0 6px 28px rgba(43, 90, 140, 0.4),
-    0 0 40px rgba(43, 90, 140, 0.12);
+  background: #ea6c0a;
   transform: translateY(-1px);
 }
 
@@ -328,8 +295,8 @@
    MOBILE
    ═══════════════════════════════════════════════════ */
 @media (max-width: 767px) {
-  .cb-headline {
-    letter-spacing: 0.04em;
+  .cb {
+    min-height: 80vh;
   }
 
   .cb-cta-wrap {

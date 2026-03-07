@@ -6,11 +6,10 @@ import SectionWrapper from "@/components/ui/SectionWrapper";
 import { Reveal } from "@/components/motion";
 import SectionLabel from "@/components/ui/SectionLabel";
 
-
 function CheckIcon() {
   return (
     <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0 mt-0.5">
-      <path d="M4 8.5l3 3 5-5.5" stroke="var(--brand-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 8.5l3 3 5-5.5" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -18,65 +17,47 @@ function CheckIcon() {
 function XIcon() {
   return (
     <svg width="17" height="17" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0 mt-0.5">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="#FF6B6B" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M4 4l8 8M12 4l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
 
 export default function QualificationCTA() {
   return (
-    <section id="qualify" className="relative overflow-hidden bg-[#060b14] py-16 border-b border-slate-700/40">
-      {/* Background treatment */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(37,99,235,0.06) 0%, transparent 60%)",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(180deg, #060D1F 0%, rgba(6,13,31,0.6) 50%, #060D1F 100%)",
-        }}
-        aria-hidden="true"
-      />
-
+    <section id="qualify" className="relative overflow-hidden py-16 border-b border-[#1e293b]" style={{ background: "#0a0f1e" }}>
       <SectionWrapper className="relative z-10">
         <div className="max-w-3xl mx-auto">
-          {/* Section Header */}
           <div className="max-w-2xl mx-auto text-center mb-12">
-            <SectionLabel label="WHO THIS IS FOR" className="mb-4" />
+            <SectionLabel label="WHO THIS IS FOR" className="mb-4 !text-[#f97316]" />
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              This Partnership Has a Specific Type of Client.
+              <span>This is not for everyone. </span>
+              <span
+                className="italic font-normal"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+              >
+                Here is who it is for.
+              </span>
             </h2>
-            <p className="text-sv-text-sub text-base md:text-lg text-center">
+            <p className="text-[#94a3b8] text-base md:text-lg text-center">
               I only work with businesses I know I can move the needle for. Read both sides before applying.
             </p>
           </div>
 
-          {/* Qualification Grid */}
           <Reveal>
             <div className="grid gap-6 md:grid-cols-2 mb-12">
-              {/* For You If — green left border, light green tint */}
               <div
-                className="rounded-2xl bg-sv-surface p-7 md:p-8"
+                className="rounded-2xl p-7 md:p-8"
                 style={{
-                  borderLeft: "4px solid rgba(52,211,153,0.6)",
-                  border: "1px solid rgba(52,211,153,0.2)",
-                  borderLeftWidth: "4px",
-                  borderLeftColor: "rgba(52,211,153,0.6)",
-                  background: "rgba(52,211,153,0.04)",
+                  border: "1px solid rgba(249,115,22,0.3)",
+                  background: "#0f1729",
                 }}
               >
-                <h3 className="text-[18px] font-[700] text-white mb-5">
+                <h3 className="text-[1.25rem] font-bold text-white mb-5">
                   You are the right fit if:
                 </h3>
                 <ul className="space-y-3.5">
                   {qualification.forYouIf.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[14px] font-[400] leading-[1.7] opacity-[0.80]">
+                    <li key={i} className="flex items-start gap-3 text-[14px] leading-[1.7]" style={{ color: "#cbd5e1" }}>
                       <CheckIcon />
                       {item}
                     </li>
@@ -84,23 +65,19 @@ export default function QualificationCTA() {
                 </ul>
               </div>
 
-              {/* Not For You If — red right border, light red tint */}
               <div
-                className="rounded-2xl bg-sv-surface p-7 md:p-8"
+                className="rounded-2xl p-7 md:p-8"
                 style={{
-                  borderRight: "4px solid rgba(239,68,68,0.5)",
-                  border: "1px solid rgba(239,68,68,0.2)",
-                  borderRightWidth: "4px",
-                  borderRightColor: "rgba(239,68,68,0.5)",
-                  background: "rgba(239,68,68,0.03)",
+                  border: "1px solid #1e293b",
+                  background: "#0f1729",
                 }}
               >
-                <h3 className="text-[18px] font-[700] text-white mb-5">
+                <h3 className="text-[1.25rem] font-bold text-white mb-5">
                   This is NOT the right fit if:
                 </h3>
                 <ul className="space-y-3.5">
                   {qualification.notForYouIf.map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 text-[14px] font-[400] leading-[1.7] opacity-[0.80]">
+                    <li key={i} className="flex items-start gap-3 text-[14px] leading-[1.7]" style={{ color: "#cbd5e1" }}>
                       <XIcon />
                       {item}
                     </li>
@@ -110,35 +87,37 @@ export default function QualificationCTA() {
             </div>
           </Reveal>
 
-          {/* Closing line */}
           <Reveal delay={0.1}>
             <div
-              className="border-t border-white/10"
-              style={{ paddingTop: 40, paddingBottom: 40 }}
+              className="border-t pt-10 pb-10"
+              style={{ borderColor: "rgba(30,41,59,0.6)" }}
             >
               <p
-                className="text-center leading-snug"
+                className="text-center font-bold"
                 style={{
-                  fontWeight: 700,
+                  fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
                   color: "#ffffff",
-                  fontSize: "clamp(1rem, 1.4vw, 1.15rem)",
                 }}
               >
                 Serious operators build infrastructure. Everyone else waits for the phone to ring.
               </p>
-              <div className="text-center mt-8">
+              <div className="flex flex-col items-center mt-8">
                 <Link
-                  href="/apply"
-                  className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-base font-semibold transition-all"
-                  style={{
-                    background: "#1e3a5f",
-                    color: "#ffffff",
-                    border: "1px solid #2d5a8e",
-                  }}
+                  href="#book-call"
+                  className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-base font-semibold text-white transition-all duration-200 hover:-translate-y-0.5"
+                  style={{ background: "#f97316" }}
+                  onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
+                  onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
                 >
-                  Apply for Growth Partnership
+                  Book a 20-Minute Diagnostic Call
                   <span aria-hidden>→</span>
                 </Link>
+                <p
+                  className="mt-2 text-center"
+                  style={{ fontSize: "0.875rem", color: "#64748b" }}
+                >
+                  If I cannot move the needle, I will tell you on the call. Before you pay anything.
+                </p>
               </div>
             </div>
           </Reveal>

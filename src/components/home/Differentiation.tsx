@@ -1,15 +1,20 @@
 "use client";
 
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { differentiation } from "@/lib/content";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
+import { prefersReducedMotion } from "@/lib/motion";
 
-/* ─── Inline SVG Icons ─── */
+gsap.registerPlugin(ScrollTrigger);
+
 function XIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M4 4l8 8M12 4l-8 8" stroke="#FF6B6B" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M4 4l8 8M12 4l-8 8" stroke="#64748b" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   );
 }
@@ -17,77 +22,169 @@ function XIcon() {
 function CheckIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" className="shrink-0">
-      <path d="M4 8.5l3 3 5-5.5" stroke="var(--brand-accent)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M4 8.5l3 3 5-5.5" stroke="#f97316" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-export default function Differentiation() {
+function ElevenDaysStat() {
+  const statRef = useRef<HTMLDivElement>(null);
+  const numRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion() || !numRef.current) return;
+
+    const obj = { val: 0 };
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: statRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          gsap.to(obj, {
+            val: 11,
+            duration: 1.5,
+            ease: "power2.out",
+            onUpdate: () => {
+              if (numRef.current) numRef.current.textContent = String(Math.round(obj.val));
+            },
+          });
+        },
+        once: true,
+      });
+    }, statRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <SectionWrapper id="difference" className="bg-sv-base">
+    <div ref={statRef} className="text-center mt-12 mb-4">
+      <div className="inline-flex items-baseline gap-2">
+        <span ref={numRef} className="text-white font-extrabold" style={{ fontSize: "4rem" }}>
+          0
+        </span>
+        <span className="text-white font-bold" style={{ fontSize: "2rem" }}>
+          days
+        </span>
+      </div>
+      <p
+        style={{
+          fontSize: "0.75rem",
+          letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          color: "#f97316",
+          marginTop: 8,
+        }}
+      >
+        MEDIAN FROM SIGNED AGREEMENT TO LIVE SYSTEM
+      </p>
+      <p style={{ fontSize: "0.8rem", color: "#64748b", marginTop: 4 }}>
+        Industry average: 6 to 8 weeks.
+      </p>
+    </div>
+  );
+}
+
+export default function Differentiation() {
+  const tableRef = useRef<HTMLDivElement>(null);
+  const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: tableRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          gsap.fromTo(
+            rowRefs.current.filter(Boolean),
+            { opacity: 0, y: 10 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.4,
+              stagger: 0.25,
+              ease: "power2.out",
+            }
+          );
+        },
+        once: true,
+      });
+    }, tableRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <SectionWrapper id="difference" className="bg-[#0a0f1e]">
       <Reveal className="max-w-2xl mx-auto text-center mb-10 md:mb-12">
-        <SectionLabel label={differentiation.label} className="mb-5" />
+        <SectionLabel label={differentiation.label} className="mb-5 !text-[#f97316]" />
         <h2 className="text-[clamp(34px,4.5vw,52px)] font-[800] text-white leading-[1.15] tracking-[-0.025em] max-w-xl mx-auto">
           {differentiation.headline}
         </h2>
       </Reveal>
 
-      {/* Body paragraphs */}
       <Reveal className="max-w-2xl mx-auto mb-12">
-        <p className="text-[15px] font-[400] leading-[1.8] opacity-[0.68] mb-5">
+        <p className="text-[15px] font-[400] leading-[1.8] mb-5" style={{ color: "#94a3b8" }}>
           An agency will take your $3,000, spend 6 weeks onboarding you, send you a report full of impressions and clicks, and invoice you again while you still wait for the phone to ring.
         </p>
-        <p className="text-[15px] font-[400] leading-[1.8] opacity-[0.68]">
+        <p className="text-[15px] font-[400] leading-[1.8]" style={{ color: "#94a3b8" }}>
           I have one metric: qualified calls on your calendar. If that number is not growing, I have not done my job. That is it. Nothing else counts.
         </p>
       </Reveal>
 
-      {/* ── Desktop Comparison Table — 3 rows only ── */}
       <Reveal delay={0.1} className="hidden md:block">
-        <div className="max-w-4xl mx-auto">
+        <div ref={tableRef} className="max-w-4xl mx-auto">
           <div
-            className="rounded-[14px] border border-[rgba(255,255,255,0.08)] overflow-hidden"
+            className="rounded-[14px] overflow-hidden"
             style={{
-              background: "linear-gradient(180deg, #0F2049 0%, #060D1F 100%)",
+              background: "#0f1729",
+              border: "1px solid #1e293b",
             }}
           >
-            {/* Header */}
-            <div className="grid grid-cols-[1fr_1fr_1fr] border-b border-[rgba(255,255,255,0.06)]" style={{ background: "rgba(255,255,255,0.03)" }}>
-              <div className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-sv-text-muted">
+            <div
+              className="grid grid-cols-[1fr_1fr_1fr] border-b"
+              style={{ borderColor: "#1e293b" }}
+            >
+              <div
+                className="p-5 text-xs font-semibold uppercase tracking-[0.15em]"
+                style={{ color: "#94a3b8" }}
+              >
                 Dimension
               </div>
-              <div className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-sv-danger text-center">
+              <div
+                className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-center"
+                style={{ color: "#64748b" }}
+              >
                 Typical Agency
               </div>
-              <div className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-sv-muted text-center">
+              <div
+                className="p-5 text-xs font-semibold uppercase tracking-[0.15em] text-center"
+                style={{ color: "#f97316" }}
+              >
                 CLIENT GROWTH
               </div>
             </div>
 
-            {/* 3 rows only */}
             {differentiation.comparisons.map((row, i) => (
               <div
                 key={i}
-                className={`grid grid-cols-[1fr_1fr_1fr] ${
-                  i < differentiation.comparisons.length - 1
-                    ? "border-b border-[rgba(255,255,255,0.06)]"
-                    : ""
-                } hover:bg-[rgba(37,99,235,0.04)] transition-colors duration-150`}
+                ref={(el) => { rowRefs.current[i] = el; }}
+                className="grid grid-cols-[1fr_1fr_1fr]"
+                style={{
+                  borderBottom: i < differentiation.comparisons.length - 1 ? "1px solid #1e293b" : undefined,
+                }}
               >
-                <div className="p-5 text-sm font-semibold text-white">
-                  {row.dimension}
-                </div>
-                <div className="p-5 flex items-start gap-2.5 justify-center" style={{ background: "rgba(239,68,68,0.03)" }}>
+                <div className="p-5 text-sm font-semibold text-white">{row.dimension}</div>
+                <div className="p-5 flex items-start gap-2.5 justify-center">
                   <XIcon />
-                  <span className="text-sm font-[400] opacity-[0.55]">
+                  <span className="text-sm font-[400]" style={{ color: "#94a3b8" }}>
                     {row.them}
                   </span>
                 </div>
-                <div className="p-5 flex items-start gap-2.5 justify-center" style={{ background: "rgba(37,99,235,0.04)" }}>
+                <div className="p-5 flex items-start gap-2.5 justify-center">
                   <CheckIcon />
-                  <span className="text-sm font-[600] text-white opacity-[1.0]">
-                    {row.us}
-                  </span>
+                  <span className="text-sm font-[600] text-white">{row.us}</span>
                 </div>
               </div>
             ))}
@@ -95,26 +192,29 @@ export default function Differentiation() {
         </div>
       </Reveal>
 
-      {/* ── Mobile Cards ── */}
       <div className="md:hidden space-y-4 max-w-sm mx-auto">
         {differentiation.comparisons.map((row, i) => (
           <Reveal key={i} delay={0.06 * i}>
-            <div className="rounded-xl border border-[rgba(255,255,255,0.07)] bg-sv-surface p-5">
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-sv-text-muted mb-3">
+            <div
+              className="rounded-xl p-5"
+              style={{ border: "1px solid #1e293b", background: "#0f1729" }}
+            >
+              <p
+                className="text-xs font-semibold uppercase tracking-[0.15em] mb-3"
+                style={{ color: "#94a3b8" }}
+              >
                 {row.dimension}
               </p>
               <div className="space-y-2.5">
                 <div className="flex items-start gap-2">
                   <XIcon />
-                  <span className="text-sm font-[400] opacity-[0.55]">
+                  <span className="text-sm" style={{ color: "#94a3b8" }}>
                     {row.them}
                   </span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckIcon />
-                  <span className="text-sm font-[600] text-white opacity-[1.0]">
-                    {row.us}
-                  </span>
+                  <span className="text-sm font-[600] text-white">{row.us}</span>
                 </div>
               </div>
             </div>
@@ -122,11 +222,8 @@ export default function Differentiation() {
         ))}
       </div>
 
-      {/* Stat line */}
       <Reveal delay={0.2}>
-        <p className="text-sm text-slate-400 text-center mt-6 max-w-2xl mx-auto">
-          Average agency onboarding: 6 to 8 weeks. My median time from signed agreement to live system: 11 days.
-        </p>
+        <ElevenDaysStat />
       </Reveal>
     </SectionWrapper>
   );

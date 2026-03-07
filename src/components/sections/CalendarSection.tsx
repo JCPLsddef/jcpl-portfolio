@@ -37,7 +37,8 @@ export default function CalendarSection() {
     <section
       ref={sectionRef}
       id="book-call"
-      className="bg-[#0A0A0A] pt-20 pb-20 md:pt-[120px] md:pb-[120px]"
+      className="pt-20 pb-20 md:pt-[120px] md:pb-[120px]"
+      style={{ background: "#0a0f1e" }}
     >
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:gap-12 lg:gap-16">
@@ -74,18 +75,29 @@ export default function CalendarSection() {
 
           {/* Right column: notice + calendar */}
           <div className="flex flex-1 flex-col gap-4">
-            {/* Notice box - Designjoy style */}
             <div
-              className="rounded-lg border border-pink-400/30 bg-pink-500/20 px-4 py-3 text-sm text-white/90"
+              className="rounded-lg px-5 py-3 text-sm"
               role="status"
+              style={{
+                background: "rgba(249,115,22,0.12)",
+                border: "1px solid rgba(249,115,22,0.25)",
+                color: "#f97316",
+              }}
             >
               {t<string>("bookCall.notice")}
             </div>
 
-            <div className="relative min-h-[560px] overflow-hidden rounded-[14px] border border-white/[0.08] bg-[#111111] md:min-h-[640px]">
+            <div
+              className="relative min-h-[560px] overflow-hidden rounded-xl p-4 md:min-h-[640px]"
+              style={{
+                background: "#0f1729",
+                border: "1px solid #1e293b",
+              }}
+            >
               {!isVisible ? (
                 <div
-                  className="absolute inset-0 flex h-full min-h-[560px] items-center justify-center bg-[#111111] text-white/70 text-[15px] md:min-h-[640px]"
+                  className="flex h-full min-h-[520px] items-center justify-center text-[15px] md:min-h-[600px]"
+                  style={{ color: "#94a3b8" }}
                   aria-live="polite"
                 >
                   Loading calendar…
@@ -94,7 +106,7 @@ export default function CalendarSection() {
                 <iframe
                   src={CAL_BOOKING_URL}
                   title="Book a call"
-                  className="h-full min-h-[560px] w-full border-0 md:min-h-[640px]"
+                  className="h-full min-h-[520px] w-full border-0 rounded-lg md:min-h-[600px]"
                   style={{ width: "100%", height: "100%" }}
                 />
               )}

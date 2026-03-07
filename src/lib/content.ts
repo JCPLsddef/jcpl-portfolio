@@ -215,7 +215,7 @@ export const growthArchitecture = {
 /* ─── Section E: Featured Case Study ─── */
 export const featuredCase = {
   label: "PROOF",
-  headline: "Real Businesses. Real Revenue.",
+  headline: "$41,085 from $900 in ad spend. Page 1 in under 60 days.",
   slug: "rv-rental-texas",
   client: "RV RENTAL COMPANY, TEXAS",
   result: "$41,084.85",

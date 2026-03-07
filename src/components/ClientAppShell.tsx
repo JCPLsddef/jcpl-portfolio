@@ -4,7 +4,6 @@ import { type ReactNode } from "react";
 import { LocaleProvider } from "@/context/LocaleContext";
 import SmoothScrollProvider from "@/components/ui/SmoothScrollProvider";
 import RouteScrollManager from "@/components/system/RouteScrollManager";
-import SmoothFollower from "@/components/ui/SmoothFollower";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SpeedPopup from "@/components/SpeedPopup";
@@ -27,7 +26,6 @@ export default function ClientAppShell({ children }: { children: ReactNode }) {
     <LocaleProvider>
       <SkipToContent />
       <SmoothScrollProvider>
-        <SmoothFollower />
         <RouteScrollManager />
         <Navbar />
         <main id="main-content" className="min-h-screen">

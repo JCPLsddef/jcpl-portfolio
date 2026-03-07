@@ -15,7 +15,7 @@ const FEATURES = [
   "Weekly optimization loop",
   "Monthly revenue report",
   "Copy engineered to convert",
-  "Full asset ownership — you keep everything",
+  "Full asset ownership. You keep everything.",
 ];
 
 export default function PricingStatement() {
@@ -47,14 +47,13 @@ export default function PricingStatement() {
             className="font-bold text-white"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
           >
-            One partner.{" "}
+            One person.{" "}
             <span
               className="italic"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
             >
-              Serious
-            </span>{" "}
-            results.
+              Full pipeline.
+            </span>
           </h2>
         </AnimatedSection>
 
@@ -80,7 +79,7 @@ export default function PricingStatement() {
               >
                 <Image
                   src="/images/juan.jpg"
-                  alt="Juan — Client Growth founder"
+                  alt="Juan - Client Growth founder"
                   fill
                   className="object-cover"
                   style={{ objectPosition: "center top" }}
@@ -91,111 +90,68 @@ export default function PricingStatement() {
 
               {/* Gradient overlay */}
               <div
-                className="absolute inset-0 pointer-events-none pricing-left-gradient-overlay z-[1]"
+                className="absolute inset-0 pointer-events-none z-[1]"
                 style={{
-                  background: `linear-gradient(
-                    to bottom,
-                    rgba(10, 15, 30, 0.1) 0%,
-                    rgba(10, 15, 30, 0.15) 40%,
-                    rgba(10, 15, 30, 0.85) 75%,
-                    rgba(10, 15, 30, 0.97) 100%
-                  )`,
+                  background: "linear-gradient(to top, rgba(10,15,30,0.9) 0%, transparent 60%)",
                 }}
               />
 
-              {/* Top-left pill badge */}
-              <div
-                className="absolute top-5 left-5 z-[2]"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                  border: "1px solid rgba(255,255,255,0.12)",
-                  color: "rgba(255,255,255,0.7)",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.12em",
-                  borderRadius: 100,
-                  padding: "4px 12px",
-                }}
-              >
-                CLIENT GROWTH
-              </div>
-
-              {/* Content — stacked at bottom */}
+              {/* Content stacked at bottom */}
               <div
                 className="relative z-[2] flex flex-col justify-end p-8"
                 style={{ minHeight: 480 }}
               >
                 <div className="flex flex-col" style={{ paddingTop: 32 }}>
-                  {/* Subline */}
                   <p
                     className="uppercase mb-2"
                     style={{
-                      fontSize: "0.65rem",
+                      fontSize: "0.7rem",
                       letterSpacing: "0.15em",
                       color: "#f97316",
                     }}
                   >
                     BY APPLICATION ONLY
                   </p>
-                  {/* Headline */}
                   <p
                     className="font-extrabold text-white mb-1"
                     style={{
-                      fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)",
+                      fontSize: "clamp(1.4rem, 2.5vw, 1.75rem)",
                       lineHeight: 1.2,
                     }}
                   >
-                    Work directly
-                    <br />
-                    with Juan.
+                    Work directly with Juan.
                   </p>
-                  {/* Subheadline */}
                   <p
                     className="mb-4"
                     style={{
-                      fontSize: "0.8rem",
-                      color: "rgba(255,255,255,0.65)",
+                      fontSize: "0.9rem",
+                      color: "#cbd5e1",
                       lineHeight: 1.5,
                     }}
                   >
-                    No account managers. No handoffs.
-                    <br />
-                    Every system built and owned by me.
+                    No account managers. No handoffs. Every system built and owned by me.
                   </p>
-                  {/* Availability */}
-                  <div
-                    className="flex items-center mb-4"
-                    style={{ gap: 8 }}
-                  >
+                  <div className="flex items-center mb-4" style={{ gap: 8 }}>
                     <span
-                      className="availability-pulse-dot inline-block rounded-full"
+                      className="inline-block rounded-full availability-pulse-dot"
                       style={{
                         width: 8,
                         height: 8,
                         backgroundColor: "#22c55e",
                       }}
                     />
-                    <span
-                      className="font-semibold"
-                      style={{
-                        fontSize: "0.85rem",
-                        color: "#86efac",
-                      }}
-                    >
+                    <span style={{ fontSize: "0.85rem", color: "#94a3b8" }}>
                       1 partnership spot open
                     </span>
                   </div>
-                  {/* CTA */}
                   <Link
-                    href="/apply"
-                    className="pricing-left-cta-shine flex items-center justify-center w-full rounded-lg font-bold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
-                    style={{
-                      backgroundColor: "#f97316",
-                      padding: "14px 24px",
-                    }}
+                    href="#book-call"
+                    className="flex items-center justify-center w-full rounded-lg font-semibold text-white transition-all duration-200 py-4 hover:-translate-y-0.5"
+                    style={{ backgroundColor: "#f97316" }}
+                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
+                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
                   >
-                    Apply for a Partnership →
+                    Book a 20-Minute Diagnostic Call →
                   </Link>
                 </div>
               </div>
@@ -216,27 +172,22 @@ export default function PricingStatement() {
                 border: "1px solid #1e293b",
               }}
             >
-              <div className="flex justify-end mb-4">
-                <span
-                  className="text-[0.6rem] uppercase"
-                  style={{
-                    letterSpacing: "0.1em",
-                    color: "#64748b",
-                    border: "1px solid #1e293b",
-                    borderRadius: 4,
-                    padding: "3px 8px",
-                  }}
-                >
-                  BY APPLICATION ONLY
-                </span>
-              </div>
+              <p
+                className="uppercase mb-4"
+                style={{
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.1em",
+                  color: "#f97316",
+                }}
+              >
+                BY APPLICATION ONLY
+              </p>
 
               <h3
-                className="mb-6"
+                className="mb-6 text-white"
                 style={{
-                  fontSize: "1.1rem",
-                  color: "#94a3b8",
-                  fontWeight: 500,
+                  fontSize: "1.25rem",
+                  fontWeight: 600,
                 }}
               >
                 Growth Partnership
@@ -274,14 +225,12 @@ export default function PricingStatement() {
               </p>
 
               <span
-                className="inline-block uppercase mb-3"
+                className="inline-block uppercase mb-3 rounded-full px-3 py-1"
                 style={{
-                  fontSize: "0.65rem",
+                  fontSize: "0.7rem",
                   letterSpacing: "0.08em",
-                  background: "#1e3a5f",
-                  color: "#93c5fd",
-                  borderRadius: 4,
-                  padding: "3px 10px",
+                  background: "#131d35",
+                  color: "#f97316",
                   width: "fit-content",
                 }}
               >
@@ -311,8 +260,10 @@ export default function PricingStatement() {
               <div className="mt-auto space-y-2">
                 <Link
                   href="/apply"
-                  className="pricing-cta-shine flex items-center justify-center w-full py-4 rounded-lg font-bold text-white text-base transition-all duration-300 hover:bg-[#ea6c0a] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(249,115,22,0.3)]"
+                  className="flex items-center justify-center w-full py-4 rounded-lg font-semibold text-white text-base transition-all duration-200 hover:-translate-y-0.5"
                   style={{ backgroundColor: "#f97316" }}
+                  onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
+                  onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
                 >
                   Apply for Growth Partnership →
                 </Link>
@@ -360,8 +311,7 @@ export default function PricingStatement() {
             <p
               style={{ fontSize: "0.8rem", color: "#64748b" }}
             >
-              I&apos;ll tell you on the call if I can&apos;t move the needle —
-              before you pay anything.
+              I will tell you on the call if I cannot move the needle. Before you pay anything.
             </p>
           </div>
         </div>

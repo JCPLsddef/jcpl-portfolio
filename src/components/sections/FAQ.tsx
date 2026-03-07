@@ -15,9 +15,10 @@ function ChevronIcon({ open }: { open: boolean }) {
     <ChevronDown
       aria-hidden
       className={cn(
-        "w-5 h-5 shrink-0 text-sv-text-muted transition-transform duration-200",
+        "w-5 h-5 shrink-0 transition-transform duration-200",
         open && "rotate-180"
       )}
+      style={{ color: "#64748b" }}
     />
   );
 }
@@ -60,7 +61,7 @@ export default function FAQ() {
     : [faqBooking.heading];
 
   return (
-    <SectionWrapper id="faq" variant="alt" className="py-16 md:py-24">
+    <SectionWrapper id="faq" variant="alt" className="py-16 md:py-24 !bg-[#0a0f1e]">
       <div className="max-w-[1200px] mx-auto flex flex-col gap-10 lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:gap-14">
         {/* Mobile: order 1=heading, 2=CTA, 3=accordion. Desktop: left col=heading+accordion, right col=CTA */}
         {/* Block 1: Heading + supporting */}
@@ -70,14 +71,14 @@ export default function FAQ() {
               {headlineItalic ? (
                 <>
                   {headingParts[0]}
-                  <em>{headlineItalic}</em>
+                  <em style={{ color: "#f97316" }}>{headlineItalic}</em>
                   {headingParts[1] ?? ""}
                 </>
               ) : (
                 faqBooking.heading
               )}
             </h2>
-            <p className="text-[16px] md:text-[17px] text-sv-text-sub leading-[1.5] mb-8 lg:mb-0">
+            <p className="text-[16px] md:text-[17px] leading-[1.5] mb-8 lg:mb-0" style={{ color: "#94a3b8" }}>
               {faqBooking.supportingLine}
             </p>
           </Reveal>
@@ -92,7 +93,7 @@ export default function FAQ() {
             buttonHref="#book-call"
             emailLabel={faqBooking.ctaEmailLabel}
             email={faqBooking.ctaEmail}
-            riskReversalText="If I cannot move the needle, I will tell you on the call — before you pay anything."
+            riskReversalText="If I cannot move the needle, I will tell you on the call. Before you pay anything."
           />
         </Reveal>
 
@@ -105,7 +106,8 @@ export default function FAQ() {
                 <Reveal key={i} delay={0.02 * i}>
                   <div
                     role="listitem"
-                    className="border-b border-white/10"
+                    className="border-b"
+                    style={{ borderColor: "#1e293b" }}
                   >
                     <button
                       type="button"
@@ -115,7 +117,7 @@ export default function FAQ() {
                       aria-expanded={isOpen}
                       aria-controls={`faq-answer-${i}`}
                     >
-                      <span className="text-[15px] md:text-[16px] font-[500] text-white group-hover:text-sv-primary transition-colors pr-4">
+                      <span className="text-[15px] md:text-[16px] font-[500] text-white pr-4 transition-colors" style={{ color: "#ffffff" }}>
                         {item.question}
                       </span>
                       <ChevronIcon open={isOpen} />
@@ -135,7 +137,7 @@ export default function FAQ() {
                           className="overflow-hidden"
                         >
                           <div className="pb-4 md:pb-5 pr-8">
-                            <p className="text-[14px] md:text-[15px] text-sv-text-sub leading-[1.7]">
+                            <p className="text-[14px] md:text-[15px] leading-[1.7]" style={{ color: "#cbd5e1" }}>
                               {item.answer}
                             </p>
                           </div>

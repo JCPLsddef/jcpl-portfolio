@@ -1,200 +1,180 @@
 "use client";
 
-import { featuredCase } from "@/lib/content";
+import { useRef, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
 import CountUpValue from "@/components/motion/CountUpValue";
 import Link from "next/link";
+import { prefersReducedMotion } from "@/lib/motion";
 
-const subStats = [
-	{ value: "$900", label: "AD SPEND", sub: "Total campaign spend" },
-	{
-		value: "46x",
-		label: "RETURN ON AD SPEND",
-		sub: "$46 back for every $1 spent",
-	},
-	{ value: "30", label: "DAYS TO REVENUE", sub: "Calendar days from launch" },
-];
+gsap.registerPlugin(ScrollTrigger);
+
+function CountUpRevenue({ to, prefix = "" }: { to: number; prefix?: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion() || !ref.current) return;
+
+    const obj = { val: 0 };
+    const ctx = gsap.context(() => {
+      ScrollTrigger.create({
+        trigger: ref.current,
+        start: "top 80%",
+        onEnter: () => {
+          gsap.to(obj, {
+            val: to,
+            duration: 1.5,
+            ease: "power2.out",
+            onUpdate: () => {
+              if (ref.current) ref.current.textContent = prefix + Math.round(obj.val).toLocaleString();
+            },
+          });
+        },
+        once: true,
+      });
+    }, ref);
+
+    return () => ctx.revert();
+  }, [to, prefix]);
+
+  return <span ref={ref}>{prefix}0</span>;
+}
 
 const stats2 = [
-	{
-		label: "LOCAL SEO",
-		value: "Page 1",
-		sub: "Under 60 days. Competitive TX market. Painting contractor.",
-	},
-	{
-		label: "COST PER LEAD",
-		value: "$27",
-		sub: "Avg cost per qualified inbound call. All active accounts. Q4 2025.",
-	},
-	{
-		label: "TIME TO FIRST CALL",
-		value: "11 days",
-		sub: "Median across all clients and niches.",
-	},
+  { label: "LOCAL SEO", value: "Page 1", sub: "Under 60 days. Competitive TX market. Painting contractor." },
+  { label: "COST PER LEAD", value: "$27", sub: "Avg cost per qualified inbound call. All active accounts. Q4 2025." },
+  { label: "TIME TO FIRST CALL", value: "11 days", sub: "Median across all clients and niches." },
 ];
 
 export default function FeaturedCaseStudy() {
-	return (
-		<SectionWrapper id="proof" className="bg-sv-base">
-			<Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
-				<SectionLabel label={featuredCase.label} className="mb-5" />
-				<h2 className="text-[clamp(56px,7vw,80px)] font-[800] text-white leading-[1.0] tracking-[-0.03em] max-w-xl mx-auto">
-					{featuredCase.headline}
-				</h2>
-			</Reveal>
+  return (
+    <SectionWrapper id="proof" className="bg-[#0a0f1e]">
+      <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
+        <SectionLabel label="PROOF" className="mb-5 !text-[#f97316]" />
+        <h2 className="text-[clamp(32px,5vw,48px)] font-[800] leading-[1.15] tracking-[-0.03em] max-w-2xl mx-auto">
+          <span className="text-white font-bold">
+            $41,085 from $900 in ad spend.
+          </span>{" "}
+          <span className="italic" style={{ fontFamily: "var(--font-playfair), Georgia, serif", color: "#94a3b8" }}>
+            Page 1 in under 60 days.
+          </span>
+        </h2>
+      </Reveal>
 
-			{/* Hero Proof Card */}
-			<Reveal delay={0.1}>
-				<div className="max-w-3xl mx-auto">
-					<div className="bg-sv-surface border border-[rgba(37,99,235,0.3)] rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 relative overflow-hidden">
-						{/* Tag label */}
-						<p className="text-[11px] uppercase tracking-[0.16em] text-sv-text-muted mb-5">
-							RV RENTAL COMPANY&nbsp; /&nbsp; TEXAS&nbsp; /&nbsp; GOOGLE ADS
-						</p>
+      {/* Triple W Rentals - revenue story */}
+      <Reveal delay={0.1}>
+        <div className="max-w-3xl mx-auto mb-8">
+          <div
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden"
+            style={{
+              background: "#0f1729",
+              border: "1px solid #1e293b",
+              borderTop: "3px solid #f97316",
+            }}
+          >
+            <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: "#64748b", textTransform: "uppercase", marginBottom: 16 }}>
+              RV RENTAL · TEXAS · GOOGLE ADS
+            </p>
+            <div className="text-white font-extrabold mb-2" style={{ fontSize: "5rem", lineHeight: 1 }}>
+              <CountUpRevenue to={41085} prefix="$" />
+            </div>
+            <p style={{ fontSize: "1rem", color: "#94a3b8", marginBottom: 24 }}>
+              in revenue. First 30 days.
+            </p>
+            <div className="flex gap-8 mb-6">
+              <div className="text-center">
+                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>$900</span>
+                <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>AD SPEND</p>
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>46x</span>
+                <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>RETURN</p>
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>30</span>
+                <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>DAYS</p>
+              </div>
+            </div>
+            <div style={{ marginTop: 24, borderRadius: 8, overflow: "hidden", border: "1px solid rgba(255,255,255,0.07)" }}>
+              <img
+                src="/images/proof/triplew-ads-dashboard.png"
+                alt="Google Ads dashboard, Triple W Rentals campaign"
+                style={{ width: "100%", display: "block", opacity: 0.9 }}
+                onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = "none"; }}
+              />
+            </div>
+            <p style={{ fontSize: "0.7rem", color: "#64748b", marginTop: 12 }}>
+              Every $1 in ad spend returned $46 in revenue. Live account. Last verified February 2026.
+            </p>
+          </div>
+        </div>
+      </Reveal>
 
-						<div className="flex flex-col md:flex-row gap-8 items-start">
-							{/* Left — numbers */}
-							<div className="flex-1">
-								<div className="proof-metric text-white mb-2">
-									<CountUpValue to={41084.85} prefix="$" durationMs={1400} />
-								</div>
-								<p className="text-[16px] font-[500] opacity-[0.80] mb-3">
-									in revenue. First 30 days.
-								</p>
+      {/* Absolute Painting - ranking story */}
+      <Reveal delay={0.15}>
+        <div className="max-w-3xl mx-auto">
+          <div
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden"
+            style={{
+              background: "#0f1729",
+              border: "1px solid #1e293b",
+            }}
+          >
+            <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: "#64748b", textTransform: "uppercase", marginBottom: 16 }}>
+              PAINTING CONTRACTOR · TEXAS · GOOGLE ADS + SEO
+            </p>
+            <div className="text-white font-extrabold mb-1" style={{ fontSize: "5rem", lineHeight: 1 }}>
+              Page 1
+            </div>
+            <p style={{ fontSize: "1rem", color: "#94a3b8", marginBottom: 24 }}>
+              in under 60 days.
+            </p>
+            <p style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 600, marginBottom: 24 }}>
+              <CountUpValue to={27} prefix="$" durationMs={1400} /> per qualified inbound call
+            </p>
+            <p style={{ fontSize: "0.85rem", color: "#94a3b8", fontStyle: "italic" }}>
+              Competitive DFW painting market. Ranking above national lead gen sites. Last verified Q4 2025.
+            </p>
+          </div>
+        </div>
+      </Reveal>
 
-								{/* Dashboard screenshot */}
-								<div style={{
-									marginTop: '24px', borderRadius: '8px', overflow: 'hidden',
-									border: '1px solid rgba(255,255,255,0.07)'
-								}}>
-									<img
-										src="/images/proof/triplew-ads-dashboard.png"
-										alt="Google Ads dashboard — Triple W Rentals campaign"
-										style={{ width: '100%', display: 'block', opacity: 0.90 }}
-										onError={(e) => { (e.currentTarget.parentElement as HTMLDivElement).style.display = 'none'; }}
-									/>
-								</div>
-								<p className="text-[11px] font-[500] opacity-[0.42] tracking-[0.08em] uppercase mb-6">
-									$900 IN AD SPEND&nbsp;·&nbsp;GOOGLE ADS FUNNEL&nbsp;·&nbsp;30 DAYS
-								</p>
+      <Reveal delay={0.2} className="mt-10">
+        <div className="text-center">
+          <Link
+            href="/results"
+            className="inline-block hover:underline"
+            style={{ color: "#94a3b8", fontSize: "0.9rem" }}
+          >
+            See all case studies →
+          </Link>
+        </div>
+      </Reveal>
 
-								{/* Divider */}
-								<div
-									className="h-px max-w-xs mb-6"
-									style={{
-										background:
-											"linear-gradient(90deg, transparent, rgba(255,255,255,0.07), transparent)",
-									}}
-									aria-hidden="true"
-								/>
-
-								{/* Sub stats row 1 */}
-								<div className="flex gap-6 sm:gap-10 mb-4">
-									{subStats.map((s) => (
-										<div key={s.label} className="text-center">
-											<div className="text-[52px] font-[900] tracking-[-0.02em]">
-												{s.value}
-											</div>
-											<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">
-												{s.label}
-											</div>
-										</div>
-									))}
-								</div>
-
-								{/* Callout */}
-								<p className="text-[14px] text-sv-muted font-semibold mb-6">
-									Every $1 in ad spend returned $46 in revenue. Live account. Last
-									verified February 2026.
-								</p>
-
-								{/* CTA */}
-								<div className="w-full text-center">
-									<Link
-										href="/results"
-										className="inline-block hover:underline"
-										style={{ color: "#94a3b8", fontSize: "0.85rem" }}
-									>
-										See all case studies →
-									</Link>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</Reveal>
-
-			{/* Second Case Study Card — Painting Contractor */}
-			<Reveal delay={0.15}>
-				<div className="max-w-3xl mx-auto mt-8">
-					<div className="bg-sv-surface border border-[rgba(37,99,235,0.3)] rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 relative overflow-hidden">
-						<p className="text-[11px] uppercase tracking-[0.16em] text-sv-text-muted mb-5">
-							PAINTING CONTRACTOR&nbsp; /&nbsp; TEXAS&nbsp; /&nbsp; GOOGLE ADS + SEO
-						</p>
-
-						<p className="text-[18px] font-[600] text-white mb-2">
-							Page 1 ranking under 60 days
-						</p>
-
-						<p className="text-[16px] font-[500] opacity-[0.80] mb-3">
-							$27 per qualified inbound call
-						</p>
-						<p className="text-[13px] opacity-[0.65] mb-6">
-							Average cost per qualified inbound call. Active account.
-						</p>
-
-						{/* Metrics row */}
-						<div className="flex gap-6 sm:gap-10 mb-6">
-							<div className="text-center">
-								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">$27</div>
-								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">COST PER CALL</div>
-							</div>
-							<div className="text-center">
-								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">Page 1</div>
-								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">LOCAL SEO RANK</div>
-							</div>
-							<div className="text-center">
-								<div className="text-[52px] font-[900] tracking-[-0.02em] text-white">60 days</div>
-								<div className="text-[10px] uppercase tracking-[0.14em] text-sv-text-muted mt-0.5">TIME TO RANK</div>
-							</div>
-						</div>
-
-						<p className="text-[14px] text-sv-muted font-semibold mb-6 italic">
-							Competitive DFW painting market. Ranking above national lead gen sites. Last verified Q4 2025.
-						</p>
-
-						<div className="text-center">
-							<Link
-								href="/results"
-								className="inline-block hover:underline"
-								style={{ color: "#94a3b8", fontSize: "0.85rem" }}
-							>
-								See all case studies →
-							</Link>
-						</div>
-					</div>
-				</div>
-			</Reveal>
-
-			{/* Stats Row 2 */}
-			<Reveal delay={0.2}>
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto">
-					{stats2.map(({ label, value, sub }) => (
-						<div
-							key={label}
-							className="bg-slate-800/50 border border-slate-700 rounded-xl p-6"
-						>
-							<p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-blue-400 mb-2">
-								{label}
-							</p>
-							<p className="text-3xl font-bold text-white">{value}</p>
-							<p className="text-sm text-slate-400 mt-2">{sub}</p>
-						</div>
-					))}
-				</div>
-			</Reveal>
-		</SectionWrapper>
-	);
+      {/* Aggregate stats */}
+      <Reveal delay={0.25}>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-4xl mx-auto">
+          {stats2.map(({ label, value, sub }) => (
+            <div
+              key={label}
+              className="rounded-xl p-6"
+              style={{
+                background: "#0f1729",
+                border: "1px solid #1e293b",
+              }}
+            >
+              <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#f97316", textTransform: "uppercase", marginBottom: 8 }}>
+                {label}
+              </p>
+              <p className="text-3xl font-bold text-white">{value}</p>
+              <p style={{ fontSize: "0.875rem", color: "#94a3b8", marginTop: 8 }}>{sub}</p>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+    </SectionWrapper>
+  );
 }

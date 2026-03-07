@@ -16,11 +16,17 @@ export default function FounderBlock() {
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 md:items-center">
-          {/* Left column: photo */}
-          <div className="relative aspect-[4/5] max-w-sm mx-auto md:mx-0 overflow-hidden rounded-xl">
+          {/* TODO: add founder photo at /public/images/juan.jpg */}
+          <div
+            className="relative aspect-[4/5] max-w-sm mx-auto md:mx-0 overflow-hidden"
+            style={{
+              borderRadius: 12,
+              border: "1px solid rgba(30,41,59,0.5)",
+            }}
+          >
             <Image
               src="/images/juan.jpg"
-              alt="Juan — Client Growth"
+              alt="Juan - Client Growth"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 400px"
@@ -30,7 +36,8 @@ export default function FounderBlock() {
                 const parent = target.parentElement;
                 if (parent) {
                   const fallback = document.createElement("div");
-                  fallback.className = "absolute inset-0 bg-slate-800 flex items-center justify-center text-slate-500 text-sm";
+                  fallback.className = "absolute inset-0 flex items-center justify-center text-slate-500 text-sm";
+                  fallback.style.background = "#0a0f1e";
                   fallback.textContent = "Juan";
                   parent.appendChild(fallback);
                 }
@@ -38,7 +45,6 @@ export default function FounderBlock() {
             />
           </div>
 
-          {/* Right column: content */}
           <div>
             <p
               className="uppercase mb-3"
@@ -51,30 +57,58 @@ export default function FounderBlock() {
               WHO BUILDS THIS
             </p>
 
-            <p className="text-white/90 leading-[1.75] text-[15px] md:text-[16px] mb-6">
-              I&apos;m Juan. I run Client Growth solo and take 3 clients at a time.
-              Not because of artificial scarcity — because more than that and the
-              weekly attention each system needs to compound gets diluted. I will
-              not do that to your business.
+            <p
+              className="text-white font-bold mb-4"
+              style={{ fontSize: "1.5rem", lineHeight: 1.4 }}
+            >
+              I run Client Growth solo. Three clients at a time.
             </p>
 
-            <p className="text-white/90 leading-[1.75] text-[15px] md:text-[16px] mb-8">
-              Every system I build, I own from the diagnostic call to the first
-              booked call. No junior staff. No account managers. No handoffs. You
-              work directly with me, every week.
+            <p
+              className="mb-6"
+              style={{
+                fontSize: "1rem",
+                color: "#cbd5e1",
+                lineHeight: 1.75,
+              }}
+            >
+              Not because of artificial scarcity, but because every system I build gets my direct attention every single week. No junior staff touches your account. No account manager sits between us. When something breaks at 9 PM on a Tuesday, I fix it that night.
             </p>
 
-            {/* Trust badges */}
+            <p
+              className="mb-8"
+              style={{
+                fontSize: "1rem",
+                color: "#cbd5e1",
+                lineHeight: 1.75,
+              }}
+            >
+              Every system I build, I own from the diagnostic call to the first booked call. No handoffs. You work directly with me, every week.
+            </p>
+
+            <p
+              className="mb-8"
+              style={{
+                fontSize: "1rem",
+                color: "#cbd5e1",
+                lineHeight: 1.75,
+              }}
+            >
+              That is not a limitation of my size. It is the entire point.
+            </p>
+
             <div className="flex flex-wrap gap-2" style={{ gap: 8 }}>
               {BADGES.map((badge) => (
                 <span
                   key={badge}
-                  className="inline-block rounded"
+                  className="inline-block rounded-md"
                   style={{
-                    background: "#1e3a5f",
-                    color: "#93c5fd",
-                    fontSize: "0.65rem",
-                    padding: "4px 10px",
+                    background: "#131d35",
+                    border: "1px solid #1e293b",
+                    borderLeft: "3px solid #f97316",
+                    color: "#cbd5e1",
+                    fontSize: "0.8rem",
+                    padding: "8px 16px",
                   }}
                 >
                   {badge}

@@ -7,18 +7,6 @@ import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
 
-/* ═══════════════════════════════════════════════════
-   COPY — DOMINATE style, institutional authority
-   ═══════════════════════════════════════════════════ */
-const CTA_PRIMARY = {
-	label: "Apply. I'll review you in 24h.",
-	href: "/apply",
-};
-
-/* ═══════════════════════════════════════════════════
-   COMPONENT — Command Bridge Hero
-   3 Layers: WebGL BG → Readability overlay → Content
-   ═══════════════════════════════════════════════════ */
 export default function Hero() {
 	const sectionRef = useRef<HTMLElement>(null);
 	const frameRef = useRef<HTMLDivElement>(null);
@@ -27,7 +15,6 @@ export default function Hero() {
 	const bgLayerRef = useRef<HTMLDivElement>(null);
 	const contentLayerRef = useRef<HTMLDivElement>(null);
 
-	/* ── Mousemove parallax (bg: 6px, content: 3px) ── */
 	const handleMouseMove = useCallback((e: MouseEvent) => {
 		if (prefersReducedMotion()) return;
 		const cx = (e.clientX / window.innerWidth - 0.5) * 2;
@@ -58,124 +45,135 @@ export default function Hero() {
 		return () => window.removeEventListener("mousemove", handleMouseMove);
 	}, [handleMouseMove]);
 
-	/* ── GSAP cinematic entrance timeline ── */
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
-
-		const allEls = [frameRef.current, headlineRef.current, ctaRef.current].filter(Boolean);
+		const allEls = [headlineRef.current, ctaRef.current].filter(Boolean);
 
 		if (reduced) {
 			allEls.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
 			return;
 		}
 
-		const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+		const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-		// 1. Frame rises in (0.8s)
 		if (frameRef.current) {
+			gsap.set(frameRef.current, { opacity: 1 });
+		}
+
+		if (headlineRef.current) {
 			tl.fromTo(
-				frameRef.current,
-				{ opacity: 0, y: 30 },
+				headlineRef.current,
+				{ opacity: 0, y: 20 },
 				{ opacity: 1, y: 0, duration: 0.8 },
 				0
 			);
 		}
 
-		// 2. Headline fades in
-		if (headlineRef.current) {
-			tl.fromTo(
-				headlineRef.current,
-				{ opacity: 0, y: 40 },
-				{ opacity: 1, y: 0, duration: 0.8 },
-				0.4
-			);
-		}
-
-		// 3. CTA appears last
 		if (ctaRef.current) {
 			tl.fromTo(
 				ctaRef.current,
-				{ opacity: 0, y: 16 },
-				{ opacity: 1, y: 0, duration: 0.55 },
-				0.9
+				{ opacity: 0 },
+				{ opacity: 1, duration: 0.5 },
+				0.3
 			);
 		}
 
-		return () => {
-			tl.kill();
-		};
+		return () => { tl.kill(); };
 	}, []);
 
 	return (
 		<section
 			ref={sectionRef}
 			className="cb"
-			aria-label="Hero — Growth Systems"
+			aria-label="Hero - Growth Infrastructure"
+			style={{ minHeight: "90vh" }}
 		>
-			{/* Ambient drift */}
 			<div className="cb-ambient" aria-hidden="true" />
 
-			{/* HERO — full-bleed WebGL + content layers */}
-			<div ref={frameRef} className={`cb-frame ${styles.frame}`} style={{ opacity: 0 }}>
-
-				{/* LAYER 1 — WebGL background */}
+			<div ref={frameRef} className={`cb-frame ${styles.frame}`}>
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
 					<HeroWebGLBackground />
 				</div>
-
-				{/* LAYER 2 — Readability overlays */}
 				<div className="cb-layer cb-overlay-top" aria-hidden="true" />
 				<div className="cb-layer cb-overlay-vignette" aria-hidden="true" />
 				<div className="cb-layer cb-grain" aria-hidden="true" />
 
-				{/* LAYER 3 — Content */}
 				<div ref={contentLayerRef} className="cb-content-wrap">
-					<div className="cb-content">
-
-						{/* Static headline — DOMINATE style */}
-						<h1 ref={headlineRef} className="cb-headline cb-headline-static" style={{ opacity: 0 }}>
-							Dominate Your Market
-						</h1>
-
-						{/* Static subheadline — always visible */}
+					<div className="cb-content" style={{ maxWidth: 720 }}>
 						<p
-							className="cb-subheadline"
 							style={{
-								fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
-								color: "#94a3b8",
-								maxWidth: 600,
-								margin: "16px auto 24px",
-								textAlign: "center",
-								lineHeight: 1.5,
+								fontSize: "0.7rem",
+								letterSpacing: "0.15em",
+								textTransform: "uppercase",
+								color: "#f97316",
+								margin: 0,
+								marginBottom: 12,
 							}}
 						>
-							The growth infrastructure local service businesses use to stop
-							waiting for referrals and start owning their market.
+							GROWTH INFRASTRUCTURE FOR LOCAL SERVICE BUSINESSES
 						</p>
 
-						{/* CTA */}
+						<p
+							style={{
+								fontSize: "0.9rem",
+								color: "#64748b",
+								margin: "0 0 16px",
+							}}
+						>
+							You got my email. Here is the proof behind it.
+						</p>
+
+						<h1
+							ref={headlineRef}
+							className="cb-headline"
+							style={{
+								opacity: 0,
+								fontSize: "clamp(2rem, 5vw, 3rem)",
+								fontWeight: 700,
+								color: "#ffffff",
+								lineHeight: 1.2,
+								marginBottom: 16,
+							}}
+						>
+							$41,085 in revenue from $900 in ad spend. In 30 days.
+						</h1>
+
+						<p
+							style={{
+								fontSize: "1.125rem",
+								color: "#94a3b8",
+								maxWidth: 640,
+								margin: "0 auto 24px",
+								textAlign: "center",
+								lineHeight: 1.6,
+							}}
+						>
+							I build the full growth system: site, ads, SEO, call tracking. So
+							local service businesses stop paying for clicks and start getting
+							booked calls. One person. One pipeline.
+						</p>
+
 						<div ref={ctaRef} className="cb-cta-wrap" style={{ opacity: 0 }}>
-							<a href={CTA_PRIMARY.href} className="cb-cta cb-cta--primary">
-								{CTA_PRIMARY.label}
+							<a href="#book-call" className="cb-cta cb-cta--primary">
+								Book a 20-Minute Diagnostic Call
 								<span className="cb-cta-arrow" aria-hidden="true">→</span>
 							</a>
 							<p
 								className="cb-microtrust"
 								style={{
-									fontSize: "0.75rem",
+									fontSize: "0.875rem",
 									color: "#64748b",
 									textAlign: "center",
-									marginTop: 12,
+									marginTop: 8,
 									marginBottom: 0,
 								}}
 							>
-								If I cannot move the needle, I will tell you on the call — before you pay anything.
+								If I cannot move the needle, I will tell you on the call. Before
+								you pay anything.
 							</p>
 						</div>
-
 					</div>
 				</div>
-
 			</div>
 		</section>
 	);
