@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import { Check, Calendar, ShieldCheck } from "lucide-react";
 
@@ -16,10 +18,9 @@ const FEATURES = [
   "Full asset ownership — you keep everything",
 ];
 
-const FOUNDER_IMAGE =
-  "https://static.wixstatic.com/media/62f926_880aac26b23148b180643d3682eadd6b~mv2.jpeg";
-
 export default function PricingStatement() {
+  const leftCardRef = useRef<HTMLDivElement>(null);
+  const leftCardInView = useInView(leftCardRef, { once: true, margin: "-80px" });
   return (
     <section
       className="px-4"
@@ -46,81 +47,156 @@ export default function PricingStatement() {
             className="font-bold text-white"
             style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}
           >
-            One partnership.{" "}
+            One partner.{" "}
             <span
               className="italic"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
             >
-              Serious results.
-            </span>
+              Serious
+            </span>{" "}
+            results.
           </h2>
         </AnimatedSection>
 
         <div className="flex flex-col md:flex-row gap-6 mb-12">
-          {/* Left card — Visual/emotional */}
+          {/* Left card — Premium membership / exclusive access */}
           <AnimatedSection
             direction="left"
             delay={0}
             className="flex-1 min-w-0"
           >
             <div
-              className="relative rounded-2xl overflow-hidden pricing-gradient-mesh"
+              ref={leftCardRef}
+              className="relative rounded-2xl overflow-hidden pricing-left-card"
               style={{ minHeight: 480 }}
             >
-              {/* Grain overlay */}
+              {/* Full-bleed background image with Ken Burns effect */}
+              <motion.div
+                className="absolute inset-0 pricing-left-bg-image"
+                initial={{ scale: 1.05 }}
+                animate={leftCardInView ? { scale: 1 } : { scale: 1.05 }}
+                transition={{ duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
+                style={{ willChange: "transform" }}
+              >
+                <Image
+                  src="/images/juan.jpg"
+                  alt="Juan — Client Growth founder"
+                  fill
+                  className="object-cover"
+                  style={{ objectPosition: "center top" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+              </motion.div>
+
+              {/* Gradient overlay */}
               <div
-                className="absolute inset-0 pointer-events-none z-10"
+                className="absolute inset-0 pointer-events-none pricing-left-gradient-overlay z-[1]"
                 style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
-                  opacity: 0.04,
+                  background: `linear-gradient(
+                    to bottom,
+                    rgba(10, 15, 30, 0.1) 0%,
+                    rgba(10, 15, 30, 0.15) 40%,
+                    rgba(10, 15, 30, 0.85) 75%,
+                    rgba(10, 15, 30, 0.97) 100%
+                  )`,
                 }}
               />
 
-              <div className="relative z-0 p-6 md:p-8 flex flex-col items-center">
-                <div className="relative w-32 h-44 md:w-40 md:h-52 shrink-0 mb-6 pricing-float-photo">
-                  <div
-                    className="relative w-full h-full"
-                    style={{ transform: "rotate(2deg)" }}
+              {/* Top-left pill badge */}
+              <div
+                className="absolute top-5 left-5 z-[2]"
+                style={{
+                  background: "rgba(255,255,255,0.08)",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  color: "rgba(255,255,255,0.7)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.12em",
+                  borderRadius: 100,
+                  padding: "4px 12px",
+                }}
+              >
+                CLIENT GROWTH
+              </div>
+
+              {/* Content — stacked at bottom */}
+              <div
+                className="relative z-[2] flex flex-col justify-end p-8"
+                style={{ minHeight: 480 }}
+              >
+                <div className="flex flex-col" style={{ paddingTop: 32 }}>
+                  {/* Subline */}
+                  <p
+                    className="uppercase mb-2"
+                    style={{
+                      fontSize: "0.65rem",
+                      letterSpacing: "0.15em",
+                      color: "#f97316",
+                    }}
                   >
-                    <Image
-                      src={FOUNDER_IMAGE}
-                      alt="Juan — Client Growth founder"
-                      fill
-                      className="object-cover rounded-lg"
-                      sizes="160px"
+                    BY APPLICATION ONLY
+                  </p>
+                  {/* Headline */}
+                  <p
+                    className="font-extrabold text-white mb-1"
+                    style={{
+                      fontSize: "clamp(1.4rem, 2.5vw, 1.8rem)",
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    Work directly
+                    <br />
+                    with Juan.
+                  </p>
+                  {/* Subheadline */}
+                  <p
+                    className="mb-4"
+                    style={{
+                      fontSize: "0.8rem",
+                      color: "rgba(255,255,255,0.65)",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    No account managers. No handoffs.
+                    <br />
+                    Every system built and owned by me.
+                  </p>
+                  {/* Availability */}
+                  <div
+                    className="flex items-center mb-4"
+                    style={{ gap: 8 }}
+                  >
+                    <span
+                      className="availability-pulse-dot inline-block rounded-full"
                       style={{
-                        boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
+                        width: 8,
+                        height: 8,
+                        backgroundColor: "#22c55e",
                       }}
                     />
+                    <span
+                      className="font-semibold"
+                      style={{
+                        fontSize: "0.85rem",
+                        color: "#86efac",
+                      }}
+                    >
+                      1 partnership spot open
+                    </span>
                   </div>
-                </div>
-                <p
-                  className="uppercase mb-1"
-                  style={{
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.1em",
-                    color: "#f97316",
-                  }}
-                >
-                  Apply today
-                </p>
-                <p
-                  className="font-bold text-white mb-2"
-                  style={{ fontSize: "2rem" }}
-                >
-                  Join Client Growth
-                </p>
-                <div className="flex items-center gap-2">
-                  <span
-                    className="inline-block w-2 h-2 rounded-full availability-pulse-dot"
-                    style={{ backgroundColor: "#86efac" }}
-                  />
-                  <span
-                    className="font-semibold"
-                    style={{ fontSize: "0.8rem", color: "#86efac" }}
+                  {/* CTA */}
+                  <Link
+                    href="/apply"
+                    className="pricing-left-cta-shine flex items-center justify-center w-full rounded-lg font-bold text-white transition-all duration-300 hover:brightness-110 hover:-translate-y-0.5"
+                    style={{
+                      backgroundColor: "#f97316",
+                      padding: "14px 24px",
+                    }}
                   >
-                    1 spot open
-                  </span>
+                    Apply for a Partnership →
+                  </Link>
                 </div>
               </div>
             </div>
