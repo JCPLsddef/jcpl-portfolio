@@ -111,12 +111,15 @@ export default function FeaturedCaseStudy() {
 								</p>
 
 								{/* CTA */}
-								<Link
-									href="/results"
-									className="inline-block border border-[rgba(37,99,235,0.5)] text-sv-text-sub bg-transparent rounded-[8px] px-6 py-2.5 font-semibold text-[15px] hover:bg-sv-primary hover:text-white hover:border-sv-primary transition-all duration-200"
-								>
-									View All Results →
-								</Link>
+								<div className="w-full text-center">
+									<Link
+										href="/results"
+										className="inline-block hover:underline"
+										style={{ color: "#94a3b8", fontSize: "0.85rem" }}
+									>
+										See all case studies →
+									</Link>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -162,12 +165,15 @@ export default function FeaturedCaseStudy() {
 							Competitive DFW painting market. Ranking above national lead gen sites. Last verified Q4 2025.
 						</p>
 
-						<Link
-							href="/results"
-							className="inline-block border border-[rgba(37,99,235,0.5)] text-sv-text-sub bg-transparent rounded-[8px] px-6 py-2.5 font-semibold text-[15px] hover:bg-sv-primary hover:text-white hover:border-sv-primary transition-all duration-200"
-						>
-							View All Results →
-						</Link>
+						<div className="text-center">
+							<Link
+								href="/results"
+								className="inline-block hover:underline"
+								style={{ color: "#94a3b8", fontSize: "0.85rem" }}
+							>
+								See all case studies →
+							</Link>
+						</div>
 					</div>
 				</div>
 			</Reveal>

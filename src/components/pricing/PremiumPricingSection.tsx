@@ -177,7 +177,15 @@ function Card({ tier, index }: { tier: TierConfig; index: number }) {
   );
 }
 
-export default function PremiumPricingSection() {
+interface PremiumPricingSectionProps {
+  heading?: string;
+  subheadline?: string;
+}
+
+export default function PremiumPricingSection({
+  heading = "Choose the growth system that fits your business.",
+  subheadline = "Three ways to turn your online presence into a predictable lead engine.",
+}: PremiumPricingSectionProps = {}) {
   return (
     <section
       id="pricing"
@@ -197,11 +205,10 @@ export default function PremiumPricingSection() {
             id="pricing-heading"
             className="text-[clamp(2rem,5vw,2.25rem)] font-semibold text-white tracking-tight mb-4 leading-tight"
           >
-            Choose the growth system that fits your business.
+            {heading}
           </h2>
           <p className="text-base md:text-lg text-white/80 max-w-xl mx-auto leading-relaxed">
-            Three ways to turn your online presence into a predictable lead
-            engine.
+            {subheadline}
           </p>
         </header>
 

@@ -286,9 +286,9 @@ export const differentiation = {
     { dimension: "Ownership", them: "5+ vendors, no single owner", us: "One partner owns the full pipeline" },
     { dimension: "Speed", them: "8 to 12 weeks, constant delays", us: "2 to 4 weeks, unified execution" },
     { dimension: "After Launch", them: "Project done. They're gone.", us: "Monthly optimization, ongoing growth" },
-    { dimension: "Reporting", them: "Monthly PDF nobody reads", us: "Weekly loop tied to booked calls" },
-    { dimension: "Cost tracking", them: "Impressions and clicks", us: "Cost per qualified call, tracked live" },
-    { dimension: "Commitment", them: "6-month lock-in", us: "90-day initial term, then month-to-month" }
+    { dimension: "Metric", them: "Monthly PDF nobody reads", us: "Weekly loop tied to booked calls" },
+    { dimension: "Asset Ownership", them: "You license. They own the stack.", us: "You own site, data, infrastructure" },
+    { dimension: "Cost Transparency", them: "Impressions and clicks", us: "Cost per qualified call, tracked live" }
   ],
 };
 
@@ -404,7 +404,7 @@ export const servicesShowcaseContent = {
 export const qualification = {
   forYouIf: [
     "You lie awake knowing the work is out there. You just can't find it online.",
-    "You're generating consistent revenue and ready to invest in growth infrastructure.",
+    "You're generating consistent revenue and ready to invest in infrastructure that compounds month over month.",
     "Your pipeline leans too heavily on referrals and word of mouth.",
     "You're tired of watching competitors rank above you for work you do better.",
     "You want one person who owns the full picture, not five vendors you have to coordinate."

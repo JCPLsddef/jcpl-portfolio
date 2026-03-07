@@ -9,6 +9,7 @@ import WorkTimeline from "@/components/about/WorkTimeline";
 import PhilosophyBlock from "@/components/about/PhilosophyBlock";
 import AdvantageCompare from "@/components/about/AdvantageCompare";
 import AboutCTA from "@/components/about/AboutCTA";
+import SpotsLeftSection from "@/components/home/SpotsLeftSection";
 
 export const metadata: Metadata = buildMetadata({
   title: "About: Growth Partner for Service Businesses",
@@ -29,6 +30,9 @@ export default function AboutPage() {
       <SectionWrapper>
         <PhilosophyBlock />
       </SectionWrapper>
+
+      {/* ── I Run 3 Partnerships at a Time ── */}
+      <SpotsLeftSection />
 
       {/* ── Credibility / Metrics — tight to hero ── */}
       <SectionWrapper className="!py-6 md:!py-8">

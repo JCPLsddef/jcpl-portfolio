@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import ApplyForm from "@/components/ApplyForm";
+import SpotsLeftSection from "@/components/home/SpotsLeftSection";
 
 export const metadata: Metadata = buildMetadata({
   title: "Apply: Start Your Growth Partnership",
@@ -10,5 +11,10 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function ApplyPage() {
-  return <ApplyForm />;
+  return (
+    <>
+      <SpotsLeftSection />
+      <ApplyForm />
+    </>
+  );
 }

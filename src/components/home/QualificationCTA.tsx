@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { qualification } from "@/lib/content";
 import SectionWrapper from "@/components/ui/SectionWrapper";
 import { Reveal } from "@/components/motion";
@@ -112,18 +113,33 @@ export default function QualificationCTA() {
           {/* Closing line */}
           <Reveal delay={0.1}>
             <div
-              className="border-t border-white/10 pt-12 pb-12"
-              style={{ paddingTop: 48, paddingBottom: 48 }}
+              className="border-t border-white/10"
+              style={{ paddingTop: 40, paddingBottom: 40 }}
             >
               <p
-                className="text-center text-white leading-snug"
+                className="text-center leading-snug"
                 style={{
                   fontWeight: 700,
-                  fontSize: "clamp(1.1rem, 1.4vw, 1.2rem)",
+                  color: "#ffffff",
+                  fontSize: "clamp(1rem, 1.4vw, 1.15rem)",
                 }}
               >
                 Serious operators build infrastructure. Everyone else waits for the phone to ring.
               </p>
+              <div className="text-center mt-8">
+                <Link
+                  href="/apply"
+                  className="inline-flex items-center gap-2 rounded-lg px-7 py-3.5 text-base font-semibold transition-all"
+                  style={{
+                    background: "#1e3a5f",
+                    color: "#ffffff",
+                    border: "1px solid #2d5a8e",
+                  }}
+                >
+                  Apply for Growth Partnership
+                  <span aria-hidden>→</span>
+                </Link>
+              </div>
             </div>
           </Reveal>
         </div>

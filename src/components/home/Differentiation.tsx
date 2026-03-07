@@ -125,7 +125,7 @@ export default function Differentiation() {
       {/* Stat line */}
       <Reveal delay={0.2}>
         <p className="text-sm text-slate-400 text-center mt-6 max-w-2xl mx-auto">
-          Average agency onboarding takes 6 to 8 weeks. My median build time is 11 days from signed agreement to live system.
+          Average agency onboarding: 6 to 8 weeks. My median time from signed agreement to live system: 11 days.
         </p>
       </Reveal>
     </SectionWrapper>

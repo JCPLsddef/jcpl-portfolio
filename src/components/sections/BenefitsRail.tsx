@@ -117,8 +117,8 @@ function BenefitCard({
         </h3>
         {description && (
           <p
-            className="leading-snug mt-1"
-            style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.8rem" }}
+            className="leading-snug"
+            style={{ color: "rgba(255,255,255,0.75)", fontSize: "0.8rem", marginTop: 6 }}
           >
             {description}
           </p>
@@ -167,14 +167,14 @@ export default function BenefitsRail() {
   );
 
   return (
-    <SectionWrapper id="benefits" variant="default" className="!bg-white">
+    <SectionWrapper id="benefits" variant="default" className="!bg-[#0a0f1e]">
       <Reveal className="text-center mb-10 md:mb-12">
         <SectionLabel
           label={t<string>("benefits.eyebrow")}
-          className="mb-4 !text-slate-500"
+          className="mb-4 !text-slate-400"
         />
         <h2 className="text-[clamp(32px,4.5vw,48px)] leading-[1.12] tracking-[-0.02em] max-w-2xl mx-auto">
-          <span className="font-bold text-slate-900 font-sans">
+          <span className="font-bold font-sans" style={{ color: "#ffffff" }}>
             {t<string>("benefits.headlineBold")}
           </span>{" "}
           <span
@@ -182,13 +182,13 @@ export default function BenefitsRail() {
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               fontSize: "1.08em",
-              color: "#57534e",
+              color: "#ffffff",
             }}
           >
             {t<string>("benefits.headlineItalic")}
           </span>
         </h2>
-        <p className="mt-4 font-sans font-normal text-slate-600 text-[17px] md:text-[18px] leading-[1.65] max-w-xl mx-auto">
+        <p className="mt-4 font-sans font-normal text-slate-400 text-[17px] md:text-[18px] leading-[1.65] max-w-xl mx-auto">
           {t<string>("benefits.paragraph")}
         </p>
       </Reveal>
@@ -224,7 +224,7 @@ export default function BenefitsRail() {
               type="button"
               onClick={() => scroll("left")}
               aria-label="Previous cards"
-              className="w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-400 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+              className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/80 hover:text-white hover:border-white/40 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
             >
               <ChevronLeft className="w-5 h-5" strokeWidth={2} />
             </button>
@@ -232,7 +232,7 @@ export default function BenefitsRail() {
               type="button"
               onClick={() => scroll("right")}
               aria-label="Next cards"
-              className="w-10 h-10 rounded-full border border-slate-300 bg-white flex items-center justify-center text-slate-600 hover:text-slate-900 hover:border-slate-400 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
+              className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white/80 hover:text-white hover:border-white/40 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sv-primary"
             >
               <ChevronRight className="w-5 h-5" strokeWidth={2} />
             </button>

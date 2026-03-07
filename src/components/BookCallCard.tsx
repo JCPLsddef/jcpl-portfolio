@@ -32,6 +32,7 @@ export interface BookCallCardProps {
   emailLabel: string;
   email: string;
   className?: string;
+  riskReversalText?: string;
 }
 
 export default function BookCallCard({
@@ -42,6 +43,7 @@ export default function BookCallCard({
   emailLabel,
   email,
   className = "",
+  riskReversalText,
 }: BookCallCardProps) {
   return (
     <div
@@ -83,6 +85,14 @@ export default function BookCallCard({
         >
           {buttonText}
         </Link>
+        {riskReversalText && (
+          <p
+            className="mt-2 text-center"
+            style={{ fontSize: "0.75rem", color: "#64748b" }}
+          >
+            {riskReversalText}
+          </p>
+        )}
         <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
           <p className="text-[13px] text-white/75">
             {emailLabel}{" "}

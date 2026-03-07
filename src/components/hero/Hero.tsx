@@ -3,7 +3,6 @@
 import { useRef, useEffect, useCallback } from "react";
 import gsap from "gsap";
 import HeroWebGLBackground from "./HeroWebGLBackground";
-import HeadlineMarquee from "./HeadlineMarquee";
 import { prefersReducedMotion } from "@/lib/motion";
 import styles from "./HeroAvatarFrame.module.css";
 import "./hero.css";
@@ -133,9 +132,9 @@ export default function Hero() {
 				<div ref={contentLayerRef} className="cb-content-wrap">
 					<div className="cb-content">
 
-						{/* DOMINATE H1 — infinite marquee */}
-						<h1 ref={headlineRef} className="cb-headline" style={{ opacity: 0 }}>
-							<HeadlineMarquee />
+						{/* Static headline — DOMINATE style */}
+						<h1 ref={headlineRef} className="cb-headline cb-headline-static" style={{ opacity: 0 }}>
+							Dominate Your Market
 						</h1>
 
 						{/* Static subheadline — always visible */}
@@ -170,7 +169,7 @@ export default function Hero() {
 									marginBottom: 0,
 								}}
 							>
-								Short application. I respond within one business day.
+								If I cannot move the needle, I will tell you on the call — before you pay anything.
 							</p>
 						</div>
 

@@ -163,7 +163,8 @@
   white-space: nowrap;
 }
 
-.cb-headline-marquee-static {
+.cb-headline-marquee-static,
+.cb-headline-static {
   white-space: nowrap;
 }
 
