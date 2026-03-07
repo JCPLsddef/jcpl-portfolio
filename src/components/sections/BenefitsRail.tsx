@@ -46,19 +46,32 @@ export default function BenefitsRail() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
 
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
     const ctx = gsap.context(() => {
+      gsap.from(".benefit-icon", {
+        scale: 0,
+        rotation: -15,
+        stagger: 0.07,
+        duration: 0.5,
+        ease: "back.out(2.2)",
+        scrollTrigger: {
+          trigger: ".benefits-grid",
+          start: "top 76%",
+          once: true,
+        },
+      });
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top 80%",
         onEnter: () => {
           gsap.fromTo(
             cardRefs.current.filter(Boolean),
-            { opacity: 0, y: 15 },
+            isMobile ? { opacity: 0 } : { opacity: 0, y: 22 },
             {
               opacity: 1,
               y: 0,
-              duration: 0.45,
-              stagger: 0.15,
+              duration: 0.55,
+              stagger: 0.09,
               ease: "power2.out",
             }
           );
@@ -97,12 +110,12 @@ export default function BenefitsRail() {
       </Reveal>
 
       {/* Top row: 3 cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto benefits-grid">
         {CARDS.slice(0, 3).map((card, i) => (
           <div
             key={card.title}
             ref={(el) => { cardRefs.current[i] = el; }}
-            className="rounded-xl p-8 depth-card"
+            className="rounded-xl p-8 lift-card"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -110,7 +123,7 @@ export default function BenefitsRail() {
             }}
           >
             <card.icon
-              className="mb-4"
+              className="benefit-icon mb-4"
               size={24}
               style={{ color: "#f97316" }}
               aria-hidden
@@ -133,7 +146,7 @@ export default function BenefitsRail() {
           <div
             key={card.title}
             ref={(el) => { cardRefs.current[i + 3] = el; }}
-            className="rounded-xl p-8 depth-card"
+            className="rounded-xl p-8 lift-card"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -141,7 +154,7 @@ export default function BenefitsRail() {
             }}
           >
             <card.icon
-              className="mb-4"
+              className="benefit-icon mb-4"
               size={24}
               style={{ color: "#f97316" }}
               aria-hidden

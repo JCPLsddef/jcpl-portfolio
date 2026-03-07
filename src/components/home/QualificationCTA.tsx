@@ -44,13 +44,13 @@ export default function QualificationCTA() {
           </div>
 
           <Reveal>
-            <div className="grid gap-6 md:grid-cols-2 mb-12">
+            <div className="grid gap-6 md:grid-cols-2 mb-12 fitment-cards">
               <div
-                className="rounded-2xl p-7 md:p-8 depth-card fit-card"
+                className="rounded-2xl p-7 md:p-8 lift-card fit-card fit-card-positive"
                 style={{
-                  border: "1px solid rgba(249,115,22,0.35)",
+                  border: "1px solid rgba(249,115,22,0.38)",
                   background: "#0f1729",
-                  boxShadow: "0 0 40px rgba(249, 115, 22, 0.04)",
+                  boxShadow: "0 0 40px rgba(249, 115, 22, 0.04) inset",
                 }}
               >
                 <h3 className="text-[1.25rem] font-bold text-white mb-5">
@@ -67,7 +67,7 @@ export default function QualificationCTA() {
               </div>
 
               <div
-                className="rounded-2xl p-7 md:p-8 depth-card"
+                className="rounded-2xl p-7 md:p-8 lift-card fit-card fit-card-negative"
                 style={{
                   border: "1px solid #1e293b",
                   background: "#0f1729",
@@ -105,7 +105,7 @@ export default function QualificationCTA() {
               <div className="flex flex-col items-center mt-8">
                 <Link
                   href="#book-call"
-                  className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-base font-semibold text-white cta-primary"
+                  className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-base font-semibold text-white cta-primary cta-button"
                   style={{ background: "#f97316" }}
                   onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
                   onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}

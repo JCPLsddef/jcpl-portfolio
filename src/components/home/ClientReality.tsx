@@ -62,16 +62,38 @@ function CostPerCallStat() {
   }, []);
 
   return (
-    <div ref={statRef} className="py-12 text-center">
-      <div className="block text-white font-extrabold" style={{ fontSize: "3.5rem" }}>
+    <div ref={statRef} style={{ position: "relative", textAlign: "center", padding: "48px 0" }}>
+      <div
+        style={{
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 300,
+          height: 300,
+          background: "radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%)",
+          pointerEvents: "none",
+          zIndex: 0,
+        }}
+      />
+      <div
+        className="stat-27"
+        style={{
+          position: "relative",
+          zIndex: 1,
+          fontSize: "clamp(3.5rem, 8vw, 5.5rem)",
+          fontWeight: 800,
+          color: "#ffffff",
+        }}
+      >
         $<span ref={numRef}>0</span>
       </div>
       <p
         style={{
-          fontSize: "0.75rem",
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
           color: "#f97316",
+          fontSize: "0.75rem",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
           marginTop: 8,
         }}
       >
@@ -82,8 +104,31 @@ function CostPerCallStat() {
 }
 
 export default function ClientReality() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const ctx = gsap.context(() => {
+      gsap.from(".reality-cards .card", {
+        opacity: 0,
+        y: isMobile ? 0 : 22,
+        stagger: 0.09,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".reality-cards",
+          start: "top 76%",
+          once: true,
+        },
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
     <SectionWrapper
+      ref={sectionRef}
       id="reality"
       variant="alt"
       className="border-b border-slate-700/40 bg-[#0a0f1e] py-16 md:py-24"
@@ -117,7 +162,7 @@ export default function ClientReality() {
 
         <Reveal className="mx-auto mb-12 max-w-[900px] md:mb-14">
           <div
-            className="relative mx-auto max-w-[900px] rounded-[14px] px-8 py-8 text-center sm:px-8 sm:py-10 depth-card"
+            className="relative mx-auto max-w-[900px] rounded-[14px] px-8 py-8 text-center sm:px-8 sm:py-10 lift-card"
             style={{
               background: "#0f1729",
               borderLeft: "3px solid #f97316",
@@ -142,11 +187,11 @@ export default function ClientReality() {
           </div>
         </Reveal>
 
-        <div className="mb-12 grid gap-5 sm:grid-cols-2 lg:mb-14 lg:grid-cols-3">
+        <div className="mb-12 grid gap-5 sm:grid-cols-2 lg:mb-14 lg:grid-cols-3 reality-cards">
           {CARDS.map((card, i) => (
             <Reveal key={card.num} delay={0.08 * (i + 1)}>
               <div
-                className="group relative flex h-full flex-col rounded-[14px] border p-7 depth-card md:p-8"
+                className="group relative flex h-full flex-col rounded-[14px] border p-7 lift-card card md:p-8"
                 style={{
                   borderColor: "rgba(30,41,59,0.6)",
                   background: "#0f1729",
@@ -195,7 +240,7 @@ export default function ClientReality() {
         <Reveal delay={0.2} className="mx-auto text-center">
           <Link
             href="#book-call"
-            className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-[16px] font-[600] text-white cta-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0f1e]"
+            className="inline-flex items-center gap-2 rounded-lg px-8 py-4 text-[16px] font-[600] text-white cta-primary cta-button focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f97316] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0f1e]"
             style={{ background: "#f97316" }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = "#ea6c0a";

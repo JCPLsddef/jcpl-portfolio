@@ -19,6 +19,13 @@ export default function Hero() {
 		if (prefersReducedMotion()) return;
 		const cx = (e.clientX / window.innerWidth - 0.5) * 2;
 		const cy = (e.clientY / window.innerHeight - 0.5) * 2;
+		const meshX = (e.clientX / window.innerWidth - 0.5) * -18;
+		const meshY = (e.clientY / window.innerHeight - 0.5) * -18;
+
+		const mesh = document.querySelector(".gradient-mesh");
+		if (mesh) {
+			gsap.to(mesh, { x: meshX, y: meshY, duration: 1.2, ease: "power1.out", overwrite: "auto" });
+		}
 
 		if (bgLayerRef.current) {
 			gsap.to(bgLayerRef.current, {
@@ -48,7 +55,7 @@ export default function Hero() {
 	useEffect(() => {
 		const reduced = prefersReducedMotion();
 		if (reduced) {
-			document.querySelectorAll(".hero-bridge-line, .hero-section-label, .hero-headline .word, .hero-subheadline, .hero-cta, .hero-risk-reversal").forEach((el) => {
+			document.querySelectorAll(".hero-bridge, .hero-label, .hero-word, .hero-subheadline, .hero-cta-wrapper").forEach((el) => {
 				gsap.set(el as HTMLElement, { opacity: 1, y: 0 });
 			});
 			return;
@@ -60,18 +67,18 @@ export default function Hero() {
 		if (frameRef.current) gsap.set(frameRef.current, { opacity: 1 });
 
 		if (isMobile) {
-			tl.from(".hero-bridge-line", { opacity: 0, duration: 0.4 })
-				.from(".hero-section-label", { opacity: 0, duration: 0.3 }, "-=0.1")
-				.from(".hero-headline", { opacity: 0, duration: 0.5 }, "-=0.1")
-				.from(".hero-subheadline", { opacity: 0, duration: 0.4 }, "-=0.1")
-				.from(".hero-cta", { opacity: 0, duration: 0.3 }, "-=0.1")
+			tl.from(".hero-bridge", { opacity: 0, duration: 0.4 })
+				.from(".hero-label", { opacity: 0, duration: 0.4 }, "-=0.2")
+				.from(".hero-word", { opacity: 0, duration: 0.55 }, "-=0.1")
+				.from(".hero-subheadline", { opacity: 0, duration: 0.5 }, "-=0.2")
+				.from(".hero-cta-wrapper", { opacity: 0, duration: 0.4 }, "-=0.2")
 				.from(".hero-risk-reversal", { opacity: 0, duration: 0.3 }, "-=0.1");
 		} else {
-			tl.from(".hero-bridge-line", { opacity: 0, y: 10, duration: 0.5 })
-				.from(".hero-section-label", { opacity: 0, duration: 0.4 }, "-=0.2")
-				.from(".hero-headline .word", { opacity: 0, y: 24, stagger: 0.04, duration: 0.6 }, "-=0.1")
+			tl.from(".hero-bridge", { opacity: 0, y: 8, duration: 0.5 })
+				.from(".hero-label", { opacity: 0, duration: 0.4 }, "-=0.2")
+				.from(".hero-word", { opacity: 0, y: 28, stagger: 0.035, duration: 0.55 }, "-=0.1")
 				.from(".hero-subheadline", { opacity: 0, y: 10, duration: 0.5 }, "-=0.2")
-				.from(".hero-cta", { opacity: 0, y: 10, duration: 0.4 }, "-=0.2")
+				.from(".hero-cta-wrapper", { opacity: 0, y: 10, duration: 0.4 }, "-=0.2")
 				.from(".hero-risk-reversal", { opacity: 0, duration: 0.3 }, "-=0.1");
 		}
 
@@ -85,7 +92,7 @@ export default function Hero() {
 			aria-label="Hero - Growth Infrastructure"
 			style={{ minHeight: "90vh" }}
 		>
-			<div className="cb-ambient" aria-hidden="true" />
+			<div className="cb-ambient gradient-mesh" aria-hidden="true" />
 
 			<div ref={frameRef} className={`cb-frame ${styles.frame}`}>
 				<div ref={bgLayerRef} className="cb-layer cb-layer--bg" aria-hidden="true">
@@ -98,7 +105,7 @@ export default function Hero() {
 				<div ref={contentLayerRef} className="cb-content-wrap">
 					<div className="cb-content" style={{ maxWidth: 720 }}>
 						<p
-							className="hero-bridge-line"
+							className="hero-label"
 							style={{
 								fontSize: "0.7rem",
 								letterSpacing: "0.15em",
@@ -112,7 +119,7 @@ export default function Hero() {
 						</p>
 
 						<p
-							className="hero-section-label"
+							className="hero-bridge"
 							style={{
 								fontSize: "0.9rem",
 								color: "#64748b",
@@ -134,7 +141,7 @@ export default function Hero() {
 							}}
 						>
 							{["$41,085", "in", "revenue", "from", "$900", "in", "ad", "spend.", "In", "30", "days."].map((word, i) => (
-								<span key={i} className="word" style={{ display: "inline-block", marginRight: "0.3em" }}>
+								<span key={i} className="hero-word" style={{ display: "inline-block", marginRight: "0.25em" }}>
 									{word}
 								</span>
 							))}
@@ -156,8 +163,8 @@ export default function Hero() {
 							booked calls. One person. One pipeline.
 						</p>
 
-						<div ref={ctaRef} className="cb-cta-wrap hero-cta">
-							<a href="#book-call" className="cb-cta cb-cta--primary cta-primary">
+						<div ref={ctaRef} className="cb-cta-wrap hero-cta-wrapper">
+							<a href="#book-call" className="cb-cta cb-cta--primary cta-primary cta-button">
 								Book a 20-Minute Diagnostic Call
 								<span className="cb-cta-arrow" aria-hidden="true">→</span>
 							</a>

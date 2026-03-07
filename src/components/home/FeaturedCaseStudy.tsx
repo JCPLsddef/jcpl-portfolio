@@ -7,6 +7,7 @@ import SectionWrapper from "@/components/ui/SectionWrapper";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/motion";
 import CountUpValue from "@/components/motion/CountUpValue";
+import { countUp } from "@/lib/animations";
 import Link from "next/link";
 import { prefersReducedMotion } from "@/lib/motion";
 
@@ -50,8 +51,65 @@ const stats2 = [
 ];
 
 export default function FeaturedCaseStudy() {
+  const tripleWRef = useRef<HTMLDivElement>(null);
+
+  const statCardsRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const card = tripleWRef.current;
+    if (card) {
+      const stat900 = card.querySelector(".stat-900");
+      const stat46 = card.querySelector(".stat-46");
+      const stat30 = card.querySelector(".stat-30days");
+      if (stat900) countUp(stat900 as HTMLElement, 900, { prefix: "$" });
+      if (stat46) countUp(stat46 as HTMLElement, 46, { suffix: "x" });
+      if (stat30) countUp(stat30 as HTMLElement, 30);
+    }
+    const statCards = statCardsRef.current;
+    if (statCards) {
+      const el27 = statCards.querySelector(".stat-27-card");
+      const el11 = statCards.querySelector(".stat-11-card");
+      if (el27) countUp(el27 as HTMLElement, 27, { prefix: "$" });
+      if (el11) countUp(el11 as HTMLElement, 11);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+    const ctx = gsap.context(() => {
+      gsap.from(".proof-cards .case-study-card", {
+        opacity: 0,
+        y: isMobile ? 0 : 22,
+        stagger: 0.09,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".proof-cards",
+          start: "top 76%",
+          once: true,
+        },
+      });
+      gsap.from(".stat-cards .stat-card", {
+        opacity: 0,
+        y: isMobile ? 0 : 22,
+        stagger: 0.09,
+        duration: 0.55,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".stat-cards",
+          start: "top 76%",
+          once: true,
+        },
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <SectionWrapper id="proof" className="bg-[#0a0f1e]">
+    <SectionWrapper ref={sectionRef} id="proof" className="bg-[#0a0f1e]">
       <Reveal className="max-w-2xl mx-auto text-center mb-14 md:mb-16">
         <SectionLabel label="PROOF" className="mb-5 !text-[#f97316]" />
         <h2 className="text-[clamp(32px,5vw,48px)] font-[800] leading-[1.15] tracking-[-0.03em] max-w-2xl mx-auto">
@@ -66,9 +124,9 @@ export default function FeaturedCaseStudy() {
 
       {/* Triple W Rentals - revenue story */}
       <Reveal delay={0.1}>
-        <div className="max-w-3xl mx-auto mb-8">
+        <div ref={tripleWRef} className="max-w-3xl mx-auto mb-8 proof-cards">
           <div
-            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden depth-card"
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden lift-card case-study-card case-study-card-primary"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
@@ -78,23 +136,38 @@ export default function FeaturedCaseStudy() {
             <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: "#64748b", textTransform: "uppercase", marginBottom: 16 }}>
               RV RENTAL · TEXAS · GOOGLE ADS
             </p>
-            <div className="text-white font-extrabold mb-2" style={{ fontSize: "5rem", lineHeight: 1 }}>
-              <CountUpRevenue to={41085} prefix="$" />
+            <div style={{ position: "relative" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  width: 300,
+                  height: 300,
+                  background: "radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 65%)",
+                  pointerEvents: "none",
+                  zIndex: 0,
+                }}
+              />
+              <div className="text-white font-extrabold mb-2 stat-41085" style={{ fontSize: "5rem", lineHeight: 1, position: "relative", zIndex: 1 }}>
+                <CountUpRevenue to={41085} prefix="$" />
+              </div>
             </div>
             <p style={{ fontSize: "1rem", color: "#94a3b8", marginBottom: 24 }}>
               in revenue. First 30 days.
             </p>
             <div className="flex gap-8 mb-6">
               <div className="text-center">
-                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>$900</span>
+                <span className="stat-900 text-white font-bold" style={{ fontSize: "1.25rem" }}>$0</span>
                 <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>AD SPEND</p>
               </div>
               <div className="text-center">
-                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>46x</span>
+                <span className="stat-46 text-white font-bold" style={{ fontSize: "1.25rem" }}>0x</span>
                 <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>RETURN</p>
               </div>
               <div className="text-center">
-                <span className="text-white font-bold" style={{ fontSize: "1.25rem" }}>30</span>
+                <span className="stat-30days text-white font-bold" style={{ fontSize: "1.25rem" }}>0</span>
                 <p style={{ fontSize: "0.7rem", color: "#64748b", textTransform: "uppercase", marginTop: 4 }}>DAYS</p>
               </div>
             </div>
@@ -118,10 +191,11 @@ export default function FeaturedCaseStudy() {
       <Reveal delay={0.15}>
         <div className="max-w-3xl mx-auto">
           <div
-            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden depth-card"
+            className="rounded-[14px] px-8 sm:px-10 py-10 sm:py-12 overflow-hidden lift-card case-study-card case-study-card-secondary"
             style={{
               background: "#0f1729",
               border: "1px solid #1e293b",
+              borderTop: "3px solid rgba(249, 115, 22, 0.42)",
             }}
           >
             <p style={{ fontSize: "0.7rem", letterSpacing: "0.15em", color: "#64748b", textTransform: "uppercase", marginBottom: 16 }}>
@@ -157,23 +231,31 @@ export default function FeaturedCaseStudy() {
 
       {/* Aggregate stats */}
       <Reveal delay={0.25}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-4xl mx-auto">
-          {stats2.map(({ label, value, sub }) => (
-            <div
-              key={label}
-              className="rounded-xl p-6 depth-card"
-              style={{
-                background: "#0f1729",
-                border: "1px solid #1e293b",
-              }}
-            >
-              <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#f97316", textTransform: "uppercase", marginBottom: 8 }}>
-                {label}
-              </p>
-              <p className="text-3xl font-bold text-white">{value}</p>
-              <p style={{ fontSize: "0.875rem", color: "#94a3b8", marginTop: 8 }}>{sub}</p>
-            </div>
-          ))}
+        <div ref={statCardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12 max-w-4xl mx-auto stat-cards">
+          <div
+            className="rounded-xl p-6 lift-card stat-card"
+            style={{ background: "#0f1729", border: "1px solid #1e293b" }}
+          >
+            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#f97316", textTransform: "uppercase", marginBottom: 8 }}>LOCAL SEO</p>
+            <p className="text-3xl font-bold text-white">Page 1</p>
+            <p style={{ fontSize: "0.875rem", color: "#94a3b8", marginTop: 8 }}>Under 60 days. Competitive TX market. Painting contractor.</p>
+          </div>
+          <div
+            className="rounded-xl p-6 lift-card stat-card"
+            style={{ background: "#0f1729", border: "1px solid #1e293b" }}
+          >
+            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#f97316", textTransform: "uppercase", marginBottom: 8 }}>COST PER LEAD</p>
+            <p className="text-3xl font-bold text-white"><span className="stat-27-card">0</span></p>
+            <p style={{ fontSize: "0.875rem", color: "#94a3b8", marginTop: 8 }}>Avg cost per qualified inbound call. All active accounts. Q4 2025.</p>
+          </div>
+          <div
+            className="rounded-xl p-6 lift-card stat-card"
+            style={{ background: "#0f1729", border: "1px solid #1e293b" }}
+          >
+            <p style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.1em", color: "#f97316", textTransform: "uppercase", marginBottom: 8 }}>TIME TO FIRST CALL</p>
+            <p className="text-3xl font-bold text-white"><span className="stat-11-card">0</span> days</p>
+            <p style={{ fontSize: "0.875rem", color: "#94a3b8", marginTop: 8 }}>Median across all clients and niches.</p>
+          </div>
         </div>
       </Reveal>
     </SectionWrapper>

@@ -22,7 +22,6 @@ export default function CalendarSection() {
       (entries) => {
         const entry = entries[0];
         if (entry?.isIntersecting) {
-          console.log("[BallPit debug] Section visible, setting isVisible=true");
           setIsVisible(true);
         }
       },
@@ -76,12 +75,16 @@ export default function CalendarSection() {
           {/* Right column: notice + calendar */}
           <div className="flex flex-1 flex-col gap-4">
             <div
-              className="rounded-lg px-5 py-3 text-sm"
+              className="rounded-lg"
               role="status"
               style={{
-                background: "rgba(249,115,22,0.12)",
-                border: "1px solid rgba(249,115,22,0.25)",
-                color: "#f97316",
+                background: "rgba(249,115,22,0.08)",
+                border: "1px solid rgba(249,115,22,0.22)",
+                borderRadius: 8,
+                padding: "12px 20px",
+                color: "#fed7aa",
+                fontSize: "0.875rem",
+                lineHeight: 1.5,
               }}
             >
               {t<string>("bookCall.notice")}
@@ -94,6 +97,15 @@ export default function CalendarSection() {
                 border: "1px solid #1e293b",
               }}
             >
+              <div
+                style={{
+                  background: "#0f1729",
+                  borderRadius: 12,
+                  padding: 6,
+                  overflow: "hidden",
+                  height: "100%",
+                }}
+              >
               {!isVisible ? (
                 <div
                   className="flex h-full min-h-[520px] items-center justify-center text-[15px] md:min-h-[600px]"
@@ -110,6 +122,7 @@ export default function CalendarSection() {
                   style={{ width: "100%", height: "100%" }}
                 />
               )}
+              </div>
             </div>
           </div>
         </div>

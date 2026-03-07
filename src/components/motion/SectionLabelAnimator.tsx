@@ -14,12 +14,12 @@ export default function SectionLabelAnimator() {
     document.querySelectorAll(".section-label").forEach((label) => {
       gsap.from(label, {
         opacity: 0,
-        letterSpacing: "0.05em",
+        letterSpacing: "0.04em",
         duration: 0.7,
         ease: "power1.out",
         scrollTrigger: {
           trigger: label,
-          start: "top 85%",
+          start: "top 88%",
           once: true,
         },
       });

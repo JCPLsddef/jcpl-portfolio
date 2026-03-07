@@ -59,7 +59,7 @@ function ElevenDaysStat() {
   return (
     <div ref={statRef} className="text-center mt-12 mb-4">
       <div className="inline-flex items-baseline gap-2">
-        <span ref={numRef} className="text-white font-extrabold" style={{ fontSize: "4rem" }}>
+        <span ref={numRef} className="stat-11-table text-white font-extrabold" style={{ fontSize: "4rem" }}>
           0
         </span>
         <span className="text-white font-bold" style={{ fontSize: "2rem" }}>
@@ -92,23 +92,17 @@ export default function Differentiation() {
     if (prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
-      ScrollTrigger.create({
-        trigger: tableRef.current,
-        start: "top 80%",
-        onEnter: () => {
-          gsap.fromTo(
-            rowRefs.current.filter(Boolean),
-            { opacity: 0, y: 10 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.4,
-              stagger: 0.25,
-              ease: "power2.out",
-            }
-          );
+      gsap.from(".comparison-row", {
+        opacity: 0,
+        y: 7,
+        stagger: 0.07,
+        duration: 0.45,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: ".comparison-table",
+          start: "top 76%",
+          once: true,
         },
-        once: true,
       });
     }, tableRef);
 
@@ -178,13 +172,15 @@ export default function Differentiation() {
                 <div className="p-5 text-sm font-semibold text-white">{row.dimension}</div>
                 <div className="p-5 flex items-start gap-2.5 justify-center">
                   <XIcon />
-                  <span className="text-sm font-[400]" style={{ color: "#94a3b8" }}>
+                  <span className="text-sm table-typical-agency-value" style={{ color: "#94a3b8", fontWeight: 400 }}>
                     {row.them}
                   </span>
                 </div>
                 <div className="p-5 flex items-start gap-2.5 justify-center">
                   <CheckIcon />
-                  <span className="text-sm font-[600] text-white">{row.us}</span>
+                  <span className="text-sm table-client-growth-value" style={{ color: "#ffffff", fontWeight: 600 }}>
+                    {row.us}
+                  </span>
                 </div>
               </div>
             ))}

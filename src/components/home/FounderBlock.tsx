@@ -17,15 +17,14 @@ export default function FounderBlock() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 md:items-center">
           <div className="relative max-w-[520px] mx-auto md:mx-0 overflow-hidden">
-            <img
-              src={JUAN_IMG_SRC}
-              alt="Juan Carlos Portillo-Laflamme, founder of Client Growth"
-              className="founder-photo w-full h-auto object-cover object-top rounded-xl"
-              style={{
-                borderRadius: 12,
-                border: "1px solid rgba(30,41,59,0.5)",
-              }}
-            />
+            <div className="founder-photo-wrapper rounded-xl overflow-hidden" style={{ border: "1px solid rgba(30,41,59,0.5)" }}>
+              <img
+                src={JUAN_IMG_SRC}
+                alt="Juan Carlos Portillo-Laflamme, founder of Client Growth"
+                className="w-full h-auto object-cover object-top"
+                style={{ borderRadius: 12 }}
+              />
+            </div>
             <div
               className="absolute bottom-0 left-0 right-0 h-1/3 pointer-events-none"
               style={{ background: "linear-gradient(to top, #0a0f1e, transparent)" }}

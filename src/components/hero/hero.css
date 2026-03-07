@@ -32,6 +32,16 @@
   100% { transform: translate(-3%, 2%) scale(1.02); }
 }
 
+@keyframes meshDrift {
+  0% { transform: rotate(0deg) scale(1.15); }
+  100% { transform: rotate(360deg) scale(1.15); }
+}
+
+.gradient-mesh {
+  animation: meshDrift 80s linear infinite;
+  transform-origin: center center;
+}
+
 /* ═══════════════════════════════════════════════════
    HERO FRAME — full-bleed transparent container
    No border. No shadow. No radius.

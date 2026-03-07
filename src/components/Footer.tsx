@@ -20,6 +20,28 @@ export default function Footer() {
         borderColor: "#1e293b",
       }}
     >
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+          padding: "0 max(24px, 5vw)",
+          marginBottom: "48px",
+        }}
+      >
+        <div style={{ flex: 1, height: "1px", background: "#1e293b" }} />
+        <div
+          style={{
+            width: "7px",
+            height: "7px",
+            background: "#f97316",
+            transform: "rotate(45deg)",
+            flexShrink: 0,
+            boxShadow: "0 0 8px rgba(249,115,22,0.4)",
+          }}
+        />
+        <div style={{ flex: 1, height: "1px", background: "#1e293b" }} />
+      </div>
       <div className="container py-10 md:py-14">
         <div className="grid gap-8 md:gap-10 md:grid-cols-4">
           {/* Brand */}

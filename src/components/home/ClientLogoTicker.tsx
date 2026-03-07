@@ -26,11 +26,11 @@ export default function ClientLogoTicker() {
       </p>
       <LogoLoop
         logos={caseStudyLogos}
-        speed={40}
+        speed={55}
         pauseOnHover
         fadeOut
         fadeOutColor="#0a0f1e"
-        logoHeight={40}
+        logoHeight={36}
         gap={64}
         ariaLabel="Client logos"
         renderItem={(item, key) => {
@@ -43,12 +43,12 @@ export default function ClientLogoTicker() {
                 loading="lazy"
                 decoding="async"
                 draggable={false}
-                className="transition-opacity duration-200 group-hover/logo:opacity-100"
+                className="ticker-logo transition-opacity duration-200 group-hover/logo:opacity-100"
                 style={{
-                  height: 40,
+                  height: 36,
                   width: "auto",
                   objectFit: "contain",
-                  opacity: 0.7,
+                  opacity: 0.6,
                 }}
               />
               {logoItem.industryLabel && (

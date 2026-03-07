@@ -51,29 +51,21 @@ export default function DiagnosticSteps() {
           once: true,
         });
       } else {
-        gsap.from(".diagnostic-card-1", {
-          opacity: 0,
-          x: -24,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
-        });
-        gsap.from(".diagnostic-card-2", {
-          opacity: 0,
-          y: 24,
-          duration: 0.6,
-          delay: 0.15,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
-        });
-        gsap.from(".diagnostic-card-3", {
-          opacity: 0,
-          x: 24,
-          duration: 0.6,
-          delay: 0.3,
-          ease: "power2.out",
-          scrollTrigger: { trigger: ".diagnostic-section", start: "top 75%", once: true },
-        });
+        gsap.fromTo(
+          ".diagnostic-card-1",
+          { opacity: 0, x: -28 },
+          { opacity: 1, x: 0, duration: 0.6, ease: "power2.out", scrollTrigger: { trigger: ".diagnostic-section", start: "top 78%", once: true } }
+        );
+        gsap.fromTo(
+          ".diagnostic-card-2",
+          { opacity: 0, y: 28 },
+          { opacity: 1, y: 0, duration: 0.6, delay: 0.12, ease: "power2.out", scrollTrigger: { trigger: ".diagnostic-section", start: "top 78%", once: true } }
+        );
+        gsap.fromTo(
+          ".diagnostic-card-3",
+          { opacity: 0, x: 28 },
+          { opacity: 1, x: 0, duration: 0.6, delay: 0.24, ease: "power2.out", scrollTrigger: { trigger: ".diagnostic-section", start: "top 78%", once: true } }
+        );
       }
     }, sectionRef);
 
@@ -101,21 +93,23 @@ export default function DiagnosticSteps() {
           <div
             key={step.num}
             ref={(el) => { stepRefs.current[i] = el; }}
-            className={`rounded-xl p-8 depth-card diagnostic-card-${i + 1}`}
+            className={`rounded-xl p-8 lift-card diagnostic-card-${i + 1}`}
             style={{
+              opacity: 1,
               background: "#0f1729",
               border: "1px solid #1e293b",
+              ...(i === 2 && { borderTop: "3px solid #f97316" }),
             }}
           >
             <div
-              className="font-bold mb-4"
-              style={{ fontSize: "2rem", color: "#f97316" }}
+              className="mb-4"
+              style={{ fontSize: "2rem", color: "#f97316", fontWeight: 800 }}
             >
               {step.num}
             </div>
             <h3
-              className="font-bold text-white mb-3"
-              style={{ fontSize: "1.25rem" }}
+              className="mb-3"
+              style={{ fontSize: "1.25rem", color: "#ffffff", fontWeight: 700 }}
             >
               {step.title}
             </h3>
@@ -135,7 +129,7 @@ export default function DiagnosticSteps() {
       <div className="flex flex-col items-center">
         <Link
           href="#book-call"
-          className="inline-flex items-center justify-center gap-2 font-semibold text-white rounded-lg cta-primary"
+          className="inline-flex items-center justify-center gap-2 font-semibold text-white rounded-lg cta-primary cta-button"
           style={{
             background: "#f97316",
             padding: "16px 32px",

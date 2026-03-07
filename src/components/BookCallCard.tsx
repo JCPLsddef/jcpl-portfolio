@@ -47,10 +47,12 @@ export default function BookCallCard({
 }: BookCallCardProps) {
   return (
     <div
-      className={`relative rounded-2xl overflow-hidden min-h-[300px] depth-card ${className}`}
+      className={`relative rounded-2xl overflow-hidden min-h-[300px] lift-card sticky-booking-card ${className}`}
       style={{
         background: "#0f1729",
         border: "1px solid #1e293b",
+        borderTop: "2px solid rgba(249, 115, 22, 0.35)",
+        borderRadius: 16,
       }}
     >
       <div className="flex flex-col h-full p-6 md:p-8">
@@ -68,7 +70,7 @@ export default function BookCallCard({
         </p>
         <Link
           href={buttonHref}
-          className="flex items-center justify-center w-full py-4 px-6 rounded-lg font-semibold text-white text-[15px] cta-primary"
+          className="flex items-center justify-center w-full py-4 px-6 rounded-lg font-semibold text-white text-[15px] cta-primary cta-button"
           style={{ background: "#f97316" }}
           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}

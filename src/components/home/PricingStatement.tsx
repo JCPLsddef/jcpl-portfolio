@@ -63,15 +63,17 @@ export default function PricingStatement() {
             className="flex-1 min-w-0"
           >
             <div
-              className="relative rounded-2xl overflow-hidden pricing-left-card depth-card"
+              className="relative rounded-2xl overflow-hidden pricing-left-card lift-card"
               style={{ minHeight: 520 }}
             >
-              <img
-                src={JUAN_IMG_SRC}
-                alt="Juan Carlos Portillo-Laflamme"
-                className="founder-photo absolute inset-0 w-full h-full object-cover object-top"
-                style={{ borderRadius: 16 }}
-              />
+              <div className="founder-photo-wrapper absolute inset-0">
+                <img
+                  src={JUAN_IMG_SRC}
+                  alt="Juan Carlos Portillo-Laflamme"
+                  className="absolute inset-0 w-full h-full object-cover object-top"
+                  style={{ borderRadius: 16 }}
+                />
+              </div>
               <div
                 className="absolute inset-0 pointer-events-none z-[1]"
                 style={{
@@ -127,7 +129,7 @@ export default function PricingStatement() {
                   </div>
                   <Link
                     href="#book-call"
-                    className="flex items-center justify-center w-full rounded-lg font-semibold text-white cta-primary py-4"
+                    className="flex items-center justify-center w-full rounded-lg font-semibold text-white cta-primary cta-button py-4"
                     style={{ backgroundColor: "#f97316" }}
                     onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
                     onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
@@ -241,7 +243,7 @@ export default function PricingStatement() {
               <div className="mt-auto space-y-2">
                 <Link
                   href="/apply"
-                  className="flex items-center justify-center w-full py-4 rounded-lg font-semibold text-white text-base cta-primary"
+                  className="flex items-center justify-center w-full py-4 rounded-lg font-semibold text-white text-base cta-primary cta-button"
                   style={{ backgroundColor: "#f97316" }}
                   onMouseOver={(e) => { e.currentTarget.style.backgroundColor = "#ea6c0a"; }}
                   onMouseOut={(e) => { e.currentTarget.style.backgroundColor = "#f97316"; }}
