@@ -6,21 +6,34 @@
    bg-sv-base, text-sv-text, bg-sv-primary, etc.
    ═══════════════════════════════════════════════════ */
 @theme {
-  --color-sv-base:        #060E1A;
-  --color-sv-surface:     #0E1F35;
-  --color-sv-elevated:    #122845;
-  --color-sv-soft:        #1A2A3D;
-  --color-sv-primary:     #f97316;
-  --color-sv-primary-hov: #ea6c0a;
-  --color-sv-muted:       #6B8DB8;
-  --color-sv-light:       #D9E4EF;
-  --color-sv-text:        #E8EDF3;
-  --color-sv-text-sub:    #B0C1D4;
-  --color-sv-text-muted:  #7A92AB;
-  --color-sv-text-dim:    #56708A;
+  --color-sv-base:        #090E1C;
+  --color-sv-surface:     #0F1628;
+  --color-sv-elevated:    #141C2E;
+  --color-sv-soft:        #182438;
+  --color-sv-primary:     #D4A853;
+  --color-sv-primary-hov: #C49A2A;
+  --color-sv-muted:       #A69D8D;
+  --color-sv-light:       #D2C9B8;
+  --color-sv-text:        #F5F0E8;
+  --color-sv-text-sub:    #D2C9B8;
+  --color-sv-text-muted:  #A69D8D;
+  --color-sv-text-dim:    #756D63;
   --color-sv-danger:      #C0392B;
   --color-sv-warn:        #C9A84C;
   --color-sv-success:     #2D6B4F;
+  /* Client Growth palette */
+  --color-navy-950: #090E1C;
+  --color-navy-900: #0F1628;
+  --color-navy-800: #141C2E;
+  --color-navy-700: #182438;
+  --color-navy-600: #1C2640;
+  --color-cream-100: #F5F0E8;
+  --color-cream-200: #D2C9B8;
+  --color-cream-300: #A69D8D;
+  --color-cream-400: #756D63;
+  --color-gold-400: #D4A853;
+  --color-gold-500: #C49A2A;
+  --color-gold-600: #B08820;
 }
 
 /* ═══════════════════════════════════════════════════
@@ -61,26 +74,47 @@
   --beam-duration: 4s;          /* Laser animation cycle */
   --hit-delay: 0.18s;           /* Panel hit reaction delay */
 
-  /* ─── BACKGROUND SYSTEM (Sapphire Veil — Institutional) ─── */
-  --bg-base: #060E1A;
-  --bg-surface: #0E1F35;
-  --bg-elevated: #122845;
-  --bg-soft: #1A2A3D;
+  /* ─── BACKGROUND SYSTEM (Client Growth — Warm Navy) ─── */
+  --bg-main: #090E1C;
+  --bg-base: #090E1C;
+  --bg-raised: #0F1628;
+  --bg-surface: #0F1628;
+  --bg-card: #141C2E;
+  --bg-elevated: #141C2E;
+  --bg-card-hover: #182438;
+  --bg-soft: #1C2640;
   --bg-footer: #040A12;
 
-  /* ─── TEXT ─── */
-  --text-primary: #E8EDF3;
-  --text-secondary: #B0C1D4;
-  --text-muted: #7A92AB;
-  --text-dim: #56708A;
+  /* ─── TEXT (warm cream system) ─── */
+  --text-headline: #F5F0E8;
+  --text-primary: #F5F0E8;
+  --text-body: #D2C9B8;
+  --text-secondary: #D2C9B8;
+  --text-muted: #A69D8D;
+  --text-subtle: #756D63;
+  --text-dim: #756D63;
 
-  /* ─── BRAND ACCENTS (Client Growth Orange) ─── */
-  --brand-accent: #f97316;
-  --brand-deep: #ea6c0a;
-  --brand-alt: #f97316;
-  --brand-subtle: rgba(249, 115, 22, 0.15);
-  --brand-heritage: #f97316;
-  --brand-strong: #f97316;
+  /* ─── STRUCTURE ─── */
+  --border: #1C2640;
+  --border-muted: #263050;
+
+  /* ─── BRAND ACCENTS (Champagne Gold) ─── */
+  --brand-accent: #D4A853;
+  --brand-deep: #C49A2A;
+  --accent: #D4A853;
+  --accent-hover: #C49A2A;
+  --accent-glow: rgba(212, 168, 83, 0.15);
+  --accent-soft: rgba(212, 168, 83, 0.08);
+  --accent-subtle: rgba(212, 168, 83, 0.04);
+  --brand-alt: #D4A853;
+  --brand-subtle: rgba(212, 168, 83, 0.15);
+  --brand-heritage: #D4A853;
+  --brand-strong: #D4A853;
+
+  /* ─── CTA (dark text on gold) ─── */
+  --cta-bg: #D4A853;
+  --cta-hover: #C49A2A;
+  --cta-text: #0A0E1A;
 
   /* ─── SEMANTIC ─── */
   --color-success: #2D6B4F;
@@ -95,7 +129,7 @@
   /* ─── EFFECTS ─── */
   --shadow-premium: 0 16px 60px rgba(0,0,0,0.45);
   --shadow-soft: 0 4px 24px rgba(0,0,0,.25);
-  --glow-accent: 0 0 0 1px rgba(249, 115, 22, 0.35), 0 10px 40px rgba(249, 115, 22, 0.12);
+  --glow-accent: 0 0 0 1px rgba(212, 168, 83, 0.35), 0 10px 40px rgba(212, 168, 83, 0.12);
 
   /* ─── RADIUS (sharper — consulting, not SaaS) ─── */
   --radius-sm: 6px;
@@ -675,7 +709,7 @@ body::before {
 }
 
 .pricing-gradient-mesh {
-  background: linear-gradient(135deg, #0f1729 0%, #1a2744 50%, #0f1729 100%);
+  background: linear-gradient(135deg, #0F1628 0%, #1a2744 50%, #0F1628 100%);
   background-size: 200% 200%;
   animation: pricing-gradient-shift 6s ease-in-out infinite;
 }
@@ -748,9 +782,28 @@ body::before {
 .lift-card:hover {
   transform: translateY(-5px);
   box-shadow:
-    0 14px 44px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(249, 115, 22, 0.14),
-    0 0 28px rgba(249, 115, 22, 0.04);
+    0 16px 48px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(212, 168, 83, 0.14),
+    0 0 32px rgba(212, 168, 83, 0.04);
+}
+
+/* Diagnostic Card 03 — force full opacity (fix broken scroll animation) */
+.diagnostic-card-3 {
+  opacity: 1 !important;
+}
+.diagnostic-card-3 .step-number {
+  color: #D4A853 !important;
+  opacity: 1;
+}
+.diagnostic-card-3 .card-title,
+.diagnostic-card-3 h3 {
+  color: #F5F0E8 !important;
+  opacity: 1;
+}
+.diagnostic-card-3 .card-body,
+.diagnostic-card-3 p {
+  color: #D2C9B8 !important;
+  opacity: 1;
 }
 
 /* Cal.com embed */
@@ -760,11 +813,11 @@ body::before {
 
 /* Case study card borders */
 .case-study-card-primary {
-  border-top: 3px solid #f97316;
+  border-top: 3px solid #D4A853;
 }
 
 .case-study-card-secondary {
-  border-top: 3px solid rgba(249, 115, 22, 0.42);
+  border-top: 3px solid rgba(212, 168, 83, 0.42);
 }
 
 /* Logo ticker */
@@ -791,9 +844,9 @@ body::before {
   position: absolute;
   top: 0;
   left: -100%;
-  width: 60%;
+  width: 55%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
   transition: left 0.5s ease;
   pointer-events: none;
 }
@@ -805,7 +858,7 @@ body::before {
 .cta-primary:hover,
 .cta-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(249,115,22,0.3);
+  box-shadow: 0 8px 24px rgba(212,168,83,0.3);
 }
 
 .cta-button {
@@ -841,8 +894,8 @@ body::before {
 }
 
 @keyframes glowPulse {
-  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(249,115,22,0.06); }
-  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 80px rgba(249,115,22,0.12); }
+  0%, 100% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(212,168,83,0.05); }
+  50% { box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 80px rgba(212,168,83,0.10); }
 }
 
 .founder-photo-wrapper {
@@ -867,7 +920,7 @@ body::after {
   height: 200%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.03;
+  opacity: 0.028;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -876,15 +929,10 @@ body::after {
 
 @keyframes grainShift {
   0%, 100% { transform: translate(0, 0); }
-  10% { transform: translate(-2%, -3%); }
-  20% { transform: translate(3%, 1%); }
-  30% { transform: translate(-1%, 4%); }
-  40% { transform: translate(4%, -2%); }
-  50% { transform: translate(-3%, 3%); }
-  60% { transform: translate(1%, -4%); }
-  70% { transform: translate(-4%, 2%); }
-  80% { transform: translate(2%, -1%); }
-  90% { transform: translate(-2%, 4%); }
+  20% { transform: translate(-2%, -3%); }
+  40% { transform: translate(3%, 1%); }
+  60% { transform: translate(-1%, 4%); }
+  80% { transform: translate(2%, -2%); }
 }
 
 @media (max-width: 768px) {
