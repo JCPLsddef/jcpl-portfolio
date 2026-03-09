@@ -280,7 +280,7 @@ body::before {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(43,90,140,0.35), rgba(43,90,140,0.12));
+  background: linear-gradient(135deg, rgba(212,168,83,0.35), rgba(212,168,83,0.12));
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
