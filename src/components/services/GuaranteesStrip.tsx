@@ -17,6 +17,16 @@ export default function GuaranteesStrip() {
             minHeight: "420px",
           }}
         >
+          {/* $41,085 stat orb */}
+          <div
+            className="absolute left-1/2 bottom-[20%] -translate-x-1/2 w-[300px] h-[200px] rounded-full pointer-events-none z-0 max-md:w-[180px] max-md:h-[120px]"
+            style={{
+              background: "radial-gradient(ellipse, rgba(212,168,83,0.06) 0%, transparent 70%)",
+              filter: "blur(80px)",
+            }}
+            aria-hidden
+          />
+          <div className="relative z-10">
           <div>
             <p
               className="text-xs font-semibold tracking-[0.2em] uppercase mb-4"
@@ -50,6 +60,7 @@ export default function GuaranteesStrip() {
             >
               Most recent verifiable result. 30 days.
             </p>
+          </div>
           </div>
         </div>
 

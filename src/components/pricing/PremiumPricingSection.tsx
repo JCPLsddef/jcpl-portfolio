@@ -29,15 +29,18 @@ function CheckIcon({ className }: { className?: string }) {
 
 function Card({ tier, index }: { tier: TierConfig; index: number }) {
   const isHighlighted = tier.highlighted;
+  const badgeClass = tier.badge === "MOST SELECTED" ? "badge-selected" : "badge-exclusive";
 
   return (
     <article
       className={cn(
-        "relative flex flex-col rounded-xl p-8 transition-all duration-300 ease-out",
-        "hover:-translate-y-[2px]",
+        "relative flex flex-col rounded-xl p-6 md:p-6 lg:p-8 transition-all duration-300 ease-out",
+        "hover:-translate-y-[4px]",
+        "hover:shadow-[0_12px_48px_rgba(0,0,0,0.35)]",
         "focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[#D4A853]",
         index === 1 && "order-first lg:order-none",
-        "bg-[#1E1A14] border border-[#2A2318] border-t-2 border-t-[#D4A853] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35)]"
+        "bg-[#1E1A14] border border-[#2A2318] border-t-2 border-t-[#D4A853] hover:shadow-[0_12px_48px_rgba(0,0,0,0.35)]",
+        isHighlighted && "tier-recommended"
       )}
       style={{ minHeight: "100%" }}
     >
@@ -45,9 +48,8 @@ function Card({ tier, index }: { tier: TierConfig; index: number }) {
       {tier.badge && (
         <div
           className={cn(
-            "absolute -top-4 left-1/2 -translate-x-1/2 z-10",
-            "text-[11px] font-bold tracking-[0.18em] uppercase px-5 py-1.5 rounded-full whitespace-nowrap",
-            "bg-[#D4A853] text-[#0A0E1A]"
+            "absolute -top-4 left-1/2 -translate-x-1/2 z-10 whitespace-nowrap",
+            badgeClass
           )}
         >
           {tier.badge}
@@ -175,11 +177,20 @@ export default function PremiumPricingSection({
   return (
     <section
       id="pricing"
-      className="w-full py-20 md:py-28"
+      className="w-full py-20 md:py-28 relative overflow-hidden"
       style={{ background: "#131009" }}
       aria-labelledby="pricing-heading"
     >
-      <div className="max-w-[1200px] mx-auto px-6 md:px-8 lg:px-12">
+      {/* Pricing orb — behind middle card */}
+      <div
+        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] rounded-full pointer-events-none z-0 max-md:w-[270px] max-md:h-[270px]"
+        style={{
+          background: "radial-gradient(circle, rgba(212,168,83,0.04) 0%, transparent 70%)",
+          filter: "blur(100px)",
+        }}
+        aria-hidden
+      />
+      <div className="max-w-[1280px] mx-auto px-6 md:px-8 lg:px-12 relative z-10">
         {/* Section header */}
         <header className="text-center mb-16 md:mb-20">
           <p

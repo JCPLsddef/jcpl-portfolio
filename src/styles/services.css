@@ -2,6 +2,76 @@
    SERVICES FUNNEL — Premium Design Tokens & Styles
    ═══════════════════════════════════════════════════ */
 
+/* ─── CARD BASE (all Services page cards) ─── */
+.card-base {
+  background: #1E1A14;
+  border: 1px solid #2A2318;
+  border-top: 2px solid #D4A853;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.tier-for-box {
+  background: #221D17;
+  border-left: 3px solid #D4A853;
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  font-style: italic;
+  color: #D2C9B8;
+}
+
+.tier-recommended {
+  background: #221D17 !important;
+  border-color: #D4A853 !important;
+  box-shadow: 0 0 40px rgba(212, 168, 83, 0.06);
+  transform: scale(1.02);
+}
+
+.tier-recommended:hover {
+  transform: scale(1.02) translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 40px rgba(212, 168, 83, 0.06);
+}
+
+.badge-selected {
+  background: #D4A853;
+  color: #0A0E1A;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.badge-exclusive {
+  background: transparent;
+  color: #D4A853;
+  border: 1px solid #D4A853;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+/* ─── TRUST BADGE STAGGER ─── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+/* ─── ORBS (mobile opacity reduction) ─── */
+@media (max-width: 767px) {
+  .orb-hero {
+    opacity: 0.85;
+  }
+}
+
 /* ─── PROOF STRIP ─── */
 .proof-strip-wrapper {
   text-align: center;

@@ -33,8 +33,17 @@ const notFor = [
 
 export default function FitCheck() {
   return (
-  <div style={{ background: "#131009" }}>
-  <SectionWrapper variant="surface" className="py-16">
+  <div className="relative overflow-hidden" style={{ background: "#131009" }}>
+  {/* Fit Check orb */}
+  <div
+    className="absolute left-1/2 top-1/2 -translate-x-[70%] -translate-y-1/2 w-[400px] h-[400px] rounded-full pointer-events-none z-0 max-md:w-[240px] max-md:h-[240px]"
+    style={{
+      background: "radial-gradient(circle, rgba(212,168,83,0.03) 0%, transparent 70%)",
+      filter: "blur(100px)",
+    }}
+    aria-hidden
+  />
+  <SectionWrapper variant="surface" className="py-16 relative">
       <Reveal className="text-center mb-12">
   <p className="section-label mb-5" style={{ fontSize: "14px", fontWeight: 600, letterSpacing: "0.1em", color: "#D4A853" }}>FIT CHECK</p>
   <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">You Will Know in 60 Seconds If This Is Built for You.</h2>

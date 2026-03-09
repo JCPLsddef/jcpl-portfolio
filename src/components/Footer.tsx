@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { navigation } from "@/lib/content";
-import { useTranslations } from "@/context/LocaleContext";
+import { translations } from "@/lib/translations";
 
 export default function Footer() {
-  const t = useTranslations();
+  const { nav, footer } = translations.en;
   const navItems = [
-    { href: "/", label: t<string>("nav.home") },
-    { href: "/services", label: t<string>("nav.services") },
-    { href: "/results", label: t<string>("nav.results") },
-    { href: "/about", label: t<string>("nav.about") },
+    { href: "/", label: nav.home },
+    { href: "/services", label: nav.services },
+    { href: "/results", label: nav.results },
+    { href: "/about", label: nav.about },
   ];
   return (
     <footer
@@ -57,7 +56,7 @@ export default function Footer() {
           {/* Navigation */}
           <div className="space-y-3">
             <h4 className="text-[12px] uppercase tracking-[0.14em] font-medium mb-4" style={{ color: "#756D63" }}>
-              {t<string>("footer.navigation")}
+              {footer.navigation}
             </h4>
             <ul className="space-y-2.5">
               {navItems.map((item) => (
@@ -77,7 +76,7 @@ export default function Footer() {
           {/* Legal */}
           <div className="space-y-3">
             <h4 className="text-[12px] uppercase tracking-[0.14em] font-medium mb-4" style={{ color: "#756D63" }}>
-              {t<string>("footer.legal")}
+              {footer.legal}
             </h4>
             <ul className="space-y-2.5">
               <li>
@@ -86,7 +85,7 @@ export default function Footer() {
                   className="text-[15px] transition-colors duration-150 hover:text-white"
                   style={{ color: "#A69D8D" }}
                 >
-                  {t<string>("footer.privacy")}
+                  {footer.privacy}
                 </Link>
               </li>
               <li>
@@ -95,7 +94,7 @@ export default function Footer() {
                   className="text-[15px] transition-colors duration-150 hover:text-white"
                   style={{ color: "#A69D8D" }}
                 >
-                  {t<string>("footer.terms")}
+                  {footer.terms}
                 </Link>
               </li>
               <li>
@@ -115,7 +114,7 @@ export default function Footer() {
           className="mt-8 pt-6 border-t text-center text-[13px]"
           style={{ borderColor: "#2A2318", color: "#756D63" }}
         >
-          © {new Date().getFullYear()} Client Growth. {t<string>("footer.rights")}.
+          © {new Date().getFullYear()} Client Growth. {footer.rights}.
         </div>
       </div>
     </footer>

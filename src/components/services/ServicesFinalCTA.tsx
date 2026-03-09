@@ -59,7 +59,17 @@ export default function ServicesFinalCTA() {
         </div>
 
         {/* Application form */}
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto relative">
+          {/* Apply section orb */}
+          <div
+            className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-[500px] h-[400px] rounded-full pointer-events-none z-0 max-md:w-[300px] max-md:h-[240px]"
+            style={{
+              background: "radial-gradient(circle, rgba(212,168,83,0.03) 0%, transparent 70%)",
+              filter: "blur(100px)",
+            }}
+            aria-hidden
+          />
+          <div className="relative z-10 space-y-0">
           <Reveal>
             <div className="text-center mb-10">
               <p
@@ -84,11 +94,22 @@ export default function ServicesFinalCTA() {
           </Reveal>
 
           <Reveal delay={0.05}>
-            <form className="services-apply-form rounded-2xl p-8">
+            <form
+              className="services-apply-form rounded-xl p-8 md:p-10"
+              style={{
+                background: "#1E1A14",
+                border: "1px solid #2A2318",
+                borderTop: "2px solid #D4A853",
+                borderRadius: 12,
+              }}
+            >
               {/* Tier selection */}
               <div className="mb-7">
-                <p className="services-form-label block mb-3">
-                  Which tier are you applying for?
+                <p
+                  className="services-form-label block mb-3"
+                  style={{ color: "#D4A853" }}
+                >
+                  WHICH TIER ARE YOU APPLYING FOR?
                 </p>
                 <div className="flex flex-col gap-2">
                   {tiers.map((tier) => (
@@ -203,6 +224,7 @@ export default function ServicesFinalCTA() {
               </p>
             </form>
           </Reveal>
+        </div>
         </div>
 
         <div className="h-10 md:h-16" aria-hidden="true" />
